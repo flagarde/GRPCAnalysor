@@ -1,0 +1,10 @@
+# add the binary tree to the search path for include files
+include_directories("${PROJECT_BINARY_DIR}")
+add_subdirectory(Streamout)
+add_subdirectory(LCIOOutputProcessor)
+add_subdirectory(Progress)
+add_subdirectory(Trivent)
+#add_subdirectory(SpillStudy)
+add_subdirectory(IJKfiller)
+add_subdirectory(XYZfiller)
+add_subdirectory(Trigger)

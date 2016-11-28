@@ -1,0 +1,13 @@
+
+# add the binary tree to the search path for include files
+include_directories("${PROJECT_BINARY_DIR}")
+file(COPY ./include/ DESTINATION ${PROJECT_INCLUDE_DIR})
+
+# -------------------------------------------------
+# build the test library
+
+FILE (GLOB_RECURSE OUTFILEROOT_SRC_FILES ./source/*)
+ADD_LIBRARY( outfileroot STATIC ${OUTFILEROOT_SRC_FILES} )
+TARGET_LINK_LIBRARIES( outfileroot ${ROOT_LIBRARIES} tdrstyle )
+INSTALL( TARGETS outfileroot LIBRARY DESTINATION ${LIBRARY_OUTPUT_PATH} ARCHIVE DESTINATION ${LIBRARY_OUTPUT_PATH})
+
