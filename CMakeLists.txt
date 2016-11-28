@@ -1,0 +1,52 @@
+########################################################
+# cmake file for building Marlino
+# @author Lagarde François, IPNL
+cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
+########################################################
+set (CMAKE_CXX_STANDARD 14)
+# project name
+project(GRPC_Analysor)
+# project version
+SET( GRPC_Analysor_VERSION_MAJOR 2 )
+SET( GRPC_Analysor_VERSION_MINOR 7 )
+SET( GRPC_Analysor_VERSION_PATCH 1 )
+include(CheckIncludeFiles)
+include(CheckCXXCompilerFlag)
+
+set(PROJECT_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/build/include/")
+set(LIBRARY_OUTPUT_PATH "${CMAKE_SOURCE_DIR}/lib/")
+set(MARLINO_LIBRARY_OUTPUT_PATH "${CMAKE_SOURCE_DIR}/libMarlino/")
+SET(EXECUTABLE_OUTPUT_PATH "${CMAKE_SOURCE_DIR}/")
+include_directories(${CMAKE_SOURCE_DIR}/build/include/)
+add_definitions( "-std=c++1y -ggdb -Wall -ansi -Wno-long-long -Wno-sign-compare -fno-strict-aliasing -lpthread -ldl -lm -fPIC" )
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/ROOT/)
+list( APPEND CMAKE_MODULE_PATH $ENV{ROOTSYS}/etc/cmake/)
+find_package(ROOT REQUIRED)
+include_directories(${ROOT_INCLUDE_DIR})
+configure_file ("${CMAKE_SOURCE_DIR}/Utils/Version.h.in" "${CMAKE_SOURCE_DIR}/build/include/Version.h")
+
+find_library(LOCCI_SUPPORT NAMES occi)
+if(LOCCI_SUPPORT)
+  message("-- LOCCI found")
+  SET(HaveOCCI 1)
+  SET(GCC_COVERAGE_LINK_FLAGS "-locci -lclntsh")
+  add_definitions(-DOCCI_SUPPORT)
+else()
+  message("-- No LOCCI support")
+  SET(HaveOCCI 0)
+endif()
+
+if(HaveOCCI)
+ADD_SUBDIRECTORY( Database )
+endif()
+ADD_SUBDIRECTORY( sio )
+ADD_SUBDIRECTORY( lcio )
+ADD_SUBDIRECTORY( Geometry )
+ADD_SUBDIRECTORY( Marlino )
+ADD_SUBDIRECTORY( OutFileRoot )
+ADD_SUBDIRECTORY( Processors )
+ADD_SUBDIRECTORY( Reader )
+ADD_SUBDIRECTORY( tdrstyle )
+ADD_SUBDIRECTORY( Utils )
+ADD_SUBDIRECTORY( tinyxml )
+ADD_SUBDIRECTORY( SlowControl )
