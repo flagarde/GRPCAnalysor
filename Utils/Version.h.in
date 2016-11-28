@@ -1,0 +1,2 @@
+#define GRPC_Analysor_VERSION_MAJOR @GRPC_Analysor_VERSION_MAJOR@
+#define GRPC_Analysor_VERSION_MINOR @GRPC_Analysor_VERSION_MINOR@

@@ -1,0 +1,17 @@
+<marlin>
+  <execute>
+    <processor name="SpillStudy"/>
+
+  </execute>
+
+	<global>
+             	<parameter name="MaxRecordNumber" value="15"/>
+                <parameter name="SkipNEvents" value="0"/>
+                <parameter name="SupressCheck" value="false"/>
+
+  </global>
+
+<processor name="SpillStudy" type="SpillStudy">
+</processor>
+</marlin>
+

@@ -1,0 +1,9 @@
+*.slcio
+/build
+/bin
+/lib
+/libMarlino
+Marlinoo
+dumpevent
+*.txt
+*.root
