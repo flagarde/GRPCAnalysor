@@ -4,7 +4,8 @@
 #include "IMPL/ClusterImpl.h"
 
 // forward declaration
-namespace SIO{ 
+namespace SIO
+{ 
   class SIOClusterHandler ;
 }
 

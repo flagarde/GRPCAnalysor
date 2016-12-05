@@ -92,6 +92,4 @@ namespace SIO{}
  *  Only needed if LCIO is used without LCWRiter or LCReader.
  */
 #define HANDLE_LCIO_EXCEPTIONS lcio::LCIOExceptionHandler::createInstance() ;
-
-
 #endif // LCIO_NAMESPACE_H

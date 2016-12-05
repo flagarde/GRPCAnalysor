@@ -4,6 +4,7 @@
 #include<map>
 #include<string>
 #include "Colors.h"
+#include "Global.h"
 class ReaderFactory
 {
   public:

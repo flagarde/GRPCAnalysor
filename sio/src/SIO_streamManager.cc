@@ -66,7 +66,7 @@ if( !SIO_functions::validateName( i_name ) )
                   << i_name
                   << std::endl;
     }
-    return( NULL );
+    return( nullptr );
 }
 
 //
@@ -78,14 +78,14 @@ if( i_reserve < 4 * SIO_KBYTE )
 //
 // If the map's never been instantiated, do it now!
 //
-if( streamMap == NULL )
+if( streamMap == nullptr )
     streamMap = new streamMap_c;
 
 //
 // Initialize the map entry.
 //
 std::pair< std::string const, SIO_stream* >
-    entry( s_name, NULL );
+    entry( s_name, nullptr );
 
 //
 // Insert the entry.  This may or may not succeed depending on whether the
@@ -102,7 +102,7 @@ if( !status.second )
                   << " not added (already exists)"
                   << std::endl;
     }
-    return( NULL );
+    return( nullptr );
 }
 
 //
@@ -135,7 +135,7 @@ SIO_stream* SIO_streamManager::get
 //
 // Search the map (if it exists yet!)
 //
-if( streamMap != NULL )
+if( streamMap != nullptr )
 {
     streamMap_i
         iter;
@@ -167,7 +167,7 @@ if( verbosity >= SIO_ERRORS )
 //
 // That's all folks!
 //
-return( NULL );
+return( nullptr );
 }
 
 // ----------------------------------------------------------------------------
@@ -187,7 +187,7 @@ unsigned int SIO_streamManager::remove
 //
 // Search the map (if it exists!)
 //
-if( streamMap != NULL )
+if( streamMap != nullptr )
 {
     streamMap_i
         iter;
@@ -210,7 +210,7 @@ if( streamMap != NULL )
         if( streamMap->size() == 0 )
 	{
             delete streamMap;
-            streamMap = NULL;
+            streamMap = nullptr;
         } 
         return( SIO_STREAM_SUCCESS );
     }

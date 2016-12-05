@@ -108,19 +108,19 @@ void Trivent::init()
 
 void Trivent::processEvent( LCEvent * evtP )
 {
-  for(unsigned int i=0; i< _hcalCollections.size(); i++) 
+  //LCCollectionVec* clu1= new LCCollectionVec(LCIO::CLUSTER);
+ // LCCollectionVec* clu2= new LCCollectionVec(LCIO::CLUSTER);
+  LCCollectionVec* clu3= new LCCollectionVec(LCIO::CLUSTER);
+  /*for(unsigned int i=0; i< _hcalCollections.size(); i++) 
   {
     try 
 	  {
-	    LCCollectionVec* clu1 = new LCCollectionVec(LCIO::CLUSTER);
-	    LCCollectionVec* clu2 = new LCCollectionVec(LCIO::CLUSTER);
-	    LCCollectionVec* clu3 = new LCCollectionVec(LCIO::CLUSTER);
 	    LCCollection* col = evtP ->getCollection(_hcalCollections[i].c_str());
       int numElements = col->getNumberOfElements();
       CellIDDecoder<CalorimeterHit>decode(col);
       for (int ihit=0; ihit < numElements; ++ihit) 
       {
-        CalorimeterHit *raw_hit = dynamic_cast<CalorimeterHit*>( col->getElementAt(ihit)) ;
+        CalorimeterHit* raw_hit = dynamic_cast<CalorimeterHit*>( col->getElementAt(ihit)) ;
         if (raw_hit != nullptr) 
 	      {
 	        if(Global::geom->GetDifType(decode(raw_hit)["DIF_Id"])==scintillator||Global::geom->GetDifType(decode(raw_hit)["DIF_Id"])==tcherenkov)continue;
@@ -195,9 +195,6 @@ void Trivent::processEvent( LCEvent * evtP )
 	    }
 	    Times.clear();
 	    RawHits.clear();
-	    evtP->addCollection(clu3, "TRIVENT");
-	    evtP->addCollection(clu2, "NOISE_AFTER");
-	    evtP->addCollection(clu1, "NOISE_BEFORE");
 	  }
     catch (DataNotAvailableException &e)
 	  {
@@ -205,7 +202,10 @@ void Trivent::processEvent( LCEvent * evtP )
 	    _trig_count++;
 	    break;
 	  }
-  } 
+  } */
+  evtP->addCollection(clu3, "TRIVENTed");
+	//evtP->addCollection(clu2, "NOISE_AFTER");
+	//evtP->addCollection(clu1, "NOISE_BEFORE");
 }
 
 

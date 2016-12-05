@@ -181,6 +181,8 @@ int main(int argc, char* argv[] )
       std::string reader_type = Global::parameters->getStringVal("ReaderType");
       std::string FileNameGeometry="";
       FileNameGeometry = Global::parameters->getStringVal("FileNameGeometry");
+      std::string FileNameElog="";
+      FileNameElog = Global::parameters->getStringVal("FileNameElog");
       if( modify ) 
       {
 	          std::cout<<yellow  << " ******************************************************************************* \n" 
@@ -197,11 +199,12 @@ int main(int argc, char* argv[] )
       // create lcio reader 
       ReaderFactory* readerFactory = new ReaderFactory;
       Reader* reader = readerFactory->CreateReader(reader_type);
-      if(reader&&FileNameGeometry!="") 
+      if(reader&&FileNameGeometry!=""&&readerFactory!=nullptr) 
       {
         Global::geom= new Geometry;
         reader->Read(FileNameGeometry,*Global::geom);
         Global::geom->PrintGeom();
+        delete reader;
       }
       Global::out = new  OutFileRoot;
       Global::out->setOutputFile(rootFile);
@@ -234,6 +237,14 @@ int main(int argc, char* argv[] )
         std::string name=SplitFilename(files_well_ordered[i][0])[1];
         std::string number = SplitFilenameSDHCAL(name);
         Global::number=stoi(number);
+        if(FileNameElog!="") 
+        {
+          Global::conf = new ConfigInfos;
+          Reader* elogreader=readerFactory->CreateReader("XMLReaderElog");
+          elogreader->Read(FileNameElog,Global::conf,Global::number);
+          std::cout<<"Reddddddd"<<std::endl;
+          delete elogreader;
+        }
         //Global::LCIOFiles=&files_well_ordered[i];
         ProcessorMgr::instance()->init() ; 
         bool rewind = true ;
@@ -296,7 +307,6 @@ int main(int argc, char* argv[] )
       }  
      delete lcReader ;
      delete readerFactory;
-     delete reader;
     }
   } 
   catch( std::exception& e) 
@@ -308,11 +318,11 @@ int main(int argc, char* argv[] )
 	  << " ***********************************************\n" 
 	  << normal<<std:: endl ;
     delete Global::out;
-    if(Global::geom!=nullptr) // delete Global::geom;
+    if(Global::geom!=nullptr) delete Global::geom;
     return 1 ;
   }
   delete Global::out;
-  if(Global::geom!=nullptr); // delete Global::geom;
+  if(Global::geom!=nullptr) delete Global::geom;
   return 0 ;
 }
 

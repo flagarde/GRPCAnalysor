@@ -1,0 +1,6 @@
+include_directories("${CMAKE_SOURCE_DIR}/build/include")
+include_directories(include)
+FILE (GLOB_RECURSE Analysis2_SRC_FILES ./source/*)
+ADD_LIBRARY( Analysis2 SHARED ${Analysis2_SRC_FILES} )
+TARGET_LINK_LIBRARIES( Analysis2 Marlin )
+INSTALL( TARGETS Analysis2 LIBRARY DESTINATION ${MARLINO_LIBRARY_OUTPUT_PATH})

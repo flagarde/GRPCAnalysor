@@ -1,4 +1,4 @@
-#include "Trivent/TriventProcessor.h"
+#include "TriventProcessor.h"
 #include "Utilities.h"
 #include <iostream>
 #include <string>
@@ -6,7 +6,7 @@
 #include <cmath>
 #include <cstdint>
 #include <algorithm>
-#include "marlin/Processor.h"
+#include "Processor.h"
 #include "UTIL/LCTOOLS.h"
 #include "UTIL/CellIDEncoder.h"
 #include <EVENT/LCGenericObject.h>
@@ -27,24 +27,17 @@
 #include "UTIL/LCTime.h"
 #include "TPDF.h"
 #include "TCanvas.h"
-#include "Trivent/SpillStudy.h"
-#ifndef COLORS_H
-#define normal " "
-#define red "  "
-#define vert " "
-#define blanc " "
-#endif
+#include "SpillStudy.h"
 #include <fstream>
-#include "Reader/ReaderFactory.h"
-#include "Reader/Reader.h"
-#include "Trivent/Mapping.h"
-#include "Trivent/HistoPlane.h"
+#include "ReaderFactory.h"
+#include "Reader.h"
+#include "Mapping.h"
+#include "HistoPlane.h"
 #include "TStyle.h"
 #include "TF1.h"
 #include "TList.h"
 #include "TH3.h"
 #include "TMath.h"
-#include "Patch.h"
 #include "TMarker.h"
 #include "TNamed.h"
 #include "THnSparse.h"
@@ -65,7 +58,6 @@ bool HasScintiSignal=false;
 TH1F* delay=new TH1F("delay","delay",2000,-1000,1000);
 
 
-using namespace marlin;
 std::vector<int>ScintillatorCoincidence;
 unsigned int total_coincidence=0;
 #define degtorad 0.0174532925
@@ -202,7 +194,7 @@ void TriventProcessor::init()
       std::map<int, Dif >Difs=geom.GetDifs();;
       for(std::map<int, Dif >::iterator it=Difs.begin(); it!=Difs.end(); ++it) 
 	{
-	  bcidnames.push_back("DIF"+patch::to_string(it->first)+"_Triggers");
+	  bcidnames.push_back("DIF"+std::to_string(it->first)+"_Triggers");
 	  if(geom.GetDifType(it->first)!=temporal&&geom.GetDifType(it->first)!=tcherenkov&&geom.GetDifType(it->first)!=scintillator) 
 	    {
 	      SinCos[it->first]=std::vector<double>{cos(geom.GetDifAlpha(it->first)*degtorad),sin(geom.GetDifAlpha(it->first)*degtorad),cos(geom.GetDifBeta(it->first)*degtorad),sin(geom.GetDifBeta(it->first)*degtorad),cos(geom.GetDifGamma(it->first)*degtorad),sin(geom.GetDifGamma(it->first)*degtorad)};
@@ -348,7 +340,7 @@ unsigned int TriventProcessor::getDifId_of_first_hit_in_collection(LCCollection*
 //////////////////////////////////////////////////////////// 
 bool TriventProcessor::data_is_at_beginning_of_spill(LCCollection* col, unsigned int dif_id)
 {
-  std::string name="DIF"+patch::to_string(dif_id)+"_Triggers";
+  std::string name="DIF"+std::to_string(dif_id)+"_Triggers";
   //std::cout<<name<<std::endl;
   lcio::IntVec vTrigger;
   col->getParameters().getIntVals(name,vTrigger);
@@ -385,7 +377,6 @@ void TriventProcessor::processEvent( LCEvent * evtP )
 {
   if (evtP== nullptr ) return;
   _NbrRun=evtP->getRunNumber();
-  _eventNr=evtP->getEventNumber()+1;
 
   processEvent_ProcessCollectionNamed_DHCALRawTimes(evtP);
   processEvent_ProcessCollectionNamed_Scintillator (evtP);
@@ -490,7 +481,7 @@ void TriventProcessor::processCollection(EVENT::LCEvent *evtP,LCCollection* col)
 	    {
 	      if(ihit==0)
 		{
-		  std::string name="DIF"+patch::to_string(dif_id)+"_Triggers";
+		  std::string name="DIF"+std::to_string(dif_id)+"_Triggers";
 		  static lcio::IntVec vTrigger;
 		  col->getParameters().getIntVals(name,vTrigger);
 		  unsigned long long Shift=16777216ULL;
@@ -753,7 +744,7 @@ void TriventProcessor::processCollection(EVENT::LCEvent *evtP,LCCollection* col)
 void TriventProcessor::end()
 {  
   
-  std::string name="Results_"+ patch::to_string(_NbrRun)+".root";
+  std::string name="Results_"+ std::to_string(_NbrRun)+".root";
   TFile *hfile = new TFile(name.c_str(),"RECREATE","Results");
     std::ofstream file22("Masquer.txt",std::ios_base::out); 
 
@@ -787,7 +778,7 @@ void TriventProcessor::end()
   h2->GetListOfFunctions()->Add(tf);
   h1->Write();
   if(pdf)h1->Draw("glcolz");
-  std::string namepdf="plots"+patch::to_string(_NbrRun)+".pdf";
+  std::string namepdf="plots"+std::to_string(_NbrRun)+".pdf";
   if(pdf)canvas->Print((namepdf+"(").c_str());
   h2->Write();
   if(pdf)h2->Draw("glcolz");
@@ -914,7 +905,7 @@ void TriventProcessor::end()
   
   if(_WantCalibration==true)
     {
-      std::string calib="Calibration"+patch::to_string(_NbrRun)+".py";
+      std::string calib="Calibration"+std::to_string(_NbrRun)+".py";
       std::ofstream file(calib,std::ios_base::out); 
       std::cout << "first pass ? enter y"<< std::endl;
       std::string c;
@@ -947,7 +938,7 @@ void TriventProcessor::end()
   if(Negative.size()!=0)
     {
       std::cout<<red<<"WARNING !!! : Negative Value(s) of timeStamp found. They are written in Negative_Values.txt"<<normal<<std::endl;
-      std::ofstream fileNeg( "Negative_Values"+patch::to_string(_NbrRun)+".txt", std::ios_base::out ); 
+      std::ofstream fileNeg( "Negative_Values"+std::to_string(_NbrRun)+".txt", std::ios_base::out ); 
       for(std::map<std::vector<unsigned int>,std::map< int, int>>::iterator it=Negative.begin();it!=Negative.end();++it)
     	{
 	  fileNeg<<"Dif_Id : "<<it->first[0]<<" Asic_Id : "<<it->first[1]<<" Channel_Id : "<<it->first[2];

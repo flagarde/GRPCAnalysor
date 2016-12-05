@@ -2,7 +2,6 @@
 #define HISTO_PLANE
 #include <string>
 #include "TH1.h"
-#include "Patch.h"
 #include "TFile.h"
 #include "TH2.h"
 #include <map>
@@ -12,8 +11,8 @@
 #include <array>
 #include<numeric>
 #include<algorithm>
-#include "Trivent/Mapping.h"
-#include "Geometry/Geometry.h"
+#include "Mapping.h"
+#include "Geometry.h"
 #include "TTree.h"
 #define size_pad 10.4125
 #define size_strip 2.5
@@ -73,7 +72,7 @@ class HistoPlane
 	Plate_Dist2->Write();
 	for(unsigned int i=0;i<_Difs_Names.size();++i)
 	{
-                std::string Diff=plate+"/Dif"+ patch::to_string(_Difs_Names[i])+"Plane"+patch::to_string(NbrPlatee+1);
+                std::string Diff=plate+"/Dif"+ std::to_string(_Difs_Names[i])+"Plane"+std::to_string(NbrPlatee+1);
     		file->mkdir(Diff.c_str(),Diff.c_str());
     		file->cd(Diff.c_str());
                 std::vector<int>a={_Difs_Names[i]};
@@ -81,7 +80,7 @@ class HistoPlane
 		Difs_Distr2[a[0]]->Write();
 		for(unsigned int j=1;j<=48;++j)
 		{
-                        std::string Asicc=Diff+"/AsicinDif"+ patch::to_string(a[0]);
+                        std::string Asicc=Diff+"/AsicinDif"+ std::to_string(a[0]);
                         if(j==1)
 			{
     	        	file->mkdir(Asicc.c_str(),Asicc.c_str());
@@ -92,7 +91,7 @@ class HistoPlane
 			Asics_Distr2[a]->Write();
 			for(unsigned int k=0;k<=63;++k)
 		        {
-                          std::string Padd=Asicc+"/PadsinAsic"+ patch::to_string(j);
+                          std::string Padd=Asicc+"/PadsinAsic"+ std::to_string(j);
     	        	  if(k==0)
 			  {
 			  file->mkdir(Padd.c_str(),Padd.c_str());

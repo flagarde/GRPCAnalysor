@@ -14,7 +14,6 @@
 #include <iomanip>
 #include <fstream>
 #include <iostream>
-
 enum Threshold{Threshold_2=1,Threshold_1,Threshold_3};
 
 class Trivent : public Processor

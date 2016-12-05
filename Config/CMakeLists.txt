@@ -1,0 +1,7 @@
+# add the binary tree to the search path for include files
+file(COPY ./include/ DESTINATION ${PROJECT_INCLUDE_DIR})
+include_directories("${PROJECT_BINARY_DIR}")
+FILE (GLOB_RECURSE Config_SRC_FILES ./source/*)
+ADD_LIBRARY( Config STATIC ${Config_SRC_FILES} )
+TARGET_LINK_LIBRARIES( Config )
+INSTALL( TARGETS Config LIBRARY DESTINATION ${LIBRARY_OUTPUT_PATH} ARCHIVE DESTINATION ${LIBRARY_OUTPUT_PATH} )

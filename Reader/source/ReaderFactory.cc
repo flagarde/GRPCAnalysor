@@ -1,9 +1,9 @@
 #include "ReaderFactory.h"
-#include"XMLReader.h"
-#include"TXTReader.h"
-#include"XMLReaderConfig.h"
+#include "XMLReader.h"
+#include "TXTReader.h"
+#include "XMLReaderConfig.h"
 #include "XMLReaderElog.h"
-
+#include "Global.h"
 ReaderFactory::ReaderFactory()
 {
   RegisterReader("XMLReader",new XMLReader());

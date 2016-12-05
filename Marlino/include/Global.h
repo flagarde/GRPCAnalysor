@@ -3,8 +3,7 @@
 #include "OutFileRoot.h"
 #include "Colors.h"
 #include "Geometry.h"
-#include <vector>
-#include <string>
+#include "ConfigInfo.h"
 class StringParameters ;
 class Global
 {
@@ -14,5 +13,6 @@ class Global
   static Geometry* geom;
   static int number;
   static int totalevent;
+  static ConfigInfos* conf;
 };
 #endif

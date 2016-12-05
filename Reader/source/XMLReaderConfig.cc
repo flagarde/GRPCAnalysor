@@ -7,7 +7,6 @@
 #include <iostream>
 #include <sstream>
 #include <utility>
-
 std::array<unsigned int,64> ParsePAGAIN(std::string& pagain)
 {
       std::array<unsigned int,64>arr;
@@ -24,9 +23,7 @@ std::array<unsigned int,64> ParsePAGAIN(std::string& pagain)
       return arr;
 }
 
-
-
-void XMLReaderConfig::Read(std::string &FileName,ConfigInfos& Conf)
+void XMLReaderConfig::Read(std::string &FileName,ConfigInfos* Conf)
 {
  TiXmlDocument doc(FileName.c_str());
   doc.LoadFile();
@@ -37,7 +34,7 @@ void XMLReaderConfig::Read(std::string &FileName,ConfigInfos& Conf)
   }
   else
   {
-    DifDatabaseInfo dif =DifDatabaseInfo();
+    DifInfo dif =DifInfo();
     std::cout<<"File : "<<FileName<<std::endl;
     TiXmlHandle hdl(&doc);
     TiXmlElement*  element = hdl.FirstChildElement().FirstChildElement().Element();
@@ -50,7 +47,7 @@ void XMLReaderConfig::Read(std::string &FileName,ConfigInfos& Conf)
         std::string NAME=element->FirstChildElement( "NAME" )->GetText();
         unsigned int ID=std::stoi(element->FirstChildElement( "ID" )->GetText());
         bool ENABLED=bool(element->FirstChildElement( "ENABLED" )->GetText()) ;
-        Conf.AddDif(DifDatabaseInfo(NAME,DIF_TYPE,ID,ENABLED));
+        Conf->AddDif(DifInfo(NAME,DIF_TYPE,ID,ENABLED));
       }
       if(name=="ASIC")
       {
@@ -63,7 +60,7 @@ void XMLReaderConfig::Read(std::string &FileName,ConfigInfos& Conf)
         unsigned int HEADER=std::stoi(element->FirstChildElement( "HEADER" )->GetText());
         unsigned int NUM=std::stoi(element->FirstChildElement( "NUM" )->GetText());
         std::string PAGAIN=element->FirstChildElement( "PAGAIN" )->GetText();  
-        Conf.AddAsic(AsicInfo(ASIC_TYPE,ParsePAGAIN(PAGAIN),B0,B1,B2,DIF_ID,ID,HEADER,NUM));
+        Conf->AddAsic(AsicInfo(ASIC_TYPE,ParsePAGAIN(PAGAIN),B0,B1,B2,DIF_ID,ID,HEADER,NUM));
       }
       element=element->NextSiblingElement(); 
     }

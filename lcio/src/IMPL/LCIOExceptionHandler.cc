@@ -7,7 +7,7 @@ namespace IMPL {
 
 
   // create one globale instance of the handler
-  LCIOExceptionHandler* LCIOExceptionHandler::_me = 0 ;
+  LCIOExceptionHandler* LCIOExceptionHandler::_me = nullptr ;
 
 
 /** Method catches any std::exception, prints the message to stdout

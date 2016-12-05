@@ -5,7 +5,7 @@
 #include<vector>
 #include<string>
 #include<iostream>
-#include "Trivent/HistoPlane.h"
+#include "HistoPlane.h"
 #include<map>
 #include<iterator>
 #include"TH1.h"
@@ -17,13 +17,13 @@
 #include "IMPL/CalorimeterHitImpl.h"
 #include <IMPL/LCRunHeaderImpl.h>
 #include "EVENT/RawCalorimeterHit.h"
-#include "Geometry/Geometry.h"
+#include "Geometry.h"
 #include "IMPL/LCCollectionVec.h"
 #include "UTIL/CellIDEncoder.h"
 #include "IMPL/CalorimeterHitImpl.h"
 #include <EVENT/LCRunHeader.h>
 #include "UTIL/LCTOOLS.h"
-#include "marlin/Global.h"
+#include "Global.h"
 TH1D* timestamp=nullptr;
 TH1D* timestamps=nullptr;
 TH1D* time2read=nullptr;
@@ -59,7 +59,6 @@ void SpillStudy(unsigned int& _skip, unsigned int& _GlobalEvents,unsigned int& _
       do
       {
         counter++;
-        Progress(_skip,_GlobalEvents,_maxRecord,counter);
         LCCollection* col=evt->getCollection("DHCALRawHits");
         if(col!=nullptr)
 		    {
@@ -68,7 +67,7 @@ void SpillStudy(unsigned int& _skip, unsigned int& _GlobalEvents,unsigned int& _
          
           unsigned int dif_id=myhit->getCellID0()&0xFF;
           if (dif_id==0) return;
-          std::string name="DIF"+patch::to_string(dif_id)+"_Triggers";
+          std::string name="DIF"+std::to_string(dif_id)+"_Triggers";
           
           lcio::IntVec vTrigger;
           col->getParameters().getIntVals(name,vTrigger);
@@ -228,7 +227,7 @@ void SpillStudy(unsigned int& _skip, unsigned int& _GlobalEvents,unsigned int& _
   timestamps= new TH1D("timestampS","timestampS",diff,min*200e-9,max*200e-9);
   for(std::map<double,std::vector<double>>::iterator j=Vec_timebetweentime.begin();j!=Vec_timebetweentime.end();++j)
   {
-    std::string name = "type"+patch::to_string(j->first);
+    std::string name = "type"+std::to_string(j->first);
 	  typeee.push_back(new TH1D(name.c_str(),name.c_str(),1000000,0.,10000.));
     for(unsigned int i =0;i<j->second.size();++i)
 	  {

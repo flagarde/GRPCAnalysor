@@ -2,19 +2,19 @@
 #define TRIVENT_PROCESSOR
 #include <map>
 #include <vector>
-#include "marlin/Processor.h"
+#include "Processor.h"
 #include "EVENT/RawCalorimeterHit.h"
-#include "Geometry/Geometry.h"
+#include "Geometry.h"
 #include "IMPL/LCCollectionVec.h"
 #include "UTIL/CellIDEncoder.h"
 #include "IMPL/CalorimeterHitImpl.h"
 #include <EVENT/LCRunHeader.h>
 #include "UTIL/LCTOOLS.h"
-#include "Trivent/HistoPlane.h"
+#include "HistoPlane.h"
 #include "IMPL/LCEventImpl.h"
 #include <set>
 #include <string>
-#include "Trivent/Mapping.h"
+#include "Mapping.h"
 #include "THnSparse.h"
 #include "TCanvas.h"
 #include <iomanip>
@@ -36,12 +36,12 @@ THnSparseD hss("Noise_2", "Noise_2", 3, bin2, xmin2, xmax2);
 THnSparseD hss2("Events_2", "Events_2", 3, bin2, xmin2, xmax2);
 enum Threshold{Threshold_2=1,Threshold_1,Threshold_3};
 
-class TriventProcessor : public marlin::Processor
+class TriventProcessor : public Processor
 {
 public:
     TriventProcessor();
     ~TriventProcessor();
-    marlin::Processor *newProcessor()
+    Processor *newProcessor()
     {
         return new TriventProcessor();
     }
@@ -169,11 +169,11 @@ void TriventProcessor::FillTimes()
     {
       std::map< int,int>::iterator secondit=firstit;
       secondit++;
-      if(secondit->first-firstit->first<2*_timeWin)
-      {
-        streamlog_message(DEBUG,std::cout<<magenta<<secondit->first<<"  "<<firstit->first<<normal<<std::endl;touched.insert(firstit->first);touched.insert(secondit->first);,"";);
-      } 
-      else streamlog_message(DEBUG,std::cout<<green<<secondit->first<<"  "<<firstit->first<<normal<<std::endl; ,"";);
+      //if(secondit->first-firstit->first<2*_timeWin)
+      //{
+        //streamlog_message(DEBUG,std::cout<<magenta<<secondit->first<<"  "<<firstit->first<<normal<<std::endl;touched.insert(firstit->first);touched.insert(secondit->first);,"";);
+     // } 
+     // else streamlog_message(DEBUG,std::cout<<green<<secondit->first<<"  "<<firstit->first<<normal<<std::endl; ,"";);
     }
   }
   TouchedEvents+=touched.size();
@@ -181,7 +181,7 @@ void TriventProcessor::FillTimes()
   {
     Times.erase(*it);
   }
-  streamlog_message(MESSAGE0,if(touched.size()!=0)std::cout<<touched.size()<<" Events are touched !"<<std::endl; ,"";);
+  //streamlog_message(MESSAGE0,if(touched.size()!=0)std::cout<<touched.size()<<" Events are touched !"<<std::endl; ,"";);
 }
 
 void TriventProcessor::FillIJK(std::vector<RawCalorimeterHit *>vec, LCCollectionVec* col,CellIDEncoder<CalorimeterHitImpl>& cd, int IsNoise)
