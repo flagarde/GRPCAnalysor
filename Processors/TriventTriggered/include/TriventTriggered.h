@@ -1,5 +1,5 @@
-#ifndef TRIVENT
-#define TRIVENT
+#ifndef TRIVENT_TRIGGERED
+#define TRIVENT_TRIGGERED
 #include <map>
 #include <vector>
 #include "Processor.h"
@@ -14,16 +14,15 @@
 #include <iomanip>
 #include <fstream>
 #include <iostream>
-enum Threshold{Threshold_2=1,Threshold_1,Threshold_3};
 
-class Trivent : public Processor
+class TriventTriggered : public Processor
 {
 public:
-    Trivent();
-    ~Trivent();
+    TriventTriggered();
+    ~TriventTriggered();
     Processor *newProcessor()
     {
-        return new Trivent();
+        return new TriventTriggered();
     }
     void init();
     void processEvent(EVENT::LCEvent *evtP);
@@ -35,6 +34,7 @@ private:
     int _timeWin;
     int _TimeWin_Noise;
     std::map<int,int>Times;
+    int _TriggerTime;
     unsigned int TouchedEvents;
     unsigned int EventsSelected;
     unsigned int eventtotal;
@@ -43,6 +43,9 @@ private:
     int _trig_count;
     int _noiseCut;
     int _LayerCut;
+    LCWriter* _EventWriter;
+    std::map<int,bool>Warningg;
+    std::string _outFileName;
     std::map< int,std::vector<CalorimeterHit*> > RawHits;
 };
 #endif

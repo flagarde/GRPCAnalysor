@@ -28,7 +28,7 @@ ProcessorMgr::ProcessorMgr(){ }
   
 ProcessorMgr* ProcessorMgr::instance() 
 {
-  if( _me == 0 ) _me = new ProcessorMgr ;
+  if( _me == nullptr ) _me = new ProcessorMgr ;
   return _me ;
 }  
   

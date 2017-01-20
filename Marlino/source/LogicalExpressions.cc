@@ -69,15 +69,11 @@
 	&& tokens[0].Value.find('|') == std::string::npos ) { 
       
       if( tokens[0].isNot ) {
-// 	std::cout << " evaluated !"<< tokens[0].Value << " to "  << ! _resultMap[ tokens[0].Value ] << std::endl ;
-//	return ! _resultMap[ tokens[0].Value ] ;
+
          return ! getValue( tokens[0].Value ) ;
       }
       else {
-// 	if(  _resultMap.find( tokens[0].Value ) == _resultMap.end() ) 
-// 	  std::cout << " error in result map : " <<  tokens[0].Value << " not found !"  << std::endl ;
-// 	std::cout << " evaluated "<< tokens[0].Value << " to "  <<  _resultMap[ tokens[0].Value ] << std::endl ;
-//	return _resultMap[ tokens[0].Value ] ;
+
          return  getValue( tokens[0].Value ) ;
       }
     }	
@@ -97,26 +93,16 @@
 	returnVal |= tokenValue ;
     }
 
-//     std::cout << " expression given : " << expression << std::endl ;
-//     std::cout << " evaluated by parser:" <<  std::endl ;
-//     for(   std::vector<Expression>::iterator it = tokens.begin() ; it != tokens.end() ; it++ ){
-//       std::cout << *it ;
-//     }
-//     std::cout << " Result " << returnVal << std::endl << std::endl ;
+
 
     return returnVal ;
   }
   
   void LogicalExpressions::setValue( const std::string& key, bool val ) {
 
-//     std::cout << " LogicalExpressions::setValue() "  << key << " - " << val << std::endl ;
-
     _resultMap[ key ] = val ;
   }
   
-//     ConditionsMap _condMap ;
-//     ResultMap _resultMap ;
-
 
   bool LogicalExpressions::getValue( const std::string& key) {
       ResultMap::iterator it = _resultMap.find( key );

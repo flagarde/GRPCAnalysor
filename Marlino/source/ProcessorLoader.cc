@@ -16,7 +16,7 @@ ProcessorLoader::ProcessorLoader(lcio::StringVec::const_iterator first, lcio::St
     idx = libName.find_last_of("/");
     // the library basename, i.e. /path/to/libBlah.so --> libBlah.so
     std::string libBaseName( libName.substr( idx + 1 ) );
-    char *real_path = realpath(libName.c_str(), NULL);
+    char *real_path = realpath(libName.c_str(), nullptr);
     if( real_path != nullptr )
     {
       std::cout <<green<< "<!-- Loading shared library : " << real_path << " ("<< libBaseName << ")-->" <<normal<< std::endl ;

@@ -1,0 +1,6 @@
+include_directories("${CMAKE_SOURCE_DIR}/build/include")
+include_directories(include)
+FILE (GLOB_RECURSE TriventTriggered_SRC_FILES ./source/*)
+ADD_LIBRARY( TriventTriggered SHARED ${TriventTriggered_SRC_FILES} )
+TARGET_LINK_LIBRARIES( TriventTriggered Marlin )
+INSTALL( TARGETS TriventTriggered LIBRARY DESTINATION ${MARLINO_LIBRARY_OUTPUT_PATH})

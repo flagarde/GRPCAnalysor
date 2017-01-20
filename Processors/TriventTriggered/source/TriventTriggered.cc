@@ -1,4 +1,4 @@
-#include "Trivent.h"
+#include "TriventTriggered.h"
 #include "Global.h"
 #include <iostream>
 #include <string>
@@ -12,7 +12,6 @@
 #include "UTIL/CellIDDecoder.h"
 #include "IMPL/LCCollectionVec.h"
 #include <iomanip>
-#include <climits>
 #include "Utilities.h"
 #include "IMPL/LCRunHeaderImpl.h"
 #include <IMPL/LCParametersImpl.h>
@@ -22,7 +21,7 @@
 #include "EVENT/CalorimeterHit.h" 
 #include "IMPL/ClusterImpl.h"
 
-void Trivent::FillTimes()
+void TriventTriggered::FillTimes()
 {
   bool eraseFirst=false;
   bool nextHasBeenErased=false;
@@ -81,10 +80,12 @@ void Trivent::FillTimes()
   //streamlog_message(MESSAGE0,if(touched.size()!=0)std::cout<<touched.size()<<" Events are touched !"<<std::endl; ,"";);
 }
 
-Trivent aTrivent;
+TriventTriggered aTriventTriggered;
 
-Trivent::Trivent() : Processor("Trivent")
+TriventTriggered::TriventTriggered() : Processor("TriventTriggered")
 {
+  _outFileName="LCIO_clean_run.slcio";
+  registerProcessorParameter("LCIOOutputFile","LCIO file",_outFileName,_outFileName);
   _hcalCollections={"XYZFilled"};
   registerInputCollections( LCIO::CALORIMETERHIT,"HCALCollections","HCAL Collection Names",_hcalCollections,_hcalCollections);
   _timeWin = 2;
@@ -95,29 +96,36 @@ Trivent::Trivent() : Processor("Trivent")
   registerProcessorParameter("LayerCut" ,"cut in number of layer 3 in default",_LayerCut ,_LayerCut); 
   _Time_from_Track=4;
   registerProcessorParameter("TimeFromTrack" ,"Time from track",_Time_from_Track,_Time_from_Track);
+  _TriggerTime=0;
+  registerProcessorParameter("TriggerTime" ,"All Events with Time greater than this number will be ignored (0) in case of Triggerless",_TriggerTime ,_TriggerTime);
 } // end constructor
 
-Trivent::~Trivent() {}
+TriventTriggered::~TriventTriggered() {}
 
-void Trivent::processRunHeader( LCRunHeader* run){}
+void TriventTriggered::processRunHeader( LCRunHeader* run){}
 
-void Trivent::init()
+void TriventTriggered::init()
 { 
+  _EventWriter = LCFactory::getInstance()->createLCWriter() ;
+  _EventWriter->setCompressionLevel( 2 ) ;
+  _EventWriter->open(_outFileName.c_str(),LCIO::WRITE_NEW) ;
   printParameters();
 }
 
-void Trivent::processEvent( LCEvent * evtP )
+std::string name1="blabla";
+void TriventTriggered::processEvent( LCEvent * evtP )
 {
-  //LCCollectionVec* clu1= new LCCollectionVec(LCIO::CLUSTER);
- // LCCollectionVec* clu2= new LCCollectionVec(LCIO::CLUSTER);
-  LCCollectionVec* clu3= new LCCollectionVec(LCIO::CLUSTER);
-  /*for(unsigned int i=0; i< _hcalCollections.size(); i++) 
+  for(unsigned int i=0; i< _hcalCollections.size(); i++) 
   {
     try 
 	  {
+	    static int event=0;
+	    event++;
 	    LCCollection* col = evtP ->getCollection(_hcalCollections[i].c_str());
       int numElements = col->getNumberOfElements();
       CellIDDecoder<CalorimeterHit>decode(col);
+      //////////test if timestamp negatif
+      bool HasTimeStampNegative=false;
       for (int ihit=0; ihit < numElements; ++ihit) 
       {
         CalorimeterHit* raw_hit = dynamic_cast<CalorimeterHit*>( col->getElementAt(ihit)) ;
@@ -125,8 +133,37 @@ void Trivent::processEvent( LCEvent * evtP )
 	      {
 	        if(Global::geom->GetDifType(decode(raw_hit)["DIF_Id"])==scintillator||Global::geom->GetDifType(decode(raw_hit)["DIF_Id"])==tcherenkov)continue;
 	        if(Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])==-1) continue;
-		      Times[raw_hit->getTime()]++;
-		      RawHits[raw_hit->getTime()].push_back(raw_hit);
+	        if(raw_hit->getTime()<0)
+	        {
+	          //std::vector<unsigned int>b{dif_id,(unsigned int)((raw_hit->getCellID0() & 0xFF00)>>8),(unsigned int)((raw_hit->getCellID0() & 0x3F0000)>>16)}; Negative[b][raw_hit->getTimeStamp()]++;
+	          //std::cout<<"TimeStamp <=-1 : "<<raw_hit->getTimeStamp()<<std::endl;
+	          if(raw_hit->getTime()<-1)HasTimeStampNegative=true;         
+	        }
+	      }
+      }
+      for (int ihit=0; ihit < numElements; ++ihit) 
+      {
+        CalorimeterHit* raw_hit = dynamic_cast<CalorimeterHit*>( col->getElementAt(ihit)) ;
+        if (raw_hit != nullptr) 
+	      {
+	        if(Global::geom->GetDifType(decode(raw_hit)["DIF_Id"])==scintillator||Global::geom->GetDifType(decode(raw_hit)["DIF_Id"])==tcherenkov)continue;
+	        if(Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])==-1)
+	        {
+	          if(Warningg[decode(raw_hit)["DIF_Id"]]!=true) 
+		        {
+		          Warningg[decode(raw_hit)["DIF_Id"]]=true;
+		          std::cout<<"Please add DIF "<<decode(raw_hit)["DIF_Id"]<<" to your geometry file; I'm Skipping its data."<<std::endl;
+		        }
+	          continue;
+	        }
+	        if(_TriggerTime==0 || raw_hit->getTime()<=_TriggerTime)
+	        {
+	          if(HasTimeStampNegative==false)
+	          {
+		          Times[raw_hit->getTime()]++;
+		          RawHits[raw_hit->getTime()].push_back(raw_hit);
+		        }
+		      }
         } 
 	    } 
       FillTimes();
@@ -156,43 +193,61 @@ void Trivent::processEvent( LCEvent * evtP )
 	      std::map<int,std::vector<CalorimeterHit *> >::iterator debut_apres=std::find_if(after, RawHits.end(), [val_middle,d,win] (const std::pair<int, std::vector<CalorimeterHit *>>& v)->bool { if(v.first>=val_middle+d+win)return 1;else return 0; } );
 	      if(nbrPlanestouched.size()>=(unsigned int)(_LayerCut)) 
 	      {
+	        LCEventImpl*  evtt = new LCEventImpl() ;
+          LCCollectionVec* clu1 = new LCCollectionVec(LCIO::CALORIMETERHIT);
+          CellIDEncoder<CalorimeterHitImpl> cdt( "I:8,J:7,K:10,Dif_id:8,Asic_id:6,Chan_id:7" ,clu1) ;
+	        clu1->setFlag(clu1->getFlag()|( 1 << LCIO::RCHBIT_LONG));
+	        clu1->setFlag(clu1->getFlag()|( 1 << LCIO::RCHBIT_TIME));
+	        LCCollectionVec* clu2 = new LCCollectionVec(LCIO::CALORIMETERHIT);
+          CellIDEncoder<CalorimeterHitImpl> cdt2( "I:8,J:7,K:10,Dif_id:8,Asic_id:6,Chan_id:7" ,clu2) ;
+	        clu2->setFlag(clu2->getFlag()|( 1 << LCIO::RCHBIT_LONG));
+	        clu2->setFlag(clu2->getFlag()|( 1 << LCIO::RCHBIT_TIME));
+	        LCCollectionVec* clu3 = new LCCollectionVec(LCIO::CALORIMETERHIT);
+          CellIDEncoder<CalorimeterHitImpl> cdt3( "I:8,J:7,K:10,Dif_id:8,Asic_id:6,Chan_id:7" ,clu3) ;
+	        clu3->setFlag(clu3->getFlag()|( 1 << LCIO::RCHBIT_LONG));
+	        clu3->setFlag(clu3->getFlag()|( 1 << LCIO::RCHBIT_TIME));
 	        EventsSelected++;
-	        ClusterImpl* cluster1=new ClusterImpl();
 	        for(std::map<int,std::vector<CalorimeterHit *> >::iterator it=debut_avant;it!=before;++it) 
 		      {
 		        if(abs(it->first-(val_middle-d))<=_TimeWin_Noise)
 		        {
 		          for(std::vector<CalorimeterHit *>::iterator itt=it->second.begin();itt!=it->second.end();++itt)
 		          {
-		            cluster1->addHit(*itt,1.0);
+		            clu1->addElement(*itt);
 		          }
 		        }
 		      }
-		      clu1->addElement(cluster1);
-		      ClusterImpl* cluster2=new ClusterImpl();
 	        for(std::map<int,std::vector<CalorimeterHit *> >::iterator it=after;it!=debut_apres;++it) 
 		      {
 		        if(abs(it->first-(val_middle-d))<=_TimeWin_Noise)
 		        {
 		          for(std::vector<CalorimeterHit *>::iterator itt=it->second.begin();itt!=it->second.end();++itt)
 		          {
-		            cluster2->addHit(*itt,1.0);
+		            clu2->addElement(*itt);
 		          }
 		        }
 		      }
-		      clu2->addElement(cluster2);
-	        ClusterImpl* cluster3=new ClusterImpl();
 	        for(middle=before; middle!=after; ) 
 		      {
 		        for(std::vector<CalorimeterHit *>::iterator itt=middle->second.begin();itt!=middle->second.end();++itt)
 		        {
-		          cluster3->addHit(*itt,1.0);
+		          clu3->addElement(*itt);
 		        }
 		        RawHits.erase(middle++);
 		      }
-		      clu3->addElement(cluster3);
+		      evtt->addCollection(clu3, "TRIVENTED");
+	        evtt->addCollection(clu2, "NOISE_AFTER");
+	        evtt->addCollection(clu1,"NOISE_BEFORE");
+          //delete evtt;
+          //delete clu3;
+          //delete clu2;
+          //delete clu1;
+          evtt->setEventNumber(EventsSelected);
+	        evtt->setTimeStamp(evtP->getTimeStamp()*1e9);
+	        evtt->setRunNumber(evtP->getRunNumber());
+          _EventWriter->writeEvent( evtt ) ;
 	      }
-	    }
+	    } 
 	    Times.clear();
 	    RawHits.clear();
 	  }
@@ -202,15 +257,14 @@ void Trivent::processEvent( LCEvent * evtP )
 	    _trig_count++;
 	    break;
 	  }
-  } */
-  evtP->addCollection(clu3, "TRIVENTed");
-	//evtP->addCollection(clu2, "NOISE_AFTER");
-	//evtP->addCollection(clu1, "NOISE_BEFORE");
+  }
 }
 
 
-void Trivent::end()
+void TriventTriggered::end()
 {  
+  _EventWriter->close();
+  for(std::map<int,bool>::iterator it=Warningg.begin(); it!=Warningg.end(); it++) std::cout<<red<<"REMINDER::Data from Dif "<<it->first<<" are skipped !"<<normal<<std::endl;
   std::cout << "TriventProcess::end() !! "<<_trig_count<<" Events Trigged"<< std::endl;
   std::cout <<TouchedEvents<<" Events were overlaping "<<"("<<(TouchedEvents*1.0/(TouchedEvents+eventtotal))*100<<"%)"<<std::endl;
   std::cout <<"Total nbr Events : "<<eventtotal<<" Events with nbr of plates >="<<_LayerCut<<" : "<<EventsSelected<<" ("<<EventsSelected*1.0/eventtotal*100<<"%)"<< std::endl;

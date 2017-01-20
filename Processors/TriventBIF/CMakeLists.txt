@@ -1,0 +1,6 @@
+include_directories("${CMAKE_SOURCE_DIR}/build/include")
+include_directories(include)
+FILE (GLOB_RECURSE TriventBIF_SRC_FILES ./source/*)
+ADD_LIBRARY( TriventBIF SHARED ${TriventBIF_SRC_FILES} )
+TARGET_LINK_LIBRARIES( TriventBIF Marlin )
+INSTALL( TARGETS TriventBIF LIBRARY DESTINATION ${MARLINO_LIBRARY_OUTPUT_PATH})

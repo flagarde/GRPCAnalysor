@@ -242,7 +242,6 @@ int main(int argc, char* argv[] )
           Global::conf = new ConfigInfos;
           Reader* elogreader=readerFactory->CreateReader("XMLReaderElog");
           elogreader->Read(FileNameElog,Global::conf,Global::number);
-          std::cout<<"Reddddddd"<<std::endl;
           delete elogreader;
         }
         //Global::LCIOFiles=&files_well_ordered[i];

@@ -4,113 +4,66 @@
 
 using namespace lcio ;
 
+Processor::Processor(const std::string& typeName):_description(""),_typeName( typeName ),_parameters(nullptr),_isFirstEvent( true ),_str(nullptr) 
+{
+  //register processor in map
+  ProcessorMgr::instance()->registerProcessor( this ) ;
+}
 
+Processor::Processor() : _parameters(nullptr), _isFirstEvent(false), _str(nullptr) {}
 
-  // set default verbosity level to MESSAGE
-  //int Processor::Verbosity=Processor::MESSAGE;
-
-  Processor::Processor(const std::string& typeName) :
-    _description(" description not set by author ") ,
-    _typeName( typeName ) ,
-    _parameters(0) ,
-    _isFirstEvent( true ),
-    _str(0) {
-  
-    //register processor in map
-    ProcessorMgr::instance()->registerProcessor( this ) ;
-  
+Processor::~Processor() 
+{
+  if( _parameters != nullptr )
+  {
+    delete _parameters ;
   }
-
-
-  Processor::Processor() : _parameters(NULL), _isFirstEvent(false), _str(NULL) {}
-
-  Processor::~Processor() {
-
-    if( _parameters != 0 ){
-      delete _parameters ;
-    }
-
-    if( _str !=0 )
-      delete _str ;
+  if( _str !=nullptr )delete _str ;
+  typedef ProcParamMap::iterator PMI ;
+  for( PMI i = _map.begin() ; i != _map.end() ; i ++ ) 
+  {
+    delete i->second ;
+  }
+}
   
-    typedef ProcParamMap::iterator PMI ;
+void Processor::setParameters( StringParameters* parameters) 
+{
+  if( _parameters != nullptr )
+  {
+    delete _parameters ;
+    _parameters = nullptr ;
+  }
+  _parameters = parameters ;
+  updateParameters();
+}
   
-    for( PMI i = _map.begin() ; i != _map.end() ; i ++ ) {
-    
-      //     streamlog_out(DEBUG) << " deleting processor parameter " << i->second->name() 
-      // 			 << " of processor [" << name() << "]" 
-      // 			 << std::endl ;
+std::stringstream& Processor::log() const 
+{  
+  if( _str !=nullptr )delete _str ;
+  _str = new std::stringstream ;
+  return *_str ;
+}
 
-      delete i->second ;
-    }
-  }
-
-
-  void Processor::setParameters( StringParameters* parameters) {
-
-    if( _parameters != 0 ){
-      delete _parameters ;
-      _parameters = 0 ;
-    }
-    _parameters = parameters ;
-
-    updateParameters();
-    
-  }
+bool Processor::parameterSet( const std::string& name ) 
+{
+  ProcParamMap::iterator it = _map.find(name) ;
+  if( it != _map.end() ) return it->second->valueSet() ;    
+  else return false ;
+}
   
-  std::stringstream& Processor::log() const {
-    
-    if( _str !=0 )
-      delete _str ;
-
-    _str = new std::stringstream ;
-
-    return *_str ;
-  }
-
-
-
-
-
-
-
- 
-
-  //   ProcessorParameter* Processor::getProcessorParameter( const std::string name) {
-  //     ProcParamMap::iterator it = _map.find(name) ;
-  //     if( it != _map.end() )
-  //       return it->second ;    
-  //     else
-  //       return 0 ;
-  //   }
-
-  bool Processor::parameterSet( const std::string& name ) {
-
-    ProcParamMap::iterator it = _map.find(name) ;
-
-    if( it != _map.end() )
-      return it->second->valueSet() ;    
-    else
-      return false ;
-  }
+void Processor::baseInit() 
+{
+  init() ;
+}
   
-  void Processor::baseInit() {
-    
-    //fg: now in setParameters 
-    // updateParameters();
-
-    init() ;
+void Processor::updateParameters() 
+{
+  typedef ProcParamMap::iterator PMI ;
+  for( PMI i = _map.begin() ; i != _map.end() ; i ++ ) 
+  {
+    i->second->setValue( _parameters ) ;
   }
-  
-  void Processor::updateParameters() {
-
-    typedef ProcParamMap::iterator PMI ;
-
-    for( PMI i = _map.begin() ; i != _map.end() ; i ++ ) {
-
-      i->second->setValue( _parameters ) ;
-    }
-  }
+}
 
   void Processor::setReturnValue( bool val) {
     
