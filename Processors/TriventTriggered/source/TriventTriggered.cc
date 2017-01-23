@@ -45,6 +45,12 @@ void TriventTriggered::init()
   _EventWriter->setCompressionLevel( 2 ) ;
   _EventWriter->open(_outFileName.c_str(),LCIO::WRITE_NEW) ;
   printParameters();
+  for(unsigned int i=0;i!=Global::geom->GetNumberPlates();++i)
+  {
+    std::string name="Distribution time in plate nbr "+std::to_string(i+1);
+    if(_TriggerTime!=0) TimeDistribution[i+1]=new TH1F(name.c_str(),name.c_str(),_TriggerTime,0,_TriggerTime);
+    else TimeDistribution[i]=new TH1F(name.c_str(),name.c_str(),100000,0,100000);
+  }
 }
 
 std::string name1="blabla";
@@ -102,6 +108,11 @@ void TriventTriggered::processEvent( LCEvent * evtP )
 	          if(HasTimeStampNegative==false)
 	          {
 	            RawHits[decode(raw_hit)["DIF_Id"]].push_back(raw_hit);
+	            if(Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])!=-1)
+	            {
+	              std::cout<<Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])<<std::endl;
+	              TimeDistribution[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(raw_hit->getTime());
+	            }
 		        }
 		      }
         } 
@@ -146,6 +157,11 @@ void TriventTriggered::processEvent( LCEvent * evtP )
 void TriventTriggered::end()
 {  
   _EventWriter->close();
+  for(std::map<int,TH1F*>::iterator it=TimeDistribution.begin();it!=TimeDistribution.end();++it)
+  {
+    Global::out->writeObject("Distribution",it->second);
+    delete it->second;
+  }
   for(std::map<int,bool>::iterator it=Warningg.begin(); it!=Warningg.end(); it++) std::cout<<red<<"REMINDER::Data from Dif "<<it->first<<" are skipped !"<<normal<<std::endl;
   std::cout << "TriventProcess::end() !! "<<_trig_count<<" Events skiped"<< std::endl;
   std::cout <<TouchedEvents<<" Events were overlaping "<<"("<<(TouchedEvents*1.0/(TouchedEvents+eventtotal))*100<<"%)"<<std::endl;

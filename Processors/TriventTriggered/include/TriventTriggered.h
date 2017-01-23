@@ -41,6 +41,7 @@ private:
     LCWriter* _EventWriter;
     std::map<int,bool>Warningg;
     std::string _outFileName;
+    std::map<int,TH1F*>TimeDistribution;
     std::map< int,std::vector<CalorimeterHit*> > RawHits;
 };
 #endif
