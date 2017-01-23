@@ -30,10 +30,8 @@
   <processor name="XYZfiller" type="XYZfiller"></processor>
   
   <processor name="TriventTriggered" type="TriventTriggered">
-    <parameter name="LayerCut" value="3" />
-    <parameter name="NoiseCut" value="3" />
-    <parameter name="TimeWin" value="2" />
-    <parameter name="TimeFromTrack" value="5"/>
+    <parameter name="NoiseCut" value="50" />
+    <parameter name="TriggerTime" value="500" />
   </processor>
   
 	<processor name="Streamout" type="Streamout">

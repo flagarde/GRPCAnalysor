@@ -31,18 +31,13 @@ public:
     inline void FillTimes();
 private:  
     std::vector<std::string> _hcalCollections;
-    int _timeWin;
-    int _TimeWin_Noise;
-    std::map<int,int>Times;
     int _TriggerTime;
     unsigned int TouchedEvents;
     unsigned int EventsSelected;
     unsigned int eventtotal;
-    int _Time_from_Track;
     unsigned int _eventNr;
     int _trig_count;
     int _noiseCut;
-    int _LayerCut;
     LCWriter* _EventWriter;
     std::map<int,bool>Warningg;
     std::string _outFileName;

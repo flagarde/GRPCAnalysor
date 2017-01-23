@@ -30,7 +30,7 @@ XMLParser::~XMLParser(){}
 void XMLParser::parse()
 {
   _doc = new TiXmlDocument ;
-  bool loadOkay = _doc->LoadFile(_fileName  ) ;
+  bool loadOkay = _doc->LoadFile(_fileName.c_str()  ) ;
   if( !loadOkay ) 
   {
     std::stringstream str ;
@@ -233,13 +233,13 @@ void XMLParser::processconditions( TiXmlNode* current , const std::string& aCond
   while( ( child = current->IterateChildren( "if" , child )  )  != nullptr  )processconditions( child , getAttribute( child, "condition") ) ;
   while( ( child = current->IterateChildren( "processor" , child )  )  != nullptr  ) 
   {
-    if(  child->ToElement()->Attribute("condition") == nullptr ) child->ToElement()->SetAttribute("condition" ,  condition ) ;
+    if(  child->ToElement()->Attribute("condition") == nullptr ) child->ToElement()->SetAttribute("condition" ,  condition.c_str() ) ;
     else 
     {
       std::string cond( child->ToElement()->Attribute("condition") ) ; 
       if( cond.size() > 0 && condition.size() )  cond += " && " ;
       cond += condition ;
-      child->ToElement()->SetAttribute("condition" ,  cond ) ;
+      child->ToElement()->SetAttribute("condition" ,  cond.c_str() ) ;
     }
     if( std::string( current->Value() ) != "execute" ) 
     {
@@ -296,9 +296,9 @@ TiXmlNode* XMLParser::findElement( TiXmlNode* node , const std::string& type, co
 {
   TiXmlNode* child = nullptr ;
   bool elementFound  = false ;
-  while( (child = node->IterateChildren( type , child ) )  != 0  )
+  while( (child = node->IterateChildren( type.c_str() , child ) )  != 0  )
   {
-    if( std::string( *child->ToElement()->Attribute( attribute ) ) == value ) 
+    if( std::string( child->ToElement()->Attribute( attribute.c_str() ) ) == value ) 
     { 
       elementFound = true ;
       break ;
