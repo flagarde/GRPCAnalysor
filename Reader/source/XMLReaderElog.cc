@@ -53,25 +53,29 @@ void XMLReaderElog::Read(std::string &FileName,ConfigInfos* Conf,int RunNumber)
   //First Try to find the SlowControl File in the folder SlowControl 
   TiXmlDocument docc(path.c_str());
   docc.LoadFile();
-  if(!docc.LoadFile())
+  if(!docc.LoadFile()&&DAQ_Name!="")
   {
     #ifdef OCCI_SUPPORT
     std::cout<<green<<"SlowControl file not found int SlowControl folder"<<normal<<std::endl;
     std::cout<<green<<"Now I will connect to the Database to download SlowControl :) with DAQ_Name "<<DAQ_Name<<normal<<std::endl;
-    //DBInit::init();
-    //State* s = State::download(DAQ_Name); // download the state with name 'MyState'
-    //s->saveToXML(path.c_str()); // creates the XML file
-    //DBInit::terminate();
-    //XMLReaderConfig slowcontrolreader;
-    //slowcontrolreader.Read(path,Conf);
+    DBInit::init();
+    State* s = State::download(DAQ_Name); // download the state with name 'MyState'
+    s->saveToXML(path.c_str()); // creates the XML file
+    DBInit::terminate();
+    XMLReaderConfig slowcontrolreader;
+    slowcontrolreader.Read(path,Conf);
     #else
     std::cout<<red<<"SlowControl file not found int SlowControl folder and I can't connect me to the Database :("<<normal<<std::endl;
     #endif
   }
-  else
+  else if(DAQ_Name!="")
   {
 	std::cout<<green<<"SlowControl file found in SlowControl folder"<<normal<<std::endl;
 	XMLReaderConfig slowcontrolreader;
     	slowcontrolreader.Read(path,Conf);
+  }
+  else
+  {
+   std::cout<<red<<"I can't do nothing to connect to database "<<normal<<std::endl;
   }
 }
