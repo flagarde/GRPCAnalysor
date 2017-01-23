@@ -35,7 +35,7 @@ Streamout::Streamout() : Processor("Streamout")
   _description = "Streamout converts SDHCAL RawData into collection easier to analyse";
   registerInputCollection(LCIO::LCGENERICOBJECT,"XDAQCollectionName","XDAQ produced collection name", _XDAQCollectionNames,std::string("RU_XDAQ"));
   registerOutputCollection(LCIO::RAWCALORIMETERHIT, "OutputRawCaloHitCollectionName","Name of output collection containing raw calorimeter hits",
-  _RawHitCollectionName, std::string("DHCALRawHits"));
+  _RawHitCollectionName, std::string("DHCALRawHits2"));
   _nevt = _nWrongObj = _nProcessedObject = _hasSlowControl =_hasBadSlowControl = 0;
   _BitsToSkip = 24;
   registerProcessorParameter("BitsToSkip", "BitsToSkip (default 24)",_BitsToSkip, _BitsToSkip);

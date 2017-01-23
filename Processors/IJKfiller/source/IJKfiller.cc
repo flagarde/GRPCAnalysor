@@ -57,7 +57,7 @@ IJKfiller aIJKfiller;
 
 IJKfiller::IJKfiller():Processor("IJKfiller")
 {
-  _hcalCollections={"DHCALRawHits"};
+  _hcalCollections={"DHCALRawHits2"};
   registerInputCollections( LCIO::RAWCALORIMETERHIT,"HCALCollections","HCAL Collection Names",_hcalCollections,_hcalCollections);
 } // end constructor
 
