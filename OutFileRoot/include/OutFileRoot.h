@@ -30,11 +30,13 @@ class OutFileRoot
     }
     std::string replaceStrChar(std::string str, const std::string& replace, char ch);
     bool setOutputFile(std::string& outputFileName);
+    bool setProcessorName(std::string& outputFileName);
     bool writeObject(std::string& dirName, TObject *object);
     bool writeObject(const char * dirName, TObject *object);
   protected:
     std::string _outputFileName;
     bool isOutFile_;
     TFile* outFile_;
+    std::string ProcessorName;
 };
 #endif

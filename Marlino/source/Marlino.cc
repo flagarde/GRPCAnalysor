@@ -107,7 +107,7 @@ int main(int argc, char* argv[] )
     }
     //------- end processor libs -------------------------
     std::string steeringFileName ="none";
-    std::string rootFile ="Default.root";
+    std::string rootFile ="";
     // read file name from command line
     if( argc > 1 )
     {
@@ -176,6 +176,8 @@ int main(int argc, char* argv[] )
         }
       }
       int maxRecord = Global::parameters->getIntVal("MaxRecordNumber") ;
+      if(rootFile==""&&Global::parameters->getStringVal("RootFileName")!="")rootFile=Global::parameters->getIntVal("RootFileName");
+      else rootFile="Default.root";
       int skipNEvents = Global::parameters->getIntVal("SkipNEvents");
       bool modify = ( Global::parameters->getStringVal("AllowToModifyEvent") == "true" ) ;
       std::string reader_type = Global::parameters->getStringVal("ReaderType");
@@ -303,6 +305,7 @@ int main(int argc, char* argv[] )
           lcReader->close() ;
         }// end rewind
         ProcessorMgr::instance()->end() ;
+        Global::totalevent=0;
       }  
      delete lcReader ;
      delete readerFactory;

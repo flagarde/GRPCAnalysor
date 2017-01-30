@@ -30,6 +30,12 @@ bool OutFileRoot::setOutputFile(std::string& outputFileName)
   return true;
 }
 
+bool OutFileRoot::setProcessorName(std::string& _ProcessorName)
+{
+  ProcessorName=_ProcessorName;
+  return true;
+}
+
 OutFileRoot::~OutFileRoot()
 {
   if(isOutFile_) 
@@ -41,12 +47,12 @@ OutFileRoot::~OutFileRoot()
 
 bool OutFileRoot::writeObject(std::string& dirName, TObject *object)
 {
-  if(!outFile_->GetDirectory(dirName.c_str())) 
+  if(!outFile_->GetDirectory((ProcessorName+dirName).c_str())) 
   {
-    outFile_->mkdir(dirName.c_str());
-    outFile_->cd(dirName.c_str());
+    outFile_->mkdir((ProcessorName+dirName).c_str());
+    outFile_->cd((ProcessorName+dirName).c_str());
   }
-  else outFile_->cd(dirName.c_str());
+  else outFile_->cd((ProcessorName+dirName).c_str());
   if(object!=nullptr)
   { 
     object->Write();
@@ -56,12 +62,12 @@ bool OutFileRoot::writeObject(std::string& dirName, TObject *object)
 
 bool OutFileRoot::writeObject(const char * dirName, TObject *object)
 {
-  if(!outFile_->GetDirectory(dirName)) 
+  if(!outFile_->GetDirectory((ProcessorName+dirName).c_str()))
   {
-    outFile_->mkdir(dirName);
-    outFile_->cd(dirName);
+    outFile_->mkdir((ProcessorName+dirName).c_str());
+    outFile_->cd((ProcessorName+dirName).c_str());
   }
-  else outFile_->cd(dirName);
+  else outFile_->cd((ProcessorName+dirName).c_str());
   if(object!=nullptr)
   { 
     object->Write();

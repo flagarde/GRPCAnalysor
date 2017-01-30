@@ -94,6 +94,8 @@ void ProcessorMgr::init()
 { 
   for( ProcessorList::iterator it = _list.begin() ; it != _list.end() ; ++it ) 
   {
+    std::string Processorame=(*it)->type()+"/";
+    Global::out->setProcessorName(Processorame);
 	  (*it)->baseInit() ;
 	  tMap[ *it ] = std::make_pair( 0 , 0 )  ;
 	  EventModifier* em = dynamic_cast<EventModifier*>( *it ) ; 
@@ -110,13 +112,20 @@ void ProcessorMgr::init()
 
 void ProcessorMgr::processRunHeader( LCRunHeader* run)
 { 
-  for( ProcessorList::iterator it = _list.begin() ; it != _list.end() ; ++it ) (*it)->processRunHeader( run ) ;
+  for( ProcessorList::iterator it = _list.begin() ; it != _list.end() ; ++it ) 
+  {
+    std::string Processorame=(*it)->type()+"/";
+    Global::out->setProcessorName(Processorame);
+    (*it)->processRunHeader( run ) ;
+  }
 }   
   
 void ProcessorMgr::modifyRunHeader( LCRunHeader* rhd )
 { 
   for( ProcessorList::iterator it = _eventModifierList.begin();  it !=  _eventModifierList.end()  ; ++ it) 
   {    
+    std::string Processorame=(*it)->type()+"/";
+    Global::out->setProcessorName(Processorame);
     (  dynamic_cast<EventModifier*>( *it )  )->modifyRunHeader( rhd ) ;
   }
 }
@@ -125,6 +134,8 @@ void ProcessorMgr::modifyEvent( LCEvent* evt )
 { 
   for( ProcessorList::iterator it = _eventModifierList.begin();  it !=  _eventModifierList.end()  ; ++ it) 
   {
+    std::string Processorame=(*it)->type()+"/";
+    Global::out->setProcessorName(Processorame);
     (dynamic_cast<EventModifier*>( *it ))->modifyEvent( evt ) ;
   }
   bool check = ( Global::parameters->getStringVal("SupressCheck") != "true" ) ;
@@ -165,6 +176,8 @@ void ProcessorMgr::processEvent( LCEvent* evt )
 	{ 
     for( ProcessorList::iterator it = _list.begin() ; it != _list.end() ; ++it ) 
     {
+      std::string Processorame=(*it)->type()+"/";
+      Global::out->setProcessorName(Processorame);
       if( _conditions.conditionIsTrue( (*it)->name() ) ) 
       {
         start_t =  clock () ;  // start timer
@@ -197,7 +210,13 @@ void ProcessorMgr::setProcessorReturnValue( Processor* proc, bool val, const std
 
 void ProcessorMgr::end()
 { 
-  for( ProcessorList::reverse_iterator it = _list.rbegin() ; it != _list.rend() ; ++it ) (*it)->end() ;
+  
+  for( ProcessorList::reverse_iterator it = _list.rbegin() ; it != _list.rend() ; ++it )
+  {
+    std::string Processorame=(*it)->type()+"/";
+    Global::out->setProcessorName(Processorame);
+   (*it)->end() ;
+  }
   std::cout<< " --------------------------------------------------------- " << std::endl;
   std::cout<< "  Events skipped by processors : " << std::endl ;
   unsigned nSkipped = 0 ;
