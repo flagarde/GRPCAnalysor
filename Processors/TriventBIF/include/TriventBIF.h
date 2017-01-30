@@ -60,8 +60,6 @@ protected:
     unsigned int _Back_scintillator;
     unsigned int _Both_scintillator;
     std::map< int,std::vector<EVENT::RawCalorimeterHit*> > RawHits;
-    std::map<int,bool>Warningg;
-    std::map<std::vector<unsigned int>,std::map< int, int>>Negative;
     std::map<int ,std::vector<double> >Delimiter;
  private:
     //helper methods

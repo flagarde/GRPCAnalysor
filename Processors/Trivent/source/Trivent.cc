@@ -124,23 +124,6 @@ void Trivent::processEvent( LCEvent * evtP )
 	    LCCollection* col = evtP ->getCollection(_hcalCollections[i].c_str());
       int numElements = col->getNumberOfElements();
       CellIDDecoder<CalorimeterHit>decode(col);
-      //////////test if timestamp negatif
-      bool HasTimeStampNegative=false;
-      for (int ihit=0; ihit < numElements; ++ihit) 
-      {
-        CalorimeterHit* raw_hit = dynamic_cast<CalorimeterHit*>( col->getElementAt(ihit)) ;
-        if (raw_hit != nullptr) 
-	      {
-	        if(Global::geom->GetDifType(decode(raw_hit)["DIF_Id"])==scintillator||Global::geom->GetDifType(decode(raw_hit)["DIF_Id"])==tcherenkov)continue;
-	        if(Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])==-1) continue;
-	        if(raw_hit->getTime()<0)
-	        {
-	          //std::vector<unsigned int>b{dif_id,(unsigned int)((raw_hit->getCellID0() & 0xFF00)>>8),(unsigned int)((raw_hit->getCellID0() & 0x3F0000)>>16)}; Negative[b][raw_hit->getTimeStamp()]++;
-	          //std::cout<<"TimeStamp <=-1 : "<<raw_hit->getTimeStamp()<<std::endl;
-	          if(raw_hit->getTime()<-1)HasTimeStampNegative=true;         
-	        }
-	      }
-      }
       for (int ihit=0; ihit < numElements; ++ihit) 
       {
         CalorimeterHit* raw_hit = dynamic_cast<CalorimeterHit*>( col->getElementAt(ihit)) ;
@@ -149,20 +132,12 @@ void Trivent::processEvent( LCEvent * evtP )
 	        if(Global::geom->GetDifType(decode(raw_hit)["DIF_Id"])==scintillator||Global::geom->GetDifType(decode(raw_hit)["DIF_Id"])==tcherenkov)continue;
 	        if(Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])==-1)
 	        {
-	          if(Warningg[decode(raw_hit)["DIF_Id"]]!=true) 
-		        {
-		          Warningg[decode(raw_hit)["DIF_Id"]]=true;
-		          std::cout<<"Please add DIF "<<decode(raw_hit)["DIF_Id"]<<" to your geometry file; I'm Skipping its data."<<std::endl;
-		        }
 	          continue;
 	        }
 	        if(_TriggerTime==0 || raw_hit->getTime()<=_TriggerTime)
 	        {
-	          if(HasTimeStampNegative==false)
-	          {
-		          Times[raw_hit->getTime()]++;
-		          RawHits[raw_hit->getTime()].push_back(raw_hit);
-		        }
+		        Times[raw_hit->getTime()]++;
+		        RawHits[raw_hit->getTime()].push_back(raw_hit);
 		      }
         } 
 	    } 

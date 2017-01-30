@@ -136,23 +136,6 @@ void TriventProcessor::processCollection(EVENT::LCEvent *evtP,LCCollection* col)
 {
   RawHits.clear();
   int numElements = col->getNumberOfElements();
-  ////verify if timestamp negative 
-  bool HasTimeStampNegative=false;
-  for (int ihit=0; ihit < numElements; ++ihit) 
-  {
-    CalorimeterHit* raw_hit = dynamic_cast<CalorimeterHit*>( col->getElementAt(ihit)) ;
-    if (raw_hit != nullptr) 
-	  {
-	    if(Global::geom->GetDifType(decode(raw_hit)["DIF_Id"])==scintillator||Global::geom->GetDifType(decode(raw_hit)["DIF_Id"])==tcherenkov)continue;
-	    if(geom.GetDifNbrPlate(dif_id)==-1) continue;
-	    if(raw_hit->getTimeStamp()<0)
-	    {
-	      //std::vector<unsigned int>b{dif_id,(unsigned int)((raw_hit->getCellID0() & 0xFF00)>>8),(unsigned int)((raw_hit->getCellID0() & 0x3F0000)>>16)}; Negative[b][raw_hit->getTimeStamp()]++;
-	      //std::cout<<"TimeStamp <=-1 : "<<raw_hit->getTimeStamp()<<std::endl;
-	      if(raw_hit->getTimeStamp()<-1)HasTimeStampNegative=true;         
-	    }
-	  }
-  }
   for (int ihit=0; ihit < numElements; ++ihit) 
   {
     CalorimeterHit* raw_hit = dynamic_cast<CalorimeterHit*>( col->getElementAt(ihit)) ;
@@ -161,19 +144,11 @@ void TriventProcessor::processCollection(EVENT::LCEvent *evtP,LCCollection* col)
 	    if(Global::geom->GetDifType(decode(raw_hit)["DIF_Id"])==scintillator||Global::geom->GetDifType(decode(raw_hit)["DIF_Id"])==tcherenkov)continue;
 	    if(Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])==-1)
 	    {
-	      if(Warningg[dif_id]!=true) 
-		    {
-		      Warningg[dif_id]=true;
-		      std::cout<<"Please add DIF "<<dif_id<<" to your geometry file; I'm Skipping its data."<<std::endl;
-		    }
 	      continue;
 	    }
 	    if(_TriggerTime==0 || raw_hit->getTimeStamp()<=_TriggerTime)
 	    {
-	      if(HasTimeStampNegative==false)
-	      {
-		      RawHits[raw_hit->getTime()].push_back(raw_hit);
-		    }
+		    RawHits[raw_hit->getTime()].push_back(raw_hit);
 		  }
     } 
 	}

@@ -31,17 +31,18 @@ public:
     inline void FillTimes();
 private:  
     std::vector<std::string> _hcalCollections;
-    int _TriggerTime;
+    int _TriggerTimeLow;
+    int _TriggerTimeHigh;
     unsigned int TouchedEvents;
     unsigned int EventsSelected;
     unsigned int eventtotal;
-    unsigned int _eventNr;
-    int _trig_count;
+    int TRIGGERSKIPPED;
     int _noiseCut;
     LCWriter* _EventWriter;
-    std::map<int,bool>Warningg;
     std::string _outFileName;
     std::map<int,TH1F*>TimeDistribution;
-    std::map< int,std::vector<CalorimeterHit*> > RawHits;
+    std::map<int,TH2F*>HitsDistribution;
+    std::map< int,std::vector<CalorimeterHit*> > SelectedHits;
+    std::map< int,std::vector<CalorimeterHit*> > RejectedHits;
 };
 #endif

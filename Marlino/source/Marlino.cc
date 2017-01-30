@@ -320,8 +320,8 @@ int main(int argc, char* argv[] )
     if(Global::geom!=nullptr) delete Global::geom;
     return 1 ;
   }
-  delete Global::out;
-  if(Global::geom!=nullptr) delete Global::geom;
+  //delete Global::out;
+  //if(Global::geom!=nullptr) delete Global::geom;
   return 0 ;
 }
 
