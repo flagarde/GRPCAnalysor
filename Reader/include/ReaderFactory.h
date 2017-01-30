@@ -1,10 +1,11 @@
 #ifndef READERFACTORY_H
 #define READERFACTORY_H
-#include"Reader.h"
-#include<map>
-#include<string>
+#include "Reader.h"
+#include <map>
+#include <string>
 #include "Colors.h"
 #include "Global.h"
+
 class ReaderFactory
 {
   public:

@@ -40,7 +40,7 @@ class Geometry
     const std::map<int,Dif> GetDifs();
     const std::vector<int> GetDifsInPlane(unsigned int& i);
     const std::vector<int> GetDifsList();
-    double GetGlassType(const unsigned int& i);
+    const std::string GetGlassType(const unsigned int& i);
     double GetGazNumber(const unsigned int& i);
     std::string GetHVChannel(const unsigned int& i);
     std::string GetGazChannel(const unsigned int& i);

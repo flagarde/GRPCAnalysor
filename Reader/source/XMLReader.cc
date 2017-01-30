@@ -1,8 +1,8 @@
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
 #include "XMLReader.h"
 #include "Colors.h"
-#include"Types.h"
+#include "Types.h"
 
 void XMLReader::Write(TiXmlElement* elem,const char* who,unsigned int &wherePlate,unsigned int &whereDif,double& var,std::string &FileName)
 {
@@ -18,8 +18,7 @@ void XMLReader::Write(TiXmlElement* elem,const char* who,unsigned int &wherePlat
 
 void XMLReader::Read(std::string& FileName, Geometry& geom)
 {
-   TiXmlDocument doc(FileName.c_str());
-  doc.LoadFile();
+  TiXmlDocument doc(FileName.c_str());
   if(!doc.LoadFile())
   {
     std::cout<<"Error loading file"<< std::endl;
@@ -35,7 +34,7 @@ void XMLReader::Read(std::string& FileName, Geometry& geom)
     unsigned int PlateNumber=0;
     unsigned int DifNumber=0;
     double x,y,z,xy,xz,yz,SizeX,SizeY,I,J,DifId;
-    double glass_type=-1;
+    double ElectrodeType=-1;
     double Gaz_number=-1;
     std::string HV_channel="";
     std::string Gaz_channel="";
@@ -51,18 +50,19 @@ void XMLReader::Read(std::string& FileName, Geometry& geom)
       Write(Platee,"gamma",PlateNumber,DifNumber,yz,FileName);
       Write(Platee,"SizeX",PlateNumber,DifNumber,SizeX,FileName);
       Write(Platee,"SizeY",PlateNumber,DifNumber,SizeY,FileName);
-      if(Platee->Attribute("Glass_type")!=NULL)
+      if(Platee->Attribute("ElectrodeType")!=nullptr)
 	    {
-	        if(strcmp(Platee->Attribute("Glass_type"), "standard") == 0) glass_type=0;
-	        else if (strcmp(Platee->Attribute("Glass_type"), "chinese") == 0) glass_type=1;
-	        else if (strcmp(Platee->Attribute("Glass_type"), "") == 0) glass_type=-1;
-	        else
-		      {
-		        glass_type=-1;
-		        std::cout<<"Error defining Glasse_type (standard,chinese)"<<std::endl;
-		      }
+	        for(unsigned int i=0;i!=Types_Electrode.size();++i)
+	        {
+	          if(strcmp(Platee->Attribute("ElectrodeType"),Types_Electrode[i].c_str()) == 0)
+	          {
+	            ElectrodeType=i;
+	            break;
+	          }
+	          else ElectrodeType=-1;
+	        }
+	        if(ElectrodeType==-1) std::cout<<"Error defining ElectrodeType"<<std::endl;
 	    }
-	    else glass_type=-1;
 	    if(Platee->Attribute("Gaz_number")!=NULL)
 	    {
 	      std::string e=Platee->Attribute("Gaz_number");
@@ -88,19 +88,18 @@ void XMLReader::Read(std::string& FileName, Geometry& geom)
 		        up_down=-1;std::cout<<"Error defining the position of the Dif (up, down)"<<std::endl;
 	        }
 	      }
-	      if(Diff->Attribute("DifType")!=NULL)
+	      if(Diff->Attribute("DifType")!=nullptr)
 	      {
-	        if(strcmp(Diff->Attribute("DifType"), "temporal") == 0) DifType=temporal;
-	        else if (strcmp(Diff->Attribute("DifType"), "positional") == 0) DifType=positional;
-	        else if (strcmp(Diff->Attribute("DifType"), "tcherenkov") == 0) DifType=tcherenkov;
-	        else if (strcmp(Diff->Attribute("DifType"), "tricot") == 0) DifType=tricot;
-          else if (strcmp(Diff->Attribute("DifType"), "scintillator") == 0) DifType=scintillator;
-          else if (strcmp(Diff->Attribute("DifType"), "pad") == 0) DifType=pad;
-	        else
-		      {
-		        DifType=-1;
-		        std::cout<<"Error defining the use of the Dif (temporal,posicional,tcherenkov,tricot)"<<std::endl;
-		      }
+	        for(unsigned int i=0;i!=Types_Dif.size();++i)
+	        {
+	          if(strcmp(Diff->Attribute("DifType"),Types_Dif[i].c_str()) == 0)
+	          {
+	            DifType=i;
+	            break;
+	          }
+	          else DifType=-1;
+	        }
+	        if(DifType==-1) std::cout<<"Error defining the type of Dif"<<std::endl;
 	      }
         Write(Diff,"DifId",PlateNumber,DifNumber,DifId,FileName);
         Write(Diff,"I",PlateNumber,DifNumber,I,FileName);
@@ -109,7 +108,7 @@ void XMLReader::Read(std::string& FileName, Geometry& geom)
 	      geom.AddDif(I,J,DifId,xy,xz,yz,PlateNumber,up_down,DifType);
 	      Diff= Diff->NextSiblingElement();
       }
-      geom.AddPlate(x,y,z,xy,xz,yz,DifM,SizeX,SizeY,glass_type,Gaz_number,HV_channel,Gaz_channel);
+      geom.AddPlate(x,y,z,xy,xz,yz,DifM,SizeX,SizeY,ElectrodeType,Gaz_number,HV_channel,Gaz_channel);
       DifM.clear();
       Platee=Platee->NextSiblingElement(); 
     }

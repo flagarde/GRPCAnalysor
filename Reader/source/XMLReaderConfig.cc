@@ -1,5 +1,5 @@
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
 #include "XMLReaderConfig.h"
 #include "Colors.h"
 #include "Types.h"
@@ -7,6 +7,7 @@
 #include <iostream>
 #include <sstream>
 #include <utility>
+
 std::array<unsigned int,64> ParsePAGAIN(std::string& pagain)
 {
       std::array<unsigned int,64>arr;
