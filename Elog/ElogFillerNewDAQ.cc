@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 #include "tinyxml.h"
+#include "Types.h"
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
@@ -10,29 +11,12 @@
 #include <fstream>
 using namespace std;
 
-/*int main()
-{
-    ifstream iFile("~/SDHCAL/python/Geom.xml");	// input.txt has integers, one per line
-
-    while (!iFile.eof())
-    {
-    	int x;
-    	iFile >> x;
-    	cerr << x << endl;
-    }
-
-    return 0;
-}*/
 const std::string elogcommand="elog";
 const std::string hostname="lyosvn.in2p3.fr";
-//const std::string hostname="localhost";
 const std::string logbook="GIF";
 const std::string port="443";
-//const std::string port="8080";
 const std::string subdir="elog";
 std::string username_password="";
-
-enum Types {pad,positional,temporal,tcherenkov,tricot,scintillator};
 
 void Write(TiXmlElement* elem,const char* who,double& var)
 {
@@ -42,7 +26,7 @@ void Write(TiXmlElement* elem,const char* who,double& var)
 		std::exit(1);	
 	}
 }
-void Read(std::string& FileName,std::string& parameters)
+int Read(std::string& FileName,std::string& parameters)
 {
 
   static std::vector<std::string>Numbers{"Zero","One","Two","Three","Four","Five","Six","Seven","Eight","Nine"};
@@ -168,19 +152,21 @@ void Read(std::string& FileName,std::string& parameters)
   }
   for(unsigned int i=1;i!=PlateNumber+1;++i) HVs+=" -a HV"+std::to_string(i)+"=\"Not Set\"";
   parameters+=Types+" "+PositionDet+" "+HVChannels+" "+GasChannels+" "+DifTypes+" -a \"Number Dif\"="+Numbers[PlateNumber]+" "+Dif_Ids+" "+zs+" "+HVs+" "+ Tcherenkov+" "+Scintillator+" "+TcheScinti+" " ;
+  return PlateNumber;
 }
 
-void FillElogPlease(std::string Filename,std::string run,std::string daqname)
+int FillElogPlease(std::string Filename,std::string run,std::string daqname,int ij)
 {
   std::string FileNam=Filename;
-  std::string command_part=elogcommand+" -h "+hostname+" -d "+subdir+" -l "+logbook+" -p "+port+" -u "+username_password+" -x -s ";
+  std::string command_part=elogcommand+" -h "+hostname+" -d "+subdir+" -l "+logbook+" -p "+port+" -u acqilc RPC_2008 -x -s ";
   std::string defaults="-a Good=\"Not Set\"  -a Beam=\"Not Set\" -a Source=\"Not Set\" -a Gaz=CMS";
   defaults+=" -a Author=DAQ -a Run="+run+" -a \"DAQ Name\"="+daqname+" -a Type=Data ";
   std::string parameters="";
-  Read(FileNam,parameters);
+  int nbrplate=Read(FileNam,parameters);
   std::string command=command_part+" "+defaults+" "+parameters+" -m /home/acqilc/Desktop/GRPCAnalysor/DetectorGeometry/904.xml \" \"";
   std::cout<<command_part+" "+defaults+" "+parameters+" -m /home/acqilc/Desktop/GRPCAnalysor/DetectorGeometry/904.xml \" \""<<std::endl;
-  int good =std::system(command.c_str());
+  if(ij==0)std::system(command.c_str());
+  return nbrplate;
 }
 
 
@@ -188,16 +174,18 @@ void FillElogPlease(std::string Filename,std::string run,std::string daqname)
 
 int main(int argc, char *argv[])
 {
-  
-  char* cpath=getenv("EventBuilder");
-  if (cpath == NULL) 
-  {
-	std::cout<<"Please add EventBuilder path"<<std::endl;
-	std::exit(1);
-  }
-  std::string confdb(cpath);
-  size_t ipass = confdb.find(":");
-  username_password=confdb.substr(0,ipass)+" "+confdb.substr(ipass+1,confdb.size()); 
+  ofstream myfile;
+  myfile.open ("/tmp/nbrchambers.txt",ios::trunc);
+ // //char* cpath=getenv("EventBuilder");
+ // if (cpath == NULL)
+//{
+// std::cout<<"Please add EventBuilder path"<<std::endl;
+//  std::exit(1);
+//}
+ // std::string confdb(cpath);
+ // size_t ipass = confdb.find(":");
+ // username_password=confdb.substr(0,ipass)+" "+confdb.substr(ipass+1,confdb.size()); 
+  int nrplate=0;
   std::string FileName="";
   std::string run="";
   std::string daqname="";
@@ -207,13 +195,23 @@ int main(int argc, char *argv[])
     run=argv[2];
     daqname=argv[3];
     std::cout<<FileName<<"  "<<run<<"  "<<daqname<<std::endl;
+    nrplate=FillElogPlease(FileName,run,daqname,0);
   }
-  else
+  else if(argc==5)
   {
+    FileName=argv[1];
+    run=argv[2];
+    daqname=argv[3];
     std::cout<<FileName<<"  "<<run<<"  "<<daqname<<std::endl;
-    std::exit(1);
+    nrplate=FillElogPlease(FileName,run,daqname,1);
   }
-  FillElogPlease(FileName,run,daqname);
-  return 0;
+  else 
+  {
+   std::exit(1);
+  }
+  
+  myfile <<nrplate<<"\n";
+  myfile.close();
+  return nrplate;
 }
 

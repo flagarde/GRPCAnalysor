@@ -1,6 +1,6 @@
 <marlin>
 	<execute>
-	  <!--processor name="Progress"/-->
+	  <processor name="Progress"/>
 		<processor name="Streamout"/>
 		<processor name="IJKfiller"/>
 		<processor name="XYZfiller"/>
@@ -11,14 +11,13 @@
     <parameter name="LCIOInputFiles">
   
 
-./DHCAL_728754_I0_0.slcio
+/home/acqilc/SDHCAL/Results/DHCAL_734374_I0_0.slcio
 		</parameter>
-		<parameter name="NextXMLFile" value="./xml/Test.xml" />
-    <parameter name="MaxRecordNumber" value="100"/>
-    <parameter name="SkipNEvents" value="10"/>
+    <parameter name="MaxRecordNumber" value="0"/>
+    <parameter name="SkipNEvents" value="0"/>
     <parameter name="AllowToModifyEvent" value="false"/>
     <parameter name="SupressCheck" value="false"/>
-    <parameter name="FileNameGeometry" value="./DetectorGeometry/Test.xml"/>
+    <parameter name="FileNameGeometry" value="./DetectorGeometry/904.xml"/>
     <parameter name="ReaderType" value="XMLReader"/>
     <parameter name="FileNameElog" value="./ElogXML/Elog.xml"/>
 	</global>
@@ -30,13 +29,14 @@
   <processor name="XYZfiller" type="XYZfiller"></processor>
   
   <processor name="TriventTriggered" type="TriventTriggered">
-    <parameter name="NoiseCut" value="50" />
-    <parameter name="TriggerTime" value="500" />
+    <parameter name="NoiseCut" value="5000" />
+    <parameter name="TriggerTimeLow" value="12" />
+    <parameter name="TriggerTimeHigh" value="18" />
   </processor>
   
 	<processor name="Streamout" type="Streamout">
     <parameter name="XDAQCollectionName" type="string" lcioInType="LCGenericObject">RU_XDAQ </parameter>
-    <parameter name="BitsToSkip" value="24"/>
+    <parameter name="BitsToSkip" value="20"/>
 	</processor>
 	
 	<processor name="MyLCIOOutputProcessor" type="LCIOOutputProcessor">
