@@ -1,14 +1,10 @@
 <Detector>
-  <Plate x="0" y="0" z="270" alpha="0" beta="0" gamma="0" SizeX="30" SizeY="30" >
-    <Dif DifId="23" I="0" J="0"/>  
+  <Plate x="0" y="0" z="270" alpha="0" beta="0" gamma="0" SizeX="300" SizeY="300" >
+    <Dif DifId="23" I="0" J="0" DifType="positional" up_down="down"/>  
+    <Dif DifId="26" I="0" J="0" DifType="positional" up_down="up"/>
   </Plate> 
-  <Plate x="0" y="0" z="270" alpha="0" beta="0" gamma="0" SizeX="30" SizeY="30" >
-    <Dif DifId="26" I="0" J="0"/>  
-  </Plate> 
-  <Plate x="0" y="0" z="270" alpha="0" beta="0" gamma="0" SizeX="30" SizeY="30" >
-    <Dif DifId="69" I="0" J="0"/>  
-  </Plate>
-  <Plate x="0" y="0" z="270" alpha="0" beta="0" gamma="0" SizeX="30" SizeY="30" >
-    <Dif DifId="69" I="0" J="0"/>  
+  <Plate x="0" y="0" z="270" alpha="0" beta="0" gamma="0" SizeX="300" SizeY="300" >
+      <Dif DifId="69" I="0" J="0" DifType="positional" up_down="up"/> 
+      <Dif DifId="1" I="0" J="0" DifType="positional" up_down="down"/> 
   </Plate> 
 </Detector>

@@ -1,7 +1,6 @@
-#ifndef COLORS_H
-#define COLORS_H
-
-#include<string>
+#ifndef Colors
+#define Colors
+#include <string>
 const std::string rouge="\033[31m";
 const std::string red=rouge;
 const std::string blanc="\033[39m";

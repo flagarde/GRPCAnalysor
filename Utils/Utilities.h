@@ -1,5 +1,5 @@
-#ifndef UTILITIES_H
-#define UTILITIES_H
+#ifndef Utilities
+#define Utilities
 #include <iostream> 
 #include"Colors.h"
 #include "TH3.h"

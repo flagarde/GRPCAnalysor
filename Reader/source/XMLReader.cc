@@ -6,7 +6,7 @@
 
 void XMLReader::Write(TiXmlElement* elem,const char* who,unsigned int &wherePlate,unsigned int &whereDif,double& var,std::string &FileName)
 {
-	if(elem->Attribute(who)!=NULL) var=atof(elem->Attribute(who));
+	if(elem->Attribute(who)!=nullptr) var=atof(elem->Attribute(who));
   else
   {
 		if(whereDif>0)std::cout<<red<<who<<" argument mising in Plate : "<<wherePlate<<" Dif number : "<<whereDif<<" !!!"<<normal<<std::endl;  

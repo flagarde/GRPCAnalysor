@@ -41,7 +41,7 @@ void IJKfiller::FillIJK(RawCalorimeterHit* raw, LCCollectionVec* col,CellIDEncod
     {
       if(Global::geom->GetDifUpDown(DIF_Id)==1) I =(2*Channel)+Global::geom->GetDifPositionX(DIF_Id);
       else I =2*(64-Channel)-1+Global::geom->GetDifPositionX(DIF_Id);
-      J =0;
+      J =Asic_Id;
     }
     cd["DIF_Id"]=DIF_Id;
     cd["Asic_Id"]=Asic_Id;

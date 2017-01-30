@@ -42,6 +42,8 @@ private:
     std::string _outFileName;
     std::map<int,TH1F*>TimeDistribution;
     std::map<int,TH2F*>HitsDistribution;
+    std::map<int,int> NumberOfEventsEfficientDIF;
+    std::map<int,int> NumberOfEventsEfficientPlan;
     std::map< int,std::vector<CalorimeterHit*> > SelectedHits;
     std::map< int,std::vector<CalorimeterHit*> > RejectedHits;
 };

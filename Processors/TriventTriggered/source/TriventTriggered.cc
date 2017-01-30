@@ -52,8 +52,8 @@ void TriventTriggered::init()
   printParameters();
   for(unsigned int i=0;i!=Global::geom->GetNumberPlates();++i)
   {
-    if(Global::geom->GetDifType(i)!=temporal&&Global::geom->GetDifType(i)!=scintillator&&Global::geom->GetDifType(i)!=tcherenkov)
-    {
+    /*if(Global::geom->GetDifType(i)!=temporal&&Global::geom->GetDifType(i)!=scintillator&&Global::geom->GetDifType(i)!=tcherenkov)
+    {*/
       std::string name="Time Distribution in plate nbr "+std::to_string(i+1);
       std::string name2="Hits Distribution in plate nbr "+std::to_string(i+1);
       int Xmin=0;
@@ -62,12 +62,16 @@ void TriventTriggered::init()
       if(_TriggerTimeLow!=0)Xmin=_TriggerTimeLow;
       if(_TriggerTimeHigh!=0)Xmax=_TriggerTimeHigh;
       NBins=Xmax-Xmin;
-      TimeDistribution[i+1]=new TH1F(name.c_str(),name.c_str(),NBins,Xmin,Xmax);
+      TimeDistribution[i+1]=new TH1F(name.c_str(),name.c_str(),NBins+1,Xmin,Xmax+1);
       int xmax=Global::geom->GetSizeX(i)+1;
       int ymax=Global::geom->GetSizeY(i)+1;
-      HitsDistribution[i+1]=new TH2F(name2.c_str(),name2.c_str(),xmax,0,xmax,ymax,0,ymax);
-    }
+      HitsDistribution[i+1]=new TH2F(name2.c_str(),name2.c_str(),129,0,129,2,0,64);
+    //}
   }
+  /*for(unsigned int i=0;i!=Global::geom->GetDifsList().size();++i)
+  {
+    NumberOfEventsEfficient[Global::geom->GetDifsList()[i]]=0;
+  }*/
 }
 
 std::string name1="blabla";
@@ -87,8 +91,8 @@ void TriventTriggered::processEvent( LCEvent * evtP )
       LCCollectionVec* clu2 = new LCCollectionVec(LCIO::CALORIMETERHIT);
       CellIDEncoder<CalorimeterHitImpl> cdt( "I:8,J:7,K:10,Dif_id:8,Asic_id:6,Chan_id:7" ,clu1) ;
       CellIDEncoder<CalorimeterHitImpl> cdt2( "I:8,J:7,K:10,Dif_id:8,Asic_id:6,Chan_id:7" ,clu2) ;
-	    clu1->setFlag(clu2->getFlag()|( 1 << LCIO::RCHBIT_LONG));
-	    clu1->setFlag(clu2->getFlag()|( 1 << LCIO::RCHBIT_TIME));
+	    clu1->setFlag(clu1->getFlag()|( 1 << LCIO::RCHBIT_LONG));
+	    clu1->setFlag(clu1->getFlag()|( 1 << LCIO::RCHBIT_TIME));
 	    clu2->setFlag(clu2->getFlag()|( 1 << LCIO::RCHBIT_LONG));
 	    clu2->setFlag(clu2->getFlag()|( 1 << LCIO::RCHBIT_TIME));
 	    bool selected=false;
@@ -108,12 +112,12 @@ void TriventTriggered::processEvent( LCEvent * evtP )
 	          if(Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])!=-1)
 	          {
 	            TimeDistribution[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(raw_hit->getTime());
-	            HitsDistribution[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(decode(raw_hit)["I"],decode(raw_hit)["J"]);
+	            HitsDistribution[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(decode(raw_hit)["I"],decode(raw_hit)["J"]*31);
 	          }
 		      }
 		      else
 		      {
-		        RejectedHits[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])].push_back(raw_hit);
+		        RejectedHits[decode(raw_hit)["DIF_Id"]].push_back(raw_hit);
 		      }
         } 
 	    }
@@ -128,13 +132,23 @@ void TriventTriggered::processEvent( LCEvent * evtP )
 	    }
 	    if(selected==true)
 	    {
-	      EventsSelected++; 
+	      EventsSelected++;
+	      std::map<int,bool> HASHITS; 
 	      for(std::map< int,std::vector<CalorimeterHit*> >::iterator it=SelectedHits.begin();it!=SelectedHits.end();++it)
 	      {
+	        if(it->second.size()!=0)
+	        {
+	          NumberOfEventsEfficientDIF[it->first]++;
+	          HASHITS[Global::geom->GetDifNbrPlate(it->first)]=true;
+	        }
 	        for(unsigned int o=0;o!=it->second.size();++o)
 	        {
 	          clu1->addElement(it->second[o]);
 	        }
+	      }
+	      for(std::map<int,bool>::iterator iu=HASHITS.begin();iu!=HASHITS.end();++iu)
+	      {
+	        NumberOfEventsEfficientPlan[iu->first]++;
 	      }
 	      for(std::map< int,std::vector<CalorimeterHit*> >::iterator it=RejectedHits.begin();it!=RejectedHits.end();++it)
 	      {
@@ -151,6 +165,7 @@ void TriventTriggered::processEvent( LCEvent * evtP )
         _EventWriter->writeEvent( evtt ) ;
       }
       SelectedHits.clear();
+      RejectedHits.clear();
 	  }
     catch (DataNotAvailableException &e)
 	  {
@@ -164,14 +179,42 @@ void TriventTriggered::processEvent( LCEvent * evtP )
 
 void TriventTriggered::end()
 {  
+  std::vector<std::string>NameBin;
+  std::vector<double>ValueBin;
+  for(unsigned int i=0;i!=Global::geom->GetNumberPlates();++i)
+  {
+    for(unsigned int o=0;o!=Global::geom->GetDifsInPlane(i).size();++o)
+    {
+      NameBin.push_back("DIF "+std::to_string(Global::geom->GetDifsInPlane(i)[o]));
+      ValueBin.push_back(NumberOfEventsEfficientDIF[Global::geom->GetDifsInPlane(i)[o]]*100.0/EventsSelected);
+    }
+    NameBin.push_back("Plate Nbr"+std::to_string(i+1));
+    ValueBin.push_back(NumberOfEventsEfficientPlan[i+1]*100.0/EventsSelected);
+  }
+  for(unsigned int y=0;y!=NameBin.size();++y) std::cout<<NameBin[y]<<std::endl;
+  TH1F* Efficiencies=new TH1F("Efficiencies","Efficiencies",NameBin.size(),0,NameBin.size());
+  for(unsigned int i=0;i!=NameBin.size();++i)
+  {
+    Efficiencies->Fill(i,ValueBin[i]);
+    Efficiencies->GetXaxis()->SetBinLabel(i+1,NameBin[i].c_str());
+  }
+  Efficiencies->GetYaxis()->SetRangeUser(0.0,101.0);
+  Efficiencies->GetYaxis()->SetTitle("Efficiency (%)");
+  Efficiencies->GetYaxis()->SetNdivisions(000510);
+  Global::out->writeObject("Efficiencies",Efficiencies);
+  delete Efficiencies;
   _EventWriter->close();
   for(std::map<int,TH1F*>::iterator it=TimeDistribution.begin();it!=TimeDistribution.end();++it)
   {
-    Global::out->writeObject("Distribution",it->second);
+    Global::out->writeObject("TimeDistribution",it->second);
+    delete it->second;
+  }
+  for(std::map<int,TH2F*>::iterator it=HitsDistribution.begin();it!=HitsDistribution.end();++it)
+  {
+    Global::out->writeObject("HitsDistribution",it->second);
     delete it->second;
   }
   std::cout << "TriventProcess::end() !! "<<TRIGGERSKIPPED<<" Events skiped"<< std::endl;
   std::cout <<TouchedEvents<<" Events were overlaping "<<"("<<(TouchedEvents*1.0/(TouchedEvents+eventtotal))*100<<"%)"<<std::endl;
   std::cout <<"Total nbr Events : "<<eventtotal<<" : "<<EventsSelected<<" ("<<EventsSelected*1.0/eventtotal*100<<"%)"<< std::endl;
-  /*std::cout<<green<<"Total time of the File : "<<total_time_file<<"s Total time of selected events : "<<total_time_by_user<<"s ; Time global ( Usefull Time ) : "<<HistoPlanes[0]->Get_Global_Total_Time()*200e-9<<"s; In percent : "<<HistoPlanes[0]->Get_Global_Total_Time()*100.0*200e-9/total_time_by_user<<"% of usefull time and "<<total_time_by_user*100.0/total_time_file<<"% of time selected in file"<<normal<<std::endl;*/
 }

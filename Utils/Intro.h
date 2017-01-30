@@ -1,10 +1,9 @@
-#ifndef VERSION
-#define VERSION
-#include<iostream>
-#include"Version.h"
-#include"Colors.h"
-#include<unistd.h>
-#include<cstdlib>
+#ifndef Intro_h
+#define Intro_h
+#include <iostream>
+#include "Version.h"
+#include "Colors.h"
+
 void inline Intro()
 {
 std::cout<<std::endl;
@@ -36,10 +35,6 @@ std::cout<<std::endl;
 std::cout<<std::endl;
 std::cout<<std::endl;
 std::cout<<std::endl;
-std::cout<<std::endl;
-sleep(1);
-                                            
+std::cout<<std::endl;                              
 }
-
-
 #endif
