@@ -35,9 +35,6 @@ TriventTriggered::TriventTriggered() : Processor("TriventTriggered")
   registerProcessorParameter("TriggerTimeLow" ,"All Events with Time lower than this number will be ignored (-1) in case of Triggerless",_TriggerTimeLow,_TriggerTimeLow);
   _TriggerTimeHigh=-1;
   registerProcessorParameter("TriggerTimeHigh" ,"All Events with Time higher than this number will be ignored (-1) in case of Triggerless",_TriggerTimeHigh,_TriggerTimeHigh);
-  if(_TriggerTimeLow==-1)_TriggerTimeLow=0;
-  if(_TriggerTimeHigh==-1)_TriggerTimeHigh=std::numeric_limits<int>::max();
-  if(_noiseCut==-1)_noiseCut=std::numeric_limits<int>::max();
 } // end constructor
 
 TriventTriggered::~TriventTriggered() {}
@@ -49,6 +46,9 @@ void TriventTriggered::init()
   _EventWriter = LCFactory::getInstance()->createLCWriter() ;
   _EventWriter->setCompressionLevel( 2 ) ;
   _EventWriter->open(_outFileName.c_str(),LCIO::WRITE_NEW) ;
+  if(_TriggerTimeLow==-1)_TriggerTimeLow=0;
+  if(_TriggerTimeHigh==-1)_TriggerTimeHigh=std::numeric_limits<int>::max();
+  if(_noiseCut==-1)_noiseCut=std::numeric_limits<int>::max();
   printParameters();
   for(unsigned int i=0;i!=Global::geom->GetNumberPlates();++i)
   {
@@ -113,7 +113,7 @@ void TriventTriggered::processEvent( LCEvent * evtP )
 		      }
 		      else
 		      {
-		        RejectedHits[decode(raw_hit)["DIF_Id"]].push_back(raw_hit);
+		        RejectedHits[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])].push_back(raw_hit);
 		      }
         } 
 	    }
