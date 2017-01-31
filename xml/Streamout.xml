@@ -5,16 +5,16 @@
 		<processor name="IJKfiller"/>
 		<processor name="XYZfiller"/>
 		<processor name="TriventTriggered"/>
-    <processor name="MyLCIOOutputProcessor"/>
+    <!--processor name="MyLCIOOutputProcessor"/-->
   </execute>
 	<global>
     <parameter name="LCIOInputFiles">
   
 
-/home/acqilc/SDHCAL/Results/DHCAL_734374_I0_0.slcio
+./DHCAL_734375_I0_0.slcio
 		</parameter>
     <parameter name="MaxRecordNumber" value="0"/>
-    <parameter name="SkipNEvents" value="0"/>
+    <parameter name="SkipNEvents" value="10"/>
     <parameter name="AllowToModifyEvent" value="false"/>
     <parameter name="SupressCheck" value="false"/>
     <parameter name="FileNameGeometry" value="./DetectorGeometry/904.xml"/>

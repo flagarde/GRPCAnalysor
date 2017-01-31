@@ -21,6 +21,8 @@
 #include "EVENT/CalorimeterHit.h" 
 #include "IMPL/ClusterImpl.h"
 
+#define area 0.25*30
+
 TriventTriggered aTriventTriggered;
 
 TriventTriggered::TriventTriggered() : Processor("TriventTriggered")
@@ -56,16 +58,30 @@ void TriventTriggered::init()
     {*/
       std::string name="Time Distribution in plate nbr "+std::to_string(i+1);
       std::string name2="Hits Distribution in plate nbr "+std::to_string(i+1);
+      std::string name3="Hits Distribution in plate nbr "+std::to_string(i+1)+" out of trigger time";
+      std::string name4="Time Distribution in plate nbr "+std::to_string(i+1)+" out of trigger time";
       int Xmin=0;
       int Xmax=100000;
       int NBins=100000;
-      if(_TriggerTimeLow!=0)Xmin=_TriggerTimeLow;
-      if(_TriggerTimeHigh!=0)Xmax=_TriggerTimeHigh;
+      MinMaxTime=std::pair<double,double>(0,100000);
+      if(_TriggerTimeLow!=0) 
+      {
+        Xmin=_TriggerTimeLow;
+        MinMaxTime.first=_TriggerTimeLow;
+      }
+      if(_TriggerTimeHigh!=0)
+      {
+        Xmax=_TriggerTimeHigh;
+        MinMaxTime.second=_TriggerTimeHigh;
+      }
+      MinMaxTimeRejected=std::pair<double,double>(0.,0.);
       NBins=Xmax-Xmin;
       TimeDistribution[i+1]=new TH1F(name.c_str(),name.c_str(),NBins+1,Xmin,Xmax+1);
+      TimeDistributionRejected[i+1]=new TH1F(name.c_str(),name.c_str(),100000,0,100000);
       int xmax=Global::geom->GetSizeX(i)+1;
       int ymax=Global::geom->GetSizeY(i)+1;
       HitsDistribution[i+1]=new TH2F(name2.c_str(),name2.c_str(),129,0,129,2,0,64);
+      HitsDistributionRejected[i+1]=new TH2F(name3.c_str(),name3.c_str(),129,0,129,2,0,64);
     //}
   }
   /*for(unsigned int i=0;i!=Global::geom->GetDifsList().size();++i)
@@ -108,16 +124,22 @@ void TriventTriggered::processEvent( LCEvent * evtP )
 	        }
 	        if(_TriggerTimeLow<=raw_hit->getTime()&&raw_hit->getTime()<=_TriggerTimeHigh)
 	        {
-	          SelectedHits[decode(raw_hit)["DIF_Id"]].push_back(raw_hit);
 	          if(Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])!=-1)
 	          {
+	            SelectedHits[decode(raw_hit)["DIF_Id"]].push_back(raw_hit);
 	            TimeDistribution[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(raw_hit->getTime());
 	            HitsDistribution[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(decode(raw_hit)["I"],decode(raw_hit)["J"]*31);
 	          }
 		      }
 		      else
 		      {
-		        RejectedHits[decode(raw_hit)["DIF_Id"]].push_back(raw_hit);
+		        if(Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])!=-1)
+	          {
+	            RejectedHits[decode(raw_hit)["DIF_Id"]].push_back(raw_hit);
+	            TimeDistributionRejected[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(raw_hit->getTime());
+	            if(MinMaxTimeRejected.second<raw_hit->getTime())MinMaxTimeRejected.second=raw_hit->getTime();
+	            HitsDistributionRejected[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(decode(raw_hit)["I"],decode(raw_hit)["J"]*31);
+	          }
 		      }
         } 
 	    }
@@ -174,6 +196,9 @@ void TriventTriggered::processEvent( LCEvent * evtP )
 	    break;
 	  }
   }
+  TotalTime+=(MinMaxTime.second-MinMaxTime.first)*200e-9;
+  TotalTimeRejected+=((MinMaxTimeRejected.second-MinMaxTimeRejected.first)-TotalTime)*200e-9;
+  MinMaxTimeRejected=std::pair<double,double>(0.,0.);
 }
 
 
@@ -209,9 +234,24 @@ void TriventTriggered::end()
     Global::out->writeObject("TimeDistribution",it->second);
     delete it->second;
   }
+  for(std::map<int,TH1F*>::iterator it=TimeDistributionRejected.begin();it!=TimeDistributionRejected.end();++it)
+  {
+    Global::out->writeObject("TimeDistributionRejected",it->second);
+    
+    delete it->second;
+  }
   for(std::map<int,TH2F*>::iterator it=HitsDistribution.begin();it!=HitsDistribution.end();++it)
   {
     Global::out->writeObject("HitsDistribution",it->second);
+    (it->second)->Scale(1.0/(TotalTime*area));
+    Global::out->writeObject("HitsDistribution/Scaled",it->second);
+    delete it->second;
+  }
+  for(std::map<int,TH2F*>::iterator it=HitsDistributionRejected.begin();it!=HitsDistributionRejected.end();++it)
+  {
+    Global::out->writeObject("HitsDistributionRejected",it->second);
+    (it->second)->Scale(1.0/(TotalTimeRejected*area));
+    Global::out->writeObject("HitsDistributionRejected/Scaled",it->second);
     delete it->second;
   }
   std::cout << "TriventProcess::end() !! "<<TRIGGERSKIPPED<<" Events skiped"<< std::endl;

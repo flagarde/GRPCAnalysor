@@ -28,15 +28,17 @@ class OutFileRoot
       setTDRStyle();
       setOutputFile(outputFileName);
     }
-    std::string replaceStrChar(std::string str, const std::string& replace, char ch);
-    bool setOutputFile(std::string& outputFileName);
-    bool setProcessorName(std::string& outputFileName);
-    bool writeObject(std::string& dirName, TObject *object);
-    bool writeObject(const char * dirName, TObject *object);
+    std::string replaceStrChar(std::string, const std::string&,char);
+    bool setOutputFile(std::string&);
+    bool setProcessorName(std::string&);
+    bool setRunName(std::string&);
+    bool writeObject(std::string&, TObject*);
+    bool writeObject(const char *, TObject*);
   protected:
     std::string _outputFileName;
     bool isOutFile_;
     TFile* outFile_;
     std::string ProcessorName;
+    std::string RunName;
 };
 #endif

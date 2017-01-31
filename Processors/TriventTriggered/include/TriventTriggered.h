@@ -41,7 +41,13 @@ private:
     LCWriter* _EventWriter;
     std::string _outFileName;
     std::map<int,TH1F*>TimeDistribution;
+    double TotalTimeRejected;
+    double TotalTime;
+    std::map<int,TH1F*>TimeDistributionRejected;
     std::map<int,TH2F*>HitsDistribution;
+    std::map<int,TH2F*>HitsDistributionRejected;
+    std::pair<double,double>MinMaxTimeRejected;
+    std::pair<double,double>MinMaxTime;
     std::map<int,int> NumberOfEventsEfficientDIF;
     std::map<int,int> NumberOfEventsEfficientPlan;
     std::map< int,std::vector<CalorimeterHit*> > SelectedHits;

@@ -36,6 +36,13 @@ bool OutFileRoot::setProcessorName(std::string& _ProcessorName)
   return true;
 }
 
+
+bool OutFileRoot::setRunName(std::string& _RunName)
+{
+  RunName=_RunName;
+  return true;
+}
+
 OutFileRoot::~OutFileRoot()
 {
   if(isOutFile_) 
@@ -47,12 +54,12 @@ OutFileRoot::~OutFileRoot()
 
 bool OutFileRoot::writeObject(std::string& dirName, TObject *object)
 {
-  if(!outFile_->GetDirectory((ProcessorName+dirName).c_str())) 
+  if(!outFile_->GetDirectory((RunName+ProcessorName+dirName).c_str())) 
   {
-    outFile_->mkdir((ProcessorName+dirName).c_str());
-    outFile_->cd((ProcessorName+dirName).c_str());
+    outFile_->mkdir((RunName+ProcessorName+dirName).c_str());
+    outFile_->cd((RunName+ProcessorName+dirName).c_str());
   }
-  else outFile_->cd((ProcessorName+dirName).c_str());
+  else outFile_->cd((RunName+ProcessorName+dirName).c_str());
   if(object!=nullptr)
   { 
     object->Write();
@@ -62,12 +69,12 @@ bool OutFileRoot::writeObject(std::string& dirName, TObject *object)
 
 bool OutFileRoot::writeObject(const char * dirName, TObject *object)
 {
-  if(!outFile_->GetDirectory((ProcessorName+dirName).c_str()))
+  if(!outFile_->GetDirectory((RunName+ProcessorName+dirName).c_str()))
   {
-    outFile_->mkdir((ProcessorName+dirName).c_str());
-    outFile_->cd((ProcessorName+dirName).c_str());
+    outFile_->mkdir((RunName+ProcessorName+dirName).c_str());
+    outFile_->cd((RunName+ProcessorName+dirName).c_str());
   }
-  else outFile_->cd((ProcessorName+dirName).c_str());
+  else outFile_->cd((RunName+ProcessorName+dirName).c_str());
   if(object!=nullptr)
   { 
     object->Write();

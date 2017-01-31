@@ -177,7 +177,7 @@ int main(int argc, char* argv[] )
       }
       int maxRecord = Global::parameters->getIntVal("MaxRecordNumber") ;
       if(rootFile==""&&Global::parameters->getStringVal("RootFileName")!="")rootFile=Global::parameters->getIntVal("RootFileName");
-      else rootFile="Default.root";
+      else if(rootFile==""&&Global::parameters->getStringVal("RootFileName")=="") rootFile="Default.root";
       int skipNEvents = Global::parameters->getIntVal("SkipNEvents");
       bool modify = ( Global::parameters->getStringVal("AllowToModifyEvent") == "true" ) ;
       std::string reader_type = Global::parameters->getStringVal("ReaderType");
@@ -239,6 +239,8 @@ int main(int argc, char* argv[] )
         std::string name=SplitFilename(files_well_ordered[i][0])[1];
         std::string number = SplitFilenameSDHCAL(name);
         Global::number=stoi(number);
+        std::string RunName="Run_"+number+"/";
+        Global::out->setRunName(RunName);
         if(FileNameElog!="") 
         {
           Global::conf = new ConfigInfos;
