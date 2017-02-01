@@ -323,7 +323,7 @@ int main(int argc, char* argv[] )
 	  << " Marlin will have to be terminated, sorry.\n"  
 	  << " ***********************************************\n" 
 	  << normal<<std:: endl ;
-    delete Global::out;
+    if(Global::out!=nullptr) delete Global::out;
     if(Global::geom!=nullptr) delete Global::geom;
     return 1 ;
   }
