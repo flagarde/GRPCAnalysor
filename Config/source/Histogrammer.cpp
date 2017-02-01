@@ -8,9 +8,10 @@ void Histogrammer::Plot()
   {
     int dif_id=it->first;
     std::cout<<green<<dif_id<<normal<<std::endl;
-    for(std::map<unsigned int,AsicInfo>::iterator itt=(it->second).ReturnMe().begin();itt!=(it->second).ReturnMe().end();++itt)
+    for(std::map<unsigned int,AsicInfo>::iterator itt=((it->second).ReturnMe()).begin();itt!=((it->second).ReturnMe()).end();++itt)
     {
-      int asic_id=itt->first;
+      unsigned int asic_id=itt->first;
+      if(asic_id>65) continue;
       std::cout<<blue<<asic_id<<normal<<std::endl;
       std::vector<unsigned int> thee= (itt->second).getThresholds();
       for(unsigned int i=0;i!=(itt->second).ReturnMe().size();++i)
