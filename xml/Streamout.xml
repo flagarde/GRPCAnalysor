@@ -17,7 +17,7 @@
     <parameter name="SkipNEvents" value="10"/>
     <parameter name="AllowToModifyEvent" value="false"/>
     <parameter name="SupressCheck" value="false"/>
-    <parameter name="FileNameGeometry" value="./DetectorGeometry/904.xml"/>
+    <parameter name="FileNameGeometry" value="./DetectorGeometry/904Analysis.xml"/>
     <parameter name="ReaderType" value="XMLReader"/>
     <parameter name="FileNameElog" value="./ElogXML/Elog.xml"/>
 	</global>
