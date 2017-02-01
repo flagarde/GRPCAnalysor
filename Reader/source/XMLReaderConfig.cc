@@ -10,18 +10,16 @@
 
 std::array<unsigned int,64> ParsePAGAIN(std::string& pagain)
 {
-      std::array<unsigned int,64>arr;
-      std::stringstream iss(pagain);
-      unsigned int gain=0;
-      unsigned short index_pad=0;
-      while(iss>>gain)
-      {
-        //std::cout<<(unsigned int )(gain)<<std::endl;
-        arr[index_pad]=gain;
-        //std::cout<<index_pad<<std::endl;
-        index_pad++;
-      }
-      return arr;
+  std::array<unsigned int,64>arr;
+  std::stringstream iss(pagain);
+  unsigned int gain=0;
+  unsigned short index_pad=0;
+  while(iss>>gain)
+  {
+    arr[index_pad]=gain;
+    index_pad++;
+  }
+  return arr;
 }
 
 void XMLReaderConfig::Read(std::string &FileName,ConfigInfos* Conf)

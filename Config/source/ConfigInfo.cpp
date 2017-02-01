@@ -39,7 +39,7 @@ unsigned int ConfigInfos::getGain(unsigned int& dif_id,unsigned int& asic_id, un
   return (DifInfos.find(dif_id)->second).getAsicInfo(asic_id).getGain(pad_id);
 }
   
-std::map<unsigned int,DifInfo> ConfigInfos::ReturnMe()
+std::map<unsigned int,DifInfo>& ConfigInfos::ReturnMe()
 {
   return DifInfos;
 } 

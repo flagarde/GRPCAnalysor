@@ -15,6 +15,7 @@ else()
   endif()
 endif()
 # add the binary tree to the search path for include files
+include_directories(include)
 file(COPY ./include/ DESTINATION ${PROJECT_INCLUDE_DIR})
 include_directories("${PROJECT_BINARY_DIR}")
 FILE (GLOB_RECURSE Config_SRC_FILES ./source/*)
