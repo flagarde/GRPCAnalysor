@@ -19629,13 +19629,13 @@ In fact HV was not set for the second GRPC gap.
 &lt;/Detector&gt;</TEXT>
 	</ENTRY>
 	<ENTRY>
-		<MID>207</MID>
-		<DATE>Wed, 01 Feb 2017 10:17:48 +0100</DATE>
+		<MID>208</MID>
+		<DATE>Wed, 01 Feb 2017 11:00:59 +0100</DATE>
 		<ENCODING>ELCode</ENCODING>
 		<Author>DAQ</Author>
 		<Type>Data</Type>
-		<Run>734384</Run>
-		<DAQ_Name>cms904_4</DAQ_Name>
+		<Run>734385</Run>
+		<DAQ_Name>cms904_3</DAQ_Name>
 		<Good>Not Set</Good>
 		<Problem_Type></Problem_Type>
 		<Beam>OFF</Beam>
@@ -19652,29 +19652,29 @@ In fact HV was not set for the second GRPC gap.
 		<Position_Bati_X></Position_Bati_X>
 		<Position_Bati_Y></Position_Bati_Y>
 		<Position_Bati_Z></Position_Bati_Z>
-		<Number_Dif>Two</Number_Dif>
-		<Dif_Id1></Dif_Id1>
-		<Position1_Z></Position1_Z>
-		<Type1></Type1>
-		<HV1>9000</HV1>
+		<Number_Dif>Four</Number_Dif>
+		<Dif_Id1>23</Dif_Id1>
+		<Position1_Z>0</Position1_Z>
+		<Type1>Unknown</Type1>
+		<HV1>9600</HV1>
 		<Gas_Channel1></Gas_Channel1>
 		<HV_Channel1></HV_Channel1>
-		<Dif_Id2></Dif_Id2>
-		<Position2_Z></Position2_Z>
-		<Type2></Type2>
-		<HV2>9000</HV2>
+		<Dif_Id2>26</Dif_Id2>
+		<Position2_Z>0</Position2_Z>
+		<Type2>Unknown</Type2>
+		<HV2>9600</HV2>
 		<Gas_Channel2></Gas_Channel2>
 		<HV_Channel2></HV_Channel2>
-		<Dif_Id3></Dif_Id3>
-		<Position3_Z></Position3_Z>
-		<Type3></Type3>
-		<HV3></HV3>
+		<Dif_Id3>69</Dif_Id3>
+		<Position3_Z>0</Position3_Z>
+		<Type3>Unknown</Type3>
+		<HV3>6600</HV3>
 		<Gas_Channel3></Gas_Channel3>
 		<HV_Channel3></HV_Channel3>
-		<Dif_Id4></Dif_Id4>
-		<Position4_Z></Position4_Z>
-		<Type4></Type4>
-		<HV4></HV4>
+		<Dif_Id4>1</Dif_Id4>
+		<Position4_Z>0</Position4_Z>
+		<Type4>Unknown</Type4>
+		<HV4>6600</HV4>
 		<Gas_Channel4></Gas_Channel4>
 		<HV_Channel4></HV_Channel4>
 		<Dif_Id5></Dif_Id5>
@@ -19709,22 +19709,115 @@ In fact HV was not set for the second GRPC gap.
 		<HV_Channel9></HV_Channel9>
 		<TEXT>Noise run
 
-GAP GRPC BOTTOM: 6200 V
-GAP GRPC TOP: off
+ &lt;Detector&gt;
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;23&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt; 
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;26&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt; 
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;69&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt;
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;1&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt; 
+&lt;/Detector&gt;</TEXT>
+	</ENTRY>
+	<ENTRY>
+		<MID>209</MID>
+		<DATE>Wed, 01 Feb 2017 11:03:48 +0100</DATE>
+		<ENCODING>ELCode</ENCODING>
+		<Author>DAQ</Author>
+		<Type>Data</Type>
+		<Run>734386</Run>
+		<DAQ_Name>cms904_3</DAQ_Name>
+		<Good>Not Set</Good>
+		<Problem_Type></Problem_Type>
+		<Beam>OFF</Beam>
+		<Energy></Energy>
+		<Particles></Particles>
+		<Attenuator_upstream></Attenuator_upstream>
+		<Attenuator_downstream></Attenuator_downstream>
+		<Source>Not Set</Source>
+		<Gaz>CMS</Gaz>
+		<Scintillator>Not Set</Scintillator>
+		<Dif_Scintillator></Dif_Scintillator>
+		<Tcherenkov>No</Tcherenkov>
+		<Dif_Tcherenkov></Dif_Tcherenkov>
+		<Position_Bati_X></Position_Bati_X>
+		<Position_Bati_Y></Position_Bati_Y>
+		<Position_Bati_Z></Position_Bati_Z>
+		<Number_Dif>Four</Number_Dif>
+		<Dif_Id1>23</Dif_Id1>
+		<Position1_Z>0</Position1_Z>
+		<Type1>Unknown</Type1>
+		<HV1>9800</HV1>
+		<Gas_Channel1></Gas_Channel1>
+		<HV_Channel1></HV_Channel1>
+		<Dif_Id2>26</Dif_Id2>
+		<Position2_Z>0</Position2_Z>
+		<Type2>Unknown</Type2>
+		<HV2>9800</HV2>
+		<Gas_Channel2></Gas_Channel2>
+		<HV_Channel2></HV_Channel2>
+		<Dif_Id3>69</Dif_Id3>
+		<Position3_Z>0</Position3_Z>
+		<Type3>Unknown</Type3>
+		<HV3>6800</HV3>
+		<Gas_Channel3></Gas_Channel3>
+		<HV_Channel3></HV_Channel3>
+		<Dif_Id4>1</Dif_Id4>
+		<Position4_Z>0</Position4_Z>
+		<Type4>Unknown</Type4>
+		<HV4>6800</HV4>
+		<Gas_Channel4></Gas_Channel4>
+		<HV_Channel4></HV_Channel4>
+		<Dif_Id5></Dif_Id5>
+		<Position5_Z></Position5_Z>
+		<Type5></Type5>
+		<HV5></HV5>
+		<Gas_Channel5></Gas_Channel5>
+		<HV_Channel5></HV_Channel5>
+		<Dif_Id6></Dif_Id6>
+		<Position6_Z></Position6_Z>
+		<Type6></Type6>
+		<HV6></HV6>
+		<Gas_Channel6></Gas_Channel6>
+		<HV_Channel6></HV_Channel6>
+		<Dif_Id7></Dif_Id7>
+		<Position7_Z></Position7_Z>
+		<Type7></Type7>
+		<HV7></HV7>
+		<Gas_Channel7></Gas_Channel7>
+		<HV_Channel7></HV_Channel7>
+		<Dif_Id8></Dif_Id8>
+		<Position8_Z></Position8_Z>
+		<Type8></Type8>
+		<HV8></HV8>
+		<Gas_Channel8></Gas_Channel8>
+		<HV_Channel8></HV_Channel8>
+		<Dif_Id9></Dif_Id9>
+		<Position9_Z></Position9_Z>
+		<Type9></Type9>
+		<HV9></HV9>
+		<Gas_Channel9></Gas_Channel9>
+		<HV_Channel9></HV_Channel9>
+		<TEXT>Noise run
 
-
-
-
-&lt;Detector&gt;
-  &lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;300&quot; SizeY=&quot;300&quot; ElectrodeType=&quot;Bakelite&quot; &gt;
-    &lt;Dif DifId=&quot;23&quot; I=&quot;0&quot; J=&quot;0&quot; DifType=&quot;Strip&quot; up_down=&quot;down&quot;/&gt;  
-    &lt;Dif DifId=&quot;26&quot; I=&quot;0&quot; J=&quot;0&quot; DifType=&quot;Strip&quot; up_down=&quot;up&quot;/&gt;
-  &lt;/Plate&gt;
-    &lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;300&quot; SizeY=&quot;300&quot; ElectrodeType=&quot;GRPC&quot; &gt;
-    &lt;Dif DifId=&quot;69&quot; I=&quot;0&quot; J=&quot;0&quot; DifType=&quot;Strip&quot; up_down=&quot;down&quot;/&gt;  
-    &lt;Dif DifId=&quot;69&quot; I=&quot;0&quot; J=&quot;0&quot; DifType=&quot;Strip&quot; up_down=&quot;up&quot;/&gt;
-  &lt;/Plate&gt; 
-
+ &lt;Detector&gt;
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;23&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt; 
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;26&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt; 
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;69&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt;
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;1&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt; 
 &lt;/Detector&gt;</TEXT>
 	</ENTRY>
 </ELOG_LIST>
