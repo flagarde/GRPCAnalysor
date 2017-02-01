@@ -9,10 +9,10 @@ class AsicInfo
    public:
    AsicInfo();
    AsicInfo(std::string& asic_type,std::array<unsigned int,64> pagain,unsigned int& b0,unsigned int& b1,unsigned int& b2,unsigned int& dif_id,unsigned int& id, unsigned int& header,unsigned int& num);
-   std::array<unsigned int,64> ReturnMe();
+   std::array<unsigned int,64>& ReturnMe();
    ~AsicInfo(){};
    std::string getAsicType();
-   std::array<unsigned int,64> getGain();
+   std::array<unsigned int,64>& getGain();
    unsigned int getGain(unsigned int& index_pad);
    std::vector<unsigned int> getThresholds();
    unsigned int getThreshold(int& threshold);

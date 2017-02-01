@@ -43,7 +43,7 @@ AsicInfo DifInfo::getAsicInfo(unsigned int asic_id)
   else return AsicInfo();
 }
    
-std::map<unsigned int,AsicInfo> DifInfo::ReturnMe()
+std::map<unsigned int,AsicInfo>& DifInfo::ReturnMe()
 {
   return AsicInfos;
 }

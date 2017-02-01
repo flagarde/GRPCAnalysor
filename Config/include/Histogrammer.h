@@ -9,25 +9,7 @@
 class Histogrammer
 {
   public:
-  Histogrammer(ConfigInfos* _conf,OutFileRoot* _out,Geometry* _geom)
-  {
-    conf=_conf;
-    out=_out;
-    geom=_geom;
-    for(unsigned int i=0;i!=geom->GetNumberPlates();++i)
-    {
-      int X=geom->GetSizeX(i)+1;
-      int Y=geom->GetSizeY(i)+1;
-      std::string h="Threshold_"+ std::to_string(i +1 );
-      std::string hh="gain_"+ std::to_string(i +1 );
-      for(unsigned int j=0;j<ThresholdMap.size();++j)
-      {
-        ThresholdMap[j].push_back(new TH2F((h+"_"+Thresholds_name[j]).c_str(),(h+"_"+Thresholds_name[j]).c_str(),X,0,X,Y,0,Y));
-      }
-      Gain.push_back(new TH2F(hh.c_str(),hh.c_str(),X,0,X,Y,0,Y));
-    }
-    Plot();
-  }
+  Histogrammer(ConfigInfos* _conf,OutFileRoot* _out,Geometry* _geom);
   void Plot();
   private:
   ConfigInfos* conf;

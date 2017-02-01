@@ -26,7 +26,7 @@ AsicInfo::AsicInfo(std::string& asic_type,std::array<unsigned int,64> pagain,uns
   NUM=num;
 }
 
-std::array<unsigned int,64> AsicInfo::ReturnMe()
+std::array<unsigned int,64>& AsicInfo::ReturnMe()
 {
   return PAGAIN;
 }
@@ -36,7 +36,7 @@ std::string AsicInfo::getAsicType()
   return ASIC_TYPE;
 }
 
-std::array<unsigned int,64> AsicInfo::getGain()
+std::array<unsigned int,64>& AsicInfo::getGain()
 {
   return PAGAIN;
 }

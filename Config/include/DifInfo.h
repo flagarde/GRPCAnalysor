@@ -16,7 +16,7 @@ class DifInfo
    unsigned int getID();
    void AddAsic(AsicInfo zz);
    AsicInfo getAsicInfo(unsigned int asic_id);
-   std::map<unsigned int,AsicInfo> ReturnMe();
+   std::map<unsigned int,AsicInfo>& ReturnMe();
    private:
    std::string NAME, DIF_TYPE;
    unsigned int ID;
