@@ -7,11 +7,11 @@ void Histogrammer::Plot()
   for(std::map<unsigned int,DifInfo>::iterator it=(conf->ReturnMe()).begin();it!=(conf->ReturnMe()).end();++it)
   {
     int dif_id=it->first;
-    std::cout<<dif_id<<std::endl;
+    std::cout<<green<<dif_id<<normal<<std::endl;
     for(std::map<unsigned int,AsicInfo>::iterator itt=(it->second).ReturnMe().begin();itt!=(it->second).ReturnMe().end();++itt)
     {
       int asic_id=itt->first;
-      std::cout<<asic_id<<std::endl;
+      std::cout<<blue<<asic_id<<normal<<std::endl;
       std::vector<unsigned int> thee= (itt->second).getThresholds();
       for(unsigned int i=0;i!=(itt->second).ReturnMe().size();++i)
       {
@@ -23,7 +23,7 @@ void Histogrammer::Plot()
             for(unsigned int h=0;h!=thee.size();++h)
             {
               ThresholdMap[h][geom->GetDifNbrPlate(it->first)-1]->Fill((1+MapILargeHR2[i]+AsicShiftI[asic_id])+geom->GetDifPositionX(dif_id),(32-(MapJLargeHR2[i]+AsicShiftJ[asic_id]))+geom->GetDifPositionY(dif_id),thee[h]);
-              std::cout<<thee[h]<<std::endl;
+              std::cout<<red<<thee[h]<<normal<<std::endl;
             }
           }
         }
