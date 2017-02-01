@@ -1,10 +1,7 @@
 #include "OutFileRoot.h"
-#include "TCanvas.h"
 #include <cstdlib>
 #include "Colors.h"
-#include "TLatex.h"
 #include <iostream>
-#include "TH1.h"
 
 std::string OutFileRoot::replaceStrChar(std::string str, const std::string& replace, char ch) 
 {
@@ -21,7 +18,6 @@ std::string OutFileRoot::replaceStrChar(std::string str, const std::string& repl
 
 bool OutFileRoot::setOutputFile(std::string& outputFileName)
 {
-  TH1::AddDirectory(kFALSE);
   outFile_ = new TFile(outputFileName.c_str(),"UPDATE");
   outFile_->SetBufferSize(5000000);
   outFile_->SetCompressionLevel(9);

@@ -21,7 +21,7 @@ class ConfigInfos
   void AddAsic(AsicInfo zz);
   std::vector<unsigned int> getThresholds(unsigned int& dif_id,unsigned int& asic_id);
   unsigned int getGain(unsigned int& dif_id,unsigned int& asic_id, unsigned& pad_id);
-  std::map<unsigned int,DifInfo>& ReturnMe();
+  std::map<unsigned int,DifInfo> ReturnMe();
   private:
   std::map<unsigned int,DifInfo>DifInfos;
   std::map<std::string,std::string>ElogParams;
