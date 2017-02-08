@@ -34,6 +34,7 @@ class Streamout : public Processor
     std::string  _XDAQCollectionNames ;
     std::string _RawHitCollectionName;
     int _BitsToSkip;
+    bool virer_full_asic;
     unsigned int _nevt;
     std::map<int,int> _CollectionSizeCounter;
     int _nWrongObj,_nProcessedObject, _hasSlowControl, _hasBadSlowControl;

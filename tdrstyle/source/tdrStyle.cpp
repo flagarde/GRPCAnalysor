@@ -9,8 +9,6 @@
 #include "TObject.h"
 using namespace std;
 
-
-
 void tdrGrid(bool gridOn) 
 {
   gStyle->SetPadGridX(gridOn);
@@ -26,7 +24,7 @@ void fixOverlay()
 
 void setTDRStyle() 
 {
-  TStyle *tdrStyle = new TStyle("tdrStyle","Style for P-TDR");
+  TStyle *tdrStyle = new TStyle("tdrStyle","tdrStyle");
 
 // For the canvas:
   tdrStyle->SetCanvasBorderMode(0);

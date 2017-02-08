@@ -49,7 +49,7 @@ TriventProcessor aTriventProcessor;
 
 TriventProcessor::TriventProcessor() : Processor("TriventProcessorType")
 {
-  _outFileName="LCIO_clean_run.slcio";
+  _outFileName="";
   registerProcessorParameter("LCIOOutputFile","LCIO file",_outFileName,_outFileName);
   _hcalCollections={"XYZFilled"};
   registerInputCollections( LCIO::CALORIMETERHIT,"HCALCollections","HCAL Collection Names",_hcalCollections,_hcalCollections);
@@ -57,8 +57,6 @@ TriventProcessor::TriventProcessor() : Processor("TriventProcessorType")
   registerProcessorParameter("TimeWin" ,"time window = 2 in default",_timeWin ,_timeWin);
   _noiseCut = 7;
   registerProcessorParameter("NoiseCut" ,"noise cut in time spectrum 7 in default",_noiseCut ,_noiseCut);
-  _LayerCut = 3;
-  registerProcessorParameter("LayerCut" ,"cut in number of layer 3 in default",_LayerCut ,_LayerCut); 
   _TriggerTime=0;
   registerProcessorParameter("TriggerTime" ,"All Events with Time greater than this number will be ignored (0) in case of Triggerless",_TriggerTime ,_TriggerTime);
   _efficiencyFrontScintillator =1;
@@ -78,6 +76,7 @@ void TriventProcessor::init()
   TOTALNUMBERHITSCINTI=0;
   TouchedEvents=0;
   eventtotal=0;
+  if(_outFileName=="")_outFileName="TriventBIF_"+std::to_string(Global::number)+".slcio";
   _EventWriter = LCFactory::getInstance()->createLCWriter() ;
   _EventWriter->setCompressionLevel( 2 ) ;
   _EventWriter->open(_outFileName.c_str(),LCIO::WRITE_NEW) ;
@@ -191,8 +190,7 @@ void TriventProcessor::processCollection(EVENT::LCEvent *evtP,LCCollection* col)
 		}
 	      CalculateEfficiencyScinti(EventsGroupedScin);
 	      
-	      if(nbrPlanestouched.size()>=(unsigned int)(_LayerCut)) 
-		{
+
 		  static unsigned int EventsSelectedt=0;
 		  EventsSelectedt++;
 		  LCEventImpl*  evtt = new LCEventImpl() ;
@@ -207,7 +205,6 @@ void TriventProcessor::processCollection(EVENT::LCEvent *evtP,LCCollection* col)
 		  evtt->setRunNumber(evtP->getRunNumber());
 		  _EventWriter->writeEvent( evtt ) ;
 		  delete evtt;
-		}
 	      EventsGroupedScin.clear();
 	    } //end if(Scintillatorseeittoo)
 	}//end for(std::map< int,int>::iterator itt=Times.begin(); itt!=Times.end(); ++itt) 
@@ -217,7 +214,7 @@ void TriventProcessor::end()
 {  
   _EventWriter->close();
   std::cout << "TriventProcess::end() !! "<<_trig_count<<" Events Trigged"<< std::endl;
-  std::cout <<"Total nbr Events : "<<eventtotal<<" Events with nbr of plates >="<<_LayerCut<<" : "<<EventsSelected<<" ("<<EventsSelected*1.0/eventtotal*100<<"%)"<< std::endl;
+  std::cout <<"Total nbr Events : "<<eventtotal<<" ("<<EventsSelected*1.0/eventtotal*100<<"%)"<< std::endl;
   for(std::map<int,bool>::iterator it=Warningg.begin(); it!=Warningg.end(); it++) 
   {
     std::cout<<red<<"REMINDER::Data from Dif "<<it->first<<" are skipped !"<<normal<<std::endl;
@@ -255,21 +252,6 @@ void TriventProcessor::end()
       fichier.close();  // on referme le fichier
     } //end if(fichier) 
   }//end if(EffiwithDiscri.size()!=0)
-  if(Negative.size()!=0)
-  {
-    std::cout<<red<<"WARNING !!! : Negative Value(s) of timeStamp found. They are written in Negative_Values.txt"<<normal<<std::endl;
-    std::ofstream fileNeg( "Negative_Values"+std::to_string(_NbrRun)+".txt", std::ios_base::out ); 
-    for(std::map<std::vector<unsigned int>,std::map< int, int>>::iterator it=Negative.begin();it!=Negative.end();++it)
-    {
-	    fileNeg<<"Dif_Id : "<<it->first[0]<<" Asic_Id : "<<it->first[1]<<" Channel_Id : "<<it->first[2];
-	    for(std::map< int, int>::iterator itt=it->second.begin();itt!=it->second.end();++itt)
-	    {
-	      fileNeg<<" Value : "<<itt->first<<" - "<<itt->second<<" Times; ";
-	    }
-	    fileNeg<<std::endl;
-    }
-    fileNeg.close();
-  }
 }//end end()
 
 

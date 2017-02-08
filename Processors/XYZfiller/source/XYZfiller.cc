@@ -103,17 +103,16 @@ void XYZfiller::processEvent( LCEvent * evtP )
       try 
 	    {
 	      LCCollection* col = evtP ->getCollection(_hcalCollections[i].c_str());
-        int numElements = col->getNumberOfElements();
         CellIDDecoder<CalorimeterHitImpl>decode(col);
         LCCollectionVec* col_event1 = new LCCollectionVec(LCIO::CALORIMETERHIT);
-        for (int ihit=0; ihit < numElements; ++ihit) 
+        CellIDEncoder<CalorimeterHitImpl> cd1( "I:8,J:7,K:10,DIF_Id:8,Asic_Id:6,Channel:7",col_event1) ;
+	      col_event1->setFlag(col_event1->getFlag()|( 1 << LCIO::RCHBIT_LONG));
+	      col_event1->setFlag(col_event1->getFlag()|( 1 << LCIO::RCHBIT_TIME));
+	      col_event1->setFlag(col_event1->getFlag()|( 1 << LCIO::CHBIT_ID1));
+	      col_event1->setFlag(col_event1->getFlag()|( 1 << LCIO::RCHBIT_ENERGY_ERROR));
+        for (int ihit=0; ihit < col->getNumberOfElements(); ++ihit) 
         {
 	        CalorimeterHitImpl *raw = dynamic_cast<CalorimeterHitImpl*>( col->getElementAt(ihit)) ;
-	        CellIDEncoder<CalorimeterHitImpl> cd1( "I:8,J:7,K:10,DIF_Id:8,Asic_Id:6,Channel:7",col_event1) ;
-	        col_event1->setFlag(col_event1->getFlag()|( 1 << LCIO::RCHBIT_LONG));
-	        col_event1->setFlag(col_event1->getFlag()|( 1 << LCIO::RCHBIT_TIME));
-	        col_event1->setFlag(col_event1->getFlag()|( 1 << LCIO::CHBIT_ID1));
-	        col_event1->setFlag(col_event1->getFlag()|( 1 << LCIO::RCHBIT_ENERGY_ERROR));
 	        if(Global::geom->GetDifNbrPlate(decode(raw)["DIF_Id"])!=-1) FillXYZ(raw,col_event1,cd1,decode);
 	      }
 	      evtP->addCollection(col_event1, "XYZFilled");

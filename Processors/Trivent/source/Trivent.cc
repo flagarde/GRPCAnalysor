@@ -84,7 +84,7 @@ Trivent aTrivent;
 
 Trivent::Trivent() : Processor("Trivent")
 {
-  _outFileName="LCIO_clean_run.slcio";
+  _outFileName="";
   registerProcessorParameter("LCIOOutputFile","LCIO file",_outFileName,_outFileName);
   _hcalCollections={"XYZFilled"};
   registerInputCollections( LCIO::CALORIMETERHIT,"HCALCollections","HCAL Collection Names",_hcalCollections,_hcalCollections);
@@ -106,13 +106,13 @@ void Trivent::processRunHeader( LCRunHeader* run){}
 
 void Trivent::init()
 { 
+  if(_outFileName=="")_outFileName="Trivent_"+std::to_string(Global::number)+".slcio";
   _EventWriter = LCFactory::getInstance()->createLCWriter() ;
   _EventWriter->setCompressionLevel( 2 ) ;
   _EventWriter->open(_outFileName.c_str(),LCIO::WRITE_NEW) ;
   printParameters();
 }
 
-std::string name1="blabla";
 void Trivent::processEvent( LCEvent * evtP )
 {
   for(unsigned int i=0; i< _hcalCollections.size(); i++) 

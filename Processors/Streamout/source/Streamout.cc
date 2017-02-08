@@ -24,9 +24,7 @@
 #include "DIFUnpacker.h"
 #include <sstream>
 #include <set>
-std::map<int, unsigned long long> BCID_old;
 using namespace lcio;
-
 
 Streamout aStreamout;
 
@@ -39,7 +37,7 @@ Streamout::Streamout() : Processor("Streamout")
   _nevt = _nWrongObj = _nProcessedObject = _hasSlowControl =_hasBadSlowControl = 0;
   _BitsToSkip = 24;
   registerProcessorParameter("BitsToSkip", "BitsToSkip (default 24)",_BitsToSkip, _BitsToSkip);
-  bool virer_full_asic = false;
+  virer_full_asic = false;
   registerProcessorParameter("Virer_full_asic", "Virer_full_asic",virer_full_asic, virer_full_asic);
   chFlag.setBit(bitinfo.RCHBIT_LONG);   // raw calorimeter data -> format long                                     // //(sert a qq chose?)
   chFlag.setBit(bitinfo.RCHBIT_BARREL); // barrel
@@ -85,14 +83,14 @@ void Streamout::processRunHeader(LCRunHeader *run)
 
 void Streamout::processEvent(LCEvent *evt) 
 {
-  _nevt++;
   IMPL::LCCollectionVec *RawVec = new IMPL::LCCollectionVec(LCIO::RAWCALORIMETERHIT);
   RawVec->setFlag(chFlag.getFlag());
   CellIDEncoder<RawCalorimeterHitImpl>cd("DIF_Id:8,Asic_Id:8,Channel:6,BarrelEndcapModule:10,FrameBCID:32",RawVec ) ;
-  cd.setCellIDFlag();
   try 
   {
     LCCollection *col = evt->getCollection(_XDAQCollectionNames);
+    _nevt++;
+    cd.setCellIDFlag();
     int nElement = col->getNumberOfElements();
     _CollectionSizeCounter[nElement]++;
     for (int iel = 0; iel < nElement; iel++) 
@@ -111,16 +109,12 @@ void Streamout::processEvent(LCEvent *evt)
       DIFPtr *d = bufferNavigator.getDIFPtr();
       if (d != nullptr) _DIFPtrValueAtReturnedPos[bufferNavigator.getDIFBufferStart()[d->getGetFramePtrReturn()]]++;
       _SizeAfterDIFPtr[bufferNavigator.getSizeAfterDIFPtr()]++;
-      // Make something with the Tcherenkov signal
-      if (isFirstEvent() == true) BCID_old[d->getID()] = d->getAbsoluteBCID();
-      unsigned int difAbsoluteBCID = (d->getAbsoluteBCID() - BCID_old[d->getID()]);
-      unsigned int rolling = int((difAbsoluteBCID / 16777215) * 16777215);
-      BCID_old[d->getID()] = d->getAbsoluteBCID();
       // create RawCalorimeterHit
+      int loop=0;
+      unsigned int FrameBCIDold=std::numeric_limits<unsigned int>::max();
       for (uint32_t i = 0; i < d->getNumberOfFrames(); i++) 
       {
         unsigned int nbr_hit_in_asic = 0;
-        bool virer_full_asic = false;
         for (uint32_t j = 0; j < 64; j++) if (d->getFrameLevel(i, j, 0) || d->getFrameLevel(i, j, 1)) nbr_hit_in_asic++;
         if (!(nbr_hit_in_asic == 64 && virer_full_asic == true)) 
         {
@@ -134,40 +128,22 @@ void Streamout::processEvent(LCEvent *evt)
             bitset<6> Channel(j);
             cd["Channel"]=(int)(Channel.to_ulong());
             cd["BarrelEndcapModule"]=0;
-            //cd["FrameBCID"]=(uint32_t)d->getFrameBCID(i);
             cd.setCellID( hit ) ;
-            //unsigned long int ID0;
-            //ID0 = (unsigned long int)(((unsigned short)d->getID()) &0xFF); // 8 firsts bits: DIF Id
-            //ID0 +=(unsigned long int)(((unsigned short)d->getFrameAsicHeader(i)<< 8) &0xFF00); // 8 next bits:   Asic Id
-            //
-            //ID0 += (unsigned long int)((Channel.to_ulong() << 16) &0x3F0000); // 6 next bits:   Asic's
-            //unsigned long BarrelEndcapModule =0; //(40 barrel + 24 endcap) modules to be coded here  0 for
-            //ID0 +=(unsigned long int)((BarrelEndcapModule << 22) & 0xFC00000);
-            //unsigned long int ID1 = (unsigned long int)(d->getFrameBCID(i));
             bitset<2> ThStatus;
             ThStatus[0] = d->getFrameLevel(i, j, 0);
             ThStatus[1] = d->getFrameLevel(i, j, 1);
-            
-            //hit->setCellID0((unsigned long int)ID0);
             hit->setCellID1(d->getFrameBCID(i));
             hit->setAmplitude(ThStatus.to_ulong());
-            // std::cout<<yellow<<hit->getAmplitude()<<normal<<std::endl;
             unsigned int TTT = (unsigned int)(d->getFrameTimeToTrigger(i));
-            hit->setTimeStamp(TTT);		      		//Time
-            // stamp of this event from Run Begining
-            int Tjj = rolling + d->getBCID() - d->getFrameBCID(i);
-            // std::cout<<Tjj<<std::endl;
-            //hit->setTimeStamp(Tjj);
-            if (Tjj < 0)
-                std::cout << "BCID " << d->getBCID() << " FrameBCID "
-                          << d->getFrameBCID(i)
-                          << " d->getBCID()-d->getFrameBCID(i) "
-                          << d->getBCID() - d->getFrameBCID(i) << " Rolling "
-                          << rolling << "  " << hit->getTimeStamp()
-                          << std::endl;
-              // std::cout<<yellow<<TTT<<"  "<<Tjj<<normal<<std::endl;
+            if(FrameBCIDold-d->getFrameBCID(i)<0)
+            {
+              loop++;
+              TTT=(unsigned int)(loop*16777215+d->getFrameTimeToTrigger(i));
+              std::cout<<"oups"<<std::endl;
+            }
+            FrameBCIDold=d->getFrameBCID(i);
+            hit->setTimeStamp(TTT);		      		
             RawVec->addElement(hit);
-
           } // for (uint32_t j=0;j<64;j++)
         }
           // std::cout<<yellow<<yyy<<normal<<std::endl;

@@ -4,7 +4,7 @@
 #include "Colors.h"
 #include "Geometry.h"
 #include "ConfigInfo.h"
-class StringParameters ;
+#include "StringParameters.h"
 class Global
 {
   public:

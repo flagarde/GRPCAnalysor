@@ -42,7 +42,7 @@ OutFileRoot::~OutFileRoot()
   if(isOutFile_) 
   {
     outFile_->Close();
-    delete outFile_;
+    if(outFile_!=nullptr) delete outFile_;
   }
 }
 

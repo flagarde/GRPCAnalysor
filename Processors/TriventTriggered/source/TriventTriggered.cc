@@ -12,7 +12,6 @@
 #include "UTIL/CellIDDecoder.h"
 #include "IMPL/LCCollectionVec.h"
 #include <iomanip>
-#include "Utilities.h"
 #include "IMPL/LCRunHeaderImpl.h"
 #include <IMPL/LCParametersImpl.h>
 #include <fstream>
@@ -20,14 +19,18 @@
 #include <algorithm> 
 #include "EVENT/CalorimeterHit.h" 
 #include "IMPL/ClusterImpl.h"
-
+#include "THnSparse.h"
+#include "HistoPlane.h"
+int bin[3]={129,3,4};
+double xmin[3]={0,1,-1};
+double xmax[3]={129,3,3};
 #define area 0.25*30
 
 TriventTriggered aTriventTriggered;
 
 TriventTriggered::TriventTriggered() : Processor("TriventTriggered")
 {
-  _outFileName="LCIO_clean_run.slcio";
+  _outFileName="";
   registerProcessorParameter("LCIOOutputFile","LCIO file",_outFileName,_outFileName);
   _hcalCollections={"XYZFilled"};
   registerInputCollections( LCIO::CALORIMETERHIT,"HCALCollections","HCAL Collection Names",_hcalCollections,_hcalCollections);
@@ -45,6 +48,7 @@ void TriventTriggered::processRunHeader( LCRunHeader* run){}
 
 void TriventTriggered::init()
 { 
+  if(_outFileName=="")_outFileName="TriventTriggered_"+std::to_string(Global::number)+".slcio";
   _EventWriter = LCFactory::getInstance()->createLCWriter() ;
   _EventWriter->setCompressionLevel( 2 ) ;
   _EventWriter->open(_outFileName.c_str(),LCIO::WRITE_NEW) ;
@@ -52,6 +56,8 @@ void TriventTriggered::init()
   if(_TriggerTimeHigh==-1)_TriggerTimeHigh=std::numeric_limits<int>::max();
   if(_noiseCut==-1)_noiseCut=std::numeric_limits<int>::max();
   printParameters();
+  NumberOfEventsEfficientDIF.clear();
+  NumberOfEventsEfficientPlan.clear();
   for(unsigned int i=0;i!=Global::geom->GetNumberPlates();++i)
   {
     /*if(Global::geom->GetDifType(i)!=temporal&&Global::geom->GetDifType(i)!=scintillator&&Global::geom->GetDifType(i)!=tcherenkov)
@@ -77,30 +83,29 @@ void TriventTriggered::init()
       MinMaxTimeRejected=std::pair<double,double>(0.,0.);
       NBins=Xmax-Xmin;
       TimeDistribution[i+1]=new TH1F(name.c_str(),name.c_str(),NBins+1,Xmin,Xmax+1);
-      TimeDistributionRejected[i+1]=new TH1F(name.c_str(),name.c_str(),100000,0,100000);
+      TimeDistributionRejected[i+1]=new TH1F(name4.c_str(),name4.c_str(),100000,0,100000);
       int xmax=Global::geom->GetSizeX(i)+1;
       int ymax=Global::geom->GetSizeY(i)+1;
       HitsDistribution[i+1]=new TH2F(name2.c_str(),name2.c_str(),129,0,129,2,0,64);
       HitsDistributionRejected[i+1]=new TH2F(name3.c_str(),name3.c_str(),129,0,129,2,0,64);
     //}
   }
-  /*for(unsigned int i=0;i!=Global::geom->GetDifsList().size();++i)
-  {
-    NumberOfEventsEfficient[Global::geom->GetDifsList()[i]]=0;
-  }*/
+  //SelectedHits3D=new THnSparseD("Selected Hits 3D", "Selected Hits 3D", 3, bin, xmin, xmax);
+  //RejectedHits3D=new THnSparseD("Rejected Hits 3D", "Rejected Hits 3D", 3, bin, xmin, xmax);
+  //a.Add("TH1","Pad","test",10,20.,30.);
+ // a.Add("TH3","Dif","test2",10,20.,30.,20,30.,40.,50,60.,70.);
+ // a.Add("TGraph","Dif","test3",10,20.,30.,20,30.,40.,50,60.,70.);
+  //a.List(); 
 }
 
-std::string name1="blabla";
 void TriventTriggered::processEvent( LCEvent * evtP )
 {
+  //a("test",1,1,1,1,1).Fill(1,2,3,4);
   for(unsigned int i=0; i< _hcalCollections.size(); i++) 
   {
     try 
 	  {
-	    static int event=0;
-	    event++;
 	    LCCollection* col = evtP ->getCollection(_hcalCollections[i].c_str());
-      int numElements = col->getNumberOfElements();
       CellIDDecoder<CalorimeterHit>decode(col);
       LCEventImpl*  evtt = new LCEventImpl() ;
       LCCollectionVec* clu1 = new LCCollectionVec(LCIO::CALORIMETERHIT);
@@ -111,8 +116,8 @@ void TriventTriggered::processEvent( LCEvent * evtP )
 	    clu1->setFlag(clu1->getFlag()|( 1 << LCIO::RCHBIT_TIME));
 	    clu2->setFlag(clu2->getFlag()|( 1 << LCIO::RCHBIT_LONG));
 	    clu2->setFlag(clu2->getFlag()|( 1 << LCIO::RCHBIT_TIME));
-	    bool selected=false;
-      for (int ihit=0; ihit < numElements; ++ihit) 
+	    bool selected=true;
+      for (int ihit=0; ihit < col->getNumberOfElements(); ++ihit) 
       {
         CalorimeterHit* raw_hit = dynamic_cast<CalorimeterHit*>( col->getElementAt(ihit)) ;
         if (raw_hit != nullptr) 
@@ -122,6 +127,8 @@ void TriventTriggered::processEvent( LCEvent * evtP )
 	        {
 	          continue;
 	        }
+	        //double fillr[3]={decode(raw_hit)["I"],decode(raw_hit)["J"],decode(raw_hit)["K"]};
+	        //double fillr2[3]={raw_hit->getPosition()[0],raw_hit->getPosition()[1],raw_hit->getPosition()[2]};
 	        if(_TriggerTimeLow<=raw_hit->getTime()&&raw_hit->getTime()<=_TriggerTimeHigh)
 	        {
 	          if(Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])!=-1)
@@ -129,6 +136,7 @@ void TriventTriggered::processEvent( LCEvent * evtP )
 	            SelectedHits[decode(raw_hit)["DIF_Id"]].push_back(raw_hit);
 	            TimeDistribution[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(raw_hit->getTime());
 	            HitsDistribution[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(decode(raw_hit)["I"],decode(raw_hit)["J"]*31);
+	            //SelectedHits3D->Fill(fillr);
 	          }
 		      }
 		      else
@@ -139,13 +147,15 @@ void TriventTriggered::processEvent( LCEvent * evtP )
 	            TimeDistributionRejected[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(raw_hit->getTime());
 	            if(MinMaxTimeRejected.second<raw_hit->getTime())MinMaxTimeRejected.second=raw_hit->getTime();
 	            HitsDistributionRejected[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(decode(raw_hit)["I"],decode(raw_hit)["J"]*31);
+	            //RejectedHits3D->Fill(fillr);
 	          }
 		      }
         } 
 	    }
 	    for(std::map< int,std::vector<CalorimeterHit*> >::iterator it=SelectedHits.begin();it!=SelectedHits.end();++it)
 	    {
-	      if(it->second.size()>=(unsigned int)(_noiseCut))
+	      std::cout<<(it->second).size()<<"  "<<(unsigned int)(_noiseCut)<<std::endl;
+	      if((it->second).size()>=(unsigned int)(_noiseCut))
 	      {
 	        selected=false;
 	        break;
@@ -185,6 +195,7 @@ void TriventTriggered::processEvent( LCEvent * evtP )
 	      evtt->setTimeStamp(evtP->getTimeStamp()*1e9);
 	      evtt->setRunNumber(evtP->getRunNumber());
         _EventWriter->writeEvent( evtt ) ;
+        HASHITS.clear();
       }
       SelectedHits.clear();
       RejectedHits.clear();
@@ -195,6 +206,7 @@ void TriventTriggered::processEvent( LCEvent * evtP )
 	    TRIGGERSKIPPED++;
 	    break;
 	  }
+	  
   }
   TotalTime+=(MinMaxTime.second-MinMaxTime.first)*200e-9;
   TotalTimeRejected+=((MinMaxTimeRejected.second-MinMaxTimeRejected.first)-TotalTime)*200e-9;
@@ -212,9 +224,11 @@ void TriventTriggered::end()
     {
       NameBin.push_back("DIF "+std::to_string(Global::geom->GetDifsInPlane(i)[o]));
       ValueBin.push_back(NumberOfEventsEfficientDIF[Global::geom->GetDifsInPlane(i)[o]]*100.0/EventsSelected);
+      std::cout<<red<<NumberOfEventsEfficientDIF[Global::geom->GetDifsInPlane(i)[o]]<<"  "<<NumberOfEventsEfficientDIF[Global::geom->GetDifsInPlane(i)[o]]*100.0/EventsSelected<<std::endl;
     }
     NameBin.push_back("Plate Nbr"+std::to_string(i+1));
     ValueBin.push_back(NumberOfEventsEfficientPlan[i+1]*100.0/EventsSelected);
+    std::cout<<yellow<<NumberOfEventsEfficientPlan[i+1]<<"  "<<NumberOfEventsEfficientPlan[i+1]*100.0/EventsSelected<<"  "<<EventsSelected<<std::endl;
   }
   for(unsigned int y=0;y!=NameBin.size();++y) std::cout<<NameBin[y]<<std::endl;
   TH1F* Efficiencies=new TH1F("Efficiencies","Efficiencies",NameBin.size(),0,NameBin.size());
@@ -254,6 +268,30 @@ void TriventTriggered::end()
     Global::out->writeObject("HitsDistributionRejected/Scaled",it->second);
     delete it->second;
   }
+  for(std::map<int,int>::iterator it=NumberOfEventsEfficientDIF.begin();it!=NumberOfEventsEfficientDIF.end();++it)
+  {
+    std::cout<<yellow<<it->second<<normal<<std::endl;
+  }
+  //TF1 * tf = new TF1("TransferFunction", transfer_function2);
+  //Global::out->writeObject("3D",SelectedHits3D);
+  //Global::out->writeObject("3D",RejectedHits3D);
+  //TH3D* u1=SelectedHits3D->Projection(2,1,0);
+  //TH3D* u2=RejectedHits3D->Projection(2,1,0);
+  //u1->GetYaxis()->SetTitle("Y");
+  //u1->GetXaxis()->SetTitle("X");
+  //u1->GetZaxis()->SetTitle("Z");
+  //u2->GetYaxis()->SetTitle("Y");
+  //u2->GetXaxis()->SetTitle("X");
+  //u2->GetZaxis()->SetTitle("Z");
+  //u1->GetListOfFunctions()->Add(tf);
+  //u2->GetListOfFunctions()->Add(tf);
+ // Global::out->writeObject("3D",Make_good_TH3(u1));
+//  Global::out->writeObject("3D",Make_good_TH3(u2));
+  //delete SelectedHits3D;
+  //delete RejectedHits3D;
+  //delete u1;
+  //delete u2;
+  //a.Write();
   std::cout << "TriventProcess::end() !! "<<TRIGGERSKIPPED<<" Events skiped"<< std::endl;
   std::cout <<TouchedEvents<<" Events were overlaping "<<"("<<(TouchedEvents*1.0/(TouchedEvents+eventtotal))*100<<"%)"<<std::endl;
   std::cout <<"Total nbr Events : "<<eventtotal<<" : "<<EventsSelected<<" ("<<EventsSelected*1.0/eventtotal*100<<"%)"<< std::endl;

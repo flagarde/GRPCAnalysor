@@ -8,6 +8,17 @@
 #include <map>
 #include <string>
 #include <cstdlib>
+
+const std::string Shift(double val)
+{
+  std::stringstream ss;
+	if(val<10) ss<<"  "<<val;
+	if(val>=10&&val<1000) ss<<" "<<val;
+	if(val>=1000) ss<<val;
+  return ss.str();
+}
+
+
 void FillDelimiter(std::string &ToParse,int size,std::map<int ,std::vector<double> >&Delimiter)
 {
     std::string delimiter_Dif = "|";
@@ -86,10 +97,6 @@ void FillDelimiter(std::string &ToParse,int size,std::map<int ,std::vector<doubl
 
 }
 
-
-
-
-
 Double_t transfer_function(const Double_t *x, const Double_t * /*param*/)
 {
    if (*x <=0)return 0.00;
@@ -105,48 +112,48 @@ Double_t transfer_function(const Double_t *x, const Double_t * /*param*/)
    else return 1.0;
 }
 
-void Make_good_TH3(TH3* t)
+Double_t transfer_function2(const Double_t *x, const Double_t *param)
 {
- for(int i = 1; i <= t->GetNbinsX(); ++i)
+  if (*x<=0) return 0.;
+}
+
+TH3* Make_good_TH3(TH3* t)
+{
+  /*for(int i = 1; i <= t->GetNbinsX(); ++i)
+  {
+    for(int j = 1; j <= t->GetNbinsY(); ++j)
     {
-        	for(int j = 1; j <= t->GetNbinsY(); ++j)
-        	{
-            		for(int k = 1; k <= t->GetNbinsZ(); ++k)
-            		{
-                                
-                		if(t->GetBinContent(i, j, k)!=0) t->SetBinContent(i, j, k,TMath::Log(t->GetBinContent(i, j, k)));
-                                //std::cout<<hist->GetBinContent(i, j, k)<<std::endl;
-            		}
-        	}
+      for(int k = 1; k <= t->GetNbinsZ(); ++k)
+      {
+        if(t->GetBinContent(i, j, k)!=0) t->SetBinContent(i, j, k,TMath::Log(t->GetBinContent(i, j, k)));
+      }
     }
-    long int val=0;
-    for(int i = 1; i <= t->GetNbinsX(); ++i)
+  }*/
+  /*long int val=0;
+  for(int i = 1; i <= t->GetNbinsX(); ++i)
+  {
+    for(int j = 1; j <= t->GetNbinsY(); ++j)
     {
-        	for(int j = 1; j <= t->GetNbinsY(); ++j)
-        	{
-            		for(int k = 1; k <= t->GetNbinsZ(); ++k)
-            		{
-                                
-                		val += t->GetBinContent(i, j, k);
-            		}
-        	}
+      for(int k = 1; k <= t->GetNbinsZ(); ++k)
+      {
+        val += t->GetBinContent(i, j, k);
+      }
     }
-    for(int i = 1; i <= t->GetNbinsX(); ++i)
+  }
+  for(int i = 1; i <= t->GetNbinsX(); ++i)
+  {
+    for(int j = 1; j <= t->GetNbinsY(); ++j)
     {
-        	for(int j = 1; j <= t->GetNbinsY(); ++j)
-        	{
-            		for(int k = 1; k <= t->GetNbinsZ(); ++k)
-            		{
-                                
-                		if(t->GetBinContent(i, j, k)!=0) t->SetBinContent(i, j, k,t->GetBinContent(i, j, k)*1.0/val);
-                                //std::cout<<hist->GetBinContent(i, j, k)<<std::endl;
-            		}
-        	}
+      for(int k = 1; k <= t->GetNbinsZ(); ++k)
+      {
+        if(t->GetBinContent(i, j, k)!=0) t->SetBinContent(i, j, k,t->GetBinContent(i, j, k)*1.0/val);
+      }
     }
-    double min=99999;
-    double max=-1;
-    for(int i = 1; i <= t->GetNbinsX(); ++i)
-    {
+  }*/
+  /*double min=9.9999e30;
+  double max=-1;
+  for(int i = 1; i <= t->GetNbinsX(); ++i)
+  {
         	for(int j = 1; j <= t->GetNbinsY(); ++j)
         	{
             		for(int k = 1; k <= t->GetNbinsZ(); ++k)
@@ -160,7 +167,7 @@ void Make_good_TH3(TH3* t)
                                 //std::cout<<hist->GetBinContent(i, j, k)<<std::endl;
             		}
         	}
-    }
+    }*/
     for(int i = 1; i <= t->GetNbinsX(); ++i)
     {
         	for(int j = 1; j <= t->GetNbinsY(); ++j)
@@ -168,11 +175,11 @@ void Make_good_TH3(TH3* t)
             		for(int k = 1; k <= t->GetNbinsZ(); ++k)
             		{
                                 
-                		if(t->GetBinContent(i, j, k)!=0) t->SetBinContent(i, j, k,t->GetBinContent(i, j, k)*1.0/max);
+                		if(t->GetBinContent(i, j, k)!=0) t->SetBinContent(i, j, k,TMath::Log(t->GetBinContent(i, j, k)));
                                 //std::cout<<hist->GetBinContent(i, j, k)<<std::endl;
             		}
         	}
     }
+    return t;
 }
-
 #endif

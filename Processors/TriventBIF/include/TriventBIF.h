@@ -41,7 +41,6 @@ protected:
     std::string _noiseFileName;
     std::string _outFileName;
     LCWriter* _EventWriter;
-    LCWriter* _NoiseWriter;
     unsigned int TouchedEvents;
     int _timeWin;
     int _TimeWin_Noise;

@@ -9,11 +9,13 @@
 #include "IMPL/CalorimeterHitImpl.h"
 #include "EVENT/LCRunHeader.h"
 #include "IMPL/LCEventImpl.h"
+#include "THnSparse.h"
 #include <set>
 #include <string>
 #include <iomanip>
 #include <fstream>
 #include <iostream>
+#include "HistoPlane.h"
 
 class TriventTriggered : public Processor
 {
@@ -46,11 +48,15 @@ private:
     std::map<int,TH1F*>TimeDistributionRejected;
     std::map<int,TH2F*>HitsDistribution;
     std::map<int,TH2F*>HitsDistributionRejected;
+//extern TCanvas* canvas;
+    THnSparseD* SelectedHits3D;
+    THnSparseD* RejectedHits3D;
     std::pair<double,double>MinMaxTimeRejected;
     std::pair<double,double>MinMaxTime;
     std::map<int,int> NumberOfEventsEfficientDIF;
     std::map<int,int> NumberOfEventsEfficientPlan;
     std::map< int,std::vector<CalorimeterHit*> > SelectedHits;
     std::map< int,std::vector<CalorimeterHit*> > RejectedHits;
+    HistoPlane a;
 };
 #endif

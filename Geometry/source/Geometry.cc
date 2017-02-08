@@ -5,14 +5,7 @@
 #include <string>
 #include <sstream>
 #include <limits>
-inline std::string Shift(double val)
-{
-  std::stringstream ss;
-	if(val<10) ss<<"  "<<val;
-	if(val>=10&&val<1000) ss<<" "<<val;
-	if(val>=1000&&val<10000) ss<<val;
-  return ss.str();
-}
+#include "Utilities.h"
 
 void Geometry::PrintGeom()
 { 

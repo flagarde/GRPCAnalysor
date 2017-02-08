@@ -26,7 +26,6 @@ void IJKfiller::FillIJK(RawCalorimeterHit* raw, LCCollectionVec* col,CellIDEncod
     int DIF_Id  = cd2(raw)["DIF_Id"];
     int Asic_Id = cd2(raw)["Asic_Id"];
     int Channel = cd2(raw)["Channel"];
-    
     caloHit->setTime(float((*raw).getTimeStamp()));
     caloHit->setEnergy(float((*raw).getAmplitude()&3));
     int K =Global::geom->GetDifNbrPlate(DIF_Id);
@@ -91,10 +90,9 @@ void IJKfiller::processEvent( LCEvent * evtP )
 	    {
 	      LCCollection* col = evtP ->getCollection(_hcalCollections[i].c_str());
 	      CellIDDecoder<RawCalorimeterHit>decode(col);
-        int numElements = col->getNumberOfElements();
         ////verify if timestamp negative 
         bool HasTimeStampNegative=false;
-        for (int ihit=0; ihit < numElements; ++ihit) 
+        for (int ihit=0; ihit < col->getNumberOfElements(); ++ihit) 
         {
           RawCalorimeterHit *raw = dynamic_cast<RawCalorimeterHit*>( col->getElementAt(ihit)) ;
           if (raw != nullptr) 
@@ -120,14 +118,14 @@ void IJKfiller::processEvent( LCEvent * evtP )
         if(HasTimeStampNegative==false)
         {
           LCCollectionVec* col_event1 = new LCCollectionVec(LCIO::CALORIMETERHIT);
-          for (int ihit=0; ihit < numElements; ++ihit) 
+          CellIDEncoder<CalorimeterHitImpl> cd1( "I:8,J:7,K:10,DIF_Id:8,Asic_Id:6,Channel:7",col_event1) ;
+	        col_event1->setFlag(col_event1->getFlag()|( 1 << LCIO::RCHBIT_LONG));
+	        col_event1->setFlag(col_event1->getFlag()|( 1 << LCIO::RCHBIT_TIME));
+	        col_event1->setFlag(col_event1->getFlag()|( 1 << LCIO::CHBIT_ID1));
+	        col_event1->setFlag(col_event1->getFlag()|( 1 << LCIO::RCHBIT_BARREL));
+          for (int ihit=0; ihit < col->getNumberOfElements(); ++ihit) 
           {
 	          RawCalorimeterHit *raw = dynamic_cast<RawCalorimeterHit*>( col->getElementAt(ihit)) ;
-	          CellIDEncoder<CalorimeterHitImpl> cd1( "I:8,J:7,K:10,DIF_Id:8,Asic_Id:6,Channel:7",col_event1) ;
-	          col_event1->setFlag(col_event1->getFlag()|( 1 << LCIO::RCHBIT_LONG));
-	          col_event1->setFlag(col_event1->getFlag()|( 1 << LCIO::RCHBIT_TIME));
-	          col_event1->setFlag(col_event1->getFlag()|( 1 << LCIO::CHBIT_ID1));
-	          col_event1->setFlag(col_event1->getFlag()|( 1 << LCIO::RCHBIT_BARREL));
 	          if(Global::geom->GetDifNbrPlate(decode(raw)["DIF_Id"])!=-1) FillIJK(raw,col_event1,cd1,decode);
 	          //delete raw;
 	        }
