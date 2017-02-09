@@ -24,6 +24,7 @@
 #include "DIFUnpacker.h"
 #include <sstream>
 #include <set>
+#include <limits>
 using namespace lcio;
 
 Streamout aStreamout;
