@@ -147,7 +147,7 @@ void HistoPlane::CreateHistoGraph(std::string n,std::string type,int& number,int
     a->SetName(n.c_str());
     a->SetTitle(n.c_str());
     ugly.HistGraphs[number]=a;
-    ugly.PointsInGraphs[number]=0;
+    ugly.PointsInGraphs[number]=-1;
   }
   if(type=="TGraphErrors") 
   {
@@ -155,7 +155,7 @@ void HistoPlane::CreateHistoGraph(std::string n,std::string type,int& number,int
     a->SetName(n.c_str());
     a->SetTitle(n.c_str());
     ugly.HistGraphs[number]=a;
-    ugly.PointsInGraphs[number]=0;
+    ugly.PointsInGraphs[number]=-1;
   }
   if(type=="TGraph2D") 
   {
@@ -163,7 +163,7 @@ void HistoPlane::CreateHistoGraph(std::string n,std::string type,int& number,int
     a->SetName(n.c_str());
     a->SetTitle(n.c_str());
     ugly.HistGraphs[number]=a;
-    ugly.PointsInGraphs[number]=0;
+    ugly.PointsInGraphs[number]=-1;
   }
   if(type=="TGraph2DErrors") 
   {
@@ -171,7 +171,7 @@ void HistoPlane::CreateHistoGraph(std::string n,std::string type,int& number,int
     a->SetName(n.c_str());
     a->SetTitle(n.c_str());
     ugly.HistGraphs[number]=a;
-    ugly.PointsInGraphs[number]=0;
+    ugly.PointsInGraphs[number]=-1;
   }
   ugly.IntToType[number]=type;
 }

@@ -53,7 +53,6 @@ void XMLReaderElog::Read(std::string &FileName,ConfigInfos* Conf,int RunNumber)
   std::string path="./SlowControl/"+DAQ_Name+".xml";
   //First Try to find the SlowControl File in the folder SlowControl 
   TiXmlDocument docc(path.c_str());
-  docc.LoadFile();
   if(!docc.LoadFile()&&DAQ_Name!="")
   {
     #ifdef OCCI_SUPPORT
