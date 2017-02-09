@@ -143,7 +143,7 @@ void HistoPlane::CreateHistoGraph(std::string n,std::string type,int& number,int
   if(type=="TProfile3D") ugly.HistGraphs[number]=new TProfile3D(n.c_str(),n.c_str(),bx,xd,xu,by,yd,yu,bz,zd,zu);
   if(type=="TGraph") 
   {
-    TGraph* a=new TGraph(1000);
+    TGraph* a=new TGraph();
     a->SetName(n.c_str());
     a->SetTitle(n.c_str());
     ugly.HistGraphs[number]=a;
@@ -151,7 +151,7 @@ void HistoPlane::CreateHistoGraph(std::string n,std::string type,int& number,int
   }
   if(type=="TGraphErrors") 
   {
-    TGraphErrors* a=new TGraphErrors(1000);
+    TGraphErrors* a=new TGraphErrors();
     a->SetName(n.c_str());
     a->SetTitle(n.c_str());
     ugly.HistGraphs[number]=a;
@@ -159,7 +159,7 @@ void HistoPlane::CreateHistoGraph(std::string n,std::string type,int& number,int
   }
   if(type=="TGraph2D") 
   {
-    TGraph2D* a=new TGraph2D(1000);
+    TGraph2D* a=new TGraph2D();
     a->SetName(n.c_str());
     a->SetTitle(n.c_str());
     ugly.HistGraphs[number]=a;
@@ -167,7 +167,7 @@ void HistoPlane::CreateHistoGraph(std::string n,std::string type,int& number,int
   }
   if(type=="TGraph2DErrors") 
   {
-    TGraph2DErrors* a=new TGraph2DErrors(1000);
+    TGraph2DErrors* a=new TGraph2DErrors();
     a->SetName(n.c_str());
     a->SetTitle(n.c_str());
     ugly.HistGraphs[number]=a;
