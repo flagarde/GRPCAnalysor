@@ -34,5 +34,5 @@ INSTALL( TARGETS Marlin LIBRARY DESTINATION ${LIBRARY_OUTPUT_PATH} ARCHIVE DESTI
 # ----- Marlin executable ----------------------------------------------------
 ADD_EXECUTABLE( Marlinoo ./source/Marlino.cc ./source/ProcessorLoader.cc )
 # avoid name conflict between Marlin library and Marlin application
-TARGET_LINK_LIBRARIES( Marlinoo Marlin tinyxml Histographs ${ROOT_LIBRARIES} outfileroot Reader tdrstyle Config )
+TARGET_LINK_LIBRARIES( Marlinoo Marlin tinyxml Histographs ElogInformations ${ROOT_LIBRARIES} outfileroot Reader tdrstyle Config )
 # ----------------------------------------------------------------------------

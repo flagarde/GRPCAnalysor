@@ -153,6 +153,11 @@ const int Geometry::GetDifType( const int& i)
   return ((Difs.find(i))->second).GetDifType();
 }
 
+const int Geometry::GetAsicNbr(const int& i)
+{
+  return((Difs.find(i))->second).GetAsicNbr();
+}
+
 const std::string Geometry::GetDifTypeName( const int& i)
 {
   if(Difs.find(i)==Difs.end())return "Unknown Difs";

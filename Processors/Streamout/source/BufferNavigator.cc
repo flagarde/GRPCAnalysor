@@ -50,7 +50,7 @@ void SDHCAL_RawBuffer_Navigator::setSCBuffer()
       uint32_t scsize=_SCbuffer.first[k];
       if (scsize != 74 && scsize != 109) 
       {
-        std::cout << "PROBLEM WITH SC SIZE " << scsize << std::endl;
+        //std::cout << "PROBLEM WITH SC SIZE " << scsize << std::endl;
         k=0;
         _badSCdata=true;
         break;
@@ -62,7 +62,7 @@ void SDHCAL_RawBuffer_Navigator::setSCBuffer()
     else 
     {
         _badSCdata=true;
-        std::cout << "PROBLEM SC TRAILER NOT FOUND " << std::endl;
+        //std::cout << "PROBLEM SC TRAILER NOT FOUND " << std::endl;
     }
 }
 

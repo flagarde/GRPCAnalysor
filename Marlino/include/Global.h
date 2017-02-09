@@ -4,7 +4,11 @@
 #include "Colors.h"
 #include "Geometry.h"
 #include "ConfigInfo.h"
+#include "ElogInformations.h"
 #include "StringParameters.h"
+
+class HistoPlane;
+
 class Global
 {
   public:
@@ -14,5 +18,7 @@ class Global
   static int number;
   static int totalevent;
   static ConfigInfos* conf;
+  static ElogInformations* eloginf;
+  static HistoPlane HG;
 };
 #endif

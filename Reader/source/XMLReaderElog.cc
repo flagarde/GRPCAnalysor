@@ -3,6 +3,7 @@
 #include "XMLReaderElog.h"
 #include "XMLReaderConfig.h"
 #include "Colors.h"
+#include "Global.h"
 #include "Types.h"
 #include <string>
 #include <iostream>
@@ -18,32 +19,32 @@ void XMLReaderElog::Read(std::string &FileName,ConfigInfos* Conf,int RunNumber)
 {
   std::string DAQ_Name="";
   TiXmlDocument doc(FileName.c_str());
-  doc.LoadFile();
   if(!doc.LoadFile())
   {
-    std::cout<<"Error loading file"<< std::endl;
-    std::cout<<"Error #" << doc.ErrorId() << " : " << doc.ErrorDesc()<<std::endl;
+    std::cout<<red<<"Error loading file "<<FileName<<normal<< std::endl;
+    std::cout<<red<<"Error #" << doc.ErrorId() << " : " << doc.ErrorDesc()<<normal<<std::endl;
   }
   else
   {
     std::cout<<"File : "<<FileName<<std::endl;
     TiXmlHandle hdl(&doc);
     TiXmlElement*  element = hdl.FirstChildElement().FirstChildElement().Element();
-    std::string MID="";
     bool founded=false;
-    int number=0;
     while (element&&founded==false)
     {
-      number++;
       std::string name="";
-      std::string MID1="";
       if(element->FirstChildElement("Run")->GetText()!=nullptr)name = element->FirstChildElement("Run")->GetText();
-      if(element->FirstChildElement("MID")->GetText()!=nullptr)MID1 = element->FirstChildElement("MID")->GetText();
       if(name==std::to_string(RunNumber))
       {
         founded=true;
-        MID=MID1;
-		    DAQ_Name=element->FirstChildElement("DAQ_Name")->GetText();
+        DAQ_Name=element->FirstChildElement("DAQ_Name")->GetText();
+        TiXmlElement*  ele = element->FirstChildElement();
+        while (ele!=false)
+		    {
+		      if(ele->GetText()!=nullptr)Global::eloginf->AddBruteValue(ele->Value(),ele->GetText());
+		      ele=ele->NextSiblingElement();
+		    }
+		    Global::eloginf->ConstructMaps();
 		    std::cout<<green<<"Run Number "<<RunNumber<<" found in "<<FileName<<" I extract the data :) "<<normal<<std::endl;
       }
       element=element->NextSiblingElement();

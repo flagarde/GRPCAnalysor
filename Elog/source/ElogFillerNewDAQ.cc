@@ -9,6 +9,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <array>
 using namespace std;
 
 const std::string elogcommand="elog";
@@ -30,7 +31,7 @@ int Read(std::string& FileName,std::string& parameters)
 {
 
   static std::vector<std::string>Numbers{"Zero","One","Two","Three","Four","Five","Six","Seven","Eight","Nine"};
-  std::string Types="";
+  std::string Type="";
   std::string HVChannels="";
   std::string GasChannels="";
   std::string DifTypes="";
@@ -137,7 +138,7 @@ int Read(std::string& FileName,std::string& parameters)
 	      else
           {
             HVChannels+=hvchannel_to_test;
-            Types+=type_to_test;
+            Type+=type_to_test;
             GasChannels+=gazchannel_to_test;
             Write(Diff,"DifId",DifId);
             Dif_Ids+=" -a Dif_Id"+std::to_string(PlateNumber)+"="+std::to_string(int(DifId));
@@ -151,7 +152,7 @@ int Read(std::string& FileName,std::string& parameters)
     }
   }
   for(unsigned int i=1;i!=PlateNumber+1;++i) HVs+=" -a HV"+std::to_string(i)+"=\"Not Set\"";
-  parameters+=Types+" "+PositionDet+" "+HVChannels+" "+GasChannels+" "+DifTypes+" -a \"Number Dif\"="+Numbers[PlateNumber]+" "+Dif_Ids+" "+zs+" "+HVs+" "+ Tcherenkov+" "+Scintillator+" "+TcheScinti+" " ;
+  parameters+=Type+" "+PositionDet+" "+HVChannels+" "+GasChannels+" "+DifTypes+" -a \"Number Dif\"="+Numbers[PlateNumber]+" "+Dif_Ids+" "+zs+" "+HVs+" "+ Tcherenkov+" "+Scintillator+" "+TcheScinti+" " ;
   return PlateNumber;
 }
 

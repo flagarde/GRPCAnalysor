@@ -31,6 +31,7 @@ class Geometry
     const double GetPlatePositionZ(const unsigned int& i);
     const int GetDifNbrPlate( const int& i);
     const int GetDifType( const int& i);
+    const int GetAsicNbr(const int& i);
     const std::string GetDifTypeName( const int& i);
     const int GetDifUpDown( int& i);
     const unsigned int GetNumberDifs();

@@ -14,6 +14,7 @@ class Dif
   int GetNbrPlate();
   int GetDifType();
   int GetDifUpDown();
+  int GetAsicNbr();
  private:
   double _PositionX;
   double _PositionY;
@@ -24,5 +25,6 @@ class Dif
   int _nbrPlate;
   int _up_down;
   int _DifType;
+  int _AsicNbr;
 };
 #endif

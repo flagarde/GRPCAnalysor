@@ -20,6 +20,7 @@
 #include <sys/types.h>
 #include "ReaderFactory.h"
 #include "Histogrammer.h"
+#include "HistoPlane.h"
 using namespace lcio ;
 using namespace std ;
 
@@ -245,6 +246,7 @@ int main(int argc, char* argv[] )
         if(FileNameElog!="") 
         {
           Global::conf = new ConfigInfos;
+          Global::eloginf = new ElogInformations;
           Reader* elogreader=readerFactory->CreateReader("XMLReaderElog");
           elogreader->Read(FileNameElog,Global::conf,Global::number);
           Histogrammer(Global::conf,Global::out,Global::geom);
@@ -328,6 +330,10 @@ int main(int argc, char* argv[] )
     delete Global::conf;
     delete Global::out;
   }
+  std::string blank="";
+  Global::out->setRunName(blank);
+  Global::out->setProcessorName(blank);
+  Global::HG.Write();
   delete Global::geom;
   delete Global::conf;
   delete Global::out;

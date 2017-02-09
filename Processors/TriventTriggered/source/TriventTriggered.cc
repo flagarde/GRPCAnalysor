@@ -92,15 +92,15 @@ void TriventTriggered::init()
   }
   //SelectedHits3D=new THnSparseD("Selected Hits 3D", "Selected Hits 3D", 3, bin, xmin, xmax);
   //RejectedHits3D=new THnSparseD("Rejected Hits 3D", "Rejected Hits 3D", 3, bin, xmin, xmax);
-  //a.Add("TH1","Pad","test",10,20.,30.);
- // a.Add("TH3","Dif","test2",10,20.,30.,20,30.,40.,50,60.,70.);
+  //a.Add("TH1","Asic","test",10,0.,15.);
+  Global::HG.Add("TGraph","Dif","Efficiency vs HV");
+  //a.Add("TH3","Dif","test",10,20.,30.,20,30.,40.,50,60.,70.);
  // a.Add("TGraph","Dif","test3",10,20.,30.,20,30.,40.,50,60.,70.);
   //a.List(); 
 }
 
 void TriventTriggered::processEvent( LCEvent * evtP )
 {
-  //a("test",1,1,1,1,1).Fill(1,2,3,4);
   for(unsigned int i=0; i< _hcalCollections.size(); i++) 
   {
     try 
@@ -154,7 +154,6 @@ void TriventTriggered::processEvent( LCEvent * evtP )
 	    }
 	    for(std::map< int,std::vector<CalorimeterHit*> >::iterator it=SelectedHits.begin();it!=SelectedHits.end();++it)
 	    {
-	      std::cout<<(it->second).size()<<"  "<<(unsigned int)(_noiseCut)<<std::endl;
 	      if((it->second).size()>=(unsigned int)(_noiseCut))
 	      {
 	        selected=false;
@@ -172,6 +171,7 @@ void TriventTriggered::processEvent( LCEvent * evtP )
 	        {
 	          NumberOfEventsEfficientDIF[it->first]++;
 	          HASHITS[Global::geom->GetDifNbrPlate(it->first)]=true;
+	          a("test",1,23,1,1,1).Fill(1,2,3,4);
 	        }
 	        for(unsigned int o=0;o!=it->second.size();++o)
 	        {
@@ -223,6 +223,7 @@ void TriventTriggered::end()
     for(unsigned int o=0;o!=Global::geom->GetDifsInPlane(i).size();++o)
     {
       NameBin.push_back("DIF "+std::to_string(Global::geom->GetDifsInPlane(i)[o]));
+      Global::HG("Efficiency vs HV",i+1,Global::geom->GetDifsInPlane(i)[o],1,1,1).Fill(Global::eloginf->HV[Global::geom->GetDifsInPlane(i)[o]],NumberOfEventsEfficientDIF[Global::geom->GetDifsInPlane(i)[o]]*100.0/EventsSelected);
       ValueBin.push_back(NumberOfEventsEfficientDIF[Global::geom->GetDifsInPlane(i)[o]]*100.0/EventsSelected);
       std::cout<<red<<NumberOfEventsEfficientDIF[Global::geom->GetDifsInPlane(i)[o]]<<"  "<<NumberOfEventsEfficientDIF[Global::geom->GetDifsInPlane(i)[o]]*100.0/EventsSelected<<std::endl;
     }
@@ -291,7 +292,7 @@ void TriventTriggered::end()
   //delete RejectedHits3D;
   //delete u1;
   //delete u2;
-  //a.Write();
+  a.Write();
   std::cout << "TriventProcess::end() !! "<<TRIGGERSKIPPED<<" Events skiped"<< std::endl;
   std::cout <<TouchedEvents<<" Events were overlaping "<<"("<<(TouchedEvents*1.0/(TouchedEvents+eventtotal))*100<<"%)"<<std::endl;
   std::cout <<"Total nbr Events : "<<eventtotal<<" : "<<EventsSelected<<" ("<<EventsSelected*1.0/eventtotal*100<<"%)"<< std::endl;

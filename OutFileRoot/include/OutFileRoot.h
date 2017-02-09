@@ -21,6 +21,8 @@ class OutFileRoot
     ~OutFileRoot();
     OutFileRoot()
     {
+      RunName="";
+      ProcessorName="";
       setTDRStyle();
     };
     OutFileRoot(std::string& outputFileName)
