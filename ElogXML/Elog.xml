@@ -18827,7 +18827,7 @@ I duplicated DIF69 to indicate that both gaps of GRPC is now flown with gas.
 		<Dif_Id4>69</Dif_Id4>
 		<Position4_Z>270</Position4_Z>
 		<Type4>Unknown</Type4>
-		<HV4>Not Set</HV4>
+		<HV4>6900</HV4>
 		<Gas_Channel4></Gas_Channel4>
 		<HV_Channel4></HV_Channel4>
 		<Dif_Id5></Dif_Id5>
@@ -18927,7 +18927,7 @@ In fact HV was not set for the second GRPC gap.
 		<Dif_Id4>69</Dif_Id4>
 		<Position4_Z>270</Position4_Z>
 		<Type4>Unknown</Type4>
-		<HV4>Not Set</HV4>
+		<HV4>6700</HV4>
 		<Gas_Channel4></Gas_Channel4>
 		<HV_Channel4></HV_Channel4>
 		<Dif_Id5></Dif_Id5>
@@ -19023,7 +19023,7 @@ In fact HV was not set for the second GRPC gap.
 		<Dif_Id4>69</Dif_Id4>
 		<Position4_Z>270</Position4_Z>
 		<Type4>Unknown</Type4>
-		<HV4>Not Set</HV4>
+		<HV4>6500</HV4>
 		<Gas_Channel4></Gas_Channel4>
 		<HV_Channel4></HV_Channel4>
 		<Dif_Id5></Dif_Id5>
@@ -19819,5 +19819,1657 @@ In fact HV was not set for the second GRPC gap.
 &lt;Dif DifId=&quot;1&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
 &lt;/Plate&gt; 
 &lt;/Detector&gt;</TEXT>
+	</ENTRY>
+	<ENTRY>
+		<MID>210</MID>
+		<DATE>Mon, 06 Feb 2017 10:24:07 +0100</DATE>
+		<ENCODING>ELCode</ENCODING>
+		<Author>DAQ</Author>
+		<Type>Data</Type>
+		<Run>734394</Run>
+		<DAQ_Name>cms904_6</DAQ_Name>
+		<Good>Yes</Good>
+		<Problem_Type></Problem_Type>
+		<Beam>OFF</Beam>
+		<Energy></Energy>
+		<Particles></Particles>
+		<Attenuator_upstream></Attenuator_upstream>
+		<Attenuator_downstream></Attenuator_downstream>
+		<Source>Not Set</Source>
+		<Gaz>CMS</Gaz>
+		<Scintillator>Not Set</Scintillator>
+		<Dif_Scintillator></Dif_Scintillator>
+		<Tcherenkov>No</Tcherenkov>
+		<Dif_Tcherenkov></Dif_Tcherenkov>
+		<Position_Bati_X></Position_Bati_X>
+		<Position_Bati_Y></Position_Bati_Y>
+		<Position_Bati_Z></Position_Bati_Z>
+		<Number_Dif>Four</Number_Dif>
+		<Dif_Id1>23</Dif_Id1>
+		<Position1_Z>0</Position1_Z>
+		<Type1>Unknown</Type1>
+		<HV1>8400</HV1>
+		<Gas_Channel1></Gas_Channel1>
+		<HV_Channel1></HV_Channel1>
+		<Dif_Id2>26</Dif_Id2>
+		<Position2_Z>0</Position2_Z>
+		<Type2>Unknown</Type2>
+		<HV2>8400</HV2>
+		<Gas_Channel2></Gas_Channel2>
+		<HV_Channel2></HV_Channel2>
+		<Dif_Id3>69</Dif_Id3>
+		<Position3_Z>0</Position3_Z>
+		<Type3>Unknown</Type3>
+		<HV3>5800</HV3>
+		<Gas_Channel3></Gas_Channel3>
+		<HV_Channel3></HV_Channel3>
+		<Dif_Id4>1</Dif_Id4>
+		<Position4_Z>0</Position4_Z>
+		<Type4>Unknown</Type4>
+		<HV4>5800</HV4>
+		<Gas_Channel4></Gas_Channel4>
+		<HV_Channel4></HV_Channel4>
+		<Dif_Id5></Dif_Id5>
+		<Position5_Z></Position5_Z>
+		<Type5></Type5>
+		<HV5></HV5>
+		<Gas_Channel5></Gas_Channel5>
+		<HV_Channel5></HV_Channel5>
+		<Dif_Id6></Dif_Id6>
+		<Position6_Z></Position6_Z>
+		<Type6></Type6>
+		<HV6></HV6>
+		<Gas_Channel6></Gas_Channel6>
+		<HV_Channel6></HV_Channel6>
+		<Dif_Id7></Dif_Id7>
+		<Position7_Z></Position7_Z>
+		<Type7></Type7>
+		<HV7></HV7>
+		<Gas_Channel7></Gas_Channel7>
+		<HV_Channel7></HV_Channel7>
+		<Dif_Id8></Dif_Id8>
+		<Position8_Z></Position8_Z>
+		<Type8></Type8>
+		<HV8></HV8>
+		<Gas_Channel8></Gas_Channel8>
+		<HV_Channel8></HV_Channel8>
+		<Dif_Id9></Dif_Id9>
+		<Position9_Z></Position9_Z>
+		<Type9></Type9>
+		<HV9></HV9>
+		<Gas_Channel9></Gas_Channel9>
+		<HV_Channel9></HV_Channel9>
+		<TEXT> &lt;Detector&gt;
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;23&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt; 
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;26&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt; 
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;69&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt;
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;1&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt; 
+&lt;/Detector&gt;</TEXT>
+	</ENTRY>
+	<ENTRY>
+		<MID>211</MID>
+		<DATE>Mon, 06 Feb 2017 11:02:08 +0100</DATE>
+		<ENCODING>ELCode</ENCODING>
+		<Author>DAQ</Author>
+		<Type>Data</Type>
+		<Run>734395</Run>
+		<DAQ_Name>cms904_6</DAQ_Name>
+		<Good>Yes</Good>
+		<Problem_Type></Problem_Type>
+		<Beam>OFF</Beam>
+		<Energy></Energy>
+		<Particles></Particles>
+		<Attenuator_upstream></Attenuator_upstream>
+		<Attenuator_downstream></Attenuator_downstream>
+		<Source>Not Set</Source>
+		<Gaz>CMS</Gaz>
+		<Scintillator>Not Set</Scintillator>
+		<Dif_Scintillator></Dif_Scintillator>
+		<Tcherenkov>No</Tcherenkov>
+		<Dif_Tcherenkov></Dif_Tcherenkov>
+		<Position_Bati_X></Position_Bati_X>
+		<Position_Bati_Y></Position_Bati_Y>
+		<Position_Bati_Z></Position_Bati_Z>
+		<Number_Dif>Four</Number_Dif>
+		<Dif_Id1>23</Dif_Id1>
+		<Position1_Z>0</Position1_Z>
+		<Type1>Unknown</Type1>
+		<HV1>8700</HV1>
+		<Gas_Channel1></Gas_Channel1>
+		<HV_Channel1></HV_Channel1>
+		<Dif_Id2>26</Dif_Id2>
+		<Position2_Z>0</Position2_Z>
+		<Type2>Unknown</Type2>
+		<HV2>8700</HV2>
+		<Gas_Channel2></Gas_Channel2>
+		<HV_Channel2></HV_Channel2>
+		<Dif_Id3>69</Dif_Id3>
+		<Position3_Z>0</Position3_Z>
+		<Type3>Unknown</Type3>
+		<HV3>6000</HV3>
+		<Gas_Channel3></Gas_Channel3>
+		<HV_Channel3></HV_Channel3>
+		<Dif_Id4>1</Dif_Id4>
+		<Position4_Z>0</Position4_Z>
+		<Type4>Unknown</Type4>
+		<HV4>6000</HV4>
+		<Gas_Channel4></Gas_Channel4>
+		<HV_Channel4></HV_Channel4>
+		<Dif_Id5></Dif_Id5>
+		<Position5_Z></Position5_Z>
+		<Type5></Type5>
+		<HV5></HV5>
+		<Gas_Channel5></Gas_Channel5>
+		<HV_Channel5></HV_Channel5>
+		<Dif_Id6></Dif_Id6>
+		<Position6_Z></Position6_Z>
+		<Type6></Type6>
+		<HV6></HV6>
+		<Gas_Channel6></Gas_Channel6>
+		<HV_Channel6></HV_Channel6>
+		<Dif_Id7></Dif_Id7>
+		<Position7_Z></Position7_Z>
+		<Type7></Type7>
+		<HV7></HV7>
+		<Gas_Channel7></Gas_Channel7>
+		<HV_Channel7></HV_Channel7>
+		<Dif_Id8></Dif_Id8>
+		<Position8_Z></Position8_Z>
+		<Type8></Type8>
+		<HV8></HV8>
+		<Gas_Channel8></Gas_Channel8>
+		<HV_Channel8></HV_Channel8>
+		<Dif_Id9></Dif_Id9>
+		<Position9_Z></Position9_Z>
+		<Type9></Type9>
+		<HV9></HV9>
+		<Gas_Channel9></Gas_Channel9>
+		<HV_Channel9></HV_Channel9>
+		<TEXT> &lt;Detector&gt;
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;23&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt; 
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;26&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt; 
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;69&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt;
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;1&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt; 
+&lt;/Detector&gt;</TEXT>
+	</ENTRY>
+	<ENTRY>
+		<MID>212</MID>
+		<DATE>Mon, 06 Feb 2017 11:39:43 +0100</DATE>
+		<ENCODING>ELCode</ENCODING>
+		<Author>DAQ</Author>
+		<Type>Data</Type>
+		<Run>734396</Run>
+		<DAQ_Name>cms904_6</DAQ_Name>
+		<Good>Yes</Good>
+		<Problem_Type></Problem_Type>
+		<Beam>OFF</Beam>
+		<Energy></Energy>
+		<Particles></Particles>
+		<Attenuator_upstream></Attenuator_upstream>
+		<Attenuator_downstream></Attenuator_downstream>
+		<Source>Not Set</Source>
+		<Gaz>CMS</Gaz>
+		<Scintillator>Not Set</Scintillator>
+		<Dif_Scintillator></Dif_Scintillator>
+		<Tcherenkov>No</Tcherenkov>
+		<Dif_Tcherenkov></Dif_Tcherenkov>
+		<Position_Bati_X></Position_Bati_X>
+		<Position_Bati_Y></Position_Bati_Y>
+		<Position_Bati_Z></Position_Bati_Z>
+		<Number_Dif>Four</Number_Dif>
+		<Dif_Id1>23</Dif_Id1>
+		<Position1_Z>0</Position1_Z>
+		<Type1>Unknown</Type1>
+		<HV1>9000</HV1>
+		<Gas_Channel1></Gas_Channel1>
+		<HV_Channel1></HV_Channel1>
+		<Dif_Id2>26</Dif_Id2>
+		<Position2_Z>0</Position2_Z>
+		<Type2>Unknown</Type2>
+		<HV2>9000</HV2>
+		<Gas_Channel2></Gas_Channel2>
+		<HV_Channel2></HV_Channel2>
+		<Dif_Id3>69</Dif_Id3>
+		<Position3_Z>0</Position3_Z>
+		<Type3>Unknown</Type3>
+		<HV3>6200</HV3>
+		<Gas_Channel3></Gas_Channel3>
+		<HV_Channel3></HV_Channel3>
+		<Dif_Id4>1</Dif_Id4>
+		<Position4_Z>0</Position4_Z>
+		<Type4>Unknown</Type4>
+		<HV4>6200</HV4>
+		<Gas_Channel4></Gas_Channel4>
+		<HV_Channel4></HV_Channel4>
+		<Dif_Id5></Dif_Id5>
+		<Position5_Z></Position5_Z>
+		<Type5></Type5>
+		<HV5></HV5>
+		<Gas_Channel5></Gas_Channel5>
+		<HV_Channel5></HV_Channel5>
+		<Dif_Id6></Dif_Id6>
+		<Position6_Z></Position6_Z>
+		<Type6></Type6>
+		<HV6></HV6>
+		<Gas_Channel6></Gas_Channel6>
+		<HV_Channel6></HV_Channel6>
+		<Dif_Id7></Dif_Id7>
+		<Position7_Z></Position7_Z>
+		<Type7></Type7>
+		<HV7></HV7>
+		<Gas_Channel7></Gas_Channel7>
+		<HV_Channel7></HV_Channel7>
+		<Dif_Id8></Dif_Id8>
+		<Position8_Z></Position8_Z>
+		<Type8></Type8>
+		<HV8></HV8>
+		<Gas_Channel8></Gas_Channel8>
+		<HV_Channel8></HV_Channel8>
+		<Dif_Id9></Dif_Id9>
+		<Position9_Z></Position9_Z>
+		<Type9></Type9>
+		<HV9></HV9>
+		<Gas_Channel9></Gas_Channel9>
+		<HV_Channel9></HV_Channel9>
+		<TEXT> &lt;Detector&gt;
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;23&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt; 
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;26&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt; 
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;69&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt;
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;1&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt; 
+&lt;/Detector&gt;</TEXT>
+	</ENTRY>
+	<ENTRY>
+		<MID>213</MID>
+		<DATE>Mon, 06 Feb 2017 12:22:54 +0100</DATE>
+		<ENCODING>ELCode</ENCODING>
+		<Author>DAQ</Author>
+		<Type>Data</Type>
+		<Run>734397</Run>
+		<DAQ_Name>cms904_6</DAQ_Name>
+		<Good>Yes</Good>
+		<Problem_Type></Problem_Type>
+		<Beam>OFF</Beam>
+		<Energy></Energy>
+		<Particles></Particles>
+		<Attenuator_upstream></Attenuator_upstream>
+		<Attenuator_downstream></Attenuator_downstream>
+		<Source>Not Set</Source>
+		<Gaz>CMS</Gaz>
+		<Scintillator>Not Set</Scintillator>
+		<Dif_Scintillator></Dif_Scintillator>
+		<Tcherenkov>No</Tcherenkov>
+		<Dif_Tcherenkov></Dif_Tcherenkov>
+		<Position_Bati_X></Position_Bati_X>
+		<Position_Bati_Y></Position_Bati_Y>
+		<Position_Bati_Z></Position_Bati_Z>
+		<Number_Dif>Four</Number_Dif>
+		<Dif_Id1>23</Dif_Id1>
+		<Position1_Z>0</Position1_Z>
+		<Type1>Unknown</Type1>
+		<HV1>9100</HV1>
+		<Gas_Channel1></Gas_Channel1>
+		<HV_Channel1></HV_Channel1>
+		<Dif_Id2>26</Dif_Id2>
+		<Position2_Z>0</Position2_Z>
+		<Type2>Unknown</Type2>
+		<HV2>9100</HV2>
+		<Gas_Channel2></Gas_Channel2>
+		<HV_Channel2></HV_Channel2>
+		<Dif_Id3>69</Dif_Id3>
+		<Position3_Z>0</Position3_Z>
+		<Type3>Unknown</Type3>
+		<HV3>6400</HV3>
+		<Gas_Channel3></Gas_Channel3>
+		<HV_Channel3></HV_Channel3>
+		<Dif_Id4>1</Dif_Id4>
+		<Position4_Z>0</Position4_Z>
+		<Type4>Unknown</Type4>
+		<HV4>6400</HV4>
+		<Gas_Channel4></Gas_Channel4>
+		<HV_Channel4></HV_Channel4>
+		<Dif_Id5></Dif_Id5>
+		<Position5_Z></Position5_Z>
+		<Type5></Type5>
+		<HV5></HV5>
+		<Gas_Channel5></Gas_Channel5>
+		<HV_Channel5></HV_Channel5>
+		<Dif_Id6></Dif_Id6>
+		<Position6_Z></Position6_Z>
+		<Type6></Type6>
+		<HV6></HV6>
+		<Gas_Channel6></Gas_Channel6>
+		<HV_Channel6></HV_Channel6>
+		<Dif_Id7></Dif_Id7>
+		<Position7_Z></Position7_Z>
+		<Type7></Type7>
+		<HV7></HV7>
+		<Gas_Channel7></Gas_Channel7>
+		<HV_Channel7></HV_Channel7>
+		<Dif_Id8></Dif_Id8>
+		<Position8_Z></Position8_Z>
+		<Type8></Type8>
+		<HV8></HV8>
+		<Gas_Channel8></Gas_Channel8>
+		<HV_Channel8></HV_Channel8>
+		<Dif_Id9></Dif_Id9>
+		<Position9_Z></Position9_Z>
+		<Type9></Type9>
+		<HV9></HV9>
+		<Gas_Channel9></Gas_Channel9>
+		<HV_Channel9></HV_Channel9>
+		<TEXT> &lt;Detector&gt;
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;23&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt; 
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;26&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt; 
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;69&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt;
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;1&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt; 
+&lt;/Detector&gt;</TEXT>
+	</ENTRY>
+	<ENTRY>
+		<MID>214</MID>
+		<DATE>Mon, 06 Feb 2017 12:59:32 +0100</DATE>
+		<ENCODING>ELCode</ENCODING>
+		<Author>DAQ</Author>
+		<Type>Data</Type>
+		<Run>734398</Run>
+		<DAQ_Name>cms904_6</DAQ_Name>
+		<Good>Yes</Good>
+		<Problem_Type></Problem_Type>
+		<Beam>OFF</Beam>
+		<Energy></Energy>
+		<Particles></Particles>
+		<Attenuator_upstream></Attenuator_upstream>
+		<Attenuator_downstream></Attenuator_downstream>
+		<Source>Not Set</Source>
+		<Gaz>CMS</Gaz>
+		<Scintillator>Not Set</Scintillator>
+		<Dif_Scintillator></Dif_Scintillator>
+		<Tcherenkov>No</Tcherenkov>
+		<Dif_Tcherenkov></Dif_Tcherenkov>
+		<Position_Bati_X></Position_Bati_X>
+		<Position_Bati_Y></Position_Bati_Y>
+		<Position_Bati_Z></Position_Bati_Z>
+		<Number_Dif>Four</Number_Dif>
+		<Dif_Id1>23</Dif_Id1>
+		<Position1_Z>0</Position1_Z>
+		<Type1>Unknown</Type1>
+		<HV1>9300</HV1>
+		<Gas_Channel1></Gas_Channel1>
+		<HV_Channel1></HV_Channel1>
+		<Dif_Id2>26</Dif_Id2>
+		<Position2_Z>0</Position2_Z>
+		<Type2>Unknown</Type2>
+		<HV2>9300</HV2>
+		<Gas_Channel2></Gas_Channel2>
+		<HV_Channel2></HV_Channel2>
+		<Dif_Id3>69</Dif_Id3>
+		<Position3_Z>0</Position3_Z>
+		<Type3>Unknown</Type3>
+		<HV3>6500</HV3>
+		<Gas_Channel3></Gas_Channel3>
+		<HV_Channel3></HV_Channel3>
+		<Dif_Id4>1</Dif_Id4>
+		<Position4_Z>0</Position4_Z>
+		<Type4>Unknown</Type4>
+		<HV4>6500</HV4>
+		<Gas_Channel4></Gas_Channel4>
+		<HV_Channel4></HV_Channel4>
+		<Dif_Id5></Dif_Id5>
+		<Position5_Z></Position5_Z>
+		<Type5></Type5>
+		<HV5></HV5>
+		<Gas_Channel5></Gas_Channel5>
+		<HV_Channel5></HV_Channel5>
+		<Dif_Id6></Dif_Id6>
+		<Position6_Z></Position6_Z>
+		<Type6></Type6>
+		<HV6></HV6>
+		<Gas_Channel6></Gas_Channel6>
+		<HV_Channel6></HV_Channel6>
+		<Dif_Id7></Dif_Id7>
+		<Position7_Z></Position7_Z>
+		<Type7></Type7>
+		<HV7></HV7>
+		<Gas_Channel7></Gas_Channel7>
+		<HV_Channel7></HV_Channel7>
+		<Dif_Id8></Dif_Id8>
+		<Position8_Z></Position8_Z>
+		<Type8></Type8>
+		<HV8></HV8>
+		<Gas_Channel8></Gas_Channel8>
+		<HV_Channel8></HV_Channel8>
+		<Dif_Id9></Dif_Id9>
+		<Position9_Z></Position9_Z>
+		<Type9></Type9>
+		<HV9></HV9>
+		<Gas_Channel9></Gas_Channel9>
+		<HV_Channel9></HV_Channel9>
+		<TEXT>
+HV scan
+
+ &lt;Detector&gt;
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;23&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt; 
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;26&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt; 
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;69&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt;
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;1&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt; 
+&lt;/Detector&gt;</TEXT>
+	</ENTRY>
+	<ENTRY>
+		<MID>215</MID>
+		<DATE>Mon, 06 Feb 2017 13:39:26 +0100</DATE>
+		<ENCODING>ELCode</ENCODING>
+		<Author>DAQ</Author>
+		<Type>Data</Type>
+		<Run>734399</Run>
+		<DAQ_Name>cms904_6</DAQ_Name>
+		<Good>Yes</Good>
+		<Problem_Type></Problem_Type>
+		<Beam>OFF</Beam>
+		<Energy></Energy>
+		<Particles></Particles>
+		<Attenuator_upstream></Attenuator_upstream>
+		<Attenuator_downstream></Attenuator_downstream>
+		<Source>Not Set</Source>
+		<Gaz>CMS</Gaz>
+		<Scintillator>Not Set</Scintillator>
+		<Dif_Scintillator></Dif_Scintillator>
+		<Tcherenkov>No</Tcherenkov>
+		<Dif_Tcherenkov></Dif_Tcherenkov>
+		<Position_Bati_X></Position_Bati_X>
+		<Position_Bati_Y></Position_Bati_Y>
+		<Position_Bati_Z></Position_Bati_Z>
+		<Number_Dif>Four</Number_Dif>
+		<Dif_Id1>23</Dif_Id1>
+		<Position1_Z>0</Position1_Z>
+		<Type1>Unknown</Type1>
+		<HV1>9400</HV1>
+		<Gas_Channel1></Gas_Channel1>
+		<HV_Channel1></HV_Channel1>
+		<Dif_Id2>26</Dif_Id2>
+		<Position2_Z>0</Position2_Z>
+		<Type2>Unknown</Type2>
+		<HV2>9400</HV2>
+		<Gas_Channel2></Gas_Channel2>
+		<HV_Channel2></HV_Channel2>
+		<Dif_Id3>69</Dif_Id3>
+		<Position3_Z>0</Position3_Z>
+		<Type3>Unknown</Type3>
+		<HV3>6600</HV3>
+		<Gas_Channel3></Gas_Channel3>
+		<HV_Channel3></HV_Channel3>
+		<Dif_Id4>1</Dif_Id4>
+		<Position4_Z>0</Position4_Z>
+		<Type4>Unknown</Type4>
+		<HV4>6600</HV4>
+		<Gas_Channel4></Gas_Channel4>
+		<HV_Channel4></HV_Channel4>
+		<Dif_Id5></Dif_Id5>
+		<Position5_Z></Position5_Z>
+		<Type5></Type5>
+		<HV5></HV5>
+		<Gas_Channel5></Gas_Channel5>
+		<HV_Channel5></HV_Channel5>
+		<Dif_Id6></Dif_Id6>
+		<Position6_Z></Position6_Z>
+		<Type6></Type6>
+		<HV6></HV6>
+		<Gas_Channel6></Gas_Channel6>
+		<HV_Channel6></HV_Channel6>
+		<Dif_Id7></Dif_Id7>
+		<Position7_Z></Position7_Z>
+		<Type7></Type7>
+		<HV7></HV7>
+		<Gas_Channel7></Gas_Channel7>
+		<HV_Channel7></HV_Channel7>
+		<Dif_Id8></Dif_Id8>
+		<Position8_Z></Position8_Z>
+		<Type8></Type8>
+		<HV8></HV8>
+		<Gas_Channel8></Gas_Channel8>
+		<HV_Channel8></HV_Channel8>
+		<Dif_Id9></Dif_Id9>
+		<Position9_Z></Position9_Z>
+		<Type9></Type9>
+		<HV9></HV9>
+		<Gas_Channel9></Gas_Channel9>
+		<HV_Channel9></HV_Channel9>
+		<TEXT>HV scan
+
+ &lt;Detector&gt;
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;23&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt; 
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;26&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt; 
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;69&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt;
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;1&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt; 
+&lt;/Detector&gt;</TEXT>
+	</ENTRY>
+	<ENTRY>
+		<MID>216</MID>
+		<DATE>Mon, 06 Feb 2017 14:22:18 +0100</DATE>
+		<ENCODING>ELCode</ENCODING>
+		<Author>DAQ</Author>
+		<Type>Data</Type>
+		<Run>734400</Run>
+		<DAQ_Name>cms904_6</DAQ_Name>
+		<Good>Yes</Good>
+		<Problem_Type></Problem_Type>
+		<Beam>OFF</Beam>
+		<Energy></Energy>
+		<Particles></Particles>
+		<Attenuator_upstream></Attenuator_upstream>
+		<Attenuator_downstream></Attenuator_downstream>
+		<Source>Not Set</Source>
+		<Gaz>CMS</Gaz>
+		<Scintillator>Not Set</Scintillator>
+		<Dif_Scintillator></Dif_Scintillator>
+		<Tcherenkov>No</Tcherenkov>
+		<Dif_Tcherenkov></Dif_Tcherenkov>
+		<Position_Bati_X></Position_Bati_X>
+		<Position_Bati_Y></Position_Bati_Y>
+		<Position_Bati_Z></Position_Bati_Z>
+		<Number_Dif>Four</Number_Dif>
+		<Dif_Id1>23</Dif_Id1>
+		<Position1_Z>0</Position1_Z>
+		<Type1>Unknown</Type1>
+		<HV1>9600</HV1>
+		<Gas_Channel1></Gas_Channel1>
+		<HV_Channel1></HV_Channel1>
+		<Dif_Id2>26</Dif_Id2>
+		<Position2_Z>0</Position2_Z>
+		<Type2>Unknown</Type2>
+		<HV2>9600</HV2>
+		<Gas_Channel2></Gas_Channel2>
+		<HV_Channel2></HV_Channel2>
+		<Dif_Id3>69</Dif_Id3>
+		<Position3_Z>0</Position3_Z>
+		<Type3>Unknown</Type3>
+		<HV3>6800</HV3>
+		<Gas_Channel3></Gas_Channel3>
+		<HV_Channel3></HV_Channel3>
+		<Dif_Id4>1</Dif_Id4>
+		<Position4_Z>0</Position4_Z>
+		<Type4>Unknown</Type4>
+		<HV4>6800</HV4>
+		<Gas_Channel4></Gas_Channel4>
+		<HV_Channel4></HV_Channel4>
+		<Dif_Id5></Dif_Id5>
+		<Position5_Z></Position5_Z>
+		<Type5></Type5>
+		<HV5></HV5>
+		<Gas_Channel5></Gas_Channel5>
+		<HV_Channel5></HV_Channel5>
+		<Dif_Id6></Dif_Id6>
+		<Position6_Z></Position6_Z>
+		<Type6></Type6>
+		<HV6></HV6>
+		<Gas_Channel6></Gas_Channel6>
+		<HV_Channel6></HV_Channel6>
+		<Dif_Id7></Dif_Id7>
+		<Position7_Z></Position7_Z>
+		<Type7></Type7>
+		<HV7></HV7>
+		<Gas_Channel7></Gas_Channel7>
+		<HV_Channel7></HV_Channel7>
+		<Dif_Id8></Dif_Id8>
+		<Position8_Z></Position8_Z>
+		<Type8></Type8>
+		<HV8></HV8>
+		<Gas_Channel8></Gas_Channel8>
+		<HV_Channel8></HV_Channel8>
+		<Dif_Id9></Dif_Id9>
+		<Position9_Z></Position9_Z>
+		<Type9></Type9>
+		<HV9></HV9>
+		<Gas_Channel9></Gas_Channel9>
+		<HV_Channel9></HV_Channel9>
+		<TEXT> &lt;Detector&gt;
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;23&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt; 
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;26&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt; 
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;69&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt;
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;1&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt; 
+&lt;/Detector&gt;</TEXT>
+	</ENTRY>
+	<ENTRY>
+		<MID>217</MID>
+		<DATE>Mon, 06 Feb 2017 15:06:26 +0100</DATE>
+		<ENCODING>ELCode</ENCODING>
+		<Author>DAQ</Author>
+		<Type>Data</Type>
+		<Run>734401</Run>
+		<DAQ_Name>cms904_6</DAQ_Name>
+		<Good>Yes</Good>
+		<Problem_Type></Problem_Type>
+		<Beam>OFF</Beam>
+		<Energy></Energy>
+		<Particles></Particles>
+		<Attenuator_upstream></Attenuator_upstream>
+		<Attenuator_downstream></Attenuator_downstream>
+		<Source>Not Set</Source>
+		<Gaz>CMS</Gaz>
+		<Scintillator>Not Set</Scintillator>
+		<Dif_Scintillator></Dif_Scintillator>
+		<Tcherenkov>No</Tcherenkov>
+		<Dif_Tcherenkov></Dif_Tcherenkov>
+		<Position_Bati_X></Position_Bati_X>
+		<Position_Bati_Y></Position_Bati_Y>
+		<Position_Bati_Z></Position_Bati_Z>
+		<Number_Dif>Four</Number_Dif>
+		<Dif_Id1>23</Dif_Id1>
+		<Position1_Z>0</Position1_Z>
+		<Type1>Unknown</Type1>
+		<HV1>9800</HV1>
+		<Gas_Channel1></Gas_Channel1>
+		<HV_Channel1></HV_Channel1>
+		<Dif_Id2>26</Dif_Id2>
+		<Position2_Z>0</Position2_Z>
+		<Type2>Unknown</Type2>
+		<HV2>9800</HV2>
+		<Gas_Channel2></Gas_Channel2>
+		<HV_Channel2></HV_Channel2>
+		<Dif_Id3>69</Dif_Id3>
+		<Position3_Z>0</Position3_Z>
+		<Type3>Unknown</Type3>
+		<HV3>7000</HV3>
+		<Gas_Channel3></Gas_Channel3>
+		<HV_Channel3></HV_Channel3>
+		<Dif_Id4>1</Dif_Id4>
+		<Position4_Z>0</Position4_Z>
+		<Type4>Unknown</Type4>
+		<HV4>7000</HV4>
+		<Gas_Channel4></Gas_Channel4>
+		<HV_Channel4></HV_Channel4>
+		<Dif_Id5></Dif_Id5>
+		<Position5_Z></Position5_Z>
+		<Type5></Type5>
+		<HV5></HV5>
+		<Gas_Channel5></Gas_Channel5>
+		<HV_Channel5></HV_Channel5>
+		<Dif_Id6></Dif_Id6>
+		<Position6_Z></Position6_Z>
+		<Type6></Type6>
+		<HV6></HV6>
+		<Gas_Channel6></Gas_Channel6>
+		<HV_Channel6></HV_Channel6>
+		<Dif_Id7></Dif_Id7>
+		<Position7_Z></Position7_Z>
+		<Type7></Type7>
+		<HV7></HV7>
+		<Gas_Channel7></Gas_Channel7>
+		<HV_Channel7></HV_Channel7>
+		<Dif_Id8></Dif_Id8>
+		<Position8_Z></Position8_Z>
+		<Type8></Type8>
+		<HV8></HV8>
+		<Gas_Channel8></Gas_Channel8>
+		<HV_Channel8></HV_Channel8>
+		<Dif_Id9></Dif_Id9>
+		<Position9_Z></Position9_Z>
+		<Type9></Type9>
+		<HV9></HV9>
+		<Gas_Channel9></Gas_Channel9>
+		<HV_Channel9></HV_Channel9>
+		<TEXT> &lt;Detector&gt;
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;23&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt; 
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;26&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt; 
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;69&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt;
+&lt;Plate x=&quot;0&quot; y=&quot;0&quot; z=&quot;0&quot; alpha=&quot;0&quot; beta=&quot;0&quot; gamma=&quot;0&quot; SizeX=&quot;30&quot; SizeY=&quot;30&quot; &gt;
+&lt;Dif DifId=&quot;1&quot; I=&quot;0&quot; J=&quot;0&quot;/&gt; 
+&lt;/Plate&gt; 
+&lt;/Detector&gt;</TEXT>
+	</ENTRY>
+	<ENTRY>
+		<MID>218</MID>
+		<DATE>Mon, 06 Feb 2017 15:41:23 +0100</DATE>
+		<ENCODING>ELCode</ENCODING>
+		<Author>DAQ</Author>
+		<Type>Data</Type>
+		<Run>734402</Run>
+		<DAQ_Name>cms904_3</DAQ_Name>
+		<Good>Not Set</Good>
+		<Problem_Type></Problem_Type>
+		<Beam>OFF</Beam>
+		<Energy></Energy>
+		<Particles></Particles>
+		<Attenuator_upstream></Attenuator_upstream>
+		<Attenuator_downstream></Attenuator_downstream>
+		<Source>Not Set</Source>
+		<Gaz>CMS</Gaz>
+		<Scintillator>Not Set</Scintillator>
+		<Dif_Scintillator></Dif_Scintillator>
+		<Tcherenkov>No</Tcherenkov>
+		<Dif_Tcherenkov></Dif_Tcherenkov>
+		<Position_Bati_X></Position_Bati_X>
+		<Position_Bati_Y></Position_Bati_Y>
+		<Position_Bati_Z></Position_Bati_Z>
+		<Number_Dif>Four</Number_Dif>
+		<Dif_Id1>23</Dif_Id1>
+		<Position1_Z>0</Position1_Z>
+		<Type1>Unknown</Type1>
+		<HV1>Not Set</HV1>
+		<Gas_Channel1></Gas_Channel1>
+		<HV_Channel1></HV_Channel1>
+		<Dif_Id2>26</Dif_Id2>
+		<Position2_Z>0</Position2_Z>
+		<Type2>Unknown</Type2>
+		<HV2>Not Set</HV2>
+		<Gas_Channel2></Gas_Channel2>
+		<HV_Channel2></HV_Channel2>
+		<Dif_Id3>69</Dif_Id3>
+		<Position3_Z>0</Position3_Z>
+		<Type3>Unknown</Type3>
+		<HV3>Not Set</HV3>
+		<Gas_Channel3></Gas_Channel3>
+		<HV_Channel3></HV_Channel3>
+		<Dif_Id4>1</Dif_Id4>
+		<Position4_Z>0</Position4_Z>
+		<Type4>Unknown</Type4>
+		<HV4>Not Set</HV4>
+		<Gas_Channel4></Gas_Channel4>
+		<HV_Channel4></HV_Channel4>
+		<Dif_Id5></Dif_Id5>
+		<Position5_Z></Position5_Z>
+		<Type5></Type5>
+		<HV5></HV5>
+		<Gas_Channel5></Gas_Channel5>
+		<HV_Channel5></HV_Channel5>
+		<Dif_Id6></Dif_Id6>
+		<Position6_Z></Position6_Z>
+		<Type6></Type6>
+		<HV6></HV6>
+		<Gas_Channel6></Gas_Channel6>
+		<HV_Channel6></HV_Channel6>
+		<Dif_Id7></Dif_Id7>
+		<Position7_Z></Position7_Z>
+		<Type7></Type7>
+		<HV7></HV7>
+		<Gas_Channel7></Gas_Channel7>
+		<HV_Channel7></HV_Channel7>
+		<Dif_Id8></Dif_Id8>
+		<Position8_Z></Position8_Z>
+		<Type8></Type8>
+		<HV8></HV8>
+		<Gas_Channel8></Gas_Channel8>
+		<HV_Channel8></HV_Channel8>
+		<Dif_Id9></Dif_Id9>
+		<Position9_Z></Position9_Z>
+		<Type9></Type9>
+		<HV9></HV9>
+		<Gas_Channel9></Gas_Channel9>
+		<HV_Channel9></HV_Channel9>
+		<TEXT>test </TEXT>
+	</ENTRY>
+	<ENTRY>
+		<MID>219</MID>
+		<DATE>Mon, 06 Feb 2017 15:45:54 +0100</DATE>
+		<ENCODING>ELCode</ENCODING>
+		<Author>DAQ</Author>
+		<Type>Data</Type>
+		<Run>734403</Run>
+		<DAQ_Name>cms904_6</DAQ_Name>
+		<Good>Yes</Good>
+		<Problem_Type></Problem_Type>
+		<Beam>OFF</Beam>
+		<Energy></Energy>
+		<Particles></Particles>
+		<Attenuator_upstream></Attenuator_upstream>
+		<Attenuator_downstream></Attenuator_downstream>
+		<Source>Not Set</Source>
+		<Gaz>CMS</Gaz>
+		<Scintillator>Not Set</Scintillator>
+		<Dif_Scintillator></Dif_Scintillator>
+		<Tcherenkov>No</Tcherenkov>
+		<Dif_Tcherenkov></Dif_Tcherenkov>
+		<Position_Bati_X></Position_Bati_X>
+		<Position_Bati_Y></Position_Bati_Y>
+		<Position_Bati_Z></Position_Bati_Z>
+		<Number_Dif>Four</Number_Dif>
+		<Dif_Id1>23</Dif_Id1>
+		<Position1_Z>0</Position1_Z>
+		<Type1>Unknown</Type1>
+		<HV1>8400</HV1>
+		<Gas_Channel1></Gas_Channel1>
+		<HV_Channel1></HV_Channel1>
+		<Dif_Id2>26</Dif_Id2>
+		<Position2_Z>0</Position2_Z>
+		<Type2>Unknown</Type2>
+		<HV2>8400</HV2>
+		<Gas_Channel2></Gas_Channel2>
+		<HV_Channel2></HV_Channel2>
+		<Dif_Id3>69</Dif_Id3>
+		<Position3_Z>0</Position3_Z>
+		<Type3>Unknown</Type3>
+		<HV3>5800</HV3>
+		<Gas_Channel3></Gas_Channel3>
+		<HV_Channel3></HV_Channel3>
+		<Dif_Id4>1</Dif_Id4>
+		<Position4_Z>0</Position4_Z>
+		<Type4>Unknown</Type4>
+		<HV4>5800</HV4>
+		<Gas_Channel4></Gas_Channel4>
+		<HV_Channel4></HV_Channel4>
+		<Dif_Id5></Dif_Id5>
+		<Position5_Z></Position5_Z>
+		<Type5></Type5>
+		<HV5></HV5>
+		<Gas_Channel5></Gas_Channel5>
+		<HV_Channel5></HV_Channel5>
+		<Dif_Id6></Dif_Id6>
+		<Position6_Z></Position6_Z>
+		<Type6></Type6>
+		<HV6></HV6>
+		<Gas_Channel6></Gas_Channel6>
+		<HV_Channel6></HV_Channel6>
+		<Dif_Id7></Dif_Id7>
+		<Position7_Z></Position7_Z>
+		<Type7></Type7>
+		<HV7></HV7>
+		<Gas_Channel7></Gas_Channel7>
+		<HV_Channel7></HV_Channel7>
+		<Dif_Id8></Dif_Id8>
+		<Position8_Z></Position8_Z>
+		<Type8></Type8>
+		<HV8></HV8>
+		<Gas_Channel8></Gas_Channel8>
+		<HV_Channel8></HV_Channel8>
+		<Dif_Id9></Dif_Id9>
+		<Position9_Z></Position9_Z>
+		<Type9></Type9>
+		<HV9></HV9>
+		<Gas_Channel9></Gas_Channel9>
+		<HV_Channel9></HV_Channel9>
+		<TEXT>Noise </TEXT>
+	</ENTRY>
+	<ENTRY>
+		<MID>220</MID>
+		<DATE>Mon, 06 Feb 2017 15:49:54 +0100</DATE>
+		<ENCODING>ELCode</ENCODING>
+		<Author>DAQ</Author>
+		<Type>Data</Type>
+		<Run>734404</Run>
+		<DAQ_Name>cms904_6</DAQ_Name>
+		<Good>Yes</Good>
+		<Problem_Type></Problem_Type>
+		<Beam>OFF</Beam>
+		<Energy></Energy>
+		<Particles></Particles>
+		<Attenuator_upstream></Attenuator_upstream>
+		<Attenuator_downstream></Attenuator_downstream>
+		<Source>Not Set</Source>
+		<Gaz>CMS</Gaz>
+		<Scintillator>Not Set</Scintillator>
+		<Dif_Scintillator></Dif_Scintillator>
+		<Tcherenkov>No</Tcherenkov>
+		<Dif_Tcherenkov></Dif_Tcherenkov>
+		<Position_Bati_X></Position_Bati_X>
+		<Position_Bati_Y></Position_Bati_Y>
+		<Position_Bati_Z></Position_Bati_Z>
+		<Number_Dif>Four</Number_Dif>
+		<Dif_Id1>23</Dif_Id1>
+		<Position1_Z>0</Position1_Z>
+		<Type1>Unknown</Type1>
+		<HV1>8700</HV1>
+		<Gas_Channel1></Gas_Channel1>
+		<HV_Channel1></HV_Channel1>
+		<Dif_Id2>26</Dif_Id2>
+		<Position2_Z>0</Position2_Z>
+		<Type2>Unknown</Type2>
+		<HV2>8700</HV2>
+		<Gas_Channel2></Gas_Channel2>
+		<HV_Channel2></HV_Channel2>
+		<Dif_Id3>69</Dif_Id3>
+		<Position3_Z>0</Position3_Z>
+		<Type3>Unknown</Type3>
+		<HV3>6000</HV3>
+		<Gas_Channel3></Gas_Channel3>
+		<HV_Channel3></HV_Channel3>
+		<Dif_Id4>1</Dif_Id4>
+		<Position4_Z>0</Position4_Z>
+		<Type4>Unknown</Type4>
+		<HV4>6000</HV4>
+		<Gas_Channel4></Gas_Channel4>
+		<HV_Channel4></HV_Channel4>
+		<Dif_Id5></Dif_Id5>
+		<Position5_Z></Position5_Z>
+		<Type5></Type5>
+		<HV5></HV5>
+		<Gas_Channel5></Gas_Channel5>
+		<HV_Channel5></HV_Channel5>
+		<Dif_Id6></Dif_Id6>
+		<Position6_Z></Position6_Z>
+		<Type6></Type6>
+		<HV6></HV6>
+		<Gas_Channel6></Gas_Channel6>
+		<HV_Channel6></HV_Channel6>
+		<Dif_Id7></Dif_Id7>
+		<Position7_Z></Position7_Z>
+		<Type7></Type7>
+		<HV7></HV7>
+		<Gas_Channel7></Gas_Channel7>
+		<HV_Channel7></HV_Channel7>
+		<Dif_Id8></Dif_Id8>
+		<Position8_Z></Position8_Z>
+		<Type8></Type8>
+		<HV8></HV8>
+		<Gas_Channel8></Gas_Channel8>
+		<HV_Channel8></HV_Channel8>
+		<Dif_Id9></Dif_Id9>
+		<Position9_Z></Position9_Z>
+		<Type9></Type9>
+		<HV9></HV9>
+		<Gas_Channel9></Gas_Channel9>
+		<HV_Channel9></HV_Channel9>
+		<TEXT>Noise </TEXT>
+	</ENTRY>
+	<ENTRY>
+		<MID>221</MID>
+		<DATE>Mon, 06 Feb 2017 15:54:02 +0100</DATE>
+		<ENCODING>ELCode</ENCODING>
+		<Author>DAQ</Author>
+		<Type>Data</Type>
+		<Run>734405</Run>
+		<DAQ_Name>cms904_6</DAQ_Name>
+		<Good>Yes</Good>
+		<Problem_Type></Problem_Type>
+		<Beam>OFF</Beam>
+		<Energy></Energy>
+		<Particles></Particles>
+		<Attenuator_upstream></Attenuator_upstream>
+		<Attenuator_downstream></Attenuator_downstream>
+		<Source>Not Set</Source>
+		<Gaz>CMS</Gaz>
+		<Scintillator>Not Set</Scintillator>
+		<Dif_Scintillator></Dif_Scintillator>
+		<Tcherenkov>No</Tcherenkov>
+		<Dif_Tcherenkov></Dif_Tcherenkov>
+		<Position_Bati_X></Position_Bati_X>
+		<Position_Bati_Y></Position_Bati_Y>
+		<Position_Bati_Z></Position_Bati_Z>
+		<Number_Dif>Four</Number_Dif>
+		<Dif_Id1>23</Dif_Id1>
+		<Position1_Z>0</Position1_Z>
+		<Type1>Unknown</Type1>
+		<HV1>9000</HV1>
+		<Gas_Channel1></Gas_Channel1>
+		<HV_Channel1></HV_Channel1>
+		<Dif_Id2>26</Dif_Id2>
+		<Position2_Z>0</Position2_Z>
+		<Type2>Unknown</Type2>
+		<HV2>9000</HV2>
+		<Gas_Channel2></Gas_Channel2>
+		<HV_Channel2></HV_Channel2>
+		<Dif_Id3>69</Dif_Id3>
+		<Position3_Z>0</Position3_Z>
+		<Type3>Unknown</Type3>
+		<HV3>6200</HV3>
+		<Gas_Channel3></Gas_Channel3>
+		<HV_Channel3></HV_Channel3>
+		<Dif_Id4>1</Dif_Id4>
+		<Position4_Z>0</Position4_Z>
+		<Type4>Unknown</Type4>
+		<HV4>6200</HV4>
+		<Gas_Channel4></Gas_Channel4>
+		<HV_Channel4></HV_Channel4>
+		<Dif_Id5></Dif_Id5>
+		<Position5_Z></Position5_Z>
+		<Type5></Type5>
+		<HV5></HV5>
+		<Gas_Channel5></Gas_Channel5>
+		<HV_Channel5></HV_Channel5>
+		<Dif_Id6></Dif_Id6>
+		<Position6_Z></Position6_Z>
+		<Type6></Type6>
+		<HV6></HV6>
+		<Gas_Channel6></Gas_Channel6>
+		<HV_Channel6></HV_Channel6>
+		<Dif_Id7></Dif_Id7>
+		<Position7_Z></Position7_Z>
+		<Type7></Type7>
+		<HV7></HV7>
+		<Gas_Channel7></Gas_Channel7>
+		<HV_Channel7></HV_Channel7>
+		<Dif_Id8></Dif_Id8>
+		<Position8_Z></Position8_Z>
+		<Type8></Type8>
+		<HV8></HV8>
+		<Gas_Channel8></Gas_Channel8>
+		<HV_Channel8></HV_Channel8>
+		<Dif_Id9></Dif_Id9>
+		<Position9_Z></Position9_Z>
+		<Type9></Type9>
+		<HV9></HV9>
+		<Gas_Channel9></Gas_Channel9>
+		<HV_Channel9></HV_Channel9>
+		<TEXT>Noise </TEXT>
+	</ENTRY>
+	<ENTRY>
+		<MID>222</MID>
+		<DATE>Mon, 06 Feb 2017 15:58:04 +0100</DATE>
+		<ENCODING>ELCode</ENCODING>
+		<Author>DAQ</Author>
+		<Type>Data</Type>
+		<Run>734406</Run>
+		<DAQ_Name>cms904_6</DAQ_Name>
+		<Good>Yes</Good>
+		<Problem_Type></Problem_Type>
+		<Beam>OFF</Beam>
+		<Energy></Energy>
+		<Particles></Particles>
+		<Attenuator_upstream></Attenuator_upstream>
+		<Attenuator_downstream></Attenuator_downstream>
+		<Source>Not Set</Source>
+		<Gaz>CMS</Gaz>
+		<Scintillator>Not Set</Scintillator>
+		<Dif_Scintillator></Dif_Scintillator>
+		<Tcherenkov>No</Tcherenkov>
+		<Dif_Tcherenkov></Dif_Tcherenkov>
+		<Position_Bati_X></Position_Bati_X>
+		<Position_Bati_Y></Position_Bati_Y>
+		<Position_Bati_Z></Position_Bati_Z>
+		<Number_Dif>Four</Number_Dif>
+		<Dif_Id1>23</Dif_Id1>
+		<Position1_Z>0</Position1_Z>
+		<Type1>Unknown</Type1>
+		<HV1>9100</HV1>
+		<Gas_Channel1></Gas_Channel1>
+		<HV_Channel1></HV_Channel1>
+		<Dif_Id2>26</Dif_Id2>
+		<Position2_Z>0</Position2_Z>
+		<Type2>Unknown</Type2>
+		<HV2>9100</HV2>
+		<Gas_Channel2></Gas_Channel2>
+		<HV_Channel2></HV_Channel2>
+		<Dif_Id3>69</Dif_Id3>
+		<Position3_Z>0</Position3_Z>
+		<Type3>Unknown</Type3>
+		<HV3>6200</HV3>
+		<Gas_Channel3></Gas_Channel3>
+		<HV_Channel3></HV_Channel3>
+		<Dif_Id4>1</Dif_Id4>
+		<Position4_Z>0</Position4_Z>
+		<Type4>Unknown</Type4>
+		<HV4>6200</HV4>
+		<Gas_Channel4></Gas_Channel4>
+		<HV_Channel4></HV_Channel4>
+		<Dif_Id5></Dif_Id5>
+		<Position5_Z></Position5_Z>
+		<Type5></Type5>
+		<HV5></HV5>
+		<Gas_Channel5></Gas_Channel5>
+		<HV_Channel5></HV_Channel5>
+		<Dif_Id6></Dif_Id6>
+		<Position6_Z></Position6_Z>
+		<Type6></Type6>
+		<HV6></HV6>
+		<Gas_Channel6></Gas_Channel6>
+		<HV_Channel6></HV_Channel6>
+		<Dif_Id7></Dif_Id7>
+		<Position7_Z></Position7_Z>
+		<Type7></Type7>
+		<HV7></HV7>
+		<Gas_Channel7></Gas_Channel7>
+		<HV_Channel7></HV_Channel7>
+		<Dif_Id8></Dif_Id8>
+		<Position8_Z></Position8_Z>
+		<Type8></Type8>
+		<HV8></HV8>
+		<Gas_Channel8></Gas_Channel8>
+		<HV_Channel8></HV_Channel8>
+		<Dif_Id9></Dif_Id9>
+		<Position9_Z></Position9_Z>
+		<Type9></Type9>
+		<HV9></HV9>
+		<Gas_Channel9></Gas_Channel9>
+		<HV_Channel9></HV_Channel9>
+		<TEXT>Noise </TEXT>
+	</ENTRY>
+	<ENTRY>
+		<MID>223</MID>
+		<DATE>Mon, 06 Feb 2017 16:02:17 +0100</DATE>
+		<ENCODING>ELCode</ENCODING>
+		<Author>DAQ</Author>
+		<Type>Data</Type>
+		<Run>734407</Run>
+		<DAQ_Name>cms904_6</DAQ_Name>
+		<Good>Yes</Good>
+		<Problem_Type></Problem_Type>
+		<Beam>OFF</Beam>
+		<Energy></Energy>
+		<Particles></Particles>
+		<Attenuator_upstream></Attenuator_upstream>
+		<Attenuator_downstream></Attenuator_downstream>
+		<Source>Not Set</Source>
+		<Gaz>CMS</Gaz>
+		<Scintillator>Not Set</Scintillator>
+		<Dif_Scintillator></Dif_Scintillator>
+		<Tcherenkov>No</Tcherenkov>
+		<Dif_Tcherenkov></Dif_Tcherenkov>
+		<Position_Bati_X></Position_Bati_X>
+		<Position_Bati_Y></Position_Bati_Y>
+		<Position_Bati_Z></Position_Bati_Z>
+		<Number_Dif>Four</Number_Dif>
+		<Dif_Id1>23</Dif_Id1>
+		<Position1_Z>0</Position1_Z>
+		<Type1>Unknown</Type1>
+		<HV1>9300</HV1>
+		<Gas_Channel1></Gas_Channel1>
+		<HV_Channel1></HV_Channel1>
+		<Dif_Id2>26</Dif_Id2>
+		<Position2_Z>0</Position2_Z>
+		<Type2>Unknown</Type2>
+		<HV2>9300</HV2>
+		<Gas_Channel2></Gas_Channel2>
+		<HV_Channel2></HV_Channel2>
+		<Dif_Id3>69</Dif_Id3>
+		<Position3_Z>0</Position3_Z>
+		<Type3>Unknown</Type3>
+		<HV3>6400</HV3>
+		<Gas_Channel3></Gas_Channel3>
+		<HV_Channel3></HV_Channel3>
+		<Dif_Id4>1</Dif_Id4>
+		<Position4_Z>0</Position4_Z>
+		<Type4>Unknown</Type4>
+		<HV4>6400</HV4>
+		<Gas_Channel4></Gas_Channel4>
+		<HV_Channel4></HV_Channel4>
+		<Dif_Id5></Dif_Id5>
+		<Position5_Z></Position5_Z>
+		<Type5></Type5>
+		<HV5></HV5>
+		<Gas_Channel5></Gas_Channel5>
+		<HV_Channel5></HV_Channel5>
+		<Dif_Id6></Dif_Id6>
+		<Position6_Z></Position6_Z>
+		<Type6></Type6>
+		<HV6></HV6>
+		<Gas_Channel6></Gas_Channel6>
+		<HV_Channel6></HV_Channel6>
+		<Dif_Id7></Dif_Id7>
+		<Position7_Z></Position7_Z>
+		<Type7></Type7>
+		<HV7></HV7>
+		<Gas_Channel7></Gas_Channel7>
+		<HV_Channel7></HV_Channel7>
+		<Dif_Id8></Dif_Id8>
+		<Position8_Z></Position8_Z>
+		<Type8></Type8>
+		<HV8></HV8>
+		<Gas_Channel8></Gas_Channel8>
+		<HV_Channel8></HV_Channel8>
+		<Dif_Id9></Dif_Id9>
+		<Position9_Z></Position9_Z>
+		<Type9></Type9>
+		<HV9></HV9>
+		<Gas_Channel9></Gas_Channel9>
+		<HV_Channel9></HV_Channel9>
+		<TEXT>Noise </TEXT>
+	</ENTRY>
+	<ENTRY>
+		<MID>224</MID>
+		<DATE>Mon, 06 Feb 2017 16:06:35 +0100</DATE>
+		<ENCODING>ELCode</ENCODING>
+		<Author>DAQ</Author>
+		<Type>Data</Type>
+		<Run>734408</Run>
+		<DAQ_Name>cms904_6</DAQ_Name>
+		<Good>Yes</Good>
+		<Problem_Type></Problem_Type>
+		<Beam>OFF</Beam>
+		<Energy></Energy>
+		<Particles></Particles>
+		<Attenuator_upstream></Attenuator_upstream>
+		<Attenuator_downstream></Attenuator_downstream>
+		<Source>Not Set</Source>
+		<Gaz>CMS</Gaz>
+		<Scintillator>Not Set</Scintillator>
+		<Dif_Scintillator></Dif_Scintillator>
+		<Tcherenkov>No</Tcherenkov>
+		<Dif_Tcherenkov></Dif_Tcherenkov>
+		<Position_Bati_X></Position_Bati_X>
+		<Position_Bati_Y></Position_Bati_Y>
+		<Position_Bati_Z></Position_Bati_Z>
+		<Number_Dif>Four</Number_Dif>
+		<Dif_Id1>23</Dif_Id1>
+		<Position1_Z>0</Position1_Z>
+		<Type1>Unknown</Type1>
+		<HV1>9400</HV1>
+		<Gas_Channel1></Gas_Channel1>
+		<HV_Channel1></HV_Channel1>
+		<Dif_Id2>26</Dif_Id2>
+		<Position2_Z>0</Position2_Z>
+		<Type2>Unknown</Type2>
+		<HV2>9400</HV2>
+		<Gas_Channel2></Gas_Channel2>
+		<HV_Channel2></HV_Channel2>
+		<Dif_Id3>69</Dif_Id3>
+		<Position3_Z>0</Position3_Z>
+		<Type3>Unknown</Type3>
+		<HV3>6600</HV3>
+		<Gas_Channel3></Gas_Channel3>
+		<HV_Channel3></HV_Channel3>
+		<Dif_Id4>1</Dif_Id4>
+		<Position4_Z>0</Position4_Z>
+		<Type4>Unknown</Type4>
+		<HV4>6600</HV4>
+		<Gas_Channel4></Gas_Channel4>
+		<HV_Channel4></HV_Channel4>
+		<Dif_Id5></Dif_Id5>
+		<Position5_Z></Position5_Z>
+		<Type5></Type5>
+		<HV5></HV5>
+		<Gas_Channel5></Gas_Channel5>
+		<HV_Channel5></HV_Channel5>
+		<Dif_Id6></Dif_Id6>
+		<Position6_Z></Position6_Z>
+		<Type6></Type6>
+		<HV6></HV6>
+		<Gas_Channel6></Gas_Channel6>
+		<HV_Channel6></HV_Channel6>
+		<Dif_Id7></Dif_Id7>
+		<Position7_Z></Position7_Z>
+		<Type7></Type7>
+		<HV7></HV7>
+		<Gas_Channel7></Gas_Channel7>
+		<HV_Channel7></HV_Channel7>
+		<Dif_Id8></Dif_Id8>
+		<Position8_Z></Position8_Z>
+		<Type8></Type8>
+		<HV8></HV8>
+		<Gas_Channel8></Gas_Channel8>
+		<HV_Channel8></HV_Channel8>
+		<Dif_Id9></Dif_Id9>
+		<Position9_Z></Position9_Z>
+		<Type9></Type9>
+		<HV9></HV9>
+		<Gas_Channel9></Gas_Channel9>
+		<HV_Channel9></HV_Channel9>
+		<TEXT>Noise </TEXT>
+	</ENTRY>
+	<ENTRY>
+		<MID>225</MID>
+		<DATE>Mon, 06 Feb 2017 16:10:34 +0100</DATE>
+		<ENCODING>ELCode</ENCODING>
+		<Author>DAQ</Author>
+		<Type>Data</Type>
+		<Run>734409</Run>
+		<DAQ_Name>cms904_3</DAQ_Name>
+		<Good>Yes</Good>
+		<Problem_Type></Problem_Type>
+		<Beam>OFF</Beam>
+		<Energy></Energy>
+		<Particles></Particles>
+		<Attenuator_upstream></Attenuator_upstream>
+		<Attenuator_downstream></Attenuator_downstream>
+		<Source>Not Set</Source>
+		<Gaz>CMS</Gaz>
+		<Scintillator>Not Set</Scintillator>
+		<Dif_Scintillator></Dif_Scintillator>
+		<Tcherenkov>No</Tcherenkov>
+		<Dif_Tcherenkov></Dif_Tcherenkov>
+		<Position_Bati_X></Position_Bati_X>
+		<Position_Bati_Y></Position_Bati_Y>
+		<Position_Bati_Z></Position_Bati_Z>
+		<Number_Dif>Four</Number_Dif>
+		<Dif_Id1>23</Dif_Id1>
+		<Position1_Z>0</Position1_Z>
+		<Type1>Unknown</Type1>
+		<HV1>9600</HV1>
+		<Gas_Channel1></Gas_Channel1>
+		<HV_Channel1></HV_Channel1>
+		<Dif_Id2>26</Dif_Id2>
+		<Position2_Z>0</Position2_Z>
+		<Type2>Unknown</Type2>
+		<HV2>9600</HV2>
+		<Gas_Channel2></Gas_Channel2>
+		<HV_Channel2></HV_Channel2>
+		<Dif_Id3>69</Dif_Id3>
+		<Position3_Z>0</Position3_Z>
+		<Type3>Unknown</Type3>
+		<HV3>6800</HV3>
+		<Gas_Channel3></Gas_Channel3>
+		<HV_Channel3></HV_Channel3>
+		<Dif_Id4>1</Dif_Id4>
+		<Position4_Z>0</Position4_Z>
+		<Type4>Unknown</Type4>
+		<HV4>6800</HV4>
+		<Gas_Channel4></Gas_Channel4>
+		<HV_Channel4></HV_Channel4>
+		<Dif_Id5></Dif_Id5>
+		<Position5_Z></Position5_Z>
+		<Type5></Type5>
+		<HV5></HV5>
+		<Gas_Channel5></Gas_Channel5>
+		<HV_Channel5></HV_Channel5>
+		<Dif_Id6></Dif_Id6>
+		<Position6_Z></Position6_Z>
+		<Type6></Type6>
+		<HV6></HV6>
+		<Gas_Channel6></Gas_Channel6>
+		<HV_Channel6></HV_Channel6>
+		<Dif_Id7></Dif_Id7>
+		<Position7_Z></Position7_Z>
+		<Type7></Type7>
+		<HV7></HV7>
+		<Gas_Channel7></Gas_Channel7>
+		<HV_Channel7></HV_Channel7>
+		<Dif_Id8></Dif_Id8>
+		<Position8_Z></Position8_Z>
+		<Type8></Type8>
+		<HV8></HV8>
+		<Gas_Channel8></Gas_Channel8>
+		<HV_Channel8></HV_Channel8>
+		<Dif_Id9></Dif_Id9>
+		<Position9_Z></Position9_Z>
+		<Type9></Type9>
+		<HV9></HV9>
+		<Gas_Channel9></Gas_Channel9>
+		<HV_Channel9></HV_Channel9>
+		<TEXT>Noise </TEXT>
+	</ENTRY>
+	<ENTRY>
+		<MID>226</MID>
+		<DATE>Mon, 06 Feb 2017 16:14:44 +0100</DATE>
+		<ENCODING>ELCode</ENCODING>
+		<Author>DAQ</Author>
+		<Type>Data</Type>
+		<Run>734410</Run>
+		<DAQ_Name>cms904_6</DAQ_Name>
+		<Good>Yes</Good>
+		<Problem_Type></Problem_Type>
+		<Beam>OFF</Beam>
+		<Energy></Energy>
+		<Particles></Particles>
+		<Attenuator_upstream></Attenuator_upstream>
+		<Attenuator_downstream></Attenuator_downstream>
+		<Source>Not Set</Source>
+		<Gaz>CMS</Gaz>
+		<Scintillator>Not Set</Scintillator>
+		<Dif_Scintillator></Dif_Scintillator>
+		<Tcherenkov>No</Tcherenkov>
+		<Dif_Tcherenkov></Dif_Tcherenkov>
+		<Position_Bati_X></Position_Bati_X>
+		<Position_Bati_Y></Position_Bati_Y>
+		<Position_Bati_Z></Position_Bati_Z>
+		<Number_Dif>Four</Number_Dif>
+		<Dif_Id1>23</Dif_Id1>
+		<Position1_Z>0</Position1_Z>
+		<Type1>Unknown</Type1>
+		<HV1>9800</HV1>
+		<Gas_Channel1></Gas_Channel1>
+		<HV_Channel1></HV_Channel1>
+		<Dif_Id2>26</Dif_Id2>
+		<Position2_Z>0</Position2_Z>
+		<Type2>Unknown</Type2>
+		<HV2>9800</HV2>
+		<Gas_Channel2></Gas_Channel2>
+		<HV_Channel2></HV_Channel2>
+		<Dif_Id3>69</Dif_Id3>
+		<Position3_Z>0</Position3_Z>
+		<Type3>Unknown</Type3>
+		<HV3>7000</HV3>
+		<Gas_Channel3></Gas_Channel3>
+		<HV_Channel3></HV_Channel3>
+		<Dif_Id4>1</Dif_Id4>
+		<Position4_Z>0</Position4_Z>
+		<Type4>Unknown</Type4>
+		<HV4>7000</HV4>
+		<Gas_Channel4></Gas_Channel4>
+		<HV_Channel4></HV_Channel4>
+		<Dif_Id5></Dif_Id5>
+		<Position5_Z></Position5_Z>
+		<Type5></Type5>
+		<HV5></HV5>
+		<Gas_Channel5></Gas_Channel5>
+		<HV_Channel5></HV_Channel5>
+		<Dif_Id6></Dif_Id6>
+		<Position6_Z></Position6_Z>
+		<Type6></Type6>
+		<HV6></HV6>
+		<Gas_Channel6></Gas_Channel6>
+		<HV_Channel6></HV_Channel6>
+		<Dif_Id7></Dif_Id7>
+		<Position7_Z></Position7_Z>
+		<Type7></Type7>
+		<HV7></HV7>
+		<Gas_Channel7></Gas_Channel7>
+		<HV_Channel7></HV_Channel7>
+		<Dif_Id8></Dif_Id8>
+		<Position8_Z></Position8_Z>
+		<Type8></Type8>
+		<HV8></HV8>
+		<Gas_Channel8></Gas_Channel8>
+		<HV_Channel8></HV_Channel8>
+		<Dif_Id9></Dif_Id9>
+		<Position9_Z></Position9_Z>
+		<Type9></Type9>
+		<HV9></HV9>
+		<Gas_Channel9></Gas_Channel9>
+		<HV_Channel9></HV_Channel9>
+		<TEXT>Noise\ </TEXT>
+	</ENTRY>
+	<ENTRY>
+		<MID>227</MID>
+		<DATE>Wed, 08 Feb 2017 17:53:22 +0100</DATE>
+		<ENCODING>ELCode</ENCODING>
+		<Author>DAQ</Author>
+		<Type>Data</Type>
+		<Run>734438</Run>
+		<DAQ_Name>cms904_6</DAQ_Name>
+		<Good>Not Set</Good>
+		<Problem_Type></Problem_Type>
+		<Beam>OFF</Beam>
+		<Energy></Energy>
+		<Particles></Particles>
+		<Attenuator_upstream></Attenuator_upstream>
+		<Attenuator_downstream></Attenuator_downstream>
+		<Source>Not Set</Source>
+		<Gaz>CMS</Gaz>
+		<Scintillator>Not Set</Scintillator>
+		<Dif_Scintillator></Dif_Scintillator>
+		<Tcherenkov>No</Tcherenkov>
+		<Dif_Tcherenkov></Dif_Tcherenkov>
+		<Position_Bati_X></Position_Bati_X>
+		<Position_Bati_Y></Position_Bati_Y>
+		<Position_Bati_Z></Position_Bati_Z>
+		<Number_Dif>Four</Number_Dif>
+		<Dif_Id1>23</Dif_Id1>
+		<Position1_Z>0</Position1_Z>
+		<Type1>Unknown</Type1>
+		<HV1>0</HV1>
+		<Gas_Channel1></Gas_Channel1>
+		<HV_Channel1></HV_Channel1>
+		<Dif_Id2>26</Dif_Id2>
+		<Position2_Z>0</Position2_Z>
+		<Type2>Unknown</Type2>
+		<HV2>0</HV2>
+		<Gas_Channel2></Gas_Channel2>
+		<HV_Channel2></HV_Channel2>
+		<Dif_Id3>69</Dif_Id3>
+		<Position3_Z>0</Position3_Z>
+		<Type3>Unknown</Type3>
+		<HV3>0</HV3>
+		<Gas_Channel3></Gas_Channel3>
+		<HV_Channel3></HV_Channel3>
+		<Dif_Id4>1</Dif_Id4>
+		<Position4_Z>0</Position4_Z>
+		<Type4>Unknown</Type4>
+		<HV4>0</HV4>
+		<Gas_Channel4></Gas_Channel4>
+		<HV_Channel4></HV_Channel4>
+		<Dif_Id5></Dif_Id5>
+		<Position5_Z></Position5_Z>
+		<Type5></Type5>
+		<HV5></HV5>
+		<Gas_Channel5></Gas_Channel5>
+		<HV_Channel5></HV_Channel5>
+		<Dif_Id6></Dif_Id6>
+		<Position6_Z></Position6_Z>
+		<Type6></Type6>
+		<HV6></HV6>
+		<Gas_Channel6></Gas_Channel6>
+		<HV_Channel6></HV_Channel6>
+		<Dif_Id7></Dif_Id7>
+		<Position7_Z></Position7_Z>
+		<Type7></Type7>
+		<HV7></HV7>
+		<Gas_Channel7></Gas_Channel7>
+		<HV_Channel7></HV_Channel7>
+		<Dif_Id8></Dif_Id8>
+		<Position8_Z></Position8_Z>
+		<Type8></Type8>
+		<HV8></HV8>
+		<Gas_Channel8></Gas_Channel8>
+		<HV_Channel8></HV_Channel8>
+		<Dif_Id9></Dif_Id9>
+		<Position9_Z></Position9_Z>
+		<Type9></Type9>
+		<HV9></HV9>
+		<Gas_Channel9></Gas_Channel9>
+		<HV_Channel9></HV_Channel9>
+		<TEXT>test </TEXT>
+	</ENTRY>
+	<ENTRY>
+		<MID>228</MID>
+		<DATE>Wed, 08 Feb 2017 17:59:35 +0100</DATE>
+		<ENCODING>HTML</ENCODING>
+		<Author>françois lagarde</Author>
+		<Type>Comments</Type>
+		<Run></Run>
+		<DAQ_Name></DAQ_Name>
+		<Good></Good>
+		<Problem_Type></Problem_Type>
+		<Beam></Beam>
+		<Energy></Energy>
+		<Particles></Particles>
+		<Attenuator_upstream></Attenuator_upstream>
+		<Attenuator_downstream></Attenuator_downstream>
+		<Source></Source>
+		<Gaz></Gaz>
+		<Scintillator></Scintillator>
+		<Dif_Scintillator></Dif_Scintillator>
+		<Tcherenkov></Tcherenkov>
+		<Dif_Tcherenkov></Dif_Tcherenkov>
+		<Position_Bati_X></Position_Bati_X>
+		<Position_Bati_Y></Position_Bati_Y>
+		<Position_Bati_Z></Position_Bati_Z>
+		<Number_Dif></Number_Dif>
+		<Dif_Id1></Dif_Id1>
+		<Position1_Z></Position1_Z>
+		<Type1></Type1>
+		<HV1></HV1>
+		<Gas_Channel1></Gas_Channel1>
+		<HV_Channel1></HV_Channel1>
+		<Dif_Id2></Dif_Id2>
+		<Position2_Z></Position2_Z>
+		<Type2></Type2>
+		<HV2></HV2>
+		<Gas_Channel2></Gas_Channel2>
+		<HV_Channel2></HV_Channel2>
+		<Dif_Id3></Dif_Id3>
+		<Position3_Z></Position3_Z>
+		<Type3></Type3>
+		<HV3></HV3>
+		<Gas_Channel3></Gas_Channel3>
+		<HV_Channel3></HV_Channel3>
+		<Dif_Id4></Dif_Id4>
+		<Position4_Z></Position4_Z>
+		<Type4></Type4>
+		<HV4></HV4>
+		<Gas_Channel4></Gas_Channel4>
+		<HV_Channel4></HV_Channel4>
+		<Dif_Id5></Dif_Id5>
+		<Position5_Z></Position5_Z>
+		<Type5></Type5>
+		<HV5></HV5>
+		<Gas_Channel5></Gas_Channel5>
+		<HV_Channel5></HV_Channel5>
+		<Dif_Id6></Dif_Id6>
+		<Position6_Z></Position6_Z>
+		<Type6></Type6>
+		<HV6></HV6>
+		<Gas_Channel6></Gas_Channel6>
+		<HV_Channel6></HV_Channel6>
+		<Dif_Id7></Dif_Id7>
+		<Position7_Z></Position7_Z>
+		<Type7></Type7>
+		<HV7></HV7>
+		<Gas_Channel7></Gas_Channel7>
+		<HV_Channel7></HV_Channel7>
+		<Dif_Id8></Dif_Id8>
+		<Position8_Z></Position8_Z>
+		<Type8></Type8>
+		<HV8></HV8>
+		<Gas_Channel8></Gas_Channel8>
+		<HV_Channel8></HV_Channel8>
+		<Dif_Id9></Dif_Id9>
+		<Position9_Z></Position9_Z>
+		<Type9></Type9>
+		<HV9></HV9>
+		<Gas_Channel9></Gas_Channel9>
+		<HV_Channel9></HV_Channel9>
+		<TEXT>&lt;p&gt;DAC threshold to charge threshold in pC&lt;/p&gt;
+&lt;p&gt;threshold 1 : &amp;nbsp;(DAC-90)/0.7&lt;/p&gt;
+&lt;p&gt;threshold 2 : (DAC-98)/0.08&lt;/p&gt;
+&lt;p&gt;threshold 3 : (DAC-98)/0.0163&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;</TEXT>
 	</ENTRY>
 </ELOG_LIST>
