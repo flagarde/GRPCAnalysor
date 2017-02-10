@@ -48,7 +48,6 @@ OutFileRoot::~OutFileRoot()
 
 bool OutFileRoot::writeObject(std::string& dirName, TObject *object)
 {
-  std::cout<<(RunName+ProcessorName+dirName)<<std::endl;
   if(!outFile_->GetDirectory((RunName+ProcessorName+dirName).c_str())) 
   {
     outFile_->mkdir((RunName+ProcessorName+dirName).c_str());

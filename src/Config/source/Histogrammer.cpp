@@ -109,10 +109,10 @@ void Histogrammer::Plot()
   for(unsigned int o=0;o!=Gain.size();++o)
   {
     std::string SlowControl="SlowControl/Plane_Nbr"+std::to_string(o+1);
-    out->writeObject(SlowControl,Gain[o]);
+    if(Gain[o]->GetEntries()!=0)out->writeObject(SlowControl,Gain[o]);
     for(unsigned int j=0;j<ThresholdMap.size();++j)
     {
-      out->writeObject(SlowControl,ThresholdMap[j][o]);
+      if(ThresholdMap[j][o]->GetEntries()!=0)out->writeObject(SlowControl,ThresholdMap[j][o]);
     }
   }
 }

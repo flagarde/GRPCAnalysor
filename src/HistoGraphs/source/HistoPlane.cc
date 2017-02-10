@@ -27,35 +27,69 @@ void TObjectUgly::setSelected(int HistoGraphNbr,int Plate,int Dif,int Asic,int P
   HistGraphselected=HistoGraphNbr;
 }
 
-int TObjectUgly::getHistoGraphNbr(double& num)
+void HistoPlane::setRolling(std::string name , bool rolling)
 {
-  return int(num/100000000);
+  ugly.Rolling[name]=rolling;
 }
 
+int TObjectUgly::getHistoGraphNbr(double& num)
+{
+  return int(num/10000000000);
+}
 int TObjectUgly::getPlateNbr(double& num)
 {
-  return int((num-getHistoGraphNbr(num)*100000000)/1000000);
+  return int((num-getHistoGraphNbr(num)*10000000000)/100000000);
 }
 
 int TObjectUgly::getDifNbr(double& num)
 {
-  return int((num-getHistoGraphNbr(num)*100000000-getPlateNbr(num)*1000000)/100000);
+  return int((num-getHistoGraphNbr(num)*10000000000-getPlateNbr(num)*100000000)/1000000);
 }
     
 int TObjectUgly::getAsicNbr(double& num)
 {
-  return int((num-getHistoGraphNbr(num)*100000000-getPlateNbr(num)*1000000-getDifNbr(num)*100000)/1000);
+  return int((num-getHistoGraphNbr(num)*10000000000-getPlateNbr(num)*100000000-getDifNbr(num)*1000000)/10000);
 }
 
 int TObjectUgly::getPadNbr(double& num)
 {
-  return int((num-getHistoGraphNbr(num)*100000000-getPlateNbr(num)*1000000-getDifNbr(num)*100000-getAsicNbr(num)*1000)/10);
+  return int((num-getHistoGraphNbr(num)*10000000000-getPlateNbr(num)*100000000-getDifNbr(num)*1000000-getAsicNbr(num)*10000)/100);
 }
 
 int TObjectUgly::getThresholdNbr(double& num)
 {
-  return int((num-getHistoGraphNbr(num)*100000000-getPlateNbr(num)*1000000-getDifNbr(num)*100000-getAsicNbr(num)*1000-getPadNbr(num)*10));
+  return int((num-getHistoGraphNbr(num)*10000000000-getPlateNbr(num)*100000000-getDifNbr(num)*1000000-getAsicNbr(num)*10000-getPadNbr(num)*100));
 }
+
+void TObjectUgly::Fill2(TObject* obj,double a,double x,double y,double z,double w,double v,double u)
+{
+  if(obj->IsA()->InheritsFrom("TH1")) (reinterpret_cast<TH1*>(obj))->Fill(x,y);
+  if(obj->IsA()->InheritsFrom("TH2")) (reinterpret_cast<TH2*>(obj))->Fill(x,y,z);
+  if(obj->IsA()->InheritsFrom("TH3")) (reinterpret_cast<TH3*>(obj))->Fill(x,y,z,w);
+  if(obj->IsA()->InheritsFrom("TGraph"))
+  {
+    PointsInGraphs[a]++;
+    (reinterpret_cast<TGraph*>(obj))->SetPoint(PointsInGraphs[a],x,y);
+  }
+  if((obj)->IsA()->InheritsFrom("TGraph2D"))
+  {
+    PointsInGraphs[a]++;
+    (reinterpret_cast<TGraph2D*>(obj))->SetPoint(PointsInGraphs[a],x,y,z);
+  }
+  if((obj)->IsA()->InheritsFrom("TGraphErrors")) 
+  {
+    PointsInGraphs[a]++;
+    (reinterpret_cast<TGraphErrors*>(obj))->SetPoint(PointsInGraphs[a],x,y);
+    if(z!=0&&w!=0)(reinterpret_cast<TGraphErrors*>(obj))->SetPointError(PointsInGraphs[a],z,w);
+  }
+  if((obj)->IsA()->InheritsFrom("TGraph2DErrors"))
+  {
+    PointsInGraphs[a]++;
+    (reinterpret_cast<TGraph2DErrors*>(obj))->SetPoint(PointsInGraphs[a],x,y,z);
+    if(w!=0&&v!=0&&u!=0)(reinterpret_cast<TGraph2DErrors*>(obj))->SetPointError(PointsInGraphs[a],w,v,u);
+  }
+}
+
 
 void TObjectUgly::Fill(double x,double y,double z,double w,double v,double u)
 {
@@ -64,6 +98,8 @@ void TObjectUgly::Fill(double x,double y,double z,double w,double v,double u)
     double a=it->first;
     if(getHistoGraphNbr(a)>HistGraphselected)break;
     else if(getHistoGraphNbr(a)<HistGraphselected)continue;
+    if(Rolling[IntToName[getHistoGraphNbr(a)]]==true)
+   {
     if(getPlateNbr(a)==Plateselected||getPlateNbr(a)==0)
     {
       if(getDifNbr(a)==Difselected||getDifNbr(a)==0)
@@ -74,36 +110,38 @@ void TObjectUgly::Fill(double x,double y,double z,double w,double v,double u)
           {
             if(getThresholdNbr(a)==Thresholdselected||getThresholdNbr(a)==0)
             {
-              if((it->second)->IsA()->InheritsFrom("TH1")) (reinterpret_cast<TH1*>(it->second))->Fill(x,y);
-              if((it->second)->IsA()->InheritsFrom("TH2")) (reinterpret_cast<TH2*>(it->second))->Fill(x,y,z);
-              if((it->second)->IsA()->InheritsFrom("TH3")) (reinterpret_cast<TH3*>(it->second))->Fill(x,y,z,w);
-              if((it->second)->IsA()->InheritsFrom("TGraph"))
-              {
-                PointsInGraphs[a]++;
-                (reinterpret_cast<TGraph*>(it->second))->SetPoint(PointsInGraphs[a],x,y);
-              }
-              if((it->second)->IsA()->InheritsFrom("TGraph2D"))
-              {
-                PointsInGraphs[a]++;
-                (reinterpret_cast<TGraph2D*>(it->second))->SetPoint(PointsInGraphs[a],x,y,z);
-              }
-              if((it->second)->IsA()->InheritsFrom("TGraphErrors")) 
-              {
-                PointsInGraphs[a]++;
-                (reinterpret_cast<TGraphErrors*>(it->second))->SetPoint(PointsInGraphs[a],x,y);
-                if(z!=0&&w!=0)(reinterpret_cast<TGraphErrors*>(it->second))->SetPointError(PointsInGraphs[a],z,w);
-              }
-              if((it->second)->IsA()->InheritsFrom("TGraph2DErrors"))
-              {
-                PointsInGraphs[a]++;
-                (reinterpret_cast<TGraph2DErrors*>(it->second))->SetPoint(PointsInGraphs[a],x,y,z);
-                if(w!=0&&v!=0&&u!=0)(reinterpret_cast<TGraph2DErrors*>(it->second))->SetPointError(PointsInGraphs[a],w,v,u);
-              }
+              Fill2(it->second,x,y,z,w,v,u);
             } 
           } 
         } 
       } 
     } 
+   }
+   else
+   {
+    if(getThresholdNbr(a)==Thresholdselected)
+    {
+      std::string b=IntToName[getHistoGraphNbr(a)];
+      if(NameToWhere[b]==1&&getPlateNbr(a)==Plateselected)
+      {
+        Fill2(it->second,x,y,z,w,v,u);
+      }
+      else if(NameToWhere[b]==2&&getPlateNbr(a)==Plateselected&&getDifNbr(a)==Difselected)
+      {
+        Fill2(it->second,x,y,z,w,v,u);
+      }
+      else if(NameToWhere[b]==3&&getPlateNbr(a)==Plateselected&&getDifNbr(a)==Difselected&&getAsicNbr(a)==Asicselected)
+      {
+        //std::cout<<std::setprecision(12)<<it->first<<std::endl;
+        Fill2(it->second,x,y,z,w,v,u);
+        //std::cout<<blue<<NameToWhere[b]<<getPlateNbr(a)<<" "<<Plateselected<<"  "<<getDifNbr(a)<<"  "<<Difselected<<normal<<std::endl;
+      }
+      else if(NameToWhere[b]==4&&getPlateNbr(a)==Plateselected&&getDifNbr(a)==Difselected&&getAsicNbr(a)==Asicselected&&getPadNbr(a)==Padselected)
+      {
+        Fill2(it->second,x,y,z,w,v,u);
+      }
+    }
+   }
   }
 }
 
@@ -125,53 +163,49 @@ TObjectUgly& HistoPlane::operator()(const char* name,int Plate,int Dif,int Asic,
 
 double HistoPlane::ConvertToInt(std::string name,int Plate,int Dif,int Asic,int Pad,int Threshold)
 {
-  static double num=0;
   if(ugly.NameToInt.find(name)==ugly.NameToInt.end())
   {
-    ugly.NameToInt[name]=++num;
+    ugly.NameToInt[name]=num;
+    ugly.IntToName[num]=name;
+    num++;
   }
-  return Threshold+10*Pad+1000*Asic+100000*Dif+1000000*Plate+100000000*ugly.NameToInt[name];
+  std::cout<<Threshold<<"  "<<Pad<<"  "<<Asic<<"  "<<Dif<<"  "<<Plate<<"  "<<ugly.NameToInt[name]<<std::endl;
+  std::cout<<yellow<<std::setprecision(12)<<Threshold+100*Pad+10000*Asic+1000000*Dif+100000000*Plate+10000000000*ugly.NameToInt[name]<<normal<<std::endl;
+  return Threshold+100*Pad+10000*Asic+1000000*Dif+100000000*Plate+10000000000*ugly.NameToInt[name];
 }
 
-void HistoPlane::CreateHistoGraph(std::string n,std::string type,int& number,int bx,double xd,double xu, int by,double yd,double yu,int bz,double zd,double zu)
+void HistoPlane::CreateHistoGraph(std::string n,std::string type,double& number,int bx,double xd,double xu, int by,double yd,double yu,int bz,double zd,double zu)
 {
   if(type=="TH1") ugly.HistGraphs[number]=new TH1D(n.c_str(),n.c_str(),bx,xd,xu);
-  if(type=="TH2") ugly.HistGraphs[number]=new TH2D(n.c_str(),n.c_str(),bx,xd,xu,by,yd,yu);
-  if(type=="TH3") ugly.HistGraphs[number]=new TH3D(n.c_str(),n.c_str(),bx,xd,xu,by,yd,yu,bz,zd,zu);
-  if(type=="TProfile") ugly.HistGraphs[number]=new TProfile(n.c_str(),n.c_str(),bx,xd,xu);
-  if(type=="TProfile2D") ugly.HistGraphs[number]=new TProfile2D(n.c_str(),n.c_str(),bx,xd,xu,by,yd,yu);
-  if(type=="TProfile3D") ugly.HistGraphs[number]=new TProfile3D(n.c_str(),n.c_str(),bx,xd,xu,by,yd,yu,bz,zd,zu);
-  if(type=="TGraph") 
+  else if(type=="TH2") ugly.HistGraphs[number]=new TH2D(n.c_str(),n.c_str(),bx,xd,xu,by,yd,yu);
+  else if(type=="TH3") ugly.HistGraphs[number]=new TH3D(n.c_str(),n.c_str(),bx,xd,xu,by,yd,yu,bz,zd,zu);
+  else if(type=="TProfile") ugly.HistGraphs[number]=new TProfile(n.c_str(),n.c_str(),bx,xd,xu);
+  else if(type=="TProfile2D") ugly.HistGraphs[number]=new TProfile2D(n.c_str(),n.c_str(),bx,xd,xu,by,yd,yu);
+  else if(type=="TProfile3D") ugly.HistGraphs[number]=new TProfile3D(n.c_str(),n.c_str(),bx,xd,xu,by,yd,yu,bz,zd,zu);
+  else if(type=="TGraph") 
   {
-    TGraph* a=new TGraph();
-    a->SetName(n.c_str());
-    a->SetTitle(n.c_str());
-    ugly.HistGraphs[number]=a;
+    ugly.HistGraphs[number]=new TGraph(0);
     ugly.PointsInGraphs[number]=-1;
   }
-  if(type=="TGraphErrors") 
+  else if(type=="TGraphErrors") 
   {
-    TGraphErrors* a=new TGraphErrors();
-    a->SetName(n.c_str());
-    a->SetTitle(n.c_str());
-    ugly.HistGraphs[number]=a;
+    ugly.HistGraphs[number]=new TGraphErrors(0);
     ugly.PointsInGraphs[number]=-1;
   }
-  if(type=="TGraph2D") 
+  else if(type=="TGraph2D") 
   {
-    TGraph2D* a=new TGraph2D();
-    a->SetName(n.c_str());
-    a->SetTitle(n.c_str());
-    ugly.HistGraphs[number]=a;
+    ugly.HistGraphs[number]=new TGraph2D(0);
     ugly.PointsInGraphs[number]=-1;
   }
-  if(type=="TGraph2DErrors") 
+  else if(type=="TGraph2DErrors") 
   {
-    TGraph2DErrors* a=new TGraph2DErrors();
-    a->SetName(n.c_str());
-    a->SetTitle(n.c_str());
-    ugly.HistGraphs[number]=a;
+    ugly.HistGraphs[number]=new TGraph2DErrors(0);
     ugly.PointsInGraphs[number]=-1;
+  }
+  if(type=="TGraph2DErrors"||type=="TGraph2D"||type=="TGraphErrors"||type=="TGraph")
+  {
+    (reinterpret_cast<TNamed*>(ugly.HistGraphs[number]))->SetName(n.c_str());
+    (reinterpret_cast<TNamed*>(ugly.HistGraphs[number]))->SetTitle(n.c_str());
   }
   ugly.IntToType[number]=type;
 }
@@ -184,6 +218,7 @@ void HistoPlane::Add(const char* type ,const char* where,const char* vec,int bx,
       std::cout<<red<<"Error:: "<<vec<<" exists and so will no be recreated"<<std::endl;
       return;
     }
+    ugly.Rolling[std::string(vec)]=true;
     Names.insert(std::string(vec));
     if(ugly.GranularityName.find(where)==ugly.GranularityName.end())
     {
@@ -194,7 +229,6 @@ void HistoPlane::Add(const char* type ,const char* where,const char* vec,int bx,
       ugly.NameToWhere[std::string(vec)]=ugly.GranularityName[where];
       if(ugly.GranularityName[where]==Pad)
       {
-        std::cout<<"Pads"<<std::endl;
         for(unsigned int j=0;j!=Global::geom->GetNumberPlates();++j)
         {
           for(unsigned int k=0;k!=Global::geom->GetDifsInPlane(j).size();++k)
@@ -206,9 +240,10 @@ void HistoPlane::Add(const char* type ,const char* where,const char* vec,int bx,
               {
                 for(unsigned int o=1;o!=7;++o)
                 {
-                  std::string n="Plate"+std::to_string(j+1)+"/Dif"+std::to_string(Global::geom->GetDifsInPlane(j)[k])+"/Asic"+std::to_string(l);
+                  int difnbr=Global::geom->GetDifsInPlane(j)[k];
+                  std::string n="Plate"+std::to_string(j+1)+"/Dif"+std::to_string(difnbr)+"/Asic"+std::to_string(l);
                   n+="/Pad"+std::to_string(m-1)+"/"+Thresholds_name[o-1]+"/"+std::string(vec);
-                  int number=ConvertToInt(std::string(vec),j+1,k,l,m,o);
+                  double number=ConvertToInt(std::string(vec),j+1,difnbr,l,m,o);
                   CreateHistoGraph(n,type,number,bx,xd,xu,by,yd,yu,bz,zd,zu);
                 }
               }
@@ -218,7 +253,6 @@ void HistoPlane::Add(const char* type ,const char* where,const char* vec,int bx,
       }
       if(ugly.GranularityName[where]>=Asic)
       {
-        std::cout<<"Asics"<<std::endl;
         for(unsigned int j=0;j!=Global::geom->GetNumberPlates();++j)
         {
           for(unsigned int k=0;k!=Global::geom->GetDifsInPlane(j).size();++k)
@@ -228,9 +262,10 @@ void HistoPlane::Add(const char* type ,const char* where,const char* vec,int bx,
             {
                 for(unsigned int o=1;o!=7;++o)
                 {
-                  std::string n="Plate"+std::to_string(j+1)+"/Dif"+std::to_string(Global::geom->GetDifsInPlane(j)[k])+"/Asic"+std::to_string(l);
+                  int difnbr=Global::geom->GetDifsInPlane(j)[k];
+                  std::string n="Plate"+std::to_string(j+1)+"/Dif"+std::to_string(difnbr)+"/Asic"+std::to_string(l);
                   n+="/"+Thresholds_name[o-1]+"/"+std::string(vec);
-                  int number=ConvertToInt(std::string(vec),j+1,k,l,0,o);
+                  double number=ConvertToInt(std::string(vec),j+1,difnbr,l,0,o);
                   CreateHistoGraph(n,type,number,bx,xd,xu,by,yd,yu,bz,zd,zu);
                 }
             }
@@ -239,16 +274,18 @@ void HistoPlane::Add(const char* type ,const char* where,const char* vec,int bx,
       }
       if(ugly.GranularityName[where]>=Dif)
       {
-        std::cout<<"Difs"<<std::endl;
         for(unsigned int j=0;j!=Global::geom->GetNumberPlates();++j)
         {
           for(unsigned int k=0;k!=Global::geom->GetDifsInPlane(j).size();++k)
           {
             for(unsigned int o=1;o!=7;++o)
             {
-              std::string n="Plate"+std::to_string(j+1)+"/Dif"+std::to_string(Global::geom->GetDifsInPlane(j)[k])+"/"+Thresholds_name[o-1]+"/"
+              int difnbr=Global::geom->GetDifsInPlane(j)[k];
+              std::cout<<red<<difnbr<<normal<<std::endl;
+              std::string n="Plate"+std::to_string(j+1)+"/Dif"+std::to_string(difnbr)+"/"+Thresholds_name[o-1]+"/"
               +std::string(vec);
-              int number=ConvertToInt(std::string(vec),j+1,k,0,0,o);
+              double number=ConvertToInt(std::string(vec),j+1,difnbr,0,0,o);
+              std::cout<<std::setprecision(12)<<"           "<<number<<std::endl;
               CreateHistoGraph(n,type,number,bx,xd,xu,by,yd,yu,bz,zd,zu);
             }
           }
@@ -256,13 +293,12 @@ void HistoPlane::Add(const char* type ,const char* where,const char* vec,int bx,
       }
       if(ugly.GranularityName[where]>=Plane)
       {
-        std::cout<<"Plane"<<std::endl;
         for(unsigned int j=0;j!=Global::geom->GetNumberPlates();++j)
         {
           for(unsigned int o=1;o!=7;++o)
           {
             std::string n="Plate"+std::to_string(j+1)+"/"+Thresholds_name[o-1]+"/"+std::string(vec);
-            int number=ConvertToInt(std::string(vec),j+1,0,0,0,o);
+            double number=ConvertToInt(std::string(vec),j+1,0,0,0,o);
             CreateHistoGraph(n,type,number,bx,xd,xu,by,yd,yu,bz,zd,zu);
           }
         }
@@ -272,7 +308,7 @@ void HistoPlane::Add(const char* type ,const char* where,const char* vec,int bx,
         for(unsigned int o=1;o!=6;++o)
         {
           std::string n=Thresholds_name[o-1]+"/"+std::string(vec);
-          int number=ConvertToInt(std::string(vec),0,0,0,0,o);
+          double number=ConvertToInt(std::string(vec),0,0,0,0,o);
           CreateHistoGraph(n,type,number,bx,xd,xu,by,yd,yu,bz,zd,zu);
         }
       }
@@ -303,7 +339,13 @@ void HistoPlane::Write()
   for(std::map<double,TObject*>::iterator it=ugly.HistGraphs.begin();it!=ugly.HistGraphs.end();++it)
   {
     std::string folder="HistoGraphs/"+SplitFilename((reinterpret_cast<TNamed*>(it->second))->GetTitle())[0];
-    Global::out->writeObject(folder,it->second);
+    if(NotWriteEmpty==true)
+    {
+      if((it->second)->IsA()->InheritsFrom("TH1")&&(reinterpret_cast<TH1*>(it->second))->GetEntries()!=0) Global::out->writeObject(folder,it->second);
+     else if((it->second)->IsA()->InheritsFrom("TGraph")&&(reinterpret_cast<TGraph*>(it->second))->GetN()!=0)Global::out->writeObject(folder,it->second);
+     else if((it->second)->IsA()->InheritsFrom("TGraph2D")&&(reinterpret_cast<TGraph2D*>(it->second))->GetN()!=0)Global::out->writeObject(folder,it->second);
+    }
+    else  Global::out->writeObject(folder,it->second);
   }
 }
 
