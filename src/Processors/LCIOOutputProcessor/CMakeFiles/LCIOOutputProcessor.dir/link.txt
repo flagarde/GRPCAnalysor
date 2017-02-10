@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC  -std=c++14 -ggdb3 -Wall -ansi -fno-strict-aliasing -lpthread -ldl -lm -fPIC -std=c++14  -shared -Wl,-soname,libLCIOOutputProcessor.so -o ../../../build/lib/libLCIOOutputProcessor.so CMakeFiles/LCIOOutputProcessor.dir/source/LCIOOutputProcessor.cc.o ../../../build/lib/libMarlin.a -ldl ../../../build/lib/liblcio.a ../../../build/lib/libsio.a -lz 

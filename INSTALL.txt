@@ -1,22 +1,21 @@
 ########################################
 # README file for EventBuilder package
-# @author Haddad Yacine, Arnaud Steen, Lagarde Francois, Grenier Gerald, Eté Rémi
-# @version 1.0.RC 20/05/2015
+# @author Lagarde Francois
+# @version 2.7 10/02/2017
 # @copyright IPNL, CNRS
 ########################################
 
 
-//EventBuilder package 
 Copyright (c) 2015
 
-This file is part of EventBuilder libraries.
+This file is part of GRPCAnalysor libraries.
 
-EventBuilder is free software: you can redistribute it and/or modify
+GRPCAnalysor is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
-EventBuilder is distributed in the hope that it will be useful,
+GRPCAnalysor is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
@@ -29,31 +28,19 @@ along with EventBuilder.  If not, see <http://www.gnu.org/licenses/>.
 REQUIREMENTS:
 =============
    Needs :
-     - ilcsoft. Tested with the following version :
-       * v01-17-03
-       * v01-17-05
-
-   Optional packages :
-     - Doxygen (for code documentation)
-
+     - ROOT (https://root.cern.ch/)
+     - CMAKE
 
 INSTALL:
 =============
 	
-  * In the EventBuilder root directory, do:
+  * In the GRPCAnalysor root directory, do:
 
-		chmod u+x BuildMe.sh (execute permissions)
-		./BuildMe.sh
+    mkdir build
+    cd build
+		cmake ..
      
   Enjoy !  :)
-  
-  
-DOCUMENTATION:
-================
-
-  A code documentation is generated using Doxygen software. 
-  
-  See doc/html/index.html
   
   
 COMMENTS AND BUGS:
