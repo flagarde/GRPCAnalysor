@@ -16,7 +16,7 @@ else()
 endif()
 
 # add the binary tree to the search path for include files
-include_directories("${PROJECT_BINARY_DIR}")
+include_directories("${PROJECT_INCLUDE_DIR}")
 add_subdirectory(Streamout)
 add_subdirectory(LCIOOutputProcessor)
 add_subdirectory(Progress)

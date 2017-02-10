@@ -1,1 +1,0 @@
-/usr/bin/c++  -fPIC  -std=c++14 -ggdb3 -Wall -ansi -fno-strict-aliasing -lpthread -ldl -lm -fPIC -std=c++14  -shared -Wl,-soname,libTrigger.so -o ../../../build/lib/libTrigger.so CMakeFiles/Trigger.dir/source/Trigger.cc.o ../../../build/lib/libMarlin.a -ldl ../../../build/lib/liblcio.a ../../../build/lib/libsio.a -lz 

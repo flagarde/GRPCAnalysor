@@ -1,1 +1,0 @@
-/usr/bin/c++  -fPIC  -std=c++14 -ggdb3 -Wall -ansi -fno-strict-aliasing -lpthread -ldl -lm -fPIC -std=c++14  -shared -Wl,-soname,libTrivent.so -o ../../../build/lib/libTrivent.so CMakeFiles/Trivent.dir/source/Trivent.cc.o ../../../build/lib/libMarlin.a -ldl ../../../build/lib/liblcio.a ../../../build/lib/libsio.a -lz 

@@ -92,8 +92,11 @@ void TriventTriggered::init()
   }
   //SelectedHits3D=new THnSparseD("Selected Hits 3D", "Selected Hits 3D", 3, bin, xmin, xmax);
   //RejectedHits3D=new THnSparseD("Rejected Hits 3D", "Rejected Hits 3D", 3, bin, xmin, xmax);
-  //a.Add("TH1","Asic","test",10,0.,15.);
-  Global::HG.Add("TGraph","Dif","Efficiency vs HV");
+  a.Add("TH1","Asic","test",10,0.,15.);
+  a.setRolling("test",false);
+  a.Add("TH1","Asic","test2",10,0.,15.);
+  a.setRolling("test2",true);
+  Global::HG.Add("TGraph","Dif","Efficiency  HV");
   //a.Add("TH3","Dif","test",10,20.,30.,20,30.,40.,50,60.,70.);
  // a.Add("TGraph","Dif","test3",10,20.,30.,20,30.,40.,50,60.,70.);
   //a.List(); 
@@ -103,6 +106,8 @@ void TriventTriggered::processEvent( LCEvent * evtP )
 {
   for(unsigned int i=0; i< _hcalCollections.size(); i++) 
   {
+    a("test",1,23,1,1,1).Fill(1,2,3,4);
+    a("test2",1,23,1,1,1).Fill(1,2,3,4);
     try 
 	  {
 	    LCCollection* col = evtP ->getCollection(_hcalCollections[i].c_str());
@@ -171,7 +176,6 @@ void TriventTriggered::processEvent( LCEvent * evtP )
 	        {
 	          NumberOfEventsEfficientDIF[it->first]++;
 	          HASHITS[Global::geom->GetDifNbrPlate(it->first)]=true;
-	          a("test",1,23,1,1,1).Fill(1,2,3,4);
 	        }
 	        for(unsigned int o=0;o!=it->second.size();++o)
 	        {
@@ -225,13 +229,10 @@ void TriventTriggered::end()
       NameBin.push_back("DIF "+std::to_string(Global::geom->GetDifsInPlane(i)[o]));
       Global::HG("Efficiency vs HV",i+1,Global::geom->GetDifsInPlane(i)[o],1,1,1).Fill(Global::eloginf->HV[Global::geom->GetDifsInPlane(i)[o]],NumberOfEventsEfficientDIF[Global::geom->GetDifsInPlane(i)[o]]*100.0/EventsSelected);
       ValueBin.push_back(NumberOfEventsEfficientDIF[Global::geom->GetDifsInPlane(i)[o]]*100.0/EventsSelected);
-      std::cout<<red<<NumberOfEventsEfficientDIF[Global::geom->GetDifsInPlane(i)[o]]<<"  "<<NumberOfEventsEfficientDIF[Global::geom->GetDifsInPlane(i)[o]]*100.0/EventsSelected<<std::endl;
     }
     NameBin.push_back("Plate Nbr"+std::to_string(i+1));
     ValueBin.push_back(NumberOfEventsEfficientPlan[i+1]*100.0/EventsSelected);
-    std::cout<<yellow<<NumberOfEventsEfficientPlan[i+1]<<"  "<<NumberOfEventsEfficientPlan[i+1]*100.0/EventsSelected<<"  "<<EventsSelected<<std::endl;
   }
-  for(unsigned int y=0;y!=NameBin.size();++y) std::cout<<NameBin[y]<<std::endl;
   TH1F* Efficiencies=new TH1F("Efficiencies","Efficiencies",NameBin.size(),0,NameBin.size());
   for(unsigned int i=0;i!=NameBin.size();++i)
   {
@@ -268,10 +269,6 @@ void TriventTriggered::end()
     (it->second)->Scale(1.0/(TotalTimeRejected*area));
     Global::out->writeObject("HitsDistributionRejected/Scaled",it->second);
     delete it->second;
-  }
-  for(std::map<int,int>::iterator it=NumberOfEventsEfficientDIF.begin();it!=NumberOfEventsEfficientDIF.end();++it)
-  {
-    std::cout<<yellow<<it->second<<normal<<std::endl;
   }
   //TF1 * tf = new TF1("TransferFunction", transfer_function2);
   //Global::out->writeObject("3D",SelectedHits3D);
