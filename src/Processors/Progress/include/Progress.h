@@ -17,7 +17,7 @@ class Progress : public Processor
     virtual void processRunHeader( LCRunHeader* run ) ;
     virtual void processEvent( LCEvent * evt ) ;
     virtual void end() ;
-    //inline std::string Shift(double);
+    inline std::string Shift(double);
     inline unsigned int Every(unsigned int &);
     inline void Progression(unsigned int,unsigned int, unsigned int, unsigned int,std::string Perso);
 };

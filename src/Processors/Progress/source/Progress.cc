@@ -3,7 +3,6 @@
 #include <iostream> 
 #include <string>
 #include <sstream>
-#include "Utilities.h"
 Progress aProgress;
 
 Progress::Progress() : Processor("Progress") 
@@ -27,14 +26,14 @@ void Progress::end()
 {
 }
 
-/*inline std::string Progress::Shift(double val)
+inline std::string Progress::Shift(double val)
 {
   std::stringstream ss;
 	if(val<10) ss<<"  "<<val;
 	if(val>=10&&val<1000) ss<<" "<<val;
 	if(val>=1000) ss<<val;
   return ss.str();
-}*/
+}
 
 inline unsigned int Progress::Every(unsigned int & _maxRecord)
 {
@@ -80,4 +79,5 @@ inline void Progress::Progression(unsigned int _skip,unsigned int _GlobalEvents,
 	}
   }
 }
+
 
