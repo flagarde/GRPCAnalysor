@@ -24,15 +24,15 @@
 int bin[3]={129,3,4};
 double xmin[3]={0,1,-1};
 double xmax[3]={129,3,3};
-#define area 0.25*30
-
+//#define area 0.25*30
+#define area 1
 TriventTriggered aTriventTriggered;
 
 TriventTriggered::TriventTriggered() : Processor("TriventTriggered")
 {
   _outFileName="";
   registerProcessorParameter("LCIOOutputFile","LCIO file",_outFileName,_outFileName);
-  _hcalCollections={"XYZFilled"};
+  _hcalCollections={"REJECTED"};
   registerInputCollections( LCIO::CALORIMETERHIT,"HCALCollections","HCAL Collection Names",_hcalCollections,_hcalCollections);
   _noiseCut = -1;
   registerProcessorParameter("NoiseCut" ,"Number of hits maximum per DIFs and events (-1) to ignore this parameter",_noiseCut ,_noiseCut);
@@ -86,8 +86,8 @@ void TriventTriggered::init()
       TimeDistributionRejected[i+1]=new TH1F(name4.c_str(),name4.c_str(),100000,0,100000);
       int xmax=Global::geom->GetSizeX(i)+1;
       int ymax=Global::geom->GetSizeY(i)+1;
-      HitsDistribution[i+1]=new TH2F(name2.c_str(),name2.c_str(),129,0,129,2,0,64);
-      HitsDistributionRejected[i+1]=new TH2F(name3.c_str(),name3.c_str(),129,0,129,2,0,64);
+      HitsDistribution[i+1]=new TH2F(name2.c_str(),name2.c_str(),600,0,600,600,0,600);
+      HitsDistributionRejected[i+1]=new TH2F(name3.c_str(),name3.c_str(),600,0,600,600,0,600);
     //}
   }
   //SelectedHits3D=new THnSparseD("Selected Hits 3D", "Selected Hits 3D", 3, bin, xmin, xmax);
@@ -140,7 +140,7 @@ void TriventTriggered::processEvent( LCEvent * evtP )
 	          {
 	            SelectedHits[decode(raw_hit)["DIF_Id"]].push_back(raw_hit);
 	            TimeDistribution[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(raw_hit->getTime());
-	            HitsDistribution[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(decode(raw_hit)["I"],decode(raw_hit)["J"]*31);
+	            HitsDistribution[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(decode(raw_hit)["I"],decode(raw_hit)["J"]);
 	            //SelectedHits3D->Fill(fillr);
 	          }
 		      }
@@ -151,7 +151,7 @@ void TriventTriggered::processEvent( LCEvent * evtP )
 	            RejectedHits[decode(raw_hit)["DIF_Id"]].push_back(raw_hit);
 	            TimeDistributionRejected[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(raw_hit->getTime());
 	            if(MinMaxTimeRejected.second<raw_hit->getTime())MinMaxTimeRejected.second=raw_hit->getTime();
-	            HitsDistributionRejected[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(decode(raw_hit)["I"],decode(raw_hit)["J"]*31);
+	            HitsDistributionRejected[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(decode(raw_hit)["I"],decode(raw_hit)["J"]);
 	            //RejectedHits3D->Fill(fillr);
 	          }
 		      }

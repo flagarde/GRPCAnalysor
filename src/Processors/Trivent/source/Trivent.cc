@@ -210,7 +210,20 @@ void Trivent::processEvent( LCEvent * evtP )
 		        }
 		        RawHits.erase(middle++);
 		      }
-		      evtt->addCollection(clu3, "TRIVENTED");
+                 LCCollectionVec* clu4 = new LCCollectionVec(LCIO::CALORIMETERHIT);
+          CellIDEncoder<CalorimeterHitImpl> cdt4( "I:8,J:7,K:10,Dif_id:8,Asic_id:6,Chan_id:7" ,clu4) ;
+                clu4->setFlag(clu4->getFlag()|( 1 << LCIO::RCHBIT_LONG));
+                clu4->setFlag(clu4->getFlag()|( 1 << LCIO::RCHBIT_TIME));
+	for(std::map<int,std::vector<CalorimeterHit *> >::iterator it=RawHits.begin();it!=RawHits.end();++it)
+	{
+		for(std::vector<CalorimeterHit *>::iterator itt=it->second.begin();itt!=it->second.end();++itt)
+                        {
+                          clu4->addElement(*itt);
+                        }
+
+	}
+		evtt->addCollection(clu4,"REJECTED");
+		evtt->addCollection(clu3, "TRIVENTED");
 	        evtt->addCollection(clu2, "NOISE_AFTER");
 	        evtt->addCollection(clu1,"NOISE_BEFORE");
           //delete evtt;
