@@ -24,6 +24,8 @@
 using namespace lcio ;
 using namespace std ;
 
+HistoPlane Global::HG;
+
 std::vector<std::string> SplitFilename (const std::string& str)
 {
   std::size_t found = str.find_last_of("/\\");
@@ -224,6 +226,7 @@ int main(int argc, char* argv[] )
 	    }  
       lcReader->registerLCRunListener( ProcessorMgr::instance() ) ; 
       lcReader->registerLCEventListener( ProcessorMgr::instance() ) ;
+      Global::totalevent=0;
       for(unsigned int i =0;i!=files_well_ordered.size();++i)
       {
         LCReader* lcReadercounter = LCFactory::getInstance()->createLCReader() ;
@@ -249,7 +252,7 @@ int main(int argc, char* argv[] )
           Global::eloginf = new ElogInformations;
           Reader* elogreader=readerFactory->CreateReader("XMLReaderElog");
           elogreader->Read(FileNameElog,Global::conf,Global::number);
-          Histogrammer(Global::conf,Global::out,Global::geom);
+          if(Global::conf->NoDifInfo()==false)Global::Histogram= new Histogrammer(Global::conf,Global::out,Global::geom);
           delete elogreader;
         }
         //Global::LCIOFiles=&files_well_ordered[i];
@@ -325,10 +328,11 @@ int main(int argc, char* argv[] )
 	  << " Marlin will have to be terminated, sorry.\n"  
 	  << " ***********************************************\n" 
 	  << normal<<std:: endl ;
-    return 1 ;
     delete Global::geom;
     delete Global::conf;
     delete Global::out;
+    delete Global::Histogram;
+    return 1 ;
   }
   std::string blank="";
   Global::out->setRunName(blank);
@@ -337,6 +341,7 @@ int main(int argc, char* argv[] )
   delete Global::geom;
   delete Global::conf;
   delete Global::out;
+  delete Global::Histogram;
   return 0 ;
 }
 

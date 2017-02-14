@@ -32,7 +32,7 @@ TriventTriggered::TriventTriggered() : Processor("TriventTriggered")
 {
   _outFileName="";
   registerProcessorParameter("LCIOOutputFile","LCIO file",_outFileName,_outFileName);
-  _hcalCollections={"REJECTED"};
+  _hcalCollections={"TRIVENTED"};
   registerInputCollections( LCIO::CALORIMETERHIT,"HCALCollections","HCAL Collection Names",_hcalCollections,_hcalCollections);
   _noiseCut = -1;
   registerProcessorParameter("NoiseCut" ,"Number of hits maximum per DIFs and events (-1) to ignore this parameter",_noiseCut ,_noiseCut);
@@ -58,37 +58,26 @@ void TriventTriggered::init()
   printParameters();
   NumberOfEventsEfficientDIF.clear();
   NumberOfEventsEfficientPlan.clear();
+  MinMaxTime=std::pair<double,double>(0.,0.);
+  MinMaxTimeRejected=std::pair<double,double>(0.,0.);
   for(unsigned int i=0;i!=Global::geom->GetNumberPlates();++i)
   {
-    /*if(Global::geom->GetDifType(i)!=temporal&&Global::geom->GetDifType(i)!=scintillator&&Global::geom->GetDifType(i)!=tcherenkov)
-    {*/
+    if(Global::geom->GetDifType(i)!=temporal&&Global::geom->GetDifType(i)!=scintillator&&Global::geom->GetDifType(i)!=tcherenkov)
+    {
       std::string name="Time Distribution in plate nbr "+std::to_string(i+1);
       std::string name2="Hits Distribution in plate nbr "+std::to_string(i+1);
       std::string name3="Hits Distribution in plate nbr "+std::to_string(i+1)+" out of trigger time";
       std::string name4="Time Distribution in plate nbr "+std::to_string(i+1)+" out of trigger time";
-      int Xmin=0;
-      int Xmax=100000;
-      int NBins=100000;
-      MinMaxTime=std::pair<double,double>(0,100000);
-      if(_TriggerTimeLow!=0) 
-      {
-        Xmin=_TriggerTimeLow;
-        MinMaxTime.first=_TriggerTimeLow;
-      }
-      if(_TriggerTimeHigh!=0)
-      {
-        Xmax=_TriggerTimeHigh;
-        MinMaxTime.second=_TriggerTimeHigh;
-      }
-      MinMaxTimeRejected=std::pair<double,double>(0.,0.);
-      NBins=Xmax-Xmin;
+      int Xmin=_TriggerTimeLow;
+      int Xmax=_TriggerTimeHigh;
+      int NBins=Xmax-Xmin;
       TimeDistribution[i+1]=new TH1F(name.c_str(),name.c_str(),NBins+1,Xmin,Xmax+1);
       TimeDistributionRejected[i+1]=new TH1F(name4.c_str(),name4.c_str(),100000,0,100000);
       int xmax=Global::geom->GetSizeX(i)+1;
       int ymax=Global::geom->GetSizeY(i)+1;
-      HitsDistribution[i+1]=new TH2F(name2.c_str(),name2.c_str(),600,0,600,600,0,600);
-      HitsDistributionRejected[i+1]=new TH2F(name3.c_str(),name3.c_str(),600,0,600,600,0,600);
-    //}
+      HitsDistribution[i+1]=new TH2F(name2.c_str(),name2.c_str(),35,0,35,40,0,40);
+      HitsDistributionRejected[i+1]=new TH2F(name3.c_str(),name3.c_str(),35,0,35,40,0,40);
+    }
   }
   //SelectedHits3D=new THnSparseD("Selected Hits 3D", "Selected Hits 3D", 3, bin, xmin, xmax);
   //RejectedHits3D=new THnSparseD("Rejected Hits 3D", "Rejected Hits 3D", 3, bin, xmin, xmax);
@@ -99,11 +88,14 @@ void TriventTriggered::init()
   Global::HG.Add("TGraph","Dif","Efficiency  HV");
   //a.Add("TH3","Dif","test",10,20.,30.,20,30.,40.,50,60.,70.);
  // a.Add("TGraph","Dif","test3",10,20.,30.,20,30.,40.,50,60.,70.);
-  //a.List(); 
+  a.List(); 
 }
 
 void TriventTriggered::processEvent( LCEvent * evtP )
 {
+  MinMaxTime.first=_TriggerTimeLow;
+  if(_TriggerTimeHigh!=std::numeric_limits<int>::max()) MinMaxTime.second=_TriggerTimeHigh;
+  else MinMaxTime.second=0;
   for(unsigned int i=0; i< _hcalCollections.size(); i++) 
   {
     a("test",1,23,1,1,1).Fill(1,2,3,4);
@@ -115,8 +107,8 @@ void TriventTriggered::processEvent( LCEvent * evtP )
       LCEventImpl*  evtt = new LCEventImpl() ;
       LCCollectionVec* clu1 = new LCCollectionVec(LCIO::CALORIMETERHIT);
       LCCollectionVec* clu2 = new LCCollectionVec(LCIO::CALORIMETERHIT);
-      CellIDEncoder<CalorimeterHitImpl> cdt( "I:8,J:7,K:10,Dif_id:8,Asic_id:6,Chan_id:7" ,clu1) ;
-      CellIDEncoder<CalorimeterHitImpl> cdt2( "I:8,J:7,K:10,Dif_id:8,Asic_id:6,Chan_id:7" ,clu2) ;
+      CellIDEncoder<CalorimeterHitImpl> cdt( "I:8,J:7,K:10,DIF_Id:8,Asic_Id:6,Channel:7" ,clu1) ;
+      CellIDEncoder<CalorimeterHitImpl> cdt2( "I:8,J:7,K:10,DIF_Id:8,Asic_Id:6,Channel:7" ,clu2) ;
 	    clu1->setFlag(clu1->getFlag()|( 1 << LCIO::RCHBIT_LONG));
 	    clu1->setFlag(clu1->getFlag()|( 1 << LCIO::RCHBIT_TIME));
 	    clu2->setFlag(clu2->getFlag()|( 1 << LCIO::RCHBIT_LONG));
@@ -140,6 +132,7 @@ void TriventTriggered::processEvent( LCEvent * evtP )
 	          {
 	            SelectedHits[decode(raw_hit)["DIF_Id"]].push_back(raw_hit);
 	            TimeDistribution[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(raw_hit->getTime());
+	            if(_TriggerTimeHigh==std::numeric_limits<int>::max())if(MinMaxTime.second<raw_hit->getTime())MinMaxTime.second=raw_hit->getTime();
 	            HitsDistribution[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(decode(raw_hit)["I"],decode(raw_hit)["J"]);
 	            //SelectedHits3D->Fill(fillr);
 	          }
@@ -213,8 +206,10 @@ void TriventTriggered::processEvent( LCEvent * evtP )
 	  
   }
   TotalTime+=(MinMaxTime.second-MinMaxTime.first)*200e-9;
+  std::cout<<TotalTime<<"  "<<(MinMaxTime.second-MinMaxTime.first)*200e-9<<std::endl;
   TotalTimeRejected+=((MinMaxTimeRejected.second-MinMaxTimeRejected.first)-TotalTime)*200e-9;
   MinMaxTimeRejected=std::pair<double,double>(0.,0.);
+  MinMaxTime=std::pair<double,double>(0.,0.);
 }
 
 

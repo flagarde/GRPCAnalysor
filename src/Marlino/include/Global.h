@@ -6,7 +6,7 @@
 #include "ConfigInfo.h"
 #include "ElogInformations.h"
 #include "StringParameters.h"
-
+#include "Histogrammer.h"
 class HistoPlane;
 
 class Global
@@ -20,5 +20,6 @@ class Global
   static ConfigInfos* conf;
   static ElogInformations* eloginf;
   static HistoPlane HG;
+  static Histogrammer* Histogram;
 };
 #endif

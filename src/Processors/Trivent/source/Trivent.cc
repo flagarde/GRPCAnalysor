@@ -20,6 +20,7 @@
 #include <algorithm> 
 #include "EVENT/CalorimeterHit.h" 
 #include "IMPL/ClusterImpl.h"
+#include "Types.h"
 
 void Trivent::FillTimes()
 {
@@ -170,15 +171,15 @@ void Trivent::processEvent( LCEvent * evtP )
 	      {
 	        LCEventImpl*  evtt = new LCEventImpl() ;
           LCCollectionVec* clu1 = new LCCollectionVec(LCIO::CALORIMETERHIT);
-          CellIDEncoder<CalorimeterHitImpl> cdt( "I:8,J:7,K:10,Dif_id:8,Asic_id:6,Chan_id:7" ,clu1) ;
+          CellIDEncoder<CalorimeterHitImpl> cdt( "I:8,J:7,K:10,DIF_Id:8,Asic_Id:6,Channel:7" ,clu1) ;
 	        clu1->setFlag(clu1->getFlag()|( 1 << LCIO::RCHBIT_LONG));
 	        clu1->setFlag(clu1->getFlag()|( 1 << LCIO::RCHBIT_TIME));
 	        LCCollectionVec* clu2 = new LCCollectionVec(LCIO::CALORIMETERHIT);
-          CellIDEncoder<CalorimeterHitImpl> cdt2( "I:8,J:7,K:10,Dif_id:8,Asic_id:6,Chan_id:7" ,clu2) ;
+          CellIDEncoder<CalorimeterHitImpl> cdt2( "I:8,J:7,K:10,DIF_Id:8,Asic_Id:6,Channel:7" ,clu2) ;
 	        clu2->setFlag(clu2->getFlag()|( 1 << LCIO::RCHBIT_LONG));
 	        clu2->setFlag(clu2->getFlag()|( 1 << LCIO::RCHBIT_TIME));
 	        LCCollectionVec* clu3 = new LCCollectionVec(LCIO::CALORIMETERHIT);
-          CellIDEncoder<CalorimeterHitImpl> cdt3( "I:8,J:7,K:10,Dif_id:8,Asic_id:6,Chan_id:7" ,clu3) ;
+          CellIDEncoder<CalorimeterHitImpl> cdt3( "I:8,J:7,K:10,DIF_Id:8,Asic_Id:6,Channel:7" ,clu3) ;
 	        clu3->setFlag(clu3->getFlag()|( 1 << LCIO::RCHBIT_LONG));
 	        clu3->setFlag(clu3->getFlag()|( 1 << LCIO::RCHBIT_TIME));
 	        EventsSelected++;
@@ -211,7 +212,7 @@ void Trivent::processEvent( LCEvent * evtP )
 		        RawHits.erase(middle++);
 		      }
                  LCCollectionVec* clu4 = new LCCollectionVec(LCIO::CALORIMETERHIT);
-          CellIDEncoder<CalorimeterHitImpl> cdt4( "I:8,J:7,K:10,Dif_id:8,Asic_id:6,Chan_id:7" ,clu4) ;
+          CellIDEncoder<CalorimeterHitImpl> cdt4( "I:8,J:7,K:10,DIF_Id:8,Asic_Id:6,Channel:7" ,clu4) ;
                 clu4->setFlag(clu4->getFlag()|( 1 << LCIO::RCHBIT_LONG));
                 clu4->setFlag(clu4->getFlag()|( 1 << LCIO::RCHBIT_TIME));
 	for(std::map<int,std::vector<CalorimeterHit *> >::iterator it=RawHits.begin();it!=RawHits.end();++it)

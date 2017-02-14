@@ -61,11 +61,11 @@ int TObjectUgly::getThresholdNbr(double& num)
   return int((num-getHistoGraphNbr(num)*10000000000-getPlateNbr(num)*100000000-getDifNbr(num)*1000000-getAsicNbr(num)*10000-getPadNbr(num)*100));
 }
 
-void TObjectUgly::Fill2(TObject* obj,double a,double x,double y,double z,double w,double v,double u)
+void TObjectUgly::Fill2(TObject* obj,double x,double y,double z,double w,double v,double u,double a)
 {
-  if(obj->IsA()->InheritsFrom("TH1")) (reinterpret_cast<TH1*>(obj))->Fill(x,y);
-  if(obj->IsA()->InheritsFrom("TH2")) (reinterpret_cast<TH2*>(obj))->Fill(x,y,z);
-  if(obj->IsA()->InheritsFrom("TH3")) (reinterpret_cast<TH3*>(obj))->Fill(x,y,z,w);
+  if(obj->IsA()->InheritsFrom("TH1D")) (reinterpret_cast<TH1D*>(obj))->Fill(x,y);
+  if(obj->IsA()->InheritsFrom("TH2D")) (reinterpret_cast<TH2D*>(obj))->Fill(x,y,z);
+  if(obj->IsA()->InheritsFrom("TH3D")) (reinterpret_cast<TH3D*>(obj))->Fill(x,y,z,w);
   if(obj->IsA()->InheritsFrom("TGraph"))
   {
     PointsInGraphs[a]++;
@@ -110,7 +110,7 @@ void TObjectUgly::Fill(double x,double y,double z,double w,double v,double u)
           {
             if(getThresholdNbr(a)==Thresholdselected||getThresholdNbr(a)==0)
             {
-              Fill2(it->second,x,y,z,w,v,u);
+              Fill2(it->second,x,y,z,w,v,u,a);
             } 
           } 
         } 
@@ -122,8 +122,10 @@ void TObjectUgly::Fill(double x,double y,double z,double w,double v,double u)
     if(getThresholdNbr(a)==Thresholdselected)
     {
       std::string b=IntToName[getHistoGraphNbr(a)];
-      if(NameToWhere[b]==1&&getPlateNbr(a)==Plateselected)
+      if(NameToWhere[b]==0)Fill2(it->second,x,y,z,w,v,u);
+      else if(NameToWhere[b]==1&&getPlateNbr(a)==Plateselected)
       {
+        std::cout<<"Here"<<std::endl;
         Fill2(it->second,x,y,z,w,v,u);
       }
       else if(NameToWhere[b]==2&&getPlateNbr(a)==Plateselected&&getDifNbr(a)==Difselected)
@@ -169,8 +171,6 @@ double HistoPlane::ConvertToInt(std::string name,int Plate,int Dif,int Asic,int 
     ugly.IntToName[num]=name;
     num++;
   }
-  std::cout<<Threshold<<"  "<<Pad<<"  "<<Asic<<"  "<<Dif<<"  "<<Plate<<"  "<<ugly.NameToInt[name]<<std::endl;
-  std::cout<<yellow<<std::setprecision(12)<<Threshold+100*Pad+10000*Asic+1000000*Dif+100000000*Plate+10000000000*ugly.NameToInt[name]<<normal<<std::endl;
   return Threshold+100*Pad+10000*Asic+1000000*Dif+100000000*Plate+10000000000*ugly.NameToInt[name];
 }
 
@@ -213,6 +213,7 @@ void HistoPlane::CreateHistoGraph(std::string n,std::string type,double& number,
 
 void HistoPlane::Add(const char* type ,const char* where,const char* vec,int bx,double xd,double xu, int by,double yd,double yu,int bz,double zd,double zu)
 {
+    std::cout<<"ggggg"<<std::endl;
     if(Names.find(std::string(vec))!=Names.end())
     {
       std::cout<<red<<"Error:: "<<vec<<" exists and so will no be recreated"<<std::endl;

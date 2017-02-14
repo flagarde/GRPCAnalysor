@@ -1,0 +1,6 @@
+include_directories("${CMAKE_SOURCE_DIR}/build/include")
+include_directories(include)
+FILE (GLOB_RECURSE Clusterisation_SRC_FILES ./source/*)
+ADD_LIBRARY( Clusterisation SHARED ${Clusterisation_SRC_FILES} )
+TARGET_LINK_LIBRARIES( Clusterisation ${ROOT_LIBRARIES} Marlin)
+INSTALL( TARGETS Clusterisation LIBRARY DESTINATION ${MARLINO_LIBRARY_OUTPUT_PATH} ARCHIVE DESTINATION ${MARLINO_LIBRARY_OUTPUT_PATH})

@@ -1,6 +1,0 @@
-include_directories("${CMAKE_SOURCE_DIR}/build/include")
-include_directories(include)
-FILE (GLOB_RECURSE Trigger_SRC_FILES ./source/*)
-ADD_LIBRARY( Trigger SHARED ${Trigger_SRC_FILES} )
-TARGET_LINK_LIBRARIES( Trigger Marlin )
-INSTALL( TARGETS Trigger LIBRARY DESTINATION ${MARLINO_LIBRARY_OUTPUT_PATH} ARCHIVE DESTINATION ${MARLINO_LIBRARY_OUTPUT_PATH})

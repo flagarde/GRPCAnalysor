@@ -62,7 +62,7 @@ class HistoPlane
     void Add(const char*,const char*,const char*,int=0,double=0,double=0,int=0,double=0,double=0,int=0,double=0,double=0);
     double ConvertToInt(std::string name,int Plate,int Dif,int Asic,int Pad,int Threshold);
     void CreateHistoGraph(std::string n, std::string type,double& number,int=0,double=0,double=0, int=0,double=0,double=0,int=0,double=0,double=0);
-    TObjectUgly& operator()(const char*,int Plate,int Dif,int Asic,int Pad,int Threshold);
+    TObjectUgly& operator()(const char*,int Plate,int Dif=0,int Asic=0,int Pad=0,int Threshold=0);
     void Write();
     void List();
     void setRolling(std::string, bool);
