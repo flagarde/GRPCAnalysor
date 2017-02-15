@@ -48,7 +48,7 @@ void TriventTriggered::processRunHeader( LCRunHeader* run){}
 
 void TriventTriggered::init()
 { 
-  std::string namee=""
+  std::string namee="";
   if(_outFileName=="")namee="TriventTriggered_"+std::to_string(Global::number)+".slcio";
   else namee=_outFileName;
   _EventWriter = LCFactory::getInstance()->createLCWriter() ;
