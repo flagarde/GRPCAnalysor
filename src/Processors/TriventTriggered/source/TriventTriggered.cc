@@ -21,9 +21,9 @@
 #include "IMPL/ClusterImpl.h"
 #include "THnSparse.h"
 #include "HistoPlane.h"
-int bin[3]={129,3,4};
-double xmin[3]={0,1,-1};
-double xmax[3]={129,3,3};
+//int bin[3]={129,3,4};
+//double xmin[3]={0,1,-1};
+//double xmax[3]={129,3,3};
 //#define area 0.25*30
 #define area 1
 TriventTriggered aTriventTriggered;
@@ -48,10 +48,12 @@ void TriventTriggered::processRunHeader( LCRunHeader* run){}
 
 void TriventTriggered::init()
 { 
-  if(_outFileName=="")_outFileName="TriventTriggered_"+std::to_string(Global::number)+".slcio";
+  std::string namee=""
+  if(_outFileName=="")namee="TriventTriggered_"+std::to_string(Global::number)+".slcio";
+  else namee=_outFileName;
   _EventWriter = LCFactory::getInstance()->createLCWriter() ;
   _EventWriter->setCompressionLevel( 2 ) ;
-  _EventWriter->open(_outFileName.c_str(),LCIO::WRITE_NEW) ;
+  _EventWriter->open(namee.c_str(),LCIO::WRITE_NEW) ;
   if(_TriggerTimeLow==-1)_TriggerTimeLow=0;
   if(_TriggerTimeHigh==-1)_TriggerTimeHigh=std::numeric_limits<int>::max();
   if(_noiseCut==-1)_noiseCut=std::numeric_limits<int>::max();
@@ -81,10 +83,10 @@ void TriventTriggered::init()
   }
   //SelectedHits3D=new THnSparseD("Selected Hits 3D", "Selected Hits 3D", 3, bin, xmin, xmax);
   //RejectedHits3D=new THnSparseD("Rejected Hits 3D", "Rejected Hits 3D", 3, bin, xmin, xmax);
-  a.Add("TH1","Asic","test",10,0.,15.);
-  a.setRolling("test",false);
-  a.Add("TH1","Asic","test2",10,0.,15.);
-  a.setRolling("test2",true);
+  //a.Add("TH1","Asic","test",10,0.,15.);
+  //a.setRolling("test",false);
+  //a.Add("TH1","Asic","test2",10,0.,15.);
+  //a.setRolling("test2",true);
   Global::HG.Add("TGraph","Dif","Efficiency  HV");
   //a.Add("TH3","Dif","test",10,20.,30.,20,30.,40.,50,60.,70.);
  // a.Add("TGraph","Dif","test3",10,20.,30.,20,30.,40.,50,60.,70.);
@@ -215,6 +217,8 @@ void TriventTriggered::processEvent( LCEvent * evtP )
 
 void TriventTriggered::end()
 {  
+  MinMaxTime=std::pair<double,double>(0.,0.);
+  MinMaxTimeRejected=std::pair<double,double>(0.,0.);
   std::vector<std::string>NameBin;
   std::vector<double>ValueBin;
   for(unsigned int i=0;i!=Global::geom->GetNumberPlates();++i)
@@ -284,7 +288,7 @@ void TriventTriggered::end()
   //delete RejectedHits3D;
   //delete u1;
   //delete u2;
-  a.Write();
+  //a.Write();
   std::cout << "TriventProcess::end() !! "<<TRIGGERSKIPPED<<" Events skiped"<< std::endl;
   std::cout <<TouchedEvents<<" Events were overlaping "<<"("<<(TouchedEvents*1.0/(TouchedEvents+eventtotal))*100<<"%)"<<std::endl;
   std::cout <<"Total nbr Events : "<<eventtotal<<" : "<<EventsSelected<<" ("<<EventsSelected*1.0/eventtotal*100<<"%)"<< std::endl;

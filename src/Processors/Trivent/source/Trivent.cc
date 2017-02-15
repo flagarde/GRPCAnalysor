@@ -107,10 +107,12 @@ void Trivent::processRunHeader( LCRunHeader* run){}
 
 void Trivent::init()
 { 
-  if(_outFileName=="")_outFileName="Trivent_"+std::to_string(Global::number)+".slcio";
+  std::string namee="";
+  if(_outFileName=="") namee="Trivent_"+std::to_string(Global::number)+".slcio";
+  else namee=_outFileName;
   _EventWriter = LCFactory::getInstance()->createLCWriter() ;
   _EventWriter->setCompressionLevel( 2 ) ;
-  _EventWriter->open(_outFileName.c_str(),LCIO::WRITE_NEW) ;
+  _EventWriter->open(namee.c_str(),LCIO::WRITE_NEW) ;
   printParameters();
 }
 
