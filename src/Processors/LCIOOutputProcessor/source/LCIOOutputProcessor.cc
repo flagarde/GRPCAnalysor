@@ -1,6 +1,5 @@
 #include "LCIOOutputProcessor.h"
 #include <iostream>
-
 #include "IMPL/LCRunHeaderImpl.h"
 #include "UTIL/LCTOOLS.h"
 #include "EVENT/LCCollection.h"
@@ -10,6 +9,8 @@
 #include <algorithm>
 #include <bitset>
 #include "Global.h"
+#include <IMPL/LCRunHeaderImpl.h>
+#include "IMPL/LCEventImpl.h"
 
 LCIOOutputProcessor anLCIOOutputProcessor ;
   

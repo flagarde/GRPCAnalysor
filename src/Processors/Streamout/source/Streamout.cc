@@ -73,7 +73,7 @@ void Streamout::modifyRunHeader(EVENT::LCRunHeader * rh)
     raw=new LCRunHeaderImpl;
     raw->setRunNumber(0);
     raw->setDetectorName("");
-    raw->setDescription("Test");
+    raw->setDescription("");
   }
   rh=raw;
 }

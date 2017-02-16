@@ -18,38 +18,27 @@
 #include "EVENT/CalorimeterHit.h" 
 #include "EVENT/RawCalorimeterHit.h"
 #include "UTIL/CellIDDecoder.h"
+#include "ConstructConverters.h"
 using namespace lcio ;
 
 void IJKfiller::FillIJK(RawCalorimeterHit* raw, LCCollectionVec* col,CellIDEncoder<CalorimeterHitImpl>& cd, CellIDDecoder<RawCalorimeterHit>& cd2)
 {
+  if(Global::Global::geom->GetDifNbrPlate(cd2(raw)["DIF_Id"])==-1) 
+	{
     CalorimeterHitImpl* caloHit = new CalorimeterHitImpl();
-    int DIF_Id  = cd2(raw)["DIF_Id"];
-    int Asic_Id = cd2(raw)["Asic_Id"];
-    int Channel = cd2(raw)["Channel"];
+    converter->setType(cd2(raw)["DIF_Id"]);
     caloHit->setTime(float((*raw).getTimeStamp()));
     caloHit->setEnergy(float((*raw).getAmplitude()&3));
-    int K =Global::geom->GetDifNbrPlate(DIF_Id);
-    int I=0;
-    int J=0;
-    if(Global::geom->GetDifType(DIF_Id)==pad) 
-    {
-      I =(1+MapILargeHR2[Channel]+AsicShiftI[Asic_Id])+Global::geom->GetDifPositionX(DIF_Id);
-      J =(32-(MapJLargeHR2[Channel]+AsicShiftJ[Asic_Id]))+Global::geom->GetDifPositionY(DIF_Id);
-    }
-    if(Global::geom->GetDifType(DIF_Id)==positional) 
-    {
-      if(Global::geom->GetDifUpDown(DIF_Id)==1) I =(2*Channel)+Global::geom->GetDifPositionX(DIF_Id);
-      else I =2*(64-Channel)-1+Global::geom->GetDifPositionX(DIF_Id);
-      J =Asic_Id;
-    }
-    cd["DIF_Id"]=DIF_Id;
-    cd["Asic_Id"]=Asic_Id;
-    cd["Channel"]=Channel;
-    cd["I"] = I ;
-    cd["J"] = J ;
-    cd["K"] = K ;
+    cd["DIF_Id"]=int(cd2(raw)["DIF_Id"]);
+    cd["Asic_Id"]=int(cd2(raw)["Asic_Id"]);
+    cd["Channel"]=int(cd2(raw)["Channel"]);
+    cd["I"] = converter->RawToIJK(cd["DIF_Id"],cd["Asic_Id"],cd["Channel"])[0] ;
+    cd["J"] = converter->RawToIJK(cd["DIF_Id"],cd["Asic_Id"],cd["Channel"])[1] ;
+    cd["K"] = converter->RawToIJK(cd["DIF_Id"],cd["Asic_Id"],cd["Channel"])[2] ;
     cd.setCellID( caloHit ) ;
     col->addElement(caloHit);
+    std::cout<<cd["I"]<<"  "<<cd["J"]<<"  "<<cd["K"]<<std::endl;
+  }
 }
 
 IJKfiller aIJKfiller;
@@ -67,6 +56,7 @@ void IJKfiller::init()
   printParameters();
   if(Global::geom) 
   {
+    converter=new ConstructConverters(Global::geom);
     std::map<int, Dif >Difs=Global::Global::geom->GetDifs();;
     for(std::map<int, Dif >::iterator it=Difs.begin(); it!=Difs.end(); ++it) 
 	  {
@@ -102,7 +92,7 @@ void IJKfiller::processEvent( LCEvent * evtP )
 	            if(Warningg[decode(raw)["DIF_Id"]]!=true) 
 		          {
 		            Warningg[decode(raw)["DIF_Id"]]=true;
-		            std::cout<<"Please add DIF "<<decode(raw)["DIF_Id"]<<" to your geometry file; I'm Skipping its data."<<std::endl;
+		            std::cout<<red<<"Please add DIF "<<decode(raw)["DIF_Id"]<<" to your geometry file; I'm Skipping its data."<<normal<<std::endl;
 		          }
 	            continue;
 	          }

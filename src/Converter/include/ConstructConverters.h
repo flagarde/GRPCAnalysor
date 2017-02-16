@@ -9,7 +9,10 @@ class ConstructConverters
     ConstructConverters(Geometry* _geom):geom(_geom){};
     ~ConstructConverters()
     {
-      if(m_converter!=nullptr) delete m_converter  ;
+      for(std::map<int,Converter*>::iterator it=m_converter.begin();it!=m_converter.end();++it)
+      {
+        delete it->second;
+      }
     };
     std::string getTypeString();
     void setType(int i);
@@ -22,7 +25,7 @@ class ConstructConverters
     int getType(){return type;};
   private:
     int type;
-    Converter* m_converter;
     Geometry* geom;
+    std::map<int,Converter*>m_converter;
 };
 #endif

@@ -12,7 +12,7 @@
 #include "BufferNavigator.h"
 using namespace lcio ;
 
-class Streamout : public Processor
+class Streamout : public Processor, public  EventModifier
 {
   public:
     virtual Processor*  newProcessor()

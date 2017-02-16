@@ -3,7 +3,6 @@
 #include "Processor.h"
 #include "lcio.h"
 #include "IO/LCWriter.h"
-
 using namespace lcio ;
 
 namespace IMPL
@@ -43,11 +42,14 @@ namespace IMPL
    * @author F. Gaede, DESY
    * @version $Id: LCIOOutputProcessor.h,v 1.8 2008-04-15 10:14:24 gaede Exp $ 
    */
-class LCIOOutputProcessor : public Processor 
+class LCIOOutputProcessor : public Processor
 {
   typedef std::vector< LCCollectionVec* > SubSetVec ;
   public:  
-    virtual Processor*  newProcessor() { return new LCIOOutputProcessor ; }
+    virtual Processor*  newProcessor()
+    {
+      return new LCIOOutputProcessor ;
+    }
     LCIOOutputProcessor() ;
     /** C'tor for possible subclasses */
     LCIOOutputProcessor(const std::string& typeName) ;

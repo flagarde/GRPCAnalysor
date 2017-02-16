@@ -8,6 +8,7 @@
 #include "UTIL/CellIDDecoder.h"
 #include "IMPL/CalorimeterHitImpl.h"
 #include "EVENT/RawCalorimeterHit.h" 
+#include "ConstructConverters.h"
 using namespace lcio ;
 
 class IJKfiller : public Processor
@@ -27,5 +28,6 @@ class IJKfiller : public Processor
     std::map<int,bool>Warningg;
     std::vector<std::string> _hcalCollections;
     std::map<std::vector<long long int>,std::map< long long int, long long int>>Negative;
+    ConstructConverters* converter;
 };
 #endif
