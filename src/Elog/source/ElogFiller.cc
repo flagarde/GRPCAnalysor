@@ -59,7 +59,6 @@ void Read(std::string& FileName,std::string& parameters)
   std::string PositionDet="";
   unsigned int PlateNumber=0;
   TiXmlDocument doc(FileName.c_str());
-  doc.LoadFile();
   if(!doc.LoadFile())
   {
     std::cout<<"not"<<std::endl;
@@ -129,8 +128,6 @@ void Read(std::string& FileName,std::string& parameters)
       while (Diff)
       {
         DifNumber++;
-        int DifType=0;
-        int up_down=0;
 	      if(Diff->Attribute("DifType")!=NULL)
 	      {
 	        if (strcmp(Diff->Attribute("DifType"), "tcherenkov") == 0) 
