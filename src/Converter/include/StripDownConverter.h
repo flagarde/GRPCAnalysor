@@ -1,12 +1,12 @@
-#ifndef PADConverter
-#define PADConverter
+#ifndef STRIPDownConverter
+#define STRIPConverter
 #include "Converter.h"
 #include <vector>
-class PadConverter:public Converter
+class StripDownConverter:public Converter
 {
    public:
-    PadConverter(Geometry* geom):Converter(geom){};
-    ~PadConverter(){};
+    StripDownConverter(Geometry* geom):Converter(geom){};
+    ~StripDownConverter(){};
     virtual int RawToI(int Dif_Id,int Asic_Id,int Channel);
     virtual int RawToJ(int Dif_Id,int Asic_Id,int Channel);
     virtual int RawToK(int Dif_Id,int Asic_Id,int Channel);

@@ -11,7 +11,7 @@ Histogrammer::Histogrammer(ConfigInfos* _conf,OutFileRoot* _out,Geometry* _geom)
     int Ymin=0;
     int Xmax=geom->GetSizeX(i)+1;
     int Ymax=geom->GetSizeY(i)+1;
-    if(geom->GetDifType(geom->GetDifsInPlane(i)[0])==positional) 
+    if(geom->GetDifType(geom->GetDifsInPlane(i)[0])==strip||geom->GetDifType(geom->GetDifsInPlane(i)[0])==stripup||geom->GetDifType(geom->GetDifsInPlane(i)[0])==stripdown) 
     {
 			Xmin=0;
 			Ymin=1;
@@ -32,7 +32,7 @@ Histogrammer::Histogrammer(ConfigInfos* _conf,OutFileRoot* _out,Geometry* _geom)
       ThresholdMap[j].push_back(new TH2F((h+"_"+Thresholds_name[j]).c_str(),(h+"_"+Thresholds_name[j]).c_str(),Xmax-Xmin,Xmin,Xmax,Ymax-Ymin,Ymin,Ymax));
     }
   	Gain.push_back(new TH2F(hh.c_str(),hh.c_str(),Xmax-Xmin,Xmin,Xmax,Ymax-Ymin,Ymin,Ymax));
-    if(geom->GetDifType(geom->GetDifsInPlane(i)[0])==positional)
+    if(geom->GetDifType(geom->GetDifsInPlane(i)[0])==strip||geom->GetDifType(geom->GetDifsInPlane(i)[0])==stripup||geom->GetDifType(geom->GetDifsInPlane(i)[0])==stripdown) 
     {
 			Gain[i]->GetXaxis()->SetTitle("Strip");
       Gain[i]->GetYaxis()->SetTitle("Gap");
@@ -90,9 +90,9 @@ void Histogrammer::Plot()
       				I =(1+MapILargeHR2[i]+AsicShiftI[Asic_Id])+geom->GetDifPositionX(DIF_Id);
       				J =(32-(MapJLargeHR2[i]+AsicShiftJ[Asic_Id]))+geom->GetDifPositionY(DIF_Id);
     				}
-    				if(geom->GetDifType(DIF_Id)==positional) 
+    				if(geom->GetDifType(geom->GetDifsInPlane(i)[0])==strip||geom->GetDifType(geom->GetDifsInPlane(i)[0])==stripup||geom->GetDifType(geom->GetDifsInPlane(i)[0])==stripdown) 
     				{
-      				if(geom->GetDifUpDown(DIF_Id)==1) I =(2*i)+geom->GetDifPositionX(DIF_Id);
+      				if(geom->GetDifType(geom->GetDifsInPlane(i)[0])==stripup) I =(2*i)+geom->GetDifPositionX(DIF_Id);
       				else I =2*(64-i)-1+geom->GetDifPositionX(DIF_Id);
       				J =Asic_Id;
     				}

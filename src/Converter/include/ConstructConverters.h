@@ -19,7 +19,7 @@ class ConstructConverters
     int RawToI(int Dif_Id,int Asic_Id,int Channel);
     int RawToJ(int Dif_Id,int Asic_Id,int Channel);
     int RawToK(int Dif_Id,int Asic_Id,int Channel);
-    std::vector<double> IJKToXYZ(int I,int J,int K);
+    std::vector<float> IJKToXYZ(int I,int J,int K);
     std::vector<int> RawToIJK(int Dif_Id,int Asic_Id,int Channel);
     std::vector<int> IJKToRaw(int I,int J,int K);
     int getType(){return type;};

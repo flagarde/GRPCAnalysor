@@ -7,6 +7,7 @@
 #include "UTIL/CellIDDecoder.h"
 #include "UTIL/CellIDEncoder.h"
 #include "IMPL/CalorimeterHitImpl.h"
+#include "ConstructConverters.h"
 using namespace lcio ;
 
 class XYZfiller : public Processor
@@ -25,5 +26,6 @@ class XYZfiller : public Processor
     void FillXYZ(CalorimeterHitImpl*, LCCollectionVec*,CellIDEncoder<CalorimeterHitImpl>&,CellIDDecoder<CalorimeterHitImpl>&);
     std::vector<std::string> _hcalCollections;
     std::map<int,std::vector<double>>SinCos;
+    ConstructConverters* converter;
 };
 #endif

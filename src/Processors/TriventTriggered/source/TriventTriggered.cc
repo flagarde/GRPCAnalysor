@@ -32,7 +32,7 @@ TriventTriggered::TriventTriggered() : Processor("TriventTriggered")
 {
   _outFileName="";
   registerProcessorParameter("LCIOOutputFile","LCIO file",_outFileName,_outFileName);
-  _hcalCollections={"TRIVENTED"};
+  _hcalCollections={"XYZFilled"};
   registerInputCollections( LCIO::CALORIMETERHIT,"HCALCollections","HCAL Collection Names",_hcalCollections,_hcalCollections);
   _noiseCut = -1;
   registerProcessorParameter("NoiseCut" ,"Number of hits maximum per DIFs and events (-1) to ignore this parameter",_noiseCut ,_noiseCut);
@@ -75,8 +75,6 @@ void TriventTriggered::init()
       int NBins=Xmax-Xmin;
       TimeDistribution[i+1]=new TH1F(name.c_str(),name.c_str(),NBins+1,Xmin,Xmax+1);
       TimeDistributionRejected[i+1]=new TH1F(name4.c_str(),name4.c_str(),100000,0,100000);
-      int xmax=Global::geom->GetSizeX(i)+1;
-      int ymax=Global::geom->GetSizeY(i)+1;
       HitsDistribution[i+1]=new TH2F(name2.c_str(),name2.c_str(),35,0,35,40,0,40);
       HitsDistributionRejected[i+1]=new TH2F(name3.c_str(),name3.c_str(),35,0,35,40,0,40);
     }
@@ -87,10 +85,10 @@ void TriventTriggered::init()
   //a.setRolling("test",false);
   //a.Add("TH1","Asic","test2",10,0.,15.);
   //a.setRolling("test2",true);
-  Global::HG.Add("TGraph","Dif","Efficiency  HV");
+  //Global::HG.Add("TGraph","Dif","Efficiency  HV");
   //a.Add("TH3","Dif","test",10,20.,30.,20,30.,40.,50,60.,70.);
  // a.Add("TGraph","Dif","test3",10,20.,30.,20,30.,40.,50,60.,70.);
-  a.List(); 
+  //a.List(); 
 }
 
 void TriventTriggered::processEvent( LCEvent * evtP )
@@ -100,11 +98,12 @@ void TriventTriggered::processEvent( LCEvent * evtP )
   else MinMaxTime.second=0;
   for(unsigned int i=0; i< _hcalCollections.size(); i++) 
   {
-    a("test",1,23,1,1,1).Fill(1,2,3,4);
-    a("test2",1,23,1,1,1).Fill(1,2,3,4);
+    //a("test",1,23,1,1,1).Fill(1,2,3,4);
+    //a("test2",1,23,1,1,1).Fill(1,2,3,4);
     try 
 	  {
 	    LCCollection* col = evtP ->getCollection(_hcalCollections[i].c_str());
+	    if(col==nullptr) continue;
       CellIDDecoder<CalorimeterHit>decode(col);
       LCEventImpl*  evtt = new LCEventImpl() ;
       LCCollectionVec* clu1 = new LCCollectionVec(LCIO::CALORIMETERHIT);
@@ -122,33 +121,20 @@ void TriventTriggered::processEvent( LCEvent * evtP )
         if (raw_hit != nullptr) 
 	      {
 	        if(Global::geom->GetDifType(decode(raw_hit)["DIF_Id"])==scintillator||Global::geom->GetDifType(decode(raw_hit)["DIF_Id"])==tcherenkov)continue;
-	        if(Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])==-1)
-	        {
-	          continue;
-	        }
-	        //double fillr[3]={decode(raw_hit)["I"],decode(raw_hit)["J"],decode(raw_hit)["K"]};
-	        //double fillr2[3]={raw_hit->getPosition()[0],raw_hit->getPosition()[1],raw_hit->getPosition()[2]};
+	        if(Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])==-1) continue;
 	        if(_TriggerTimeLow<=raw_hit->getTime()&&raw_hit->getTime()<=_TriggerTimeHigh)
 	        {
-	          if(Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])!=-1)
-	          {
-	            SelectedHits[decode(raw_hit)["DIF_Id"]].push_back(raw_hit);
-	            TimeDistribution[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(raw_hit->getTime());
-	            if(_TriggerTimeHigh==std::numeric_limits<int>::max())if(MinMaxTime.second<raw_hit->getTime())MinMaxTime.second=raw_hit->getTime();
-	            HitsDistribution[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(decode(raw_hit)["I"],decode(raw_hit)["J"]);
-	            //SelectedHits3D->Fill(fillr);
-	          }
+	          SelectedHits[decode(raw_hit)["DIF_Id"]].push_back(raw_hit);
+	          TimeDistribution[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])+1]->Fill(raw_hit->getTime());
+	          if(_TriggerTimeHigh==std::numeric_limits<int>::max())if(MinMaxTime.second<raw_hit->getTime())MinMaxTime.second=raw_hit->getTime();
+	          HitsDistribution[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])+1]->Fill(decode(raw_hit)["I"],decode(raw_hit)["J"]);
 		      }
 		      else
 		      {
-		        if(Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])!=-1)
-	          {
 	            RejectedHits[decode(raw_hit)["DIF_Id"]].push_back(raw_hit);
-	            TimeDistributionRejected[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(raw_hit->getTime());
+	            TimeDistributionRejected[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])+1]->Fill(raw_hit->getTime());
 	            if(MinMaxTimeRejected.second<raw_hit->getTime())MinMaxTimeRejected.second=raw_hit->getTime();
-	            HitsDistributionRejected[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(decode(raw_hit)["I"],decode(raw_hit)["J"]);
-	            //RejectedHits3D->Fill(fillr);
-	          }
+	            HitsDistributionRejected[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])+1]->Fill(decode(raw_hit)["I"],decode(raw_hit)["J"]);
 		      }
         } 
 	    }

@@ -4,7 +4,7 @@ class Dif
 {
  public:
   Dif(){};
-  Dif(const double&,const double&, int, const double&, const double&,const double&, const int&, const int&, const int& );
+  Dif(const double&,const double&, int, const double&, const double&,const double&, const int&, const int& );
   double GetPositionX();
   double GetPositionY();
   int GetDifId();
@@ -13,7 +13,6 @@ class Dif
   double GetAngleYZ();
   int GetNbrPlate();
   int GetDifType();
-  int GetDifUpDown();
   int GetAsicNbr();
  private:
   double _PositionX;
@@ -23,7 +22,6 @@ class Dif
   double _AngleXZ;
   double _AngleYZ;
   int _nbrPlate;
-  int _up_down;
   int _DifType;
   int _AsicNbr;
 };

@@ -10,7 +10,7 @@
 class Geometry
 {
   public:
-    void AddDif(const double&,const double&, int,const double&,const double&,const double&,const int&, const int&,const int& );
+    void AddDif(const double&,const double&, int,const double&,const double&,const double&,const int&,const int& );
     void AddPlate(const double&,const double&,const double&,const double&,const double&,const double&, std::vector<int>&,const double&,const double&,const double&, const double&,const std::string&,const std::string&);
     const double GetDifPositionX( int& i);
     const double GetDifPositionY( int& i);
@@ -33,7 +33,6 @@ class Geometry
     const int GetDifType( const int& i);
     const int GetAsicNbr(const int& i);
     const std::string GetDifTypeName( const int& i);
-    const int GetDifUpDown( int& i);
     const unsigned int GetNumberDifs();
     const unsigned int GetNumberPlates();
     const std::vector<Plate> GetPlates();

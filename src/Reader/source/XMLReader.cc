@@ -77,17 +77,7 @@ void XMLReader::Read(std::string& FileName, Geometry& geom)
       while (Diff)
       {
         DifNumber++;
-        int DifType=0;
-        int up_down=0;
-        if(Diff->Attribute("up_down")!=NULL)
-	      {
-	        if(strcmp(Diff->Attribute("up_down"), "up") == 0) up_down=1;
-	        else if (strcmp(Diff->Attribute("up_down"), "down") == 0) up_down=0;
-	        else
-	        {
-		        up_down=-1;std::cout<<"Error defining the position of the Dif (up, down)"<<std::endl;
-	        }
-	      }
+        int DifType=m3;
 	      if(Diff->Attribute("DifType")!=nullptr)
 	      {
 	        for(unsigned int i=0;i!=Types_Dif.size();++i)
@@ -105,7 +95,7 @@ void XMLReader::Read(std::string& FileName, Geometry& geom)
         Write(Diff,"I",PlateNumber,DifNumber,I,FileName);
         Write(Diff,"J",PlateNumber,DifNumber,J,FileName);
 	      DifM.push_back(atof(Diff->Attribute("DifId")));
-	      geom.AddDif(I,J,DifId,xy,xz,yz,PlateNumber,up_down,DifType);
+	      geom.AddDif(I,J,DifId,xy,xz,yz,PlateNumber,DifType);
 	      Diff= Diff->NextSiblingElement();
       }
       geom.AddPlate(x,y,z,xy,xz,yz,DifM,SizeX,SizeY,ElectrodeType,Gaz_number,HV_channel,Gaz_channel);

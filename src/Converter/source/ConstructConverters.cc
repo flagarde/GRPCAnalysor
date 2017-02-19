@@ -1,5 +1,6 @@
 #include "ConstructConverters.h"
-#include "StripConverter.h"
+#include "StripDownConverter.h"
+#include "StripUpConverter.h"
 #include "PadConverter.h"
 #include <vector>
 #include "Types.h"
@@ -14,8 +15,11 @@ void ConstructConverters::setType(int Dif_Id)
   {
     switch(type) 
     {
-      case positional:
-        m_converter[type]=new StripConverter(geom);
+      case stripup:
+        m_converter[type]=new StripUpConverter(geom);
+      break;
+      case stripdown:
+        m_converter[type]=new StripDownConverter(geom);
       break;
       default:
         m_converter[type]=new PadConverter(geom);
@@ -44,7 +48,7 @@ int ConstructConverters::RawToK(int Dif_Id,int Asic_Id,int Channel)
   return m_converter[type]->RawToK(Dif_Id,Asic_Id,Channel);
 }
 
-std::vector<double> ConstructConverters::IJKToXYZ(int I,int J,int K)
+std::vector<float> ConstructConverters::IJKToXYZ(int I,int J,int K)
 {
   return m_converter[type]->IJKToXYZ(I,J,K);
 }

@@ -1,16 +1,22 @@
 #include "Dif.h"
 #include "Types.h"
-Dif::Dif(const double& x,const double& y, int DifId, const double& xy, const double& xz,const double& yz, const int& nbr, const int& up_down, const int& DifType):_PositionX(x),_PositionY(y),_DifId(DifId),_AngleXY(xy),_AngleXZ(xz),_AngleYZ(yz),_nbrPlate(nbr),_up_down(up_down),_DifType(DifType)
+Dif::Dif(const double& x,const double& y, int DifId, const double& xy, const double& xz,const double& yz, const int& nbr, const int& DifType):_PositionX(x),_PositionY(y),_DifId(DifId),_AngleXY(xy),_AngleXZ(xz),_AngleYZ(yz),_nbrPlate(nbr),_DifType(DifType)
 {
   switch ( DifType ) 
   {
     case pad:
       _AsicNbr=24;
       break;
-    case positional:
+    case strip:
       _AsicNbr=2;
       break;
-    case temporal:
+    case stripup:
+      _AsicNbr=2;
+      break;
+    case stripdown:
+      _AsicNbr=2;
+      break;
+    case  temporal:
       _AsicNbr=2;
       break;
     case tcherenkov:
@@ -22,10 +28,10 @@ Dif::Dif(const double& x,const double& y, int DifId, const double& xy, const dou
     case scintillator:
       _AsicNbr=1;
       break;
-    case BIF:
+    case bif:
       _AsicNbr=1;
       break;
-    case M3:
+    case m3:
       _AsicNbr=48;
       break;
     default:
@@ -72,11 +78,6 @@ int Dif::GetNbrPlate()
 int Dif::GetDifType()
 { 
   return _DifType;
-}
-  
-int Dif::GetDifUpDown()
-{
-  return _up_down;
 }
 
 int Dif::GetAsicNbr()

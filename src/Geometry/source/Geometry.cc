@@ -9,7 +9,6 @@
 
 void Geometry::PrintGeom()
 { 
-  std::vector<std::string>glass_types{"standard","chinese"};
   for(unsigned int i=0;i<GetNumberPlates();++i)
   {
     std::cout<<"Plate : "<<Shift(i+1)
@@ -31,9 +30,9 @@ void Geometry::PrintGeom()
   }  
 }
 
-void Geometry::AddDif(const double& x,const double& y, int DifId,const double& xy ,const double& xz,const double& yz,const int& nbr, const int& up_down,const int& DifType)
+void Geometry::AddDif(const double& x,const double& y, int DifId,const double& xy ,const double& xz,const double& yz,const int& nbr,const int& DifType)
 {
-  Difs[DifId]=Dif(x,y,DifId,xy,xz,yz,nbr,up_down,DifType);
+  Difs[DifId]=Dif(x,y,DifId,xy,xz,yz,nbr,DifType);
 }
 
 void Geometry::AddPlate(const double& x,const double& y,const double& z,const double& xy ,const double& xz ,const double& yz , std::vector<int>&DifInPlate,const double& sizeX, const double& sizeY,const double& glass_type, const double& Gaz_number,const std::string& HV_channel,const std::string& Gaz_channel)
@@ -165,11 +164,6 @@ const std::string Geometry::GetDifTypeName( const int& i)
   else return Types_Dif[((Difs.find(i))->second).GetDifType()];
 }
     
-const int Geometry::GetDifUpDown( int& i)
-{ 
-  return ((Difs.find(i))->second).GetDifUpDown();
-}
-
 const unsigned int Geometry::GetNumberDifs()
 {
   return Difs.size();

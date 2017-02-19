@@ -23,7 +23,7 @@ using namespace lcio ;
 
 void IJKfiller::FillIJK(RawCalorimeterHit* raw, LCCollectionVec* col,CellIDEncoder<CalorimeterHitImpl>& cd, CellIDDecoder<RawCalorimeterHit>& cd2)
 {
-  if(Global::Global::geom->GetDifNbrPlate(cd2(raw)["DIF_Id"])==-1) 
+  if(Global::Global::geom->GetDifNbrPlate(cd2(raw)["DIF_Id"])!=-1) 
 	{
     CalorimeterHitImpl* caloHit = new CalorimeterHitImpl();
     converter->setType(cd2(raw)["DIF_Id"]);
@@ -37,7 +37,6 @@ void IJKfiller::FillIJK(RawCalorimeterHit* raw, LCCollectionVec* col,CellIDEncod
     cd["K"] = converter->RawToIJK(cd["DIF_Id"],cd["Asic_Id"],cd["Channel"])[2] ;
     cd.setCellID( caloHit ) ;
     col->addElement(caloHit);
-    std::cout<<cd["I"]<<"  "<<cd["J"]<<"  "<<cd["K"]<<std::endl;
   }
 }
 
@@ -60,7 +59,7 @@ void IJKfiller::init()
     std::map<int, Dif >Difs=Global::Global::geom->GetDifs();;
     for(std::map<int, Dif >::iterator it=Difs.begin(); it!=Difs.end(); ++it) 
 	  {
-	    if(Global::geom->GetDifType(it->first)==BIF)std::cout<<yellow<<"->Dif "<<it->first<<" is considered as BIF "<<normal<<std::endl;
+	    if(Global::geom->GetDifType(it->first)==bif)std::cout<<yellow<<"->Dif "<<it->first<<" is considered as BIF "<<normal<<std::endl;
 	  }
 	}
 	else

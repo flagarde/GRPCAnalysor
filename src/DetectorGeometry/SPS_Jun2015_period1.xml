@@ -5,25 +5,25 @@
 -->
 <Detector>
   <Plate x="0" y="0" z="0" alpha="0" beta="0" gamma="0" SizeX="50" SizeY="50">
-    <Dif DifId="28" I="0" J="0"/>
+    <Dif DifId="28" I="0" J="0" DifType="Pad"/>
   </Plate>
   <Plate x="0" y="0" z="55" alpha="0" beta="0" gamma="0" SizeX="50" SizeY="50">
-    <Dif DifId="6" I="0" J="0"/>
+    <Dif DifId="6" I="0" J="0" DifType="Pad"/>
   </Plate>
   
   <Plate x="0" y="0" z="110" alpha="0" beta="0" gamma="0" SizeX="50" SizeY="50">
-    <Dif DifId="142" I="0" J="0" />  
+    <Dif DifId="142" I="0" J="0" DifType="Pad"/>  
   </Plate>
   <Plate x="0" y="0" z="165" alpha="0" beta="0" gamma="0" SizeX="50" SizeY="50">
-    <Dif DifId="16" I="0" J="0" />
+    <Dif DifId="16" I="0" J="0" DifType="Pad"/>
   </Plate>
   <Plate x="0" y="0" z="220" alpha="0" beta="0" gamma="0" SizeX="50" SizeY="50">
-    <Dif DifId="125" I="0" J="0" />
+    <Dif DifId="125" I="0" J="0" DifType="Pad"/>
   </Plate>
   <Plate x="0" y="0" z="275" alpha="0" beta="0" gamma="0" SizeX="50" SizeY="50">
-    <Dif DifId="32" I="0" J="0" />
+    <Dif DifId="32" I="0" J="0" DifType="Pad"/>
   </Plate>
   <Plate x="0" y="0" z="0" alpha="0" beta="0" gamma="0" SizeX="50" SizeY="50">
-    <Dif DifId="3" I="0" J="0" DifType="scintillator" />
+    <Dif DifId="3" I="0" J="0" DifType="Scintillator" />
   </Plate>
 </Detector>

@@ -19,9 +19,9 @@ int PadConverter::RawToK(int Dif_Id,int Asic_Id,int Channel)
   return geom->GetDifNbrPlate(Dif_Id);
 }
 
-std::vector<double> PadConverter::IJKToXYZ(int I,int J,int K)
+std::vector<float> PadConverter::IJKToXYZ(int I,int J,int K)
 {
-  std::vector<double> Pos;
+  std::vector<float> Pos;
   unsigned int NbrPlate =K-1;
   double ca=cos(geom->GetDifAlpha(NbrPlate)*degtorad);
 	double sa=sin(geom->GetDifAlpha(NbrPlate)*degtorad);
