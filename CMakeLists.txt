@@ -70,5 +70,7 @@ ADD_SUBDIRECTORY( src/tdrstyle )
 ADD_SUBDIRECTORY( src/Utils )
 ADD_SUBDIRECTORY( src/tinyxml )
 ADD_SUBDIRECTORY( src/Converter )
+ADD_SUBDIRECTORY( src/jsoncpp )
+
 #ADD_SUBDIRECTORY( Simulation )
 #ADD_SUBDIRECTORY( Plot )
