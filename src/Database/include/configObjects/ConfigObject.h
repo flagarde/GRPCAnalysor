@@ -7,11 +7,11 @@
 #include<sstream>
 #include <map>
 #include "DBField.h"
-#include "../db/DBConnection.h"
-#include "../db/DBValue.h"
-#include "../db/IntVal.h"
-#include "../db/IntVectorVal.h"
-#include "../db/StringVal.h"
+#include "db/DBConnection.h"
+#include "db/DBValue.h"
+#include "db/IntVal.h"
+#include "db/IntVectorVal.h"
+#include "db/StringVal.h"
 
 using namespace std;
 

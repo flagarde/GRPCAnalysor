@@ -4,7 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
-#include "../Exceptions/Exception.h"
+#include "Exceptions/Exception.h"
 
 using namespace std;
 using namespace ILCException;

@@ -6,7 +6,7 @@
 #include <string>
 #include <set>
 
-#include "../db/DBConnection.h"
+#include "db/DBConnection.h"
 #include "State.h"
 
 using namespace std;

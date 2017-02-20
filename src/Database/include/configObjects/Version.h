@@ -3,7 +3,7 @@
 
 #include<occi.h>
 #include <string>
-#include "../db/DBConnection.h"
+#include "db/DBConnection.h"
 
 using namespace std;
 

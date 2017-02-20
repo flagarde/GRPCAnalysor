@@ -4,7 +4,7 @@
 #include<occi.h>
 #include<stdio.h>
 #include<iostream>
-#include "../Exceptions/Exception.h"
+#include "Exceptions/Exception.h"
 
 using namespace oracle::occi;
 using namespace std;

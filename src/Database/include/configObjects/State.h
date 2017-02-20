@@ -7,7 +7,7 @@
 #include <set>
 
 #include "Version.h"
-#include "../db/DBConnection.h"
+#include "db/DBConnection.h"
 #include "LdaConfiguration.h"
 #include "DccConfiguration.h"
 #include "DifConfiguration.h"

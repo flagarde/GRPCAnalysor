@@ -2,7 +2,7 @@
 #define _DBINIT_H_
 
 #include "DBConnection.h"
-#include "../configObjects/ConfigObject.h"
+#include "configObjects/ConfigObject.h"
 
 class DBInit{
  public:

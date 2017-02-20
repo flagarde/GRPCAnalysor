@@ -5,7 +5,7 @@
 #include <sstream>
 #include <fstream>
 #include <cstring>
-#include "../db/DBConnection.h"
+#include "db/DBConnection.h"
 #include "Job.h"
 
 using namespace std;

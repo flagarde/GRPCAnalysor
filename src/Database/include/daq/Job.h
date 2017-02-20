@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <sstream>
-#include "../db/DBConnection.h"
+#include "db/DBConnection.h"
 
 using namespace std;
 
