@@ -30,6 +30,8 @@ REQUIREMENTS:
    Needs :
      - ROOT (https://root.cern.ch/)
      - CMAKE
+     - Doxygen
+     - Graphviz
 
 INSTALL:
 =============
@@ -39,7 +41,8 @@ INSTALL:
     mkdir build
     cd build
 		cmake ..
-     
+    make doc
+    make intall 
   Enjoy !  :)
   
   

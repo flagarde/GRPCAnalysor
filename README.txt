@@ -3,10 +3,7 @@
 # @author Lagarde Francois, Grenier Gerald
 # @version 1.0.RC 20/05/2015
 # @copyright IPNL, CNRS
-########################################
-
-
-//EventBuilder 
+######################################## 
 
 This file is part of GRPCAnalysor libraries.
 
