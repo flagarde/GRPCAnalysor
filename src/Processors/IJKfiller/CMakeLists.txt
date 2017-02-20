@@ -1,6 +1,5 @@
 include_directories("${CMAKE_SOURCE_DIR}/build/include")
 include_directories(include)
-file(COPY ./include/Mapping.h DESTINATION ${PROJECT_INCLUDE_DIR})
 FILE (GLOB_RECURSE IJKfiller_SRC_FILES ./source/*)
 ADD_LIBRARY( IJKfiller SHARED ${IJKfiller_SRC_FILES} )
 TARGET_LINK_LIBRARIES( IJKfiller ${ROOT_LIBRARIES} Marlin Converter)
