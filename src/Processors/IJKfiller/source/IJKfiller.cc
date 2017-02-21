@@ -93,7 +93,7 @@ void IJKfiller::processEvent( LCEvent * evtP )
 	            if(Warningg[decode(raw)["DIF_Id"]]!=true) 
 		          {
 		            Warningg[decode(raw)["DIF_Id"]]=true;
-		            if(_SupressHitsOfDifsNotInXML==true)
+		            if(_SupressHitsOfDifsNotInXML==false)
 		            {
 		              std::cout<<red<<"Please add DIF "<<decode(raw)["DIF_Id"]<<" to your geometry file; Dif considered as pads type"<<normal<<std::endl; 
 		            }
