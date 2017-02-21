@@ -4,14 +4,25 @@
 #include <cmath>
 #define degtorad 0.0174532925
 #define size_pad 10.4125
+
+int PadConverter::RawToIInPlate(int Asic_Id,int Channel)
+{
+  return (1+MapILargeHR2[Channel]+AsicShiftI[Asic_Id]);
+}
+
+int PadConverter::RawToJInPlate(int Asic_Id,int Channel)
+{
+  return (32-(MapJLargeHR2[Channel]+AsicShiftJ[Asic_Id]));
+}
+
 int PadConverter::RawToI(int Dif_Id,int Asic_Id,int Channel)
 {
-  return (1+MapILargeHR2[Channel]+AsicShiftI[Asic_Id])+geom->GetDifPositionX(Dif_Id);
+  return RawToIInPlate(Asic_Id,Channel)+geom->GetDifPositionX(Dif_Id);
 }
 
 int PadConverter::RawToJ(int Dif_Id,int Asic_Id,int Channel)
 {
-  return (32-(MapJLargeHR2[Channel]+AsicShiftJ[Asic_Id]))+geom->GetDifPositionY(Dif_Id);
+  return RawToJInPlate(Asic_Id,Channel)+geom->GetDifPositionY(Dif_Id);
 }
 
 int PadConverter::RawToK(int Dif_Id,int Asic_Id,int Channel)
@@ -19,9 +30,8 @@ int PadConverter::RawToK(int Dif_Id,int Asic_Id,int Channel)
   return geom->GetDifNbrPlate(Dif_Id);
 }
 
-std::vector<float> PadConverter::IJKToXYZ(int I,int J,int K)
+float PadConverter::IJKToX(int I,int J,int K)
 {
-  std::vector<float> Pos;
   unsigned int NbrPlate =K-1;
   double ca=cos(geom->GetDifAlpha(NbrPlate)*degtorad);
 	double sa=sin(geom->GetDifAlpha(NbrPlate)*degtorad);
@@ -30,18 +40,31 @@ std::vector<float> PadConverter::IJKToXYZ(int I,int J,int K)
   double cg=cos(geom->GetDifGamma(NbrPlate)*degtorad);
 	double sg=sin(geom->GetDifGamma(NbrPlate)*degtorad);
   double Z= geom->GetPlatePositionZ(NbrPlate);
-  Pos.push_back(cg*cb*I*size_pad+(-sg*ca+cg*sb*sa)*J*size_pad+(sg*sa+cg*sb*ca)*Z+geom->GetPlatePositionX(NbrPlate));
-  Pos.push_back(sg*cb*I*size_pad+(cg*ca+sg*sb*sa)*J*size_pad+(-cg*sa+sg*sb*ca)*Z+geom->GetPlatePositionY(NbrPlate));
-  Pos.push_back(-sb*I*size_pad+cb*sa*J*size_pad+cb*ca*Z);
-  return Pos;
+  return cg*cb*I*size_pad+(-sg*ca+cg*sb*sa)*J*size_pad+(sg*sa+cg*sb*ca)*Z+geom->GetPlatePositionX(NbrPlate);
 }
 
-std::vector<int> PadConverter::RawToIJK(int Dif_Id,int Asic_Id,int Channel)
+float PadConverter::IJKToY(int I,int J,int K)
 {
-  return {RawToI(Dif_Id,Asic_Id,Channel),RawToJ(Dif_Id,Asic_Id,Channel),RawToK(Dif_Id,Asic_Id,Channel)};
+  unsigned int NbrPlate =K-1;
+  double ca=cos(geom->GetDifAlpha(NbrPlate)*degtorad);
+	double sa=sin(geom->GetDifAlpha(NbrPlate)*degtorad);
+  double cb=cos(geom->GetDifBeta(NbrPlate)*degtorad);
+	double sb=sin(geom->GetDifBeta(NbrPlate)*degtorad);
+  double cg=cos(geom->GetDifGamma(NbrPlate)*degtorad);
+	double sg=sin(geom->GetDifGamma(NbrPlate)*degtorad);
+  double Z= geom->GetPlatePositionZ(NbrPlate);
+  return sg*cb*I*size_pad+(cg*ca+sg*sb*sa)*J*size_pad+(-cg*sa+sg*sb*ca)*Z+geom->GetPlatePositionY(NbrPlate);
 }
-
-std::vector<int> PadConverter::IJKToRaw(int I,int J,int K)
+    
+float PadConverter::IJKToZ(int I,int J,int K)
 {
-  return {0,0,0};
+  unsigned int NbrPlate =K-1;
+  double ca=cos(geom->GetDifAlpha(NbrPlate)*degtorad);
+	double sa=sin(geom->GetDifAlpha(NbrPlate)*degtorad);
+  double cb=cos(geom->GetDifBeta(NbrPlate)*degtorad);
+	double sb=sin(geom->GetDifBeta(NbrPlate)*degtorad);
+  double cg=cos(geom->GetDifGamma(NbrPlate)*degtorad);
+	double sg=sin(geom->GetDifGamma(NbrPlate)*degtorad);
+  double Z= geom->GetPlatePositionZ(NbrPlate);
+  return -sb*I*size_pad+cb*sa*J*size_pad+cb*ca*Z;
 }

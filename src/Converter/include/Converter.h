@@ -10,9 +10,11 @@ class Converter
     virtual int RawToI(int Dif_Id,int Asic_Id,int Channel)=0;
     virtual int RawToJ(int Dif_Id,int Asic_Id,int Channel)=0;
     virtual int RawToK(int Dif_Id,int Asic_Id,int Channel)=0;
-    virtual std::vector<float> IJKToXYZ(int I,int J,int K)=0;
-    virtual std::vector<int> RawToIJK(int Dif_Id,int Asic_Id,int Channel)=0;
-    virtual std::vector<int> IJKToRaw(int I,int J,int K)=0;
+    virtual int RawToIInPlate(int Asic_Id,int Channel)=0;
+    virtual int RawToJInPlate(int Asic_Id,int Channel)=0;
+    virtual float IJKToX(int I,int J,int K)=0;
+    virtual float IJKToY(int I,int J,int K)=0;
+    virtual float IJKToZ(int I,int J,int K)=0;
    protected:
     Geometry* geom;
 }; 

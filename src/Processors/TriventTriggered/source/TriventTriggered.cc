@@ -125,16 +125,16 @@ void TriventTriggered::processEvent( LCEvent * evtP )
 	        if(_TriggerTimeLow<=raw_hit->getTime()&&raw_hit->getTime()<=_TriggerTimeHigh)
 	        {
 	          SelectedHits[decode(raw_hit)["DIF_Id"]].push_back(raw_hit);
-	          TimeDistribution[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])+1]->Fill(raw_hit->getTime());
+	          TimeDistribution[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(raw_hit->getTime());
 	          if(_TriggerTimeHigh==std::numeric_limits<int>::max())if(MinMaxTime.second<raw_hit->getTime())MinMaxTime.second=raw_hit->getTime();
-	          HitsDistribution[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])+1]->Fill(decode(raw_hit)["I"],decode(raw_hit)["J"]);
+	          HitsDistribution[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(decode(raw_hit)["I"],decode(raw_hit)["J"]);
 		      }
 		      else
 		      {
 	            RejectedHits[decode(raw_hit)["DIF_Id"]].push_back(raw_hit);
-	            TimeDistributionRejected[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])+1]->Fill(raw_hit->getTime());
+	            TimeDistributionRejected[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(raw_hit->getTime());
 	            if(MinMaxTimeRejected.second<raw_hit->getTime())MinMaxTimeRejected.second=raw_hit->getTime();
-	            HitsDistributionRejected[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])+1]->Fill(decode(raw_hit)["I"],decode(raw_hit)["J"]);
+	            HitsDistributionRejected[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(decode(raw_hit)["I"],decode(raw_hit)["J"]);
 		      }
         } 
 	    }

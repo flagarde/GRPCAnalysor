@@ -33,6 +33,31 @@ std::string ConstructConverters::getTypeString()
   return Types_Dif[type];
 }
 
+int ConstructConverters::RawToIInPlate(int Asic_Id,int Channel)
+{
+  return m_converter[type]->RawToIInPlate(Asic_Id,Channel);
+}
+
+int ConstructConverters::RawToJInPlate(int Asic_Id,int Channel)
+{
+  return m_converter[type]->RawToJInPlate(Asic_Id,Channel);
+}
+    
+float ConstructConverters::IJKToX(int I,int J,int K)
+{
+  return m_converter[type]->IJKToX(I,J,K);
+}
+
+float ConstructConverters::IJKToY(int I,int J,int K)
+{
+  return m_converter[type]->IJKToY(I,J,K);
+}
+    
+float ConstructConverters::IJKToZ(int I,int J,int K)
+{
+  return m_converter[type]->IJKToZ(I,J,K);
+}
+    
 int ConstructConverters::RawToI(int Dif_Id,int Asic_Id,int Channel)
 {
   return m_converter[type]->RawToI(Dif_Id,Asic_Id,Channel);
@@ -50,15 +75,20 @@ int ConstructConverters::RawToK(int Dif_Id,int Asic_Id,int Channel)
 
 std::vector<float> ConstructConverters::IJKToXYZ(int I,int J,int K)
 {
-  return m_converter[type]->IJKToXYZ(I,J,K);
+  return std::vector<float>{IJKToX(I,J,K),IJKToY(I,J,K),IJKToZ(I,J,K)};
 }
 
 std::vector<int> ConstructConverters::RawToIJK(int Dif_Id,int Asic_Id,int Channel)
 {
-  return m_converter[type]->RawToIJK(Dif_Id,Asic_Id,Channel);
+  return std::vector<int>{RawToI(Dif_Id,Asic_Id,Channel),RawToJ(Dif_Id,Asic_Id,Channel),RawToK(Dif_Id,Asic_Id,Channel)};
 }
    
-std::vector<int> ConstructConverters::IJKToRaw(int I,int J,int K)
+/*std::vector<int> ConstructConverters::IJKToRaw(int I,int J,int K)
 {
   return m_converter[type]->IJKToRaw(I,J,K);
-}
+}*/
+
+/*std::vector<int> ConstructConverters::XYZToIJK(float X,float Y,float Z)
+{
+  return m_converter[type]->XYZToIJK(X,Y,Z);
+}*/
