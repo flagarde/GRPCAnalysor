@@ -64,7 +64,8 @@ void TriventTriggered::init()
   MinMaxTimeRejected=std::pair<double,double>(0.,0.);
   for(unsigned int i=0;i!=Global::geom->GetNumberPlates();++i)
   {
-    if(Global::geom->GetDifType(i)!=temporal&&Global::geom->GetDifType(i)!=scintillator&&Global::geom->GetDifType(i)!=tcherenkov)
+    int type =Global::geom->GetDifType(Global::geom->GetDifsInPlane(i)[0]);
+    if(type!=temporal&&type!=scintillator&&type!=tcherenkov&&type!=bif)
     {
       std::string name="Time Distribution in plate nbr "+std::to_string(i+1);
       std::string name2="Hits Distribution in plate nbr "+std::to_string(i+1);
@@ -134,7 +135,7 @@ void TriventTriggered::processEvent( LCEvent * evtP )
 	            RejectedHits[decode(raw_hit)["DIF_Id"]].push_back(raw_hit);
 	            TimeDistributionRejected[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(raw_hit->getTime());
 	            if(MinMaxTimeRejected.second<raw_hit->getTime())MinMaxTimeRejected.second=raw_hit->getTime();
-	            HitsDistributionRejected[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(decode(raw_hit)["I"],decode(raw_hit)["J"]);
+	           HitsDistributionRejected[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(decode(raw_hit)["I"],decode(raw_hit)["J"]);
 		      }
         } 
 	    }
