@@ -856,33 +856,11 @@ RECURSIVE              = YES
 # Note that relative paths are relative to the directory from which doxygen is
 # run.
 
-EXCLUDE                = @CMAKE_CURRENT_SOURCE_DIR@/build/include/DATA \
-                         @CMAKE_CURRENT_SOURCE_DIR@/build/include/EVENT \ 
-                         @CMAKE_CURRENT_SOURCE_DIR@/build/include/IMPL \
-                         @CMAKE_CURRENT_SOURCE_DIR@/build/include/IO \
-                         @CMAKE_CURRENT_SOURCE_DIR@/build/include/IOIMPL \
-                         @CMAKE_CURRENT_SOURCE_DIR@/build/include/SIO \
-                         @CMAKE_CURRENT_SOURCE_DIR@/build/include/UTIL \
-                         @CMAKE_CURRENT_SOURCE_DIR@/build/include/SIO_block.h \
-                         @CMAKE_CURRENT_SOURCE_DIR@/build/include/SIO_blockManager.h \
-                         @CMAKE_CURRENT_SOURCE_DIR@/build/include/SIO_definitions.h \
-                         @CMAKE_CURRENT_SOURCE_DIR@/build/include/SIO_functions.h \
-                         @CMAKE_CURRENT_SOURCE_DIR@/build/include/SIO_records.h \
-                         @CMAKE_CURRENT_SOURCE_DIR@/build/include/SIO_recordManager.h \
-                         @CMAKE_CURRENT_SOURCE_DIR@/build/include/SIO_stream.h \
-                         @CMAKE_CURRENT_SOURCE_DIR@/build/include/SIO_streamManager.h \
-                         @CMAKE_CURRENT_SOURCE_DIR@/build/include/tinystr.h \
-                         @CMAKE_CURRENT_SOURCE_DIR@/build/include/tinyxml.h \
-                         @CMAKE_CURRENT_SOURCE_DIR@/build/include/lcio.h \
-                         @CMAKE_CURRENT_SOURCE_DIR@/build/include/LCIOSTLTypes.h \
-                         @CMAKE_CURRENT_SOURCE_DIR@/build/include/LCIOTypes.h \
-                         @CMAKE_CURRENT_SOURCE_DIR@/build/include/LCObjectHandle.h \
-                         @CMAKE_CURRENT_SOURCE_DIR@/build/include/LCRTRelations.h \
-                         @CMAKE_CURRENT_SOURCE_DIR@/build/include/LCTokenizer.h \
-                         @CMAKE_CURRENT_SOURCE_DIR@/build/include/json.h \
-                         @CMAKE_CURRENT_SOURCE_DIR@/build/include/json-forwards.h \
-                         @CMAKE_CURRENT_SOURCE_DIR@/build/include/Exceptions.h \
-                         @CMAKE_CURRENT_SOURCE_DIR@/build/include/Exceptions.h \
+EXCLUDE                = @CMAKE_CURRENT_SOURCE_DIR@/src/lcio/ \
+                         @CMAKE_CURRENT_SOURCE_DIR@/src/sio/ \
+                         @CMAKE_CURRENT_SOURCE_DIR@/src/tinyxml/ 
+                         @CMAKE_CURRENT_SOURCE_DIR@/src/jsoncpp/ \
+ 
                          
                          
 
