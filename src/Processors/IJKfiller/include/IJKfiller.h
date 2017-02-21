@@ -29,5 +29,6 @@ class IJKfiller : public Processor
     std::vector<std::string> _hcalCollections;
     std::map<std::vector<long long int>,std::map< long long int, long long int>>Negative;
     ConstructConverters* converter;
+    bool _SupressHitsOfDifsNotInXML;
 };
 #endif

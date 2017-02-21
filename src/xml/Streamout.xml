@@ -24,9 +24,13 @@
 	
 	<processor name="Progress" type="Progress"></processor>
   
-  <processor name="IJKfiller" type="IJKfiller"></processor>
+  <processor name="IJKfiller" type="IJKfiller">
+    <parameter name="SupressHitsOfDifsNotInXML" value="false">
+  </processor>
   
-  <processor name="XYZfiller" type="XYZfiller"></processor>
+  <processor name="XYZfiller" type="XYZfiller">
+    <parameter name="SupressHitsOfDifsNotInXML" value="false">
+  </processor>
   
   <processor name="TriventTriggered" type="TriventTriggered">
     <parameter name="NoiseCut" value="5000" />

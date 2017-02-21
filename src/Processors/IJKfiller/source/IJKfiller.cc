@@ -23,7 +23,7 @@ using namespace lcio ;
 
 void IJKfiller::FillIJK(RawCalorimeterHit* raw, LCCollectionVec* col,CellIDEncoder<CalorimeterHitImpl>& cd, CellIDDecoder<RawCalorimeterHit>& cd2)
 {
-  if(Global::Global::geom->GetDifNbrPlate(cd2(raw)["DIF_Id"])!=-1) 
+  if(Global::Global::geom->GetDifNbrPlate(cd2(raw)["DIF_Id"])!=-1||_SupressHitsOfDifsNotInXML==false) 
 	{
     CalorimeterHitImpl* caloHit = new CalorimeterHitImpl();
     converter->setType(cd2(raw)["DIF_Id"]);
@@ -46,6 +46,8 @@ IJKfiller::IJKfiller():Processor("IJKfiller")
 {
   _hcalCollections={"DHCALRawHits2"};
   registerInputCollections( LCIO::RAWCALORIMETERHIT,"HCALCollections","HCAL Collection Names",_hcalCollections,_hcalCollections);
+  _SupressHitsOfDifsNotInXML = true;
+  registerProcessorParameter("SupressHitsOfDifsNotInXML","SupressHitsOfDifsNotInXML",_SupressHitsOfDifsNotInXML,_SupressHitsOfDifsNotInXML);
 } // end constructor
 
 void IJKfiller::processRunHeader( LCRunHeader* run){}

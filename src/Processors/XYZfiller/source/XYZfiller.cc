@@ -25,20 +25,23 @@ using namespace lcio ;
 
 void XYZfiller::FillXYZ(CalorimeterHitImpl* ev, LCCollectionVec* col,CellIDEncoder<CalorimeterHitImpl>& cd, CellIDDecoder<CalorimeterHitImpl>& deco)
 {
-  CalorimeterHitImpl* caloHit = new CalorimeterHitImpl();
-  caloHit->setTime(float((*ev).getTime()));
-  caloHit->setEnergy(float((*ev).getEnergy()));
-  cd["DIF_Id"]=int(deco(ev)["DIF_Id"]);
-  cd["Asic_Id"]=int(deco(ev)["Asic_Id"]);
-  cd["Channel"]=int(deco(ev)["Channel"]);
-  cd["I"]=int(deco(ev)["I"]);
-  cd["J"]=int(deco(ev)["J"]);
-  cd["K"]=int(deco(ev)["K"]);
-	converter->setType(int(deco(ev)["DIF_Id"]));
-	float pos[3]={converter->IJKToXYZ(cd["I"],cd["J"],cd["K"])[0],converter->IJKToXYZ(cd["I"],cd["J"],cd["K"])[1],converter->IJKToXYZ(cd["I"],cd["J"],cd["K"])[2]};
-  caloHit->setPosition(pos);
-  cd.setCellID( caloHit ) ;
-  col->addElement(caloHit);
+  if(Global::Global::geom->GetDifNbrPlate(deco(ev)["DIF_Id"])!=-1||_SupressHitsOfDifsNotInXML==false) 
+	{
+    CalorimeterHitImpl* caloHit = new CalorimeterHitImpl();
+    caloHit->setTime(float((*ev).getTime()));
+    caloHit->setEnergy(float((*ev).getEnergy()));
+    cd["DIF_Id"]=int(deco(ev)["DIF_Id"]);
+    cd["Asic_Id"]=int(deco(ev)["Asic_Id"]);
+    cd["Channel"]=int(deco(ev)["Channel"]);
+    cd["I"]=int(deco(ev)["I"]);
+    cd["J"]=int(deco(ev)["J"]);
+    cd["K"]=int(deco(ev)["K"]);
+  	converter->setType(int(deco(ev)["DIF_Id"]));
+	  float pos[3]={converter->IJKToXYZ(cd["I"],cd["J"],cd["K"])[0],converter->IJKToXYZ(cd["I"],cd["J"],cd["K"])[1],converter->IJKToXYZ(cd["I"],cd["J"],cd["K"])[2]};
+    caloHit->setPosition(pos);
+    cd.setCellID( caloHit ) ;
+    col->addElement(caloHit);
+  }
 }
 
 XYZfiller aXYZfiller;
