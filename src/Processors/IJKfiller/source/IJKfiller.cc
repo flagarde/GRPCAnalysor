@@ -120,7 +120,7 @@ void IJKfiller::processEvent( LCEvent * evtP )
           for (int ihit=0; ihit < col->getNumberOfElements(); ++ihit) 
           {
 	          RawCalorimeterHit *raw = dynamic_cast<RawCalorimeterHit*>( col->getElementAt(ihit)) ;
-	          if(Global::geom->GetDifNbrPlate(decode(raw)["DIF_Id"])!=-1) FillIJK(raw,col_event1,cd1,decode);
+	          FillIJK(raw,col_event1,cd1,decode);
 	          //delete raw;
 	        }
 	        evtP->addCollection(col_event1, "IJKFilled");
