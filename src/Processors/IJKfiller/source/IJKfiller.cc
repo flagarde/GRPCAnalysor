@@ -93,9 +93,12 @@ void IJKfiller::processEvent( LCEvent * evtP )
 	            if(Warningg[decode(raw)["DIF_Id"]]!=true) 
 		          {
 		            Warningg[decode(raw)["DIF_Id"]]=true;
-		            std::cout<<red<<"Please add DIF "<<decode(raw)["DIF_Id"]<<" to your geometry file; I'm Skipping its data."<<normal<<std::endl;
+		            if(_SupressHitsOfDifsNotInXML==true)
+		            {
+		              std::cout<<red<<"Please add DIF "<<decode(raw)["DIF_Id"]<<" to your geometry file; Dif considered as pads type"<<normal<<std::endl; 
+		            }
+		            else std::cout<<red<<"Please add DIF "<<decode(raw)["DIF_Id"]<<" to your geometry file; I'm skipping its data"<<normal<<std::endl; 
 		          }
-	            continue;
 	          }
 	          if(raw->getTimeStamp()<0)
 	          {
@@ -137,7 +140,11 @@ void IJKfiller::end()
 {
   for(std::map<int,bool>::iterator it=Warningg.begin(); it!=Warningg.end(); it++) 
   {
-    std::cout<<red<<"REMINDER::Data from Dif "<<it->first<<" are skipped !"<<normal<<std::endl;
+    if(_SupressHitsOfDifsNotInXML==true)
+		{
+		  std::cout<<red<<"REMINDER::Data from Dif "<<it->first<<" are skipped !"<<normal<<std::endl;
+		}
+    else std::cout<<red<<"REMINDER::Data from Dif "<<it->first<<" are considered as pads type"<<normal<<std::endl;
   }
   if(Negative.size()!=0)
   {

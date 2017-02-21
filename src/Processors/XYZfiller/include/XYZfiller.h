@@ -25,6 +25,7 @@ class XYZfiller : public Processor
     virtual void end() ;
     void FillXYZ(CalorimeterHitImpl*, LCCollectionVec*,CellIDEncoder<CalorimeterHitImpl>&,CellIDDecoder<CalorimeterHitImpl>&);
     std::vector<std::string> _hcalCollections;
+    std::map<int,bool>Warningg;
     ConstructConverters* converter;
     bool _SupressHitsOfDifsNotInXML;
 };

@@ -79,6 +79,18 @@ void XYZfiller::processEvent( LCEvent * evtP )
         for (int ihit=0; ihit < col->getNumberOfElements(); ++ihit) 
         {
 	        CalorimeterHitImpl *raw = dynamic_cast<CalorimeterHitImpl*>( col->getElementAt(ihit)) ;
+	        if(Global::Global::geom->GetDifNbrPlate(decode(raw)["DIF_Id"])==-1) 
+	        {
+	          if(Warningg[decode(raw)["DIF_Id"]]!=true) 
+		        {
+		          Warningg[decode(raw)["DIF_Id"]]=true;
+		          if(_SupressHitsOfDifsNotInXML==true)
+		          {
+		            std::cout<<red<<"Please add DIF "<<decode(raw)["DIF_Id"]<<" to your geometry file; Dif considered as pads type"<<normal<<std::endl; 
+		          }
+		          else std::cout<<red<<"Please add DIF "<<decode(raw)["DIF_Id"]<<" to your geometry file; I'm skipping its data"<<normal<<std::endl; 
+		        }
+	        }
           FillXYZ(raw,col_event1,cd1,decode);
 	      }
 	      evtP->addCollection(col_event1, "XYZFilled");
@@ -92,4 +104,14 @@ void XYZfiller::processEvent( LCEvent * evtP )
   }
 } //end processEvent
 
-void XYZfiller::end(){}
+void XYZfiller::end()
+{
+  for(std::map<int,bool>::iterator it=Warningg.begin(); it!=Warningg.end(); it++) 
+  {
+    if(_SupressHitsOfDifsNotInXML==true)
+		{
+		  std::cout<<red<<"REMINDER::Data from Dif "<<it->first<<" are skipped !"<<normal<<std::endl;
+		}
+    else std::cout<<red<<"REMINDER::Data from Dif "<<it->first<<" are considered as pads type"<<normal<<std::endl;
+  }
+}
