@@ -31,7 +31,7 @@ void XMLReader::Read(std::string& FileName, Geometry& geom)
     TiXmlHandle hdl(&doc);
     TiXmlElement* Platee = hdl.FirstChildElement().FirstChildElement().Element();
     TiXmlElement* Diff=nullptr;
-    unsigned int PlateNumber=0;
+    unsigned int PlateNumber=-1;
     unsigned int DifNumber=0;
     double x,y,z,xy,xz,yz,SizeX,SizeY,I,J,DifId;
     double ElectrodeType=-1;

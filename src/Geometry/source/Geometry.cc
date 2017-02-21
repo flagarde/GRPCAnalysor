@@ -22,7 +22,7 @@ void Geometry::PrintGeom()
     std::cout<<std::endl;
     for(std::map<int,Dif>::iterator it=Difs.begin();it!=Difs.end();++it)
     {
-      if((unsigned int)( GetDifNbrPlate((it->first))-1)==i)
+      if((unsigned int)( GetDifNbrPlate((it->first)))==i)
         std::cout<<green<<" DifId : "<<Shift((it->second).GetDifId())
         <<" I : "<<Shift((it->second).GetPositionX())<<"  J : "<<Shift((it->second).GetPositionY())
         <<" DifType : "<<GetDifTypeName((it->second).GetDifId())<<normal<<std::endl;
