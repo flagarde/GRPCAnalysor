@@ -25,6 +25,7 @@ int PadConverter::RawToJ(int Dif_Id,int Asic_Id,int Channel)
 
 int PadConverter::RawToK(int Dif_Id,int Asic_Id,int Channel)
 {
+  if(geom->GetDifNbrPlate(Dif_Id)==-1) return 0;
   return geom->GetDifNbrPlate(Dif_Id);
 }
 
