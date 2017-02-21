@@ -15,7 +15,14 @@ class Converter
     virtual float IJKToX(int I,int J,int K)=0;
     virtual float IJKToY(int I,int J,int K)=0;
     virtual float IJKToZ(int I,int J,int K)=0;
+    void CosSin(int K);
    protected:
     Geometry* geom;
+    double ca;
+	  double sa;
+    double cb;
+	  double sb;
+    double cg;
+	  double sg;
 }; 
 #endif

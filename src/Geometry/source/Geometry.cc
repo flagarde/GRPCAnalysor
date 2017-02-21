@@ -93,16 +93,34 @@ const double Geometry::GetDifPositionYMax(const int& i )
     
 const double Geometry::GetDifPlateAlpha( const int& i)
 { 
+  if(i>=Plates.size()||i==-1)
+  {
+    std::cout<<yellow<<"Plate number "<<i<<" invalid"<<normal<<std::endl;
+    std::cout<<yellow<<"AngleAlpha unknown"<<normal<<std::endl;
+     return 0;
+  }
   return Plates[i].GetAngleXY();
 }
 
 const double Geometry::GetDifPlateBeta( const int& i)
 { 
+  if(i>=Plates.size()||i==-1)
+  {
+    std::cout<<yellow<<"Plate number "<<i<<" invalid"<<normal<<std::endl;
+    std::cout<<yellow<<"AngleBeta unknown"<<normal<<std::endl;
+     return 0;
+  }
   return Plates[i].GetAngleXZ();
 }
     
 const double Geometry::GetDifPlateGamma( const int& i)
 { 
+  if(i>=Plates.size()||i==-1)
+  {
+    std::cout<<yellow<<"Plate number "<<i<<" invalid"<<normal<<std::endl;
+    std::cout<<yellow<<"AngleGamma unknown"<<normal<<std::endl;
+     return 0;
+  }
   return Plates[i].GetAngleYZ();
 }
 
@@ -116,28 +134,58 @@ const int Geometry::GetNbrDifInPlate(int& i)
   return  Plates[i].GetNbrDifInPlate();
 }
     
-const double Geometry::GetPlatePositionX(const unsigned int& i)
+const double Geometry::GetPlatePositionX(const int& i)
 { 
+  if(i>=Plates.size()||i==-1)
+  {
+    std::cout<<yellow<<"Plate number "<<i<<" invalid"<<normal<<std::endl;
+    std::cout<<yellow<<"PositionX unknown"<<normal<<std::endl;
+     return 0;
+  }
   return Plates[i].GetPositionX();
 }
     
-const double Geometry::GetSizeX(const unsigned int& i)
+const double Geometry::GetSizeX(const int& i)
 { 
+  if(i>=Plates.size()||i==-1)
+  {
+    std::cout<<yellow<<"Plate number "<<i<<" invalid"<<normal<<std::endl;
+    std::cout<<yellow<<"SizeX unknown"<<normal<<std::endl;
+     return 0;
+  }
   return Plates[i].GetSizeX();
 }
     
-const double Geometry::GetSizeY(const unsigned int& i)
+const double Geometry::GetSizeY(const int& i)
 { 
+  if(i>=Plates.size()||i==-1)
+  {
+    std::cout<<yellow<<"Plate number "<<i<<" invalid"<<normal<<std::endl;
+    std::cout<<yellow<<"SizeY unknown"<<normal<<std::endl;
+     return 0;
+  }
   return Plates[i].GetSizeY();
 }
 
-const double Geometry::GetPlatePositionY(const unsigned int& i)
+const double Geometry::GetPlatePositionY(const int& i)
 { 
+  if(i>=Plates.size()||i==-1)
+  {
+    std::cout<<yellow<<"Plate number "<<i<<" invalid"<<normal<<std::endl;
+    std::cout<<yellow<<"PositionY unknown"<<normal<<std::endl;
+     return 0;
+  }
   return Plates[i].GetPositionY();
 }
     
-const double Geometry::GetPlatePositionZ(const unsigned int& i)
+const double Geometry::GetPlatePositionZ(const int& i)
 { 
+  if(i>=Plates.size()||i==-1)
+  {
+    std::cout<<yellow<<"Plate number "<<i<<" invalid"<<normal<<std::endl;
+    std::cout<<yellow<<"PositionZ unknown"<<normal<<std::endl;
+    return 0;
+  }
   return Plates[i].GetPositionZ();
 }
 
@@ -181,6 +229,11 @@ const std::vector<Plate> Geometry::GetPlates()
     
 const Plate Geometry::GetPlate(const int& i)
 {
+  if(i>=Plates.size()||i==-1)
+  {
+    std::cout<<yellow<<"Plate number "<<i<<" invalid"<<normal<<std::endl;
+    std::exit(2);
+  }
   return Plates[i];
 }
     
@@ -189,8 +242,13 @@ const std::map<int,Dif> Geometry::GetDifs()
   return Difs;
 }
     
-const std::vector<int> Geometry::GetDifsInPlane(unsigned int& i)
+const std::vector<int> Geometry::GetDifsInPlane(int i)
 {
+  if(i>=Plates.size()||i==-1)
+  {
+    std::cout<<yellow<<"Plate number "<<i<<" invalid"<<normal<<std::endl;
+    return {};
+  }
   return Plates[i].GetDifInPlate();
 }
     
@@ -204,24 +262,42 @@ const std::vector<int> Geometry::GetDifsList()
   return DifsList;
 }
   
-const std::string Geometry::GetGlassType(const unsigned int& i)
+const std::string Geometry::GetGlassType(const  int& i)
 {
   if(Plates[i].GetGlassType()==-1) return red+"UNKNOWN"+normal;
   else return Types_Electrode[Plates[i].GetGlassType()];
 }
     
-double Geometry::GetGazNumber(const unsigned int& i)
+double Geometry::GetGazNumber(const int& i)
 {
+  if(i>=Plates.size()||i==-1)
+  {
+    std::cout<<yellow<<"Plate number "<<i<<" invalid"<<normal<<std::endl;
+    std::cout<<yellow<<"Gaz number Unknown"<<normal<<std::endl;
+    return 0;
+  }
   return Plates[i].GetGazNumber();
 }
     
-std::string Geometry::GetHVChannel(const unsigned int& i)
+std::string Geometry::GetHVChannel(const int& i)
 {
+  if(i>=Plates.size()||i==-1)
+  {
+    std::cout<<yellow<<"Plate number "<<i<<" invalid"<<normal<<std::endl;
+    std::cout<<yellow<<"HV Channel Unknown"<<normal<<std::endl;
+     return 0;
+  }
   return Plates[i].GetHVChannel();
 }
     
-std::string Geometry::GetGazChannel(const unsigned int& i)
+std::string Geometry::GetGazChannel(const  int& i)
 {
+  if(i>=Plates.size()||i==-1)
+  {
+    std::cout<<yellow<<"Plate number "<<i<<" invalid"<<normal<<std::endl;
+    std::cout<<yellow<<"Gaz Channel Unknown"<<normal<<std::endl;
+    return 0;
+  }
   return Plates[i].GetGazChannel();
 }
 
