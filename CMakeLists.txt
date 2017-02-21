@@ -80,19 +80,16 @@ if(BUILD_DOCUMENTATION)
     if(NOT DOXYGEN_FOUND)
         message(FATAL_ERROR "Doxygen is needed to build the documentation.")
     endif()
-
     set(doxyfile_in ${CMAKE_CURRENT_SOURCE_DIR}/src/Modules/Doxyfile.in)
-    set(doxyfile ${CMAKE_CURRENT_BINARY_DIR}/build/Doxyfile)
-
+    set(doxyfile ${CMAKE_CURRENT_SOURCE_DIR}/build/Doxyfile)
     configure_file(${doxyfile_in} ${doxyfile} @ONLY)
-
     add_custom_target(doc
         COMMAND ${DOXYGEN_EXECUTABLE} ${doxyfile}
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/build
         COMMENT "Generating API documentation with Doxygen"
         VERBATIM)
 
-    install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/doc/html DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/doc)
+    install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/build/doc/html DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/doc)
 endif()
 
 #ADD_SUBDIRECTORY( Simulation )
