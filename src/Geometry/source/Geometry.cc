@@ -183,7 +183,16 @@ const double Geometry::GetPlatePositionZ(const int& i)
 
 const int Geometry::GetDifNbrPlate( const int& i)
 { 
-  if(Difs.find(i)==Difs.end())return -1; 
+  if(Difs.find(i)==Difs.end())
+  {
+    if(NbrPlateToDifNotInXML.find(i)==NbrPlateToDifNotInXML.end())
+    {
+      NbrPlateNotInXML++;
+      if(Plates.size()==0)NbrPlateToDifNotInXML[i]=Plates.size()+NbrPlateNotInXML-1;
+      else NbrPlateToDifNotInXML[i]=int(Plates.size())+NbrPlateNotInXML;
+    }
+    return NbrPlateToDifNotInXML[i];
+  }
   else return ((Difs.find(i))->second).GetNbrPlate();
 }
     

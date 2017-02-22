@@ -120,21 +120,29 @@ void TimeSelecter::processEvent( LCEvent * evtP )
         CalorimeterHit* raw_hit = dynamic_cast<CalorimeterHit*>( col->getElementAt(ihit)) ;
         if (raw_hit != nullptr) 
 	      {
+	        int nbrplate=Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"]);
 	        if(Global::geom->GetDifType(decode(raw_hit)["DIF_Id"])==scintillator||Global::geom->GetDifType(decode(raw_hit)["DIF_Id"])==tcherenkov)continue;
 	        if(Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])==-1) continue;
 	        if(_TriggerTimeLow<=raw_hit->getTime()&&raw_hit->getTime()<=_TriggerTimeHigh)
 	        {
 	          SelectedHits[decode(raw_hit)["DIF_Id"]].push_back(raw_hit);
-	          TimeDistribution[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(raw_hit->getTime());
 	          if(_TriggerTimeHigh==std::numeric_limits<int>::max())if(MinMaxTime.second<raw_hit->getTime())MinMaxTime.second=raw_hit->getTime();
-	          HitsDistribution[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(decode(raw_hit)["I"],decode(raw_hit)["J"]);
+	          if(nbrplate<Global::geom->GetNumberPlates())
+	          {
+	            HitsDistribution[nbrplate]->Fill(decode(raw_hit)["I"],decode(raw_hit)["J"]);
+	            TimeDistribution[nbrplate]->Fill(raw_hit->getTime());
+	          }
 		      }
 		      else
 		      {
 	            RejectedHits[decode(raw_hit)["DIF_Id"]].push_back(raw_hit);
-	            TimeDistributionRejected[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(raw_hit->getTime());
+	            TimeDistributionRejected[nbrplate]->Fill(raw_hit->getTime());
 	            if(MinMaxTimeRejected.second<raw_hit->getTime())MinMaxTimeRejected.second=raw_hit->getTime();
-	            HitsDistributionRejected[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(decode(raw_hit)["I"],decode(raw_hit)["J"]);
+	            if(nbrplate<Global::geom->GetNumberPlates())
+	            {
+	              TimeDistribution[nbrplate]->Fill(raw_hit->getTime());
+	              HitsDistributionRejected[nbrplate]->Fill(decode(raw_hit)["I"],decode(raw_hit)["J"]);
+	            }
 		      }
         } 
 	    }
