@@ -2,34 +2,30 @@
 #include "Mapping.h"
 #include <map>
 #include <array>
-
+#include "ConstructConverters.h"
+#include "Threshold.h"
 Histogrammer::Histogrammer(ConfigInfos* _conf,OutFileRoot* _out,Geometry* _geom):conf(_conf),out(_out),geom(_geom)
 {
   for(unsigned int i=0;i!=geom->GetNumberPlates();++i)
   {
-    int Xmin=0;
-    int Ymin=0;
-    int Xmax=geom->GetSizeX(i)+1;
-    int Ymax=geom->GetSizeY(i)+1;
+    int Xmax=0;
+    int Ymax=0;
     if(geom->GetDifType(geom->GetDifsInPlane(i)[0])==strip||geom->GetDifType(geom->GetDifsInPlane(i)[0])==stripup||geom->GetDifType(geom->GetDifsInPlane(i)[0])==stripdown) 
     {
-			Xmin=0;
-			Ymin=1;
 			Xmax=128;
 			Ymax=3;
 		}
     else if(geom->GetDifType(geom->GetDifsInPlane(i)[0])==pad)
     {
-			Xmin=1;
-      Ymin=0;
-      Ymax=8*4*geom->GetDifNbrPlate(i);
+      Ymax=8*4*geom->GetDifsInPlane(i);
       Xmax=48*8;
     }
     std::string h="Plate Nbr "+ std::to_string(i +1 );
     std::string hh="Plate Nbr "+ std::to_string(i +1 )+"Gain";
     for(unsigned int j=0;j<ThresholdMap.size();++j)
     {
-      ThresholdMap[j].push_back(new TH2F((h+"_"+Thresholds_name[j]).c_str(),(h+"_"+Thresholds_name[j]).c_str(),Xmax-Xmin,Xmin,Xmax,Ymax-Ymin,Ymin,Ymax));
+      ThresholdMap[j].push_back(new TH2F((h+"_"+Thresholds_name[j]).c_str(),(h+"_"+Thresholds_name[j]).c_str(),Xmax+1,0,Xmax+1,Ymax+1,0,Ymax+1));
+      ThresholdMapInt[j].push_back(new TH2F((h+"_"+Thresholds_name[j]+"_int").c_str(),(h+"_"+Thresholds_name[j]+"_int").c_str(),Xmax+1,0,Xmax,Ymax+1,0,Ymax+1));
     }
   	Gain.push_back(new TH2F(hh.c_str(),hh.c_str(),Xmax-Xmin,Xmin,Xmax,Ymax-Ymin,Ymin,Ymax));
     if(geom->GetDifType(geom->GetDifsInPlane(i)[0])==strip||geom->GetDifType(geom->GetDifsInPlane(i)[0])==stripup||geom->GetDifType(geom->GetDifsInPlane(i)[0])==stripdown) 
@@ -48,6 +44,12 @@ Histogrammer::Histogrammer(ConfigInfos* _conf,OutFileRoot* _out,Geometry* _geom)
         ThresholdMap[j][i]->GetYaxis()->SetBinLabel(2,"Top");
         ThresholdMap[j][i]->GetYaxis()->SetNdivisions(001013);
         ThresholdMap[j][i]->GetXaxis()->SetNdivisions(001013);
+        ThresholdMapInt[j][i]->GetXaxis()->SetTitle("Strip");
+      	ThresholdMapInt[j][i]->GetYaxis()->SetTitle("Gap");
+        ThresholdMapInt[j][i]->GetYaxis()->SetBinLabel(1,"Bottom");
+        ThresholdMapInt[j][i]->GetYaxis()->SetBinLabel(2,"Top");
+        ThresholdMapInt[j][i]->GetYaxis()->SetNdivisions(001013);
+        ThresholdMapInt[j][i]->GetXaxis()->SetNdivisions(001013);
 			}
 		}
     else if(geom->GetDifType(geom->GetDifsInPlane(i)[0])==pad)
@@ -62,6 +64,10 @@ Histogrammer::Histogrammer(ConfigInfos* _conf,OutFileRoot* _out,Geometry* _geom)
       	ThresholdMap[j][i]->GetYaxis()->SetTitle("J");
         ThresholdMap[j][i]->GetYaxis()->SetNdivisions(000032);
         ThresholdMap[j][i]->GetXaxis()->SetNdivisions(000032);
+        ThresholdMapInt[j][i]->GetXaxis()->SetTitle("I");
+      	ThresholdMapInt[j][i]->GetYaxis()->SetTitle("J");
+        ThresholdMapInt[j][i]->GetYaxis()->SetNdivisions(000032);
+        ThresholdMapInt[j][i]->GetXaxis()->SetNdivisions(000032);
 			}
 		}
   }
@@ -70,9 +76,11 @@ Histogrammer::Histogrammer(ConfigInfos* _conf,OutFileRoot* _out,Geometry* _geom)
 
 void Histogrammer::Plot()
 {
+  ConstructConverters* converter=new ConstructConverters(geom);
   for(std::map<unsigned int,DifInfo>::iterator it=(conf->ReturnMe()).begin();it!=(conf->ReturnMe()).end();++it)
   {
     int DIF_Id=it->first;
+    converter->setType(DIF_Id);
     for(std::map<unsigned int,AsicInfo>::iterator itt=((it->second).ReturnMe()).begin();itt!=((it->second).ReturnMe()).end();++itt)
     {
       unsigned int Asic_Id=itt->first;
@@ -81,25 +89,15 @@ void Histogrammer::Plot()
       {
 				if(geom->GetDifType(it->first)!=temporal&&geom->GetDifType(it->first)!=scintillator&&geom->GetDifType(it->first)!=tcherenkov)
 				{
-          if(geom->GetDifNbrPlate(it->first)-1>=0)
+          if(geom->GetDifNbrPlate(it->first)<geom->GetNumberPlates())
           {
-            int I=0;
-    				int J=0;
-    				if(geom->GetDifType(DIF_Id)==pad) 
-    				{
-      				I =(1+MapILargeHR2[i]+AsicShiftI[Asic_Id])+geom->GetDifPositionX(DIF_Id);
-      				J =(32-(MapJLargeHR2[i]+AsicShiftJ[Asic_Id]))+geom->GetDifPositionY(DIF_Id);
-    				}
-    				if(geom->GetDifType(geom->GetDifsInPlane(i)[0])==strip||geom->GetDifType(geom->GetDifsInPlane(i)[0])==stripup||geom->GetDifType(geom->GetDifsInPlane(i)[0])==stripdown) 
-    				{
-      				if(geom->GetDifType(geom->GetDifsInPlane(i)[0])==stripup) I =(2*i)+geom->GetDifPositionX(DIF_Id);
-      				else I =2*(64-i)-1+geom->GetDifPositionX(DIF_Id);
-      				J =Asic_Id;
-    				}
+            int I=converter->RawToIJK(DIF_Id,Asic_Id,i)[0];
+    				int J=converter->RawToIJK(DIF_Id,Asic_Id,i)[1];
             Gain[geom->GetDifNbrPlate(it->first)-1]->Fill(I,J,(itt->second).ReturnMe()[i]);
             for(unsigned int h=0;h!=thee.size();++h)
             {
-              ThresholdMap[h][geom->GetDifNbrPlate(it->first)-1]->Fill(I,J,thee[h]);
+              ThresholdMap[h][geom->GetDifNbrPlate(it->first)-1]->Fill(I,J,ThresholdsConv(thee[h],h));
+              ThresholdMapInt[h][geom->GetDifNbrPlate(it->first)-1]->Fill(I,J,thee[h]);
             }
           }
         }
@@ -114,5 +112,10 @@ void Histogrammer::Plot()
     {
       if(ThresholdMap[j][o]->GetEntries()!=0)out->writeObject(SlowControl,ThresholdMap[j][o]);
     }
+     for(unsigned int j=0;j<ThresholdMapInt.size();++j)
+    {
+      if(ThresholdMapInt[j][o]->GetEntries()!=0)out->writeObject(SlowControl,ThresholdMapInt[j][o]);
+    }
   }
+  delete converter;
 }

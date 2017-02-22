@@ -26,6 +26,7 @@ class Histogrammer
   OutFileRoot* out;
   Geometry* geom;
   std::array<std::vector<TH2F*>,3>ThresholdMap;
+  std::array<std::vector<TH2F*>,3>ThresholdMapInt;
   std::vector<TH2F*>Gain;
 };
 #endif
