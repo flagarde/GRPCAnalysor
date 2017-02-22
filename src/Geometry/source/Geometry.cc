@@ -221,10 +221,10 @@ const double Geometry::GetAreaOneCellPlane(const int& i)
 {
   if(i>=int(Plates.size())||i==-1)
   {
-    std::cout<<yellow<<"PositionY unknown"<<normal<<std::endl;
+    std::cout<<yellow<<"Plate unknown"<<normal<<std::endl;
      return 0;
   }
-  return GetTotalAreaDif(GetDifsInPlane(i)[0]);
+  return GetAreaOneCellDif(GetDifsInPlane(i)[0]);
 }
 
 const double Geometry::GetTotalAreaDif(const int& i)
