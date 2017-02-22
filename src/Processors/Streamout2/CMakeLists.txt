@@ -1,6 +1,0 @@
-include_directories("${CMAKE_SOURCE_DIR}/build/include")
-include_directories(include)
-FILE (GLOB_RECURSE Streamout2_SRC_FILES ./source/*)
-ADD_LIBRARY( Streamout2 SHARED ${Streamout2_SRC_FILES} )
-TARGET_LINK_LIBRARIES( Streamout2 Marlin )
-INSTALL( TARGETS Streamout2 LIBRARY DESTINATION ${MARLINO_LIBRARY_OUTPUT_PATH})
