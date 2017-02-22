@@ -19,4 +19,5 @@ double ThresholdsConv(int i,int j)
   if(j==0) return ThresholdConv_0(i);
   else if(j==1) return ThresholdConv_1(i);
   else if (j==2) return ThresholdConv_2(i);
+  else return -1;
 }  

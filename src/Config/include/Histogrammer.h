@@ -10,16 +10,17 @@ class Histogrammer
 {
   public:
   Histogrammer(ConfigInfos* _conf,OutFileRoot* _out,Geometry* _geom);
+  ~Histogrammer();
   void Plot();
   std::array<std::vector<TH2F*>,3> getThresholdMap(){return ThresholdMap;};
   std::vector<TH2F*> getGainMap(){return Gain;};
   double getThreshold(int I,int J, int K,int ThresholdNbr)
   {
-    return ThresholdMap[ThresholdNbr][K-1]->GetBinContent(I,J);
+    return ThresholdMap[ThresholdNbr][K]->GetBinContent(I,J);
   }
   double getGain(int I,int J, int K)
   {
-    return Gain[K-1]->GetBinContent(I,J);
+    return Gain[K]->GetBinContent(I,J);
   }
   private:
   ConfigInfos* conf;

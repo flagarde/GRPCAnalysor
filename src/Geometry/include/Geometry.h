@@ -28,7 +28,7 @@ class Geometry
     const double GetDifPlateBeta( const int& i);
     const double GetDifPlateGamma( const int& i);
     const int GetDifId( int& i);
-    const int GetNbrDifInPlate(int& i);
+    const int GetNbrDifInPlate(int i);
     const double GetPlatePositionX(const int& i);
     const double GetSizeX(const int& i);
     const double GetSizeY(const int& i);

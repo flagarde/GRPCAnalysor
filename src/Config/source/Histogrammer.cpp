@@ -17,7 +17,7 @@ Histogrammer::Histogrammer(ConfigInfos* _conf,OutFileRoot* _out,Geometry* _geom)
 		}
     else if(geom->GetDifType(geom->GetDifsInPlane(i)[0])==pad)
     {
-      Ymax=8*4*geom->GetDifsInPlane(i);
+      Ymax=8*4*geom->GetNbrDifInPlate(i);
       Xmax=48*8;
     }
     std::string h="Plate Nbr "+ std::to_string(i +1 );
@@ -27,7 +27,7 @@ Histogrammer::Histogrammer(ConfigInfos* _conf,OutFileRoot* _out,Geometry* _geom)
       ThresholdMap[j].push_back(new TH2F((h+"_"+Thresholds_name[j]).c_str(),(h+"_"+Thresholds_name[j]).c_str(),Xmax+1,0,Xmax+1,Ymax+1,0,Ymax+1));
       ThresholdMapInt[j].push_back(new TH2F((h+"_"+Thresholds_name[j]+"_int").c_str(),(h+"_"+Thresholds_name[j]+"_int").c_str(),Xmax+1,0,Xmax,Ymax+1,0,Ymax+1));
     }
-  	Gain.push_back(new TH2F(hh.c_str(),hh.c_str(),Xmax-Xmin,Xmin,Xmax,Ymax-Ymin,Ymin,Ymax));
+  	Gain.push_back(new TH2F(hh.c_str(),hh.c_str(),Xmax+1,0,Xmax,Ymax+1,0,Ymax+1));
     if(geom->GetDifType(geom->GetDifsInPlane(i)[0])==strip||geom->GetDifType(geom->GetDifsInPlane(i)[0])==stripup||geom->GetDifType(geom->GetDifsInPlane(i)[0])==stripdown) 
     {
 			Gain[i]->GetXaxis()->SetTitle("Strip");
@@ -89,7 +89,7 @@ void Histogrammer::Plot()
       {
 				if(geom->GetDifType(it->first)!=temporal&&geom->GetDifType(it->first)!=scintillator&&geom->GetDifType(it->first)!=tcherenkov)
 				{
-          if(geom->GetDifNbrPlate(it->first)<geom->GetNumberPlates())
+          if(geom->GetDifNbrPlate(it->first)<int(geom->GetNumberPlates()))
           {
             int I=converter->RawToIJK(DIF_Id,Asic_Id,i)[0];
     				int J=converter->RawToIJK(DIF_Id,Asic_Id,i)[1];
@@ -118,4 +118,17 @@ void Histogrammer::Plot()
     }
   }
   delete converter;
+}
+
+Histogrammer::~Histogrammer()
+{
+  for(unsigned int o=0;o!=Gain.size();++o)
+  {
+    delete Gain[o];
+    for(unsigned int j=0;j<ThresholdMap.size();++j)
+    {
+      delete ThresholdMap[j][o];
+      delete ThresholdMapInt[j][o];
+    }
+  }
 }

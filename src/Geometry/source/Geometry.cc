@@ -126,7 +126,7 @@ const int Geometry::GetDifId( int& i)
   return ((Difs.find(i))->second).GetDifId();
 }
 
-const int Geometry::GetNbrDifInPlate(int& i)
+const int Geometry::GetNbrDifInPlate(int i)
 {
   return  Plates[i].GetNbrDifInPlate();
 }
