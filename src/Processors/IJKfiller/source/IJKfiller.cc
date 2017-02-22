@@ -23,7 +23,7 @@ using namespace lcio ;
 
 void IJKfiller::FillIJK(RawCalorimeterHit* raw, LCCollectionVec* col,CellIDEncoder<CalorimeterHitImpl>& cd, CellIDDecoder<RawCalorimeterHit>& cd2)
 {
-  if(Global::Global::geom->GetDifNbrPlate(cd2(raw)["DIF_Id"])!=-1||_SupressHitsOfDifsNotInXML==false) 
+  if(Global::Global::geom->GetDifNbrPlate(cd2(raw)["DIF_Id"])<Global::geom->GetNumberPlates()||_SupressHitsOfDifsNotInXML==false) 
 	{
     CalorimeterHitImpl* caloHit = new CalorimeterHitImpl();
     converter->setType(cd2(raw)["DIF_Id"]);

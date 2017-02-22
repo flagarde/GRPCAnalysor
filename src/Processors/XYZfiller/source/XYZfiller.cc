@@ -25,7 +25,7 @@ using namespace lcio ;
 
 void XYZfiller::FillXYZ(CalorimeterHitImpl* ev, LCCollectionVec* col,CellIDEncoder<CalorimeterHitImpl>& cd, CellIDDecoder<CalorimeterHitImpl>& deco)
 {
-  if(Global::Global::geom->GetDifNbrPlate(deco(ev)["DIF_Id"])!=-1||_SupressHitsOfDifsNotInXML==false) 
+  if(Global::Global::geom->GetDifNbrPlate(deco(ev)["DIF_Id"])<Global::geom->GetNumberPlates()||_SupressHitsOfDifsNotInXML==false) 
 	{
     CalorimeterHitImpl* caloHit = new CalorimeterHitImpl();
     caloHit->setTime(float((*ev).getTime()));
