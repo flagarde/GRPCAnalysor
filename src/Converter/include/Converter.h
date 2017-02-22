@@ -5,7 +5,10 @@
 class Converter
 {
    public:
-    Converter(Geometry* _geom):geom(_geom){};
+    Converter(Geometry* _geom):geom(_geom)
+    {
+      Kactual=-1;
+    };
     virtual ~Converter(){};
     virtual int RawToI(int Dif_Id,int Asic_Id,int Channel)=0;
     virtual int RawToJ(int Dif_Id,int Asic_Id,int Channel)=0;
@@ -16,7 +19,8 @@ class Converter
     virtual float IJKToY(int I,int J,int K)=0;
     virtual float IJKToZ(int I,int J,int K)=0;
     void CosSin(int K);
-   protected:
+   protected :
+    int Kactual;
     Geometry* geom;
     double ca;
 	  double sa;

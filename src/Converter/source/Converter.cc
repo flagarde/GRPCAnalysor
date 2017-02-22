@@ -4,10 +4,15 @@
 
 void Converter::CosSin(int K)
 {
-  ca=cos(geom->GetDifAlpha(K)*degtorad);
-	sa=sin(geom->GetDifAlpha(K)*degtorad);
-  cb=cos(geom->GetDifBeta(K)*degtorad);
-	sb=sin(geom->GetDifBeta(K)*degtorad);
-  cg=cos(geom->GetDifGamma(K)*degtorad);
-	sg=sin(geom->GetDifGamma(K)*degtorad);
+  if(Kactual==K) return;
+  else 
+  {
+    Kactual=K;
+    ca=cos(geom->GetDifAlpha(K)*degtorad);
+	  sa=sin(geom->GetDifAlpha(K)*degtorad);
+    cb=cos(geom->GetDifBeta(K)*degtorad);
+	  sb=sin(geom->GetDifBeta(K)*degtorad);
+    cg=cos(geom->GetDifGamma(K)*degtorad);
+	  sg=sin(geom->GetDifGamma(K)*degtorad);
+	}
 }
