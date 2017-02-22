@@ -1,4 +1,4 @@
-#include "TriventTriggered.h"
+#include "TimeSelecter.h"
 #include "Global.h"
 #include <iostream>
 #include <string>
@@ -26,9 +26,9 @@
 //double xmax[3]={129,3,3};
 //#define area 0.25*30
 #define area 1
-TriventTriggered aTriventTriggered;
+TimeSelecter aTimeSelecter;
 
-TriventTriggered::TriventTriggered() : Processor("TriventTriggered")
+TimeSelecter::TimeSelecter() : Processor("TimeSelecter")
 {
   _outFileName="";
   registerProcessorParameter("LCIOOutputFile","LCIO file",_outFileName,_outFileName);
@@ -42,11 +42,11 @@ TriventTriggered::TriventTriggered() : Processor("TriventTriggered")
   registerProcessorParameter("TriggerTimeHigh" ,"All Events with Time higher than this number will be ignored (-1) in case of Triggerless",_TriggerTimeHigh,_TriggerTimeHigh);
 } // end constructor
 
-TriventTriggered::~TriventTriggered() {}
+TimeSelecter::~TimeSelecter() {}
 
-void TriventTriggered::processRunHeader( LCRunHeader* run){}
+void TimeSelecter::processRunHeader( LCRunHeader* run){}
 
-void TriventTriggered::init()
+void TimeSelecter::init()
 { 
   std::string namee="";
   if(_outFileName=="")namee="TriventTriggered_"+std::to_string(Global::number)+".slcio";
@@ -64,8 +64,7 @@ void TriventTriggered::init()
   MinMaxTimeRejected=std::pair<double,double>(0.,0.);
   for(unsigned int i=0;i!=Global::geom->GetNumberPlates();++i)
   {
-    int type =Global::geom->GetDifType(Global::geom->GetDifsInPlane(i)[0]);
-    if(type!=temporal&&type!=scintillator&&type!=tcherenkov&&type!=bif)
+    if(Global::geom->GetDifType(i)!=temporal&&Global::geom->GetDifType(i)!=scintillator&&Global::geom->GetDifType(i)!=tcherenkov)
     {
       std::string name="Time Distribution in plate nbr "+std::to_string(i+1);
       std::string name2="Hits Distribution in plate nbr "+std::to_string(i+1);
@@ -92,7 +91,7 @@ void TriventTriggered::init()
   //a.List(); 
 }
 
-void TriventTriggered::processEvent( LCEvent * evtP )
+void TimeSelecter::processEvent( LCEvent * evtP )
 {
   MinMaxTime.first=_TriggerTimeLow;
   if(_TriggerTimeHigh!=std::numeric_limits<int>::max()) MinMaxTime.second=_TriggerTimeHigh;
@@ -126,16 +125,16 @@ void TriventTriggered::processEvent( LCEvent * evtP )
 	        if(_TriggerTimeLow<=raw_hit->getTime()&&raw_hit->getTime()<=_TriggerTimeHigh)
 	        {
 	          SelectedHits[decode(raw_hit)["DIF_Id"]].push_back(raw_hit);
-	          TimeDistribution[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(raw_hit->getTime());
+	          TimeDistribution[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])+1]->Fill(raw_hit->getTime());
 	          if(_TriggerTimeHigh==std::numeric_limits<int>::max())if(MinMaxTime.second<raw_hit->getTime())MinMaxTime.second=raw_hit->getTime();
-	          HitsDistribution[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(decode(raw_hit)["I"],decode(raw_hit)["J"]);
+	          HitsDistribution[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])+1]->Fill(decode(raw_hit)["I"],decode(raw_hit)["J"]);
 		      }
 		      else
 		      {
 	            RejectedHits[decode(raw_hit)["DIF_Id"]].push_back(raw_hit);
-	            TimeDistributionRejected[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(raw_hit->getTime());
+	            TimeDistributionRejected[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])+1]->Fill(raw_hit->getTime());
 	            if(MinMaxTimeRejected.second<raw_hit->getTime())MinMaxTimeRejected.second=raw_hit->getTime();
-	           HitsDistributionRejected[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(decode(raw_hit)["I"],decode(raw_hit)["J"]);
+	            HitsDistributionRejected[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])+1]->Fill(decode(raw_hit)["I"],decode(raw_hit)["J"]);
 		      }
         } 
 	    }
@@ -202,7 +201,7 @@ void TriventTriggered::processEvent( LCEvent * evtP )
 }
 
 
-void TriventTriggered::end()
+void TimeSelecter::end()
 {  
   MinMaxTime=std::pair<double,double>(0.,0.);
   MinMaxTimeRejected=std::pair<double,double>(0.,0.);

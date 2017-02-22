@@ -1,0 +1,6 @@
+include_directories("${CMAKE_SOURCE_DIR}/build/include")
+include_directories(include)
+FILE (GLOB_RECURSE TimeSelecter_SRC_FILES ./source/*)
+ADD_LIBRARY( TimeSelecter SHARED ${TimeSelecter_SRC_FILES} )
+TARGET_LINK_LIBRARIES( TimeSelecter ${ROOT_LIBRARIES} Marlin)
+INSTALL( TARGETS TimeSelecter LIBRARY DESTINATION ${MARLINO_LIBRARY_OUTPUT_PATH})

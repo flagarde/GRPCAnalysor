@@ -1,0 +1,54 @@
+<marlin>
+	<execute>
+	  <processor name="Progress"/>
+		<processor name="Streamout"/>
+		<processor name="IJKfiller"/>
+		<processor name="XYZfiller"/>
+		<processor name="TimeSelecter"/>
+    <!--processor name="MyLCIOOutputProcessor"/-->
+  </execute>
+	<global>
+    <parameter name="LCIOInputFiles">
+  
+
+./DHCAL_734375_I0_0.slcio
+		</parameter>
+    <parameter name="MaxRecordNumber" value="0"/>
+    <parameter name="SkipNEvents" value="10"/>
+    <parameter name="AllowToModifyEvent" value="false"/>
+    <parameter name="SupressCheck" value="false"/>
+    <parameter name="FileNameGeometry" value="./DetectorGeometry/904Analysis.xml"/>
+    <parameter name="ReaderType" value="XMLReader"/>
+    <parameter name="FileNameElog" value="./ElogXML/Elog.xml"/>
+	</global>
+	
+	<processor name="Progress" type="Progress"></processor>
+  
+  <processor name="IJKfiller" type="IJKfiller">
+    <parameter name="SupressHitsOfDifsNotInXML" value="false"/>
+  </processor>
+  
+  <processor name="XYZfiller" type="XYZfiller">
+    <parameter name="SupressHitsOfDifsNotInXML" value="false"/>
+  </processor>
+  
+  <processor name="TimeSelecter" type="TimeSelecter">
+    <parameter name="NoiseCut" value="5000" />
+    <parameter name="TriggerTimeLow" value="12" />
+    <parameter name="TriggerTimeHigh" value="18" />
+  </processor>
+  
+	<processor name="Streamout" type="Streamout">
+    <parameter name="XDAQCollectionName" type="string" lcioInType="LCGenericObject">RU_XDAQ </parameter>
+    <parameter name="BitsToSkip" value="20"/>
+	</processor>
+	
+	<processor name="MyLCIOOutputProcessor" type="LCIOOutputProcessor">
+    <parameter name="LCIOWriteMode" type="string">WRITE_NEW </parameter>
+    <parameter name="LCIOOutputFile" type="string">TEST_*_tete.slcio</parameter>
+    <parameter name="DropCollectionNames" type="string">RU_XDAQ DHCALRawHits IJKFilled </parameter> 
+  </processor>
+  <processor name="Trigger" type="Trigger">
+    
+  </processor>
+</marlin>

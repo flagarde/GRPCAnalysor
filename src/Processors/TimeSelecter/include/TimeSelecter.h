@@ -1,5 +1,5 @@
-#ifndef TRIVENT_TRIGGERED
-#define TRIVENT_TRIGGERED
+#ifndef TimeSelecter_h
+#define TimeSelecter_h
 #include <map>
 #include <vector>
 #include "Processor.h"
@@ -17,14 +17,14 @@
 #include <iostream>
 #include "HistoPlane.h"
 
-class TriventTriggered : public Processor
+class TimeSelecter : public Processor
 {
 public:
-    TriventTriggered();
-    ~TriventTriggered();
+    TimeSelecter();
+    ~TimeSelecter();
     Processor *newProcessor()
     {
-        return new TriventTriggered();
+        return new TimeSelecter();
     }
     void init();
     void processEvent(EVENT::LCEvent *evtP);
@@ -48,7 +48,6 @@ private:
     std::map<int,TH1F*>TimeDistributionRejected;
     std::map<int,TH2F*>HitsDistribution;
     std::map<int,TH2F*>HitsDistributionRejected;
-//extern TCanvas* canvas;
     THnSparseD* SelectedHits3D;
     THnSparseD* RejectedHits3D;
     std::pair<double,double>MinMaxTimeRejected;
