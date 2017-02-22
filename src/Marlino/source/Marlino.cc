@@ -100,10 +100,8 @@ int main(int argc, char* argv[] )
     closedir( dp );
     if(libs.size()==0) 
     {
-      std::cout<<red << std::endl << "<!-- You have no MARLIN_DLL variable in your environment "
-            " - so no processors will be loaded. ! --> " <<normal<< std::endl << std::endl ;
+      std::cout<<red << std::endl << "<!-- You have no folder libMarlino - so no processors will be loaded. ! --> " <<normal<< std::endl << std::endl ;
     }
-    //std::for_each( marlinProcs.begin(), marlinProcs.end(), t ) ;
     ProcessorLoader loader( libs.begin() , libs.end()  ) ;
     if( loader.failedLoading() )
     {
