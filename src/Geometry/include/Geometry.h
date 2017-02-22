@@ -32,7 +32,16 @@ class Geometry
     const int GetDifNbrPlate( const int& i);
     const int GetDifType( const int& i);
     const int GetAsicNbr(const int& i);
+    const double GetWidthCell(const int& i);
+    const double GetLengthCell(const int& i);
+    const double GetAreaCell(const int& i);
+    const double GetInterCellWidth(const int& i);
+    const double GetInterCellLength(const int& i);
+    const double GetAreaOneCellDif(const int& i);
+    const double GetTotalAreaDif(const int& i);   
+    const double GetTotalAreaPlane(const int& i);   
     const std::string GetDifTypeName( const int& i);
+    const double GetAreaOneCellPlane(const int& i);
     const unsigned int GetNumberDifs();
     const unsigned int GetNumberPlates();
     const std::vector<Plate> GetPlates();

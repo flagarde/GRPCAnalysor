@@ -93,9 +93,8 @@ const double Geometry::GetDifPositionYMax(const int& i )
     
 const double Geometry::GetDifPlateAlpha( const int& i)
 { 
-  if(i>=Plates.size()||i==-1)
+  if(i>=int(Plates.size())||i==-1)
   {
-    std::cout<<yellow<<"Plate number "<<i<<" invalid"<<normal<<std::endl;
     std::cout<<yellow<<"AngleAlpha unknown"<<normal<<std::endl;
      return 0;
   }
@@ -104,9 +103,8 @@ const double Geometry::GetDifPlateAlpha( const int& i)
 
 const double Geometry::GetDifPlateBeta( const int& i)
 { 
-  if(i>=Plates.size()||i==-1)
+  if(i>=int(Plates.size())||i==-1)
   {
-    std::cout<<yellow<<"Plate number "<<i<<" invalid"<<normal<<std::endl;
     std::cout<<yellow<<"AngleBeta unknown"<<normal<<std::endl;
      return 0;
   }
@@ -115,9 +113,8 @@ const double Geometry::GetDifPlateBeta( const int& i)
     
 const double Geometry::GetDifPlateGamma( const int& i)
 { 
-  if(i>=Plates.size()||i==-1)
+  if(i>=int(Plates.size())||i==-1)
   {
-    std::cout<<yellow<<"Plate number "<<i<<" invalid"<<normal<<std::endl;
     std::cout<<yellow<<"AngleGamma unknown"<<normal<<std::endl;
      return 0;
   }
@@ -136,9 +133,8 @@ const int Geometry::GetNbrDifInPlate(int& i)
     
 const double Geometry::GetPlatePositionX(const int& i)
 { 
-  if(i>=Plates.size()||i==-1)
+  if(i>=int(Plates.size())||i==-1)
   {
-    std::cout<<yellow<<"Plate number "<<i<<" invalid"<<normal<<std::endl;
     std::cout<<yellow<<"PositionX unknown"<<normal<<std::endl;
      return 0;
   }
@@ -147,9 +143,8 @@ const double Geometry::GetPlatePositionX(const int& i)
     
 const double Geometry::GetSizeX(const int& i)
 { 
-  if(i>=Plates.size()||i==-1)
+  if(i>=int(Plates.size())||i==-1)
   {
-    std::cout<<yellow<<"Plate number "<<i<<" invalid"<<normal<<std::endl;
     std::cout<<yellow<<"SizeX unknown"<<normal<<std::endl;
      return 0;
   }
@@ -158,9 +153,8 @@ const double Geometry::GetSizeX(const int& i)
     
 const double Geometry::GetSizeY(const int& i)
 { 
-  if(i>=Plates.size()||i==-1)
+  if(i>=int(Plates.size())||i==-1)
   {
-    std::cout<<yellow<<"Plate number "<<i<<" invalid"<<normal<<std::endl;
     std::cout<<yellow<<"SizeY unknown"<<normal<<std::endl;
      return 0;
   }
@@ -169,9 +163,8 @@ const double Geometry::GetSizeY(const int& i)
 
 const double Geometry::GetPlatePositionY(const int& i)
 { 
-  if(i>=Plates.size()||i==-1)
+  if(i>=int(Plates.size())||i==-1)
   {
-    std::cout<<yellow<<"Plate number "<<i<<" invalid"<<normal<<std::endl;
     std::cout<<yellow<<"PositionY unknown"<<normal<<std::endl;
      return 0;
   }
@@ -180,9 +173,8 @@ const double Geometry::GetPlatePositionY(const int& i)
     
 const double Geometry::GetPlatePositionZ(const int& i)
 { 
-  if(i>=Plates.size()||i==-1)
+  if(i>=int(Plates.size())||i==-1)
   {
-    std::cout<<yellow<<"Plate number "<<i<<" invalid"<<normal<<std::endl;
     std::cout<<yellow<<"PositionZ unknown"<<normal<<std::endl;
     return 0;
   }
@@ -193,6 +185,66 @@ const int Geometry::GetDifNbrPlate( const int& i)
 { 
   if(Difs.find(i)==Difs.end())return -1; 
   else return ((Difs.find(i))->second).GetNbrPlate();
+}
+    
+const double Geometry::GetWidthCell(const int& i)
+{
+  return ((Difs.find(i))->second).GetWidthCell();
+}
+    
+const double Geometry::GetLengthCell(const int& i)
+{
+  return ((Difs.find(i))->second).GetLengthCell();
+}
+
+const double Geometry::GetAreaCell(const int& i)
+{
+  return ((Difs.find(i))->second).GetAreaCell();
+}
+
+const double Geometry::GetInterCellWidth(const int& i)
+{
+  return ((Difs.find(i))->second).GetInterCellWidth();
+}
+
+const double Geometry::GetInterCellLength(const int& i)
+{
+  return ((Difs.find(i))->second).GetInterCellLength();
+}
+
+const double Geometry::GetAreaOneCellDif(const int& i)
+{
+  return ((Difs.find(i))->second).GetArea();
+}
+
+const double Geometry::GetAreaOneCellPlane(const int& i)
+{
+  if(i>=int(Plates.size())||i==-1)
+  {
+    std::cout<<yellow<<"PositionY unknown"<<normal<<std::endl;
+     return 0;
+  }
+  return GetTotalAreaDif(GetDifsInPlane(i)[0]);
+}
+
+const double Geometry::GetTotalAreaDif(const int& i)
+{
+  return ((Difs.find(i))->second).GetTotalArea();
+}
+
+const double Geometry::GetTotalAreaPlane(const int& i)
+{
+  if(i>=int(Plates.size())||i==-1)
+  {
+    std::cout<<yellow<<"PositionY unknown"<<normal<<std::endl;
+     return 0;
+  }
+  double total=0.0;
+  for(unsigned int u=0;u!=GetDifsInPlane(i).size();++u)
+  {
+    total+=GetTotalAreaDif(GetDifsInPlane(i)[u]);
+  }
+  return total;
 }
     
 const int Geometry::GetDifType( const int& i)
@@ -219,7 +271,7 @@ const unsigned int Geometry::GetNumberDifs()
     
 const unsigned int Geometry::GetNumberPlates()
 {
-  return Plates.size();
+  return int(Plates.size());
 }
     
 const std::vector<Plate> Geometry::GetPlates()
@@ -229,7 +281,7 @@ const std::vector<Plate> Geometry::GetPlates()
     
 const Plate Geometry::GetPlate(const int& i)
 {
-  if(i>=Plates.size()||i==-1)
+  if(i>=int(Plates.size())||i==-1)
   {
     std::cout<<yellow<<"Plate number "<<i<<" invalid"<<normal<<std::endl;
     std::exit(2);
@@ -244,7 +296,7 @@ const std::map<int,Dif> Geometry::GetDifs()
     
 const std::vector<int> Geometry::GetDifsInPlane(int i)
 {
-  if(i>=Plates.size()||i==-1)
+  if(i>=int(Plates.size())||i==-1)
   {
     std::cout<<yellow<<"Plate number "<<i<<" invalid"<<normal<<std::endl;
     return {};
@@ -255,7 +307,7 @@ const std::vector<int> Geometry::GetDifsInPlane(int i)
 const std::vector<int> Geometry::GetDifsList()
 {
   std::vector<int>DifsList;
-  for(unsigned int y=0;y!=Plates.size();++y)
+  for(int y=0;y!=int(Plates.size());++y)
   {
     DifsList.insert(DifsList.end(), Plates[y].GetDifInPlate().begin(), Plates[y].GetDifInPlate().end());
   }
@@ -270,9 +322,8 @@ const std::string Geometry::GetGlassType(const  int& i)
     
 double Geometry::GetGazNumber(const int& i)
 {
-  if(i>=Plates.size()||i==-1)
+  if(i>=int(Plates.size())||i==-1)
   {
-    std::cout<<yellow<<"Plate number "<<i<<" invalid"<<normal<<std::endl;
     std::cout<<yellow<<"Gaz number Unknown"<<normal<<std::endl;
     return 0;
   }
@@ -281,9 +332,8 @@ double Geometry::GetGazNumber(const int& i)
     
 std::string Geometry::GetHVChannel(const int& i)
 {
-  if(i>=Plates.size()||i==-1)
+  if(i>=int(Plates.size())||i==-1)
   {
-    std::cout<<yellow<<"Plate number "<<i<<" invalid"<<normal<<std::endl;
     std::cout<<yellow<<"HV Channel Unknown"<<normal<<std::endl;
      return 0;
   }
@@ -292,9 +342,8 @@ std::string Geometry::GetHVChannel(const int& i)
     
 std::string Geometry::GetGazChannel(const  int& i)
 {
-  if(i>=Plates.size()||i==-1)
+  if(i>=int(Plates.size())||i==-1)
   {
-    std::cout<<yellow<<"Plate number "<<i<<" invalid"<<normal<<std::endl;
     std::cout<<yellow<<"Gaz Channel Unknown"<<normal<<std::endl;
     return 0;
   }
@@ -304,7 +353,7 @@ std::string Geometry::GetGazChannel(const  int& i)
 int Geometry::GetXMax()
 {
   int max=std::numeric_limits<int>::min();
-  for(unsigned int i=0;i!=Plates.size();++i)
+  for(int i=0;i!=int(Plates.size());++i)
   {
     if(Plates[i].GetSizeX()>max) max=Plates[i].GetSizeX();
   }
@@ -314,7 +363,7 @@ int Geometry::GetXMax()
 int Geometry::GetYMax()
 {
   int max=std::numeric_limits<int>::min();
-  for(unsigned int i=0;i!=Plates.size();++i)
+  for(int i=0;i!=int(Plates.size());++i)
   {
     if(Plates[i].GetSizeY()>max) max=Plates[i].GetSizeY();
   }

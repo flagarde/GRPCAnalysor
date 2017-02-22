@@ -25,7 +25,6 @@
 //double xmin[3]={0,1,-1};
 //double xmax[3]={129,3,3};
 //#define area 0.25*30
-#define area 1
 TimeSelecter aTimeSelecter;
 
 TimeSelecter::TimeSelecter() : Processor("TimeSelecter")
@@ -64,7 +63,8 @@ void TimeSelecter::init()
   MinMaxTimeRejected=std::pair<double,double>(0.,0.);
   for(unsigned int i=0;i!=Global::geom->GetNumberPlates();++i)
   {
-    if(Global::geom->GetDifType(i)!=temporal&&Global::geom->GetDifType(i)!=scintillator&&Global::geom->GetDifType(i)!=tcherenkov)
+    int type=Global::geom->GetDifType(Global::geom->GetDifsInPlane(i)[0]);
+    if(type!=temporal&&type!=scintillator&&type!=tcherenkov&&type!=bif)
     {
       std::string name="Time Distribution in plate nbr "+std::to_string(i+1);
       std::string name2="Hits Distribution in plate nbr "+std::to_string(i+1);
@@ -73,10 +73,10 @@ void TimeSelecter::init()
       int Xmin=_TriggerTimeLow;
       int Xmax=_TriggerTimeHigh;
       int NBins=Xmax-Xmin;
-      TimeDistribution[i+1]=new TH1F(name.c_str(),name.c_str(),NBins+1,Xmin,Xmax+1);
-      TimeDistributionRejected[i+1]=new TH1F(name4.c_str(),name4.c_str(),100000,0,100000);
-      HitsDistribution[i+1]=new TH2F(name2.c_str(),name2.c_str(),35,0,35,40,0,40);
-      HitsDistributionRejected[i+1]=new TH2F(name3.c_str(),name3.c_str(),35,0,35,40,0,40);
+      TimeDistribution[i]=new TH1F(name.c_str(),name.c_str(),NBins+1,Xmin,Xmax+1);
+      TimeDistributionRejected[i]=new TH1F(name4.c_str(),name4.c_str(),100000,0,100000);
+      HitsDistribution[i]=new TH2F(name2.c_str(),name2.c_str(),35,0,35,40,0,40);
+      HitsDistributionRejected[i]=new TH2F(name3.c_str(),name3.c_str(),35,0,35,40,0,40);
     }
   }
   //SelectedHits3D=new THnSparseD("Selected Hits 3D", "Selected Hits 3D", 3, bin, xmin, xmax);
@@ -125,16 +125,16 @@ void TimeSelecter::processEvent( LCEvent * evtP )
 	        if(_TriggerTimeLow<=raw_hit->getTime()&&raw_hit->getTime()<=_TriggerTimeHigh)
 	        {
 	          SelectedHits[decode(raw_hit)["DIF_Id"]].push_back(raw_hit);
-	          TimeDistribution[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])+1]->Fill(raw_hit->getTime());
+	          TimeDistribution[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(raw_hit->getTime());
 	          if(_TriggerTimeHigh==std::numeric_limits<int>::max())if(MinMaxTime.second<raw_hit->getTime())MinMaxTime.second=raw_hit->getTime();
-	          HitsDistribution[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])+1]->Fill(decode(raw_hit)["I"],decode(raw_hit)["J"]);
+	          HitsDistribution[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(decode(raw_hit)["I"],decode(raw_hit)["J"]);
 		      }
 		      else
 		      {
 	            RejectedHits[decode(raw_hit)["DIF_Id"]].push_back(raw_hit);
-	            TimeDistributionRejected[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])+1]->Fill(raw_hit->getTime());
+	            TimeDistributionRejected[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(raw_hit->getTime());
 	            if(MinMaxTimeRejected.second<raw_hit->getTime())MinMaxTimeRejected.second=raw_hit->getTime();
-	            HitsDistributionRejected[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])+1]->Fill(decode(raw_hit)["I"],decode(raw_hit)["J"]);
+	            HitsDistributionRejected[Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])]->Fill(decode(raw_hit)["I"],decode(raw_hit)["J"]);
 		      }
         } 
 	    }
@@ -187,14 +187,13 @@ void TimeSelecter::processEvent( LCEvent * evtP )
 	  }
     catch (DataNotAvailableException &e)
 	  {
-	    std::cout << "TRIGGER SKIPED ..."<<std::endl;
+	    std::cout << "collection skipped ..."<<std::endl;
 	    TRIGGERSKIPPED++;
 	    break;
 	  }
 	  
   }
   TotalTime+=(MinMaxTime.second-MinMaxTime.first)*200e-9;
-  std::cout<<TotalTime<<"  "<<(MinMaxTime.second-MinMaxTime.first)*200e-9<<std::endl;
   TotalTimeRejected+=((MinMaxTimeRejected.second-MinMaxTimeRejected.first)-TotalTime)*200e-9;
   MinMaxTimeRejected=std::pair<double,double>(0.,0.);
   MinMaxTime=std::pair<double,double>(0.,0.);
@@ -244,14 +243,15 @@ void TimeSelecter::end()
   for(std::map<int,TH2F*>::iterator it=HitsDistribution.begin();it!=HitsDistribution.end();++it)
   {
     Global::out->writeObject("HitsDistribution",it->second);
-    (it->second)->Scale(1.0/(TotalTime*area));
+    (it->second)->Scale(1.0/(TotalTime*Global::geom->GetAreaOneCellPlane(it->first)));
+    std::cout<<Global::geom->GetAreaOneCellPlane(it->first)<<std::endl;
     Global::out->writeObject("HitsDistribution/Scaled",it->second);
     delete it->second;
   }
   for(std::map<int,TH2F*>::iterator it=HitsDistributionRejected.begin();it!=HitsDistributionRejected.end();++it)
   {
     Global::out->writeObject("HitsDistributionRejected",it->second);
-    (it->second)->Scale(1.0/(TotalTimeRejected*area));
+    (it->second)->Scale(1.0/(TotalTimeRejected*Global::geom->GetAreaOneCellPlane(it->first)));
     Global::out->writeObject("HitsDistributionRejected/Scaled",it->second);
     delete it->second;
   }

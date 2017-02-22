@@ -14,6 +14,13 @@ class Dif
   int GetNbrPlate();
   int GetDifType();
   int GetAsicNbr();
+  double GetWidthCell();
+  double GetLengthCell();
+  double GetAreaCell();
+  double GetInterCellWidth();
+  double GetInterCellLength();
+  double GetArea();
+  double GetTotalArea();
  private:
   double _PositionX;
   double _PositionY;
@@ -24,5 +31,9 @@ class Dif
   int _nbrPlate;
   int _DifType;
   int _AsicNbr;
+  double _WidthCell;
+  double _LengthCell;
+  double _InterCellWidth;
+  double _InterCellLength;
 };
 #endif
