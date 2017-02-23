@@ -8,15 +8,19 @@ Histogrammer::Histogrammer(ConfigInfos* _conf,OutFileRoot* _out,Geometry* _geom)
 {
   for(unsigned int i=0;i!=geom->GetNumberPlates();++i)
   {
+    int Xmin=0;
     int Xmax=0;
+		int Ymin=0;
     int Ymax=0;
     if(geom->GetDifType(geom->GetDifsInPlane(i)[0])==strip||geom->GetDifType(geom->GetDifsInPlane(i)[0])==stripup||geom->GetDifType(geom->GetDifsInPlane(i)[0])==stripdown) 
     {
+      Ymin=1;
 			Xmax=128;
 			Ymax=3;
 		}
     else if(geom->GetDifType(geom->GetDifsInPlane(i)[0])==pad)
     {
+      Ymin=1;
       Ymax=8*4*geom->GetNbrDifInPlate(i);
       Xmax=48*8;
     }
@@ -24,10 +28,10 @@ Histogrammer::Histogrammer(ConfigInfos* _conf,OutFileRoot* _out,Geometry* _geom)
     std::string hh="Plate Nbr "+ std::to_string(i +1 )+"Gain";
     for(unsigned int j=0;j<ThresholdMap.size();++j)
     {
-      ThresholdMap[j].push_back(new TH2F((h+"_"+Thresholds_name[j]).c_str(),(h+"_"+Thresholds_name[j]).c_str(),Xmax+1,0,Xmax+1,Ymax+1,0,Ymax+1));
-      ThresholdMapInt[j].push_back(new TH2F((h+"_"+Thresholds_name[j]+"_int").c_str(),(h+"_"+Thresholds_name[j]+"_int").c_str(),Xmax+1,0,Xmax,Ymax+1,0,Ymax+1));
+      ThresholdMap[j].push_back(new TH2F((h+"_"+Thresholds_name[j]).c_str(),(h+"_"+Thresholds_name[j]).c_str(),Xmax-Xmin,Xmin,Xmax,Ymax-Ymin,Ymin,Ymax));
+      ThresholdMapInt[j].push_back(new TH2F((h+"_"+Thresholds_name[j]+"_int").c_str(),(h+"_"+Thresholds_name[j]+"_int").c_str(),Xmax-Xmin,Xmin,Xmax,Ymax-Ymin,Ymin,Ymax));
     }
-  	Gain.push_back(new TH2F(hh.c_str(),hh.c_str(),Xmax+1,0,Xmax,Ymax+1,0,Ymax+1));
+  	Gain.push_back(new TH2F(hh.c_str(),hh.c_str(),Xmax-Xmin,Xmin,Xmax,Ymax-Ymin,Ymin,Ymax));
     if(geom->GetDifType(geom->GetDifsInPlane(i)[0])==strip||geom->GetDifType(geom->GetDifsInPlane(i)[0])==stripup||geom->GetDifType(geom->GetDifsInPlane(i)[0])==stripdown) 
     {
 			Gain[i]->GetXaxis()->SetTitle("Strip");
@@ -93,11 +97,11 @@ void Histogrammer::Plot()
           {
             int I=converter->RawToIJK(DIF_Id,Asic_Id,i)[0];
     				int J=converter->RawToIJK(DIF_Id,Asic_Id,i)[1];
-            Gain[geom->GetDifNbrPlate(it->first)-1]->Fill(I,J,(itt->second).ReturnMe()[i]);
+           Gain[geom->GetDifNbrPlate(it->first)]->Fill(I,J,double((itt->second).ReturnMe()[i]));
             for(unsigned int h=0;h!=thee.size();++h)
             {
-              ThresholdMap[h][geom->GetDifNbrPlate(it->first)-1]->Fill(I,J,ThresholdsConv(thee[h],h));
-              ThresholdMapInt[h][geom->GetDifNbrPlate(it->first)-1]->Fill(I,J,thee[h]);
+            	ThresholdMap[h][geom->GetDifNbrPlate(it->first)]->Fill(I,J,double(ThresholdsConv(thee[h],h)));
+              ThresholdMapInt[h][geom->GetDifNbrPlate(it->first)]->Fill(I,J,double(thee[h]));
             }
           }
         }
