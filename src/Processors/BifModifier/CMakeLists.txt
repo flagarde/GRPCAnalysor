@@ -1,0 +1,6 @@
+include_directories("${CMAKE_SOURCE_DIR}/build/include")
+include_directories(include)
+FILE (GLOB_RECURSE BifModifier_SRC_FILES ./source/*)
+ADD_LIBRARY( BifModifier SHARED ${Trivent_SRC_FILES} )
+TARGET_LINK_LIBRARIES( BifModifier ${ROOT_LIBRARIES} Marlin)
+INSTALL( TARGETS BifModifier LIBRARY DESTINATION ${MARLINO_LIBRARY_OUTPUT_PATH})
