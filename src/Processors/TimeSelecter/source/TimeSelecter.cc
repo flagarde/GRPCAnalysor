@@ -19,12 +19,6 @@
 #include <algorithm> 
 #include "EVENT/CalorimeterHit.h" 
 #include "IMPL/ClusterImpl.h"
-#include "THnSparse.h"
-#include "HistoPlane.h"
-//int bin[3]={129,3,4};
-//double xmin[3]={0,1,-1};
-//double xmax[3]={129,3,3};
-//#define area 0.25*30
 TimeSelecter aTimeSelecter;
 
 TimeSelecter::TimeSelecter() : Processor("TimeSelecter")
@@ -70,25 +64,12 @@ void TimeSelecter::init()
       std::string name2="Hits Distribution in plate nbr "+std::to_string(i+1);
       std::string name3="Hits Distribution in plate nbr "+std::to_string(i+1)+" out of trigger time";
       std::string name4="Time Distribution in plate nbr "+std::to_string(i+1)+" out of trigger time";
-      int Xmin=_TriggerTimeLow;
-      int Xmax=_TriggerTimeHigh;
-      int NBins=Xmax-Xmin;
-      TimeDistribution[i]=new TH1F(name.c_str(),name.c_str(),NBins+1,Xmin,Xmax+1);
+      TimeDistribution[i]=new TH1F(name.c_str(),name.c_str(),100000,0,100000);
       TimeDistributionRejected[i]=new TH1F(name4.c_str(),name4.c_str(),100000,0,100000);
       HitsDistribution[i]=new TH2F(name2.c_str(),name2.c_str(),35,0,35,40,0,40);
       HitsDistributionRejected[i]=new TH2F(name3.c_str(),name3.c_str(),35,0,35,40,0,40);
     }
-  }
-  //SelectedHits3D=new THnSparseD("Selected Hits 3D", "Selected Hits 3D", 3, bin, xmin, xmax);
-  //RejectedHits3D=new THnSparseD("Rejected Hits 3D", "Rejected Hits 3D", 3, bin, xmin, xmax);
-  //a.Add("TH1","Asic","test",10,0.,15.);
-  //a.setRolling("test",false);
-  //a.Add("TH1","Asic","test2",10,0.,15.);
-  //a.setRolling("test2",true);
-  //Global::HG.Add("TGraph","Dif","Efficiency  HV");
-  //a.Add("TH3","Dif","test",10,20.,30.,20,30.,40.,50,60.,70.);
- // a.Add("TGraph","Dif","test3",10,20.,30.,20,30.,40.,50,60.,70.);
-  //a.List(); 
+  } 
 }
 
 void TimeSelecter::processEvent( LCEvent * evtP )
@@ -98,8 +79,6 @@ void TimeSelecter::processEvent( LCEvent * evtP )
   else MinMaxTime.second=0;
   for(unsigned int i=0; i< _hcalCollections.size(); i++) 
   {
-    //a("test",1,23,1,1,1).Fill(1,2,3,4);
-    //a("test2",1,23,1,1,1).Fill(1,2,3,4);
     try 
 	  {
 	    LCCollection* col = evtP ->getCollection(_hcalCollections[i].c_str());
@@ -136,11 +115,10 @@ void TimeSelecter::processEvent( LCEvent * evtP )
 		      else
 		      {
 	            RejectedHits[decode(raw_hit)["DIF_Id"]].push_back(raw_hit);
-	            TimeDistributionRejected[nbrplate]->Fill(raw_hit->getTime());
 	            if(MinMaxTimeRejected.second<raw_hit->getTime())MinMaxTimeRejected.second=raw_hit->getTime();
 	            if(nbrplate<Global::geom->GetNumberPlates())
 	            {
-	              TimeDistribution[nbrplate]->Fill(raw_hit->getTime());
+	              TimeDistributionRejected[nbrplate]->Fill(raw_hit->getTime());
 	              HitsDistributionRejected[nbrplate]->Fill(decode(raw_hit)["I"],decode(raw_hit)["J"]);
 	            }
 		      }
@@ -263,26 +241,6 @@ void TimeSelecter::end()
     Global::out->writeObject("HitsDistributionRejected/Scaled",it->second);
     delete it->second;
   }
-  //TF1 * tf = new TF1("TransferFunction", transfer_function2);
-  //Global::out->writeObject("3D",SelectedHits3D);
-  //Global::out->writeObject("3D",RejectedHits3D);
-  //TH3D* u1=SelectedHits3D->Projection(2,1,0);
-  //TH3D* u2=RejectedHits3D->Projection(2,1,0);
-  //u1->GetYaxis()->SetTitle("Y");
-  //u1->GetXaxis()->SetTitle("X");
-  //u1->GetZaxis()->SetTitle("Z");
-  //u2->GetYaxis()->SetTitle("Y");
-  //u2->GetXaxis()->SetTitle("X");
-  //u2->GetZaxis()->SetTitle("Z");
-  //u1->GetListOfFunctions()->Add(tf);
-  //u2->GetListOfFunctions()->Add(tf);
- // Global::out->writeObject("3D",Make_good_TH3(u1));
-//  Global::out->writeObject("3D",Make_good_TH3(u2));
-  //delete SelectedHits3D;
-  //delete RejectedHits3D;
-  //delete u1;
-  //delete u2;
-  //a.Write();
   std::cout << "TriventProcess::end() !! "<<TRIGGERSKIPPED<<" Events skiped"<< std::endl;
   std::cout <<TouchedEvents<<" Events were overlaping "<<"("<<(TouchedEvents*1.0/(TouchedEvents+eventtotal))*100<<"%)"<<std::endl;
   std::cout <<"Total nbr Events : "<<eventtotal<<" : "<<EventsSelected<<" ("<<EventsSelected*1.0/eventtotal*100<<"%)"<< std::endl;
