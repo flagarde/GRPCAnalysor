@@ -100,7 +100,7 @@ void TimeSelecter::processEvent( LCEvent * evtP )
         if (raw_hit != nullptr) 
 	      {
 	        int nbrplate=Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"]);
-	        if(Global::geom->GetDifType(decode(raw_hit)["DIF_Id"])==scintillator||Global::geom->GetDifType(decode(raw_hit)["DIF_Id"])==tcherenkov)continue;
+	        if(Global::geom->GetDifType(decode(raw_hit)["DIF_Id"])==scintillator||Global::geom->GetDifType(decode(raw_hit)["DIF_Id"])==tcherenkov||Global::geom->GetDifType(decode(raw_hit)["DIF_Id"])==bif)continue;
 	        if(Global::geom->GetDifNbrPlate(decode(raw_hit)["DIF_Id"])==-1) continue;
 	        if(_TriggerTimeLow<=raw_hit->getTime()&&raw_hit->getTime()<=_TriggerTimeHigh)
 	        {
@@ -188,8 +188,6 @@ void TimeSelecter::processEvent( LCEvent * evtP )
 
 void TimeSelecter::end()
 {  
-  MinMaxTime=std::pair<double,double>(0.,0.);
-  MinMaxTimeRejected=std::pair<double,double>(0.,0.);
   std::vector<std::string>NameBin;
   std::vector<double>ValueBin;
   for(unsigned int i=0;i!=Global::geom->GetNumberPlates();++i)
