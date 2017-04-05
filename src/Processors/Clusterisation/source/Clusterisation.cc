@@ -97,7 +97,7 @@ void Clusterisation::processEvent( LCEvent * evtP )
 	    for(unsigned int j=0;j!=clusters.size()-1;++j)
 	    {
 	      CalorimeterHitImpl* caloHit = new CalorimeterHitImpl();
-	      unsigned int i=0;
+	      unsigned int clustersize=0;
 	      int I=0;
 	      int J=0;
 	      int K=0;
@@ -119,7 +119,7 @@ void Clusterisation::processEvent( LCEvent * evtP )
 	        float Z=(*itt)->getPosition()[2];
 	        K=decode(*itt)["K"];
 	        int pound1=1;
-	        i++;
+	        clustersize++;
 	        if(Global::Histogram!=nullptr)
 	        {
 	          if(poundGain==true) 
@@ -138,7 +138,7 @@ void Clusterisation::processEvent( LCEvent * evtP )
 	        J+=J1*pound1;
 	        pound+=pound1;
 	      }
-	      hists("Cluster_Size",K,0,0,0,1).Fill(i,1.);
+	      hists("Cluster_Size",K,0,0,0,1).Fill(clustersize,1.);
 	      I/=(1.0*pound);
 	      J/=(1.0*pound);
 	      pos[0]/=(1.0*pound);
