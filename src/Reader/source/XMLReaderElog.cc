@@ -39,7 +39,7 @@ void XMLReaderElog::Read(std::string &FileName,ConfigInfos* Conf,int RunNumber)
         founded=true;
         DAQ_Name=element->FirstChildElement("DAQ_Name")->GetText();
         TiXmlElement*  ele = element->FirstChildElement();
-        while (ele!=false)
+        while (ele!=nullptr)
 		    {
 		      if(ele->GetText()!=nullptr)Global::eloginf->AddBruteValue(ele->Value(),ele->GetText());
 		      ele=ele->NextSiblingElement();
