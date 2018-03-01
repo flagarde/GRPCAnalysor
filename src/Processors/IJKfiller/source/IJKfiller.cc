@@ -23,7 +23,7 @@ using namespace lcio ;
 
 void IJKfiller::FillIJK(RawCalorimeterHit* raw, LCCollectionVec* col,CellIDEncoder<CalorimeterHitImpl>& cd, CellIDDecoder<RawCalorimeterHit>& cd2)
 {
-  if(Global::Global::geom->GetDifNbrPlate(cd2(raw)["DIF_Id"])<Global::geom->GetNumberPlates()||_SupressHitsOfDifsNotInXML==false) 
+    if(Global::geom->GetDifNbrPlate(cd2(raw)["DIF_Id"])<Global::geom->GetNumberPlates()) 
 	{
     CalorimeterHitImpl* caloHit = new CalorimeterHitImpl();
     converter->setType(cd2(raw)["DIF_Id"]);
@@ -35,6 +35,7 @@ void IJKfiller::FillIJK(RawCalorimeterHit* raw, LCCollectionVec* col,CellIDEncod
     cd["I"] = converter->RawToIJK(cd["DIF_Id"],cd["Asic_Id"],cd["Channel"])[0] ;
     cd["J"] = converter->RawToIJK(cd["DIF_Id"],cd["Asic_Id"],cd["Channel"])[1] ;
     cd["K"] = converter->RawToIJK(cd["DIF_Id"],cd["Asic_Id"],cd["Channel"])[2] ;
+    _myTH2->Fill(converter->RawToIJK(cd["DIF_Id"],cd["Asic_Id"],cd["Channel"])[0],converter->RawToIJK(cd["DIF_Id"],cd["Asic_Id"],cd["Channel"])[1]);
     cd.setCellID( caloHit ) ;
     col->addElement(caloHit);
   }
@@ -46,19 +47,18 @@ IJKfiller::IJKfiller():Processor("IJKfiller")
 {
   _hcalCollections={"DHCALRawHits2"};
   registerInputCollections( LCIO::RAWCALORIMETERHIT,"HCALCollections","HCAL Collection Names",_hcalCollections,_hcalCollections);
-  _SupressHitsOfDifsNotInXML = true;
-  registerProcessorParameter("SupressHitsOfDifsNotInXML","SupressHitsOfDifsNotInXML",_SupressHitsOfDifsNotInXML,_SupressHitsOfDifsNotInXML);
 } // end constructor
 
 void IJKfiller::processRunHeader( LCRunHeader* run){}
 
 void IJKfiller::init()
 { 
+    _myTH2=new TH2F("toto","toto",100,0.,100.,100,0.,100.);
   printParameters();
   if(Global::geom) 
   {
     converter=new ConstructConverters(Global::geom);
-    std::map<int, Dif >Difs=Global::Global::geom->GetDifs();;
+    std::map<int, Dif >Difs=Global::geom->GetDifs();;
     for(std::map<int, Dif >::iterator it=Difs.begin(); it!=Difs.end(); ++it) 
 	  {
 	    if(Global::geom->GetDifType(it->first)==bif)std::cout<<yellow<<"->Dif "<<it->first<<" is considered as BIF "<<normal<<std::endl;
@@ -88,16 +88,12 @@ void IJKfiller::processEvent( LCEvent * evtP )
           RawCalorimeterHit *raw = dynamic_cast<RawCalorimeterHit*>( col->getElementAt(ihit)) ;
           if (raw != nullptr) 
 	        {
-	          if(Global::Global::geom->GetDifNbrPlate(decode(raw)["DIF_Id"])==-1) 
+	          if(Global::geom->GetDifNbrPlate(decode(raw)["DIF_Id"])==-1) 
 	          {
 	            if(Warningg[decode(raw)["DIF_Id"]]!=true) 
 		          {
 		            Warningg[decode(raw)["DIF_Id"]]=true;
-		            if(_SupressHitsOfDifsNotInXML==false)
-		            {
-		              std::cout<<red<<"Please add DIF "<<decode(raw)["DIF_Id"]<<" to your geometry file; Dif considered as pads type"<<normal<<std::endl; 
-		            }
-		            else std::cout<<red<<"Please add DIF "<<decode(raw)["DIF_Id"]<<" to your geometry file; I'm skipping its data"<<normal<<std::endl; 
+		            std::cout<<red<<"Please add DIF "<<decode(raw)["DIF_Id"]<<" to your geometry file; I'm skipping its data"<<normal<<std::endl; 
 		          }
 	          }
 	          if(raw->getTimeStamp()<0)
@@ -140,11 +136,7 @@ void IJKfiller::end()
 {
   for(std::map<int,bool>::iterator it=Warningg.begin(); it!=Warningg.end(); it++) 
   {
-    if(_SupressHitsOfDifsNotInXML==true)
-		{
 		  std::cout<<red<<"REMINDER::Data from Dif "<<it->first<<" are skipped !"<<normal<<std::endl;
-		}
-    else std::cout<<red<<"REMINDER::Data from Dif "<<it->first<<" are considered as pads type"<<normal<<std::endl;
   }
   if(Negative.size()!=0)
   {
@@ -161,4 +153,5 @@ void IJKfiller::end()
     }
     fileNeg.close();
   }
+  _myTH2->Write();
 }

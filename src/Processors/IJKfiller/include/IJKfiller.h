@@ -9,6 +9,7 @@
 #include "IMPL/CalorimeterHitImpl.h"
 #include "EVENT/RawCalorimeterHit.h" 
 #include "ConstructConverters.h"
+#include "TH2F.h"
 using namespace lcio ;
 
 class IJKfiller : public Processor
@@ -29,6 +30,6 @@ class IJKfiller : public Processor
     std::vector<std::string> _hcalCollections;
     std::map<std::vector<long long int>,std::map< long long int, long long int>>Negative;
     ConstructConverters* converter;
-    bool _SupressHitsOfDifsNotInXML;
+    TH2F* _myTH2=nullptr;
 };
 #endif

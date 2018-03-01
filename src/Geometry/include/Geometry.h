@@ -10,10 +10,7 @@
 class Geometry
 {
   public:
-    Geometry()
-    {
-      NbrPlateNotInXML=0;
-    }
+    Geometry(){}
     ~Geometry(){};
     void AddDif(const double&,const double&, int,const double&,const double&,const double&,const int&,const int& );
     void AddPlate(const double&,const double&,const double&,const double&,const double&,const double&, std::vector<int>&,const double&,const double&,const double&, const double&,const std::string&,const std::string&);
@@ -64,7 +61,5 @@ class Geometry
  private:
     std::vector<Plate> Plates;
     std::map<int, Dif > Difs;
-    std::map<int,int> NbrPlateToDifNotInXML;
-    int NbrPlateNotInXML;
 };
 #endif
