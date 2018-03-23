@@ -24,7 +24,7 @@ using namespace lcio ;
 void IJKfiller::FillIJK(RawCalorimeterHit* raw, LCCollectionVec* col,CellIDEncoder<CalorimeterHitImpl>& cd, CellIDDecoder<RawCalorimeterHit>& cd2)
 {
     if(Global::geom->GetDifNbrPlate(cd2(raw)["DIF_Id"])<Global::geom->GetNumberPlates()) 
-	{
+    {
     CalorimeterHitImpl* caloHit = new CalorimeterHitImpl();
     converter->setType(cd2(raw)["DIF_Id"]);
     caloHit->setTime(float((*raw).getTimeStamp()));
@@ -35,7 +35,7 @@ void IJKfiller::FillIJK(RawCalorimeterHit* raw, LCCollectionVec* col,CellIDEncod
     cd["I"] = converter->RawToIJK(cd["DIF_Id"],cd["Asic_Id"],cd["Channel"])[0] ;
     cd["J"] = converter->RawToIJK(cd["DIF_Id"],cd["Asic_Id"],cd["Channel"])[1] ;
     cd["K"] = converter->RawToIJK(cd["DIF_Id"],cd["Asic_Id"],cd["Channel"])[2] ;
-    _myTH2->Fill(converter->RawToIJK(cd["DIF_Id"],cd["Asic_Id"],cd["Channel"])[0],converter->RawToIJK(cd["DIF_Id"],cd["Asic_Id"],cd["Channel"])[1]);
+    _myTH2[Global::geom->GetDifNbrPlate(cd2(raw)["DIF_Id"])]->Fill(converter->RawToIJK(cd["DIF_Id"],cd["Asic_Id"],cd["Channel"])[0],converter->RawToIJK(cd["DIF_Id"],cd["Asic_Id"],cd["Channel"])[1]);
     cd.setCellID( caloHit ) ;
     col->addElement(caloHit);
   }
@@ -53,11 +53,15 @@ void IJKfiller::processRunHeader( LCRunHeader* run){}
 
 void IJKfiller::init()
 { 
-    _myTH2=new TH2F("toto","toto",100,0.,100.,100,0.,100.);
+    //_myTH2=new TH2F("toto","toto",100,0.,100.,100,0.,100.);
   printParameters();
   if(Global::geom) 
   {
     converter=new ConstructConverters(Global::geom);
+    for(unsigned int nbrPlate=0;nbrPlate!=Global::geom->GetNumberPlates();++nbrPlate)
+    {
+	_myTH2.push_back(new TH2F(("Hit_Distribution_"+std::to_string(nbrPlate)).c_str(),("Hit_Distribution_"+std::to_string(nbrPlate)).c_str(),100,0.,100.,100,0.,100.));
+    }
     std::map<int, Dif >Difs=Global::geom->GetDifs();;
     for(std::map<int, Dif >::iterator it=Difs.begin(); it!=Difs.end(); ++it) 
 	  {
@@ -153,5 +157,9 @@ void IJKfiller::end()
     }
     fileNeg.close();
   }
-  _myTH2->Write();
+  for(unsigned int i=0;i!=_myTH2.size();++i)
+  {
+  	_myTH2[i]->Write();
+        delete _myTH2[i];
+  }
 }
