@@ -1,0 +1,3 @@
+[submodule "src/LCIO"]
+	path = src/LCIO
+	url = https://github.com/iLCSoft/LCIO.git

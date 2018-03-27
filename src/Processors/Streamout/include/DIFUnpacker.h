@@ -52,8 +52,8 @@ public:
   static uint32_t getFrameBCID(uint8_t* framePtr);
   static bool getFramePAD(uint8_t* framePtr,uint32_t ip);
   static bool getFrameLevel(uint8_t* framePtr,uint32_t ip,uint32_t level);
-  static uint32_t getAnalogPtr(std::vector<uint8_t*> &vLines,uint8_t* cb,uint32_t idx=0) throw (std::string);
-  static uint32_t getFramePtr(std::vector<uint8_t*> &vFrame,std::vector<uint8_t*> &vLines,uint32_t max_size,uint8_t* cb,uint32_t idx=0) throw (std::string);
+  static uint32_t getAnalogPtr(std::vector<uint8_t*> &vLines,uint8_t* cb,uint32_t idx=0);
+  static uint32_t getFramePtr(std::vector<uint8_t*> &vFrame,std::vector<uint8_t*> &vLines,uint32_t max_size,uint8_t* cb,uint32_t idx=0);
   static void dumpFrameOld(uint8_t* buf);
   static unsigned long swap_bytes(unsigned int n,uint8_t* buf); //Stolen from DCBufferReader
 };
