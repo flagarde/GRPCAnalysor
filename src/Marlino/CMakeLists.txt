@@ -1,5 +1,7 @@
 
-
+SET_OPTION(CXX_STANDARD 17) # C++14...
+SET_OPTION(CXX_STANDARD_REQUIRED ON) #...is required...
+SET_OPTION(CXX_EXTENSIONS ON) #...without compiler extensions like gnu++11
 # project name
 PROJECT( Marlino )
 # project version

@@ -8,6 +8,7 @@
 #include "UTIL/CellIDEncoder.h"
 #include "IMPL/CalorimeterHitImpl.h"
 #include "ConstructConverters.h"
+
 using namespace lcio ;
 
 class XYZfiller : public Processor

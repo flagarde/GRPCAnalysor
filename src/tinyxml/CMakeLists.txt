@@ -1,4 +1,6 @@
-
+SET_OPTION(CXX_STANDARD 17) # C++14...
+SET_OPTION(CXX_STANDARD_REQUIRED ON) #...is required...
+SET_OPTION(CXX_EXTENSIONS ON) #...without compiler extensions like gnu++11
 file(COPY ./include/ DESTINATION ${PROJECT_INCLUDE_DIR})
 include_directories("${PROJECT_BINARY_DIR}")
 FILE (GLOB_RECURSE TINYXML_SRC_FILES ./source/*)
