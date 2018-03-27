@@ -4,18 +4,26 @@
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 ########################################################
 
+macro(SET_OPTION option value)
+  set(${option} ${value} CACHE INTERNAL "" FORCE)
+endmacro()
+
+# LCIO options
+SET_OPTION(BUILD_LCIO_EXAMPLES  OFF)
+SET_OPTION(BUILD_TESTING  OFF)
+
+
+
 set(PROJECT_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/build/include/")
 set(LIBRARY_OUTPUT_PATH "${CMAKE_CURRENT_SOURCE_DIR}/build/lib/")
 set(MARLINO_LIBRARY_OUTPUT_PATH "${CMAKE_CURRENT_SOURCE_DIR}/bin/libMarlino/")
 SET(EXECUTABLE_OUTPUT_PATH "${CMAKE_CURRENT_SOURCE_DIR}/bin")
 
 
-set(BUILD_LCIO_EXAMPLES OFF)
-set(BUILD_TESTING OFF)
-#set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/)
-#set(CMAKE_CXX_STANDARD 17) # C++14...
-#set(CMAKE_CXX_STANDARD_REQUIRED ON) #...is required...
-#set(CMAKE_CXX_EXTENSIONS ON) #...without compiler extensions like gnu++11
+SET_OPTION(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/)
+SET_OPTION(CMAKE_CXX_STANDARD 17) # C++14...
+SET_OPTION(CMAKE_CXX_STANDARD_REQUIRED ON) #...is required...
+SET_OPTION(CMAKE_CXX_EXTENSIONS ON) #...without compiler extensions like gnu++11
 
 
 # project name
