@@ -1,5 +1,5 @@
-
 #include "UTIL/LCSplitWriter.h"
+#include "Exceptions.h"
 
 #include <sys/stat.h> 
 
@@ -28,22 +28,18 @@ namespace UTIL{
 
 
 
-  void LCSplitWriter::open(const std::string & filename) throw (IO::IOException, std::exception ) {
+  void LCSplitWriter::open(const std::string & filename)  {
     _count = 0 ;
     setBaseFilename( filename ) ;
     _wrt->open( getFilename() ) ;
   }
   
-  void LCSplitWriter::open(const std::string & filename, int writeMode) throw (IO::IOException, std::exception ) {
+  void LCSplitWriter::open(const std::string & , int )  {
       throw Exception(" LCSplitWriter doesn't support  NEW and APPEND mode ! "
 		      " Please remove your old file(s) and use the default mode." ) ;
-
-    //     _count = 0 ;
-    //     setBaseFilename( filename ) ;
-    //     _wrt->open( getFilename() , writeMode ) ;
   }
   
-  void LCSplitWriter::writeRunHeader(const EVENT::LCRunHeader * hdr) throw (IO::IOException, std::exception ) {
+  void LCSplitWriter::writeRunHeader(const EVENT::LCRunHeader * hdr)  {
 
     _wrt->flush() ;
     if( fileSize() > _maxBytes ) {
@@ -55,7 +51,7 @@ namespace UTIL{
     _wrt->writeRunHeader( hdr ) ;
   }
 
-  void LCSplitWriter::writeEvent(const EVENT::LCEvent * evt) throw (IO::IOException, std::exception ) {
+  void LCSplitWriter::writeEvent(const EVENT::LCEvent * evt)  {
 
     _wrt->flush() ;
 
@@ -74,11 +70,11 @@ namespace UTIL{
     _wrt->writeEvent( evt ) ;
    }
   
-  void LCSplitWriter::close() throw (IO::IOException, std::exception ) {
+  void LCSplitWriter::close()  {
     _wrt->close() ;
    }
 
-  void LCSplitWriter::flush() throw (IO::IOException, std::exception ) {
+  void LCSplitWriter::flush()  {
     _wrt->flush() ;
    }
 

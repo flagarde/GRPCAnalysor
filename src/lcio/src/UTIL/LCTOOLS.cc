@@ -28,6 +28,7 @@
 #include "EVENT/LCGenericObject.h"
 #include "EVENT/LCRelation.h"
 
+//#include "IMPL/LCFlagImpl.h"
 #include "UTIL/BitSet32.h"
 #include "LCIOSTLTypes.h"
 
@@ -43,36 +44,40 @@ using namespace EVENT ;
 using namespace IMPL ;
 
 
-namespace UTIL 
-{
-  static int MAX_HITS = 1000 ;
-  void LCTOOLS::dumpEvent(const LCEvent* evt)
-  {
-    // the event:
-    cout << "///////////////////////////////////" << endl;
-    cout << "EVENT: " << evt->getEventNumber() << endl
-         << "RUN: " << evt->getRunNumber() << endl
-         << "DETECTOR: " << evt->getDetectorName() << endl
-         << "COLLECTIONS: (see below)" << endl;
-    cout << "///////////////////////////////////" << endl << endl;
-    cout << "---------------------------------------------------------------------------" << endl;
-    cout.width(30); cout << left << "COLLECTION NAME";
-    cout.width(25); cout << left << "COLLECTION TYPE";
-    cout.width(20); cout << left << "NUMBER OF ELEMENTS" << endl;
-    cout << "===========================================================================" << endl;
-    const std::vector< std::string >* strVec = evt->getCollectionNames() ;
-    // loop over collections:
-    for( std::vector< std::string >::const_iterator name = strVec->begin() ; name != strVec->end() ; name++)
-    {
-      cout.width(30); cout << left << *name;
-      cout.width(25); cout << left << evt->getCollection( *name )->getTypeName();
-      cout.width(9); cout << right << evt->getCollection( *name )->getNumberOfElements();
-      cout << endl;
-      //cout << "---------------------------------------------------------------------------" << endl;
+namespace UTIL {
+
+    static int MAX_HITS = 1000 ;
+
+    void LCTOOLS::dumpEvent(const LCEvent* evt){
+
+        // the event:
+        cout << "///////////////////////////////////" << endl;
+        cout << "EVENT: " << evt->getEventNumber() << endl
+            << "RUN: " << evt->getRunNumber() << endl
+            << "DETECTOR: " << evt->getDetectorName() << endl
+            << "COLLECTIONS: (see below)" << endl;
+        cout << "///////////////////////////////////" << endl << endl;
+
+        cout << "---------------------------------------------------------------------------" << endl;
+        cout.width(30); cout << left << "COLLECTION NAME";
+        cout.width(25); cout << left << "COLLECTION TYPE";
+        cout.width(20); cout << left << "NUMBER OF ELEMENTS" << endl;
+        cout << "===========================================================================" << endl;
+
+        const std::vector< std::string >* strVec = evt->getCollectionNames() ;
+
+        // loop over collections:
+        for( std::vector< std::string >::const_iterator name = strVec->begin() ; name != strVec->end() ; name++){
+
+            cout.width(30); cout << left << *name;
+            cout.width(25); cout << left << evt->getCollection( *name )->getTypeName();
+            cout.width(9); cout << right << evt->getCollection( *name )->getNumberOfElements();
+            cout << endl;
+            //cout << "---------------------------------------------------------------------------" << endl;
+        }
+        cout << "---------------------------------------------------------------------------" << endl;
+        cout << endl << endl << endl;
     }
-    cout << "---------------------------------------------------------------------------" << endl;
-    cout << endl << endl << endl;
- }
 
 
     void LCTOOLS::dumpEventDetailed(const LCEvent* evt){
@@ -273,6 +278,7 @@ namespace UTIL
         BitSet32 flag( col->getFlag() ) ;
         cout << "     LCIO::THBIT_BARREL : " << flag.test( LCIO::THBIT_BARREL ) << endl ;
         cout << "     LCIO::THBIT_MOMENTUM : " << flag.test( LCIO::THBIT_MOMENTUM ) << endl ;
+        cout << LCTOOLS::getQualityBits() << endl;
 
         int nHits =  col->getNumberOfElements() ;
         int nPrint = nHits > MAX_HITS ? MAX_HITS : nHits ;
@@ -897,18 +903,18 @@ namespace UTIL
 
         for( int i=0 ; i< nPrint ; i++ ){
 
-            Cluster* clu = 
+            Cluster* clu1 = 
                 dynamic_cast<Cluster*>( col->getElementAt( i ) ) ;
 
-            printf("   [%8.8x] " , clu->id() ) ;
+            printf("   [%8.8x] " , clu1->id() ) ;
 
 
-            for(unsigned int l=0;l<clu->getParticleIDs().size();l++){
+            for(unsigned int l=0;l<clu1->getParticleIDs().size();l++){
 
                 if( l!=0)
                     printf("              " ) ;
 
-                ParticleID* pid = clu->getParticleIDs()[l] ;
+                ParticleID* pid = clu1->getParticleIDs()[l] ;
                 try{	
                     printf("| %6d | %6.4e | %6.6d | %8d | [",  
                             pid->getPDG() , 
@@ -1038,18 +1044,18 @@ namespace UTIL
 
         for( int i=0 ; i< nPrint ; i++ ){
 
-            ReconstructedParticle* recP = 
+            ReconstructedParticle* recP1 = 
                 dynamic_cast<ReconstructedParticle*>( col->getElementAt( i ) ) ;
 
-            printf("   [%8.8x] " , recP->id() ) ;
+            printf("   [%8.8x] " , recP1->id() ) ;
 
 
-            for(unsigned int l=0;l<recP->getParticleIDs().size();l++){
+            for(unsigned int l=0;l<recP1->getParticleIDs().size();l++){
 
                 if( l!=0)
                     printf("              " ) ;
 
-                ParticleID* pid = recP->getParticleIDs()[l] ;
+                ParticleID* pid = recP1->getParticleIDs()[l] ;
                 try{	
                     printf("| %6d | %6.4e | %6.6d | %8d | [",  
                             pid->getPDG() , 
@@ -1431,4 +1437,37 @@ namespace UTIL
         return s ;
     }
 
+
+    std::string LCTOOLS::getQualityBits(const SimTrackerHit* sth){
+
+        if( sth == 0  ) {
+
+            std::stringstream str ;
+
+            str << "    quality bits: [os......] "
+                << " o: hit from overlay"
+                << " s: hit from secondary not from the MCParticle associated to it"
+                << std::endl ;
+
+            return str.str() ;
+        }
+
+
+        if( sth->getQuality() == 0 )
+            return "[   0   ]";
+
+        std::string s("[       ]");
+        if( sth->isOverlay() )
+            s[1]='o' ;
+        else
+            s[1]=' ' ;
+        if( sth->isProducedBySecondary() )
+            s[2]='s' ;
+        else
+            s[2]=' ' ;
+
+        return s ;
+    }
+
 } // namespace
+

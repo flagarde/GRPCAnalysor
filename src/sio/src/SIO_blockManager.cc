@@ -25,7 +25,7 @@
 // ----------------------------------------------------------------------------
 // Initialize the private static variables.
 // ----------------------------------------------------------------------------
-blockMap_c*    SIO_blockManager::blockMap  = nullptr;
+blockMap_c*    SIO_blockManager::blockMap  = NULL;
 SIO_verbosity  SIO_blockManager::verbosity = SIO_SILENT;
 
 // ----------------------------------------------------------------------------
@@ -63,13 +63,13 @@ if( !SIO_functions::validateName( i_name ) )
                   << i_name
                   << std::endl;
     }
-    return( nullptr );
+    return( NULL );
 }
 
 //
 // If the map's never been instantiated, do it now!
 //
-if( blockMap == nullptr )
+if( blockMap == NULL )
     blockMap = new blockMap_c;
 
 //
@@ -93,7 +93,7 @@ if( !status.second )
                   << "not added (already exists)"
                   << std::endl;
     }
-    return( nullptr );
+    return( NULL );
 }
 
 if( verbosity >= SIO_ALL )
@@ -121,7 +121,7 @@ SIO_block* SIO_blockManager::get
 //
 // Search the map (if it exists yet!)
 //
-if( blockMap != nullptr )
+if( blockMap != NULL )
 {
     blockMap_i
         iter;
@@ -153,7 +153,7 @@ if( verbosity >= SIO_ALL )
 //
 // That's all folks!
 //
-return( nullptr );
+return( NULL );
 }
 
 // ----------------------------------------------------------------------------
@@ -179,12 +179,12 @@ void SIO_blockManager::clear() {
     blockNames.push_back( iter->first  ) ;
   }
 
-  for(unsigned int i=0 ;i<blockNames.size() ;i++){
+  for(unsigned i=0 ;i<blockNames.size() ;i++){
     delete (*blockMap)[ blockNames[i] ] ;
   }
   
   delete blockMap;
-  blockMap = nullptr;
+  blockMap = NULL;
 
 }
 
@@ -200,7 +200,7 @@ unsigned int SIO_blockManager::remove
 //
 // Search the map (if it exists!)
 //
-if( blockMap != nullptr)
+if( blockMap != NULL )
 {
     blockMap_i
         iter;

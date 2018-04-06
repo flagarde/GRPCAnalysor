@@ -23,6 +23,9 @@ namespace SIO {
 
   public:
     
+    SIOEventHandler(const SIOEventHandler&) = delete;
+    SIOEventHandler& operator=(const SIOEventHandler&) = delete ;
+
     SIOEventHandler(const std::string& name) ;
     SIOEventHandler(const std::string& name, IOIMPL::LCEventIOImpl** evtP) ;
     virtual ~SIOEventHandler() ;
@@ -38,11 +41,11 @@ namespace SIO {
 
   private: 
     // event implementation for reading 
-    IOIMPL::LCEventIOImpl **_evtP ;  
+    IOIMPL::LCEventIOImpl **_evtP{NULL} ;  
     // event data interface for writing
-    const EVENT::LCEvent *_evt ;  
+    const EVENT::LCEvent *_evt{NULL} ;  
     
-    std::set< std::string > _colSubSet ;
+    std::set< std::string > _colSubSet{} ;
 
   }; // class
   

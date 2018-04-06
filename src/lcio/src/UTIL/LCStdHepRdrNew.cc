@@ -73,6 +73,12 @@ void LCStdHepRdrNew::updateNextEvent(IMPL::LCEventImpl* evt, const char* colName
     // ---- end event parameters  ------------------
 
     evt->addCollection(mcpCol, colName);
+
+    if (_writeEventNumber) {
+        std::cout << "LCStdHepRdrNew: setting event number " << _reader->evtNum() 
+            << " from StdHep event" << std::endl;
+        evt->setEventNumber(_reader->evtNum());
+    }
 }
 
 //
@@ -422,7 +428,7 @@ IMPL::LCCollectionVec * LCStdHepRdrNew::readEvent() {
             int parentid = _reader->mother1(IHEP) % 10000 - 1;
             int firstdau = _reader->daughter1(IHEP) % 10000 - 1;
             int lastdau = _reader->daughter2(IHEP) % 10000 - 1;
-            int outn = lastdau - firstdau + 1;
+            unsigned outn = ( ( lastdau-firstdau +1 ) > 0 ?  lastdau-firstdau +1  : 0 ) ;
             //printf("found first parent in line %i\n",parentid);
             MCParticleImpl* parent;
 

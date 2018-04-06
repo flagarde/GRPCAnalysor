@@ -34,13 +34,8 @@ SIO_record::SIO_record
 (
     const char*     i_name,
     SIO_verbosity   i_verbosity
-)
-{
-options   = 0;
-name      = i_name;
-unpack    = false;
-verbosity = i_verbosity;
-}
+ ) : name(i_name), verbosity( i_verbosity )
+{}
 
 // ----------------------------------------------------------------------------
 // Destructor.
@@ -69,7 +64,7 @@ std::string
 // Validate the name.
 //
 block = SIO_blockManager::get( i_name );
-if( block == nullptr )
+if( block == NULL )
 {
     if( verbosity >= SIO_ERRORS )
     {
@@ -104,7 +99,7 @@ std::string
 //
 // Validate the block pointer.
 //
-if( block == nullptr )
+if( block == NULL )
 {
     if( verbosity >= SIO_ERRORS )
     {
@@ -230,7 +225,7 @@ std::string
 // Validate the name.
 //
 block = SIO_blockManager::get( i_name );
-if( block == nullptr )
+if( block == NULL )
 {
     if( verbosity >= SIO_ERRORS )
     {
@@ -265,7 +260,7 @@ std::string
 //
 // Validate the block pointer.
 //
-if( block == nullptr )
+if( block == NULL )
 {
     if( verbosity >= SIO_ERRORS )
     {
@@ -289,7 +284,7 @@ return( disconnect( &s_name, block ) );
 unsigned int SIO_record::disconnect
 (
     std::string*          s_name,
-    SIO_block*            block
+    SIO_block*           /* block */
 )
 {
 
@@ -360,7 +355,7 @@ if( (iter = connectMap.find( s_name )) == connectMap.end() )
                   << "Block is not connected" 
                   << std::endl;
     }
-    return( nullptr );
+    return( NULL );
 }
 
 if( verbosity >= SIO_ALL )
@@ -490,7 +485,7 @@ while( stream->buffer < stream->recmax )
     SIO_DATA( stream, &tmplen, 1 );
 
     tmploc = static_cast<char *>(malloc( tmplen + 1 ));
-    if( tmploc == nullptr )
+    if( tmploc == NULL )
     {
         if( verbosity >= SIO_ERRORS )
         {
@@ -516,7 +511,7 @@ while( stream->buffer < stream->recmax )
     //
     // Try to unpack the block.
     //
-    if( block != nullptr )
+    if( block != NULL )
     {
         status = block->xfer( stream, SIO_OP_READ, version );
         if( !(status & 1) )

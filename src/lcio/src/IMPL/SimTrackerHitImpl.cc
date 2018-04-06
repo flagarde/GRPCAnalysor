@@ -3,6 +3,15 @@
 
 using namespace EVENT ;
 
+namespace EVENT{
+
+  // the standard requires static const ints to be defined outside the class declaration
+  // so we do this here :
+  const int SimTrackerHit::BITOverlay ;
+  const int SimTrackerHit::BITProducedBySecondary ;
+
+}
+
 
 namespace IMPL {
   
@@ -13,13 +22,16 @@ namespace IMPL {
     _EDep(0),
     _time(0),
     _particle(0),
-    _pathLength(0){
+    _pathLength(0),
+    _quality(0)
+  {
     _pos[0] = 0. ;
     _pos[1] = 0. ;
     _pos[2] = 0. ;
     _p[0] = 0. ;
     _p[1] = 0. ;
     _p[2] = 0. ;
+
   }
 
   SimTrackerHitImpl::~SimTrackerHitImpl(){  
@@ -53,13 +65,6 @@ namespace IMPL {
   float SimTrackerHitImpl::getPathLength() const { return _pathLength ; }
 
   const float* SimTrackerHitImpl::getMomentum() const { return _p ; }
-
-  void SimTrackerHitImpl::setCellID( int id) {
-    UTIL::LCWarning::getInstance().printWarning( "SIMTRACKERHIT_DEPRECATED_SETCELLID" ) ;
-    //checkAccess("SimTrackerHitImpl::setCellID") ;
-    //_cellID = id ;
-    setCellID0( id );
-  }
 
   void SimTrackerHitImpl::setCellID0( int id0) {
     checkAccess("SimTrackerHitImpl::setCellID0") ;
@@ -122,6 +127,23 @@ namespace IMPL {
     _pathLength = pathLength ;
   }
 
+  void SimTrackerHitImpl::setQuality( int quality )  {
+    checkAccess("SimTrackerHitImpl::setQuality") ;
+    _quality = quality ;
+  }
 
+  void SimTrackerHitImpl::setQualityBit( int bit , bool val ) {
+    checkAccess("SimTrackerHitImpl::setQualityBit") ;
+    if( val )
+      _quality |=  ( 1 << bit ) ;
+    else
+      _quality &= ~( 1 << bit ) ;
+  }
+
+  bool SimTrackerHitImpl::isOverlay() const { return _quality & (1 << BITOverlay) ; }
+  bool SimTrackerHitImpl::isProducedBySecondary() const { return _quality & (1 << BITProducedBySecondary) ; }
+
+  void SimTrackerHitImpl::setOverlay(bool val) { setQualityBit( BITOverlay, val); }
+  void SimTrackerHitImpl::setProducedBySecondary(bool val) { setQualityBit( BITProducedBySecondary, val); }
 
 } // namespace IMPL

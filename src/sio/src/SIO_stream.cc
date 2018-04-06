@@ -41,34 +41,11 @@ SIO_stream::SIO_stream
     const char*      i_name,
     unsigned int     i_reserve,
     SIO_verbosity    i_verbosity
-)
-{
-
-bufloc    = nullptr;
-buffer    = nullptr;
-bufmax    = nullptr;
-recmax    = nullptr;
-blkmax    = nullptr;
-
-cmploc    = nullptr;
-cmpmax    = nullptr;
-z_strm    = nullptr;
-
-name      = i_name;
-handle    = nullptr;
-
-mode      = SIO_MODE_UNDEFINED;
-reserve   = i_reserve;
-state     = SIO_STATE_CLOSED;
-verbosity = i_verbosity;
-
-pointedAt = nullptr ;
-pointerTo = nullptr ;
-
-recPos = 0 ;
-
-compLevel = Z_DEFAULT_COMPRESSION ;
-}
+ ) : name( i_name ),
+	 reserve( i_reserve ),
+	 verbosity( i_verbosity ),
+	 compLevel(Z_DEFAULT_COMPRESSION) 
+{}
 
 // ----------------------------------------------------------------------------
 // Destructor (private function!)
@@ -153,7 +130,7 @@ delete pointerTo;
 //
 // Dispose of compression control structure.
 //
-if( z_strm != nullptr )
+if( z_strm != NULL )
 {
     z_stat = (mode == SIO_MODE_READ) ? inflateEnd( z_strm )
                                      : deflateEnd( z_strm );
@@ -173,30 +150,30 @@ if( z_strm != nullptr )
         }
     }
     free( z_strm );
-    z_strm = nullptr;
+    z_strm = NULL;
 }
     
 //
 // Dispose of any compression/decompression buffer.
 //
-if( cmploc != nullptr )
+if( cmploc != NULL )
 {
     free( cmploc );
-    cmploc = nullptr;
-    cmpmax = nullptr;
+    cmploc = NULL;
+    cmpmax = NULL;
 }
 
 //
 // Dispose of any associated raw data buffer.
 //
-if( bufloc != nullptr )
+if( bufloc != NULL )
 {
     free( bufloc );
-    bufloc = nullptr;
-    buffer = nullptr;
-    bufmax = nullptr;
-    recmax = nullptr;
-    blkmax = nullptr;
+    bufloc = NULL;
+    buffer = NULL;
+    bufmax = NULL;
+    recmax = NULL;
+    blkmax = NULL;
 }
 
 //
@@ -216,7 +193,7 @@ else
 {
 }
 filename.erase( filename.begin(), filename.end() );
-handle = nullptr;
+handle = NULL;
 
 //
 // Miscellany.
@@ -277,7 +254,7 @@ static char
 //
 printf( "\nDump buffer of stream %s\n\n", name.c_str() );
 
-if( buffer == nullptr )
+if( buffer == NULL )
 {
     printf( "No buffer associated with stream %s\n", name.c_str() );
     return;
@@ -303,13 +280,13 @@ if( dmpend > bufmax )
 //
 // Buffer characteristics.
 //
- printf("   Start address: %8ld  (%p)\n", (long int)bufloc, bufloc );
+ printf("   Start address: %8ld  (%p)\n", (long int)bufloc, (void*) bufloc );
 count = buffer - bufloc;
 printf(" Current address: %8ld  (%p)    Offset: %8d  (0x%08x)\n", 
-        (long int)buffer, buffer, count, count );
+        (long int)buffer, (void*) buffer, count, count );
 count = bufmax - bufloc;
 printf("     End address: %8ld  (%p)    Offset: %8d  (0x%08x)\n",
-        (long int)bufmax, bufmax, count, count );
+        (long int)bufmax,  (void*) bufmax, count, count );
 
 //
 // Put out a header.
@@ -326,7 +303,7 @@ printf(  "    -ASCII----------\n");
 //
 memset(  &outbuf[ 0], ' ', sizeof( outbuf ) );
 sprintf( &outbuf[ 1], "%8d",  offset );
-sprintf( &outbuf[10], "%p", dmpbeg );
+sprintf( &outbuf[10], "%p",  (void*) dmpbeg );
 outbuf[ 9] = ':';
 outbuf[18] = ' ';
 outbuf[76] = '\0';
@@ -354,7 +331,7 @@ while( dmpbeg < dmpend )
 
         memset(  &outbuf[ 0], ' ', sizeof( outbuf ) );
         sprintf( &outbuf[ 1], "%8d",  offset );
-        sprintf( &outbuf[10], "%p", dmpbeg );
+        sprintf( &outbuf[10], "%p",  (void*) dmpbeg );
         outbuf[ 9] = ':';
         outbuf[18] = ' ';
         outbuf[76] = '\0';
@@ -501,10 +478,10 @@ if( verbosity >= SIO_ALL )
 //
 // Allocate a raw data buffer to go with the stream.
 //
-buffer = nullptr;
-bufmax = nullptr;
+buffer = NULL;
+bufmax = NULL;
 bufloc = static_cast<unsigned char*>(malloc( reserve ));
-if( bufloc == nullptr )
+if( bufloc == NULL )
 {
     state = SIO_STATE_ERROR;
     if( verbosity >= SIO_ERRORS )
@@ -521,10 +498,10 @@ bufmax = bufloc + reserve;
 //
 // Allocate a compression/decompression buffer and initialize it.
 //
-cmploc = nullptr;
-cmpmax = nullptr;
+cmploc = NULL;
+cmpmax = NULL;
 cmploc = static_cast<unsigned char*>(malloc( reserve >> 2 ));
-if( cmploc == nullptr )
+if( cmploc == NULL )
 {
     state = SIO_STATE_ERROR;
     if( verbosity >= SIO_ERRORS )
@@ -677,7 +654,7 @@ bool
 //
 // Initialize the returned record pointer to something nasty.
 //
-*record = nullptr;
+*record = NULL;
 
  recPos = -1 ;  
  SIO_64BITINT  recStart = -1 ;
@@ -808,7 +785,7 @@ while( requested == false )
     //
     // Unpack this record?
     //
-    if( *record == nullptr )
+    if( *record == NULL )
     {
         if( verbosity >= SIO_ALL )
 	{
@@ -869,7 +846,7 @@ while( requested == false )
 
         newlen = head_length + ucmp_length;
         newbuf = static_cast<unsigned char*>(malloc( newlen )); 
-        if( newbuf == nullptr )
+        if( newbuf == NULL )
         {
             if( verbosity >= SIO_ERRORS )
             {
@@ -924,7 +901,7 @@ while( requested == false )
                *newbuf;
 
             newbuf = static_cast<unsigned char*>(malloc( data_length )); 
-            if( newbuf == nullptr )
+            if( newbuf == NULL )
             {
                 if( verbosity >= SIO_ERRORS )
                 {
@@ -1088,7 +1065,7 @@ SIO_record
 // Validate the record name.
 //
 record = SIO_recordManager::get( i_name );
-if( record == nullptr )
+if( record == NULL )
 {
     if( verbosity >= SIO_ERRORS )
     {
@@ -1320,7 +1297,7 @@ else
 
         newlen = (cmpmax - cmploc) << 1;
         newbuf = static_cast<unsigned char*>(malloc( newlen ));
-        if( newbuf == nullptr )
+        if( newbuf == NULL )
         {
             if( verbosity >= SIO_ERRORS )
 	    {

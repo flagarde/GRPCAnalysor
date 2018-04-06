@@ -129,7 +129,7 @@ bool DIFUnpacker::getFrameLevel(uint8_t* framePtr,uint32_t ip,uint32_t level)
   //return DIFUnpacker::getFramePAD(framePtr,2*ip+level);
 }
 
-uint32_t DIFUnpacker::getAnalogPtr(std::vector<uint8_t*> &vLines,uint8_t* cb,uint32_t idx) throw (std::string) 
+uint32_t DIFUnpacker::getAnalogPtr(std::vector<uint8_t*> &vLines,uint8_t* cb,uint32_t idx) 
 {
   uint32_t fshift=idx;
   if (cb[fshift]!=DU_START_OF_LINES) return fshift;
@@ -143,7 +143,7 @@ uint32_t DIFUnpacker::getAnalogPtr(std::vector<uint8_t*> &vLines,uint8_t* cb,uin
   return fshift++;
 }
 
-uint32_t DIFUnpacker::getFramePtr(std::vector<uint8_t*> &vFrame,std::vector<uint8_t*> &vLines,uint32_t max_size,uint8_t* cb,uint32_t idx) throw (std::string)
+uint32_t DIFUnpacker::getFramePtr(std::vector<uint8_t*> &vFrame,std::vector<uint8_t*> &vLines,uint32_t max_size,uint8_t* cb,uint32_t idx)
 {
   #if DU_DATA_FORMAT_VERSION>=13
   uint32_t fshift=idx+DU_LINES_SHIFT+1;

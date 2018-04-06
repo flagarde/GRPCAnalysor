@@ -102,7 +102,7 @@ namespace SIO {
 
 
   void SIOReader::open(const std::vector<std::string>& filenames) 
-    throw( IOException , std::exception){
+     {
 
     unsigned int i;
     struct stat fileinfo ;
@@ -130,7 +130,7 @@ namespace SIO {
     open( _myFilenames[ ++_currentFileIndex ]  ) ;
   }
 
-  void SIOReader::open(const std::string& filename) throw( IOException , std::exception)  {
+  void SIOReader::open(const std::string& filename)  {
 
 
     std::string sioFilename ;  
@@ -172,7 +172,7 @@ namespace SIO {
 
 
 
-  int SIOReader::getNumberOfEvents() throw (IOException, std::exception ) {
+  int SIOReader::getNumberOfEvents()  {
 
     // create the event map if needed (i.e. not opened in direct access mode)
     if( ! _readEventMap ){  
@@ -186,7 +186,7 @@ namespace SIO {
     
   }
 
-  int SIOReader::getNumberOfRuns() throw (IOException, std::exception ) {
+  int SIOReader::getNumberOfRuns()  {
 
     // create the event map if needed (i.e. not opened in direct access mode)
     if( ! _readEventMap ){  
@@ -253,7 +253,7 @@ namespace SIO {
 
   //-------------------------------------------------------------------------------------------
 
-  void SIOReader::readRecord() throw (IOException , EndOfDataException , std::exception) {
+  void SIOReader::readRecord()  {
 
     SIO_blockManager::remove(  LCSIO_RUNBLOCKNAME ) ;
     SIO_blockManager::add( _runHandler ) ;
@@ -300,11 +300,11 @@ namespace SIO {
   }
   
 
-  LCRunHeader* SIOReader::readNextRunHeader() throw (IOException , std::exception ) {
+  LCRunHeader* SIOReader::readNextRunHeader()  {
     return readNextRunHeader( LCIO::READ_ONLY ) ;
   }
 
-  LCRunHeader* SIOReader::readNextRunHeader(int accessMode) throw (IOException , std::exception ) {
+  LCRunHeader* SIOReader::readNextRunHeader(int accessMode)  {
 
     // set the _runRecord to unpack for this scope
     //SIOUnpack runUnp( SIOUnpack::RUN ) ;
@@ -332,47 +332,57 @@ namespace SIO {
   }
   
   void SIOReader::setUpHandlers(){
-
+    
     // use event _evt to setup the block readers from header information ....
     const std::vector<std::string>* strVec = _evt->getCollectionNames() ;
     for( std::vector<std::string>::const_iterator name = strVec->begin() ; name != strVec->end() ; name++){
       
       const LCCollection* col = _evt->getCollection( *name ) ;
-
-
+      
+      
       // check if block handler exists in manager
-      SIOCollectionHandler* ch = dynamic_cast<SIOCollectionHandler*> 
-	( SIO_blockManager::get( name->c_str() )  ) ;
+      SIOCollectionHandler* ch = dynamic_cast<SIOCollectionHandler*>
+      ( SIO_blockManager::get( name->c_str() )  ) ;
+      
+      // check if it is still the correct block handler
+      if( ch != 0 && ch->getTypeName().compare(col->getTypeName()) != 0 ){
+        // The type changed, so destroy the old handler and get a new one.
+        std::string chName = ch->getTypeName();
+        std::string colName= col->getTypeName();
+        std::cout << "ch name: " << chName << " col name: " << colName << std::endl;
+        delete ch;
+        ch = 0;
+      }
       
       // if not, create a new block handler
       if( ch == 0 ) {
-	
-	// create collection handler for event
-	try{
-	  ch =  new SIOCollectionHandler( *name, col->getTypeName() , &_evt )  ;
-	  // calls   SIO_blockManager::add( ch )  in the c'tor !
-	}
-	catch(Exception& ex){   // unsuported type !
-	  delete ch ;
-	  ch =  0 ;
-	}
-
+        
+        // create collection handler for event
+        try{
+          ch =  new SIOCollectionHandler( *name, col->getTypeName() , &_evt )  ;
+          // calls   SIO_blockManager::add( ch )  in the c'tor !
+        }
+        catch(Exception& ex){   // unsuported type !
+          delete ch ;
+          ch =  0 ;
+        }
+        
       }
       // else { // handler already exists
       if( ch != 0 )
-	ch->setEvent( &_evt ) ; 
+        ch->setEvent( &_evt ) ; 
       //      }
     }
   }
+  
 
-
-  LCEvent* SIOReader::readNextEvent() throw (IOException , std::exception ) {
+  LCEvent* SIOReader::readNextEvent()  {
 
     return readNextEvent( LCIO::READ_ONLY ) ;
 
   }
 
-  LCEvent* SIOReader::readNextEvent(int accessMode) throw (IOException, std::exception ) {
+  LCEvent* SIOReader::readNextEvent(int accessMode)  {
     
 
     // first, we need to read the event header 
@@ -427,8 +437,11 @@ namespace SIO {
     }
   }
   
-  void SIOReader::skipNEvents(int n) throw (IO::IOException, std::exception) {
-    
+  void SIOReader::skipNEvents(int n)  {
+     
+    if( n < 1 )  // nothing to skip
+      return ;  
+
     int eventsSkipped = 0 ;
     
     //    SIOUnpack hdrUnp( SIOUnpack::EVENTHDR ) ;
@@ -462,13 +475,13 @@ namespace SIO {
   }
 
   EVENT::LCRunHeader * SIOReader::readRunHeader(int runNumber) 
-    throw (IOException , std::exception) {
+     {
 
     return readRunHeader( runNumber, EVENT::LCIO::READ_ONLY ) ;
   }
 
   EVENT::LCRunHeader * SIOReader::readRunHeader(int runNumber, int accessMode) 
-    throw (IOException , std::exception) {
+     {
     
     if( _readEventMap ) {
       
@@ -507,13 +520,13 @@ namespace SIO {
 
 
   EVENT::LCEvent * SIOReader::readEvent(int runNumber, int evtNumber) 
-    throw (IOException , std::exception) {
+     {
 
     return readEvent( runNumber, evtNumber , EVENT::LCIO::READ_ONLY ) ;
   }
 
   EVENT::LCEvent * SIOReader::readEvent(int runNumber, int evtNumber, int accessMode) 
-    throw (IOException , std::exception) {
+     {
     
     if( _readEventMap ) {
       
@@ -610,7 +623,7 @@ namespace SIO {
    
   }
   
-  void SIOReader::close() throw (IOException, std::exception ){
+  void SIOReader::close()  {
   
     _raMgr.clear() ;
 
@@ -641,12 +654,12 @@ namespace SIO {
     _runListeners.erase( _runListeners.find( ls ) );
  }
 
-  void SIOReader::readStream() throw ( IO::IOException, std::exception ){
+  void SIOReader::readStream()  {
 
     int maxInt = INT_MAX ; // numeric_limits<int>::max() ;
     readStream( maxInt ) ;
   }
-  void SIOReader::readStream(int maxRecord) throw (IOException, std::exception ){
+  void SIOReader::readStream(int maxRecord)  {
     
 
     bool readUntilEOF = false ;

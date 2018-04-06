@@ -26,6 +26,9 @@ namespace SIO {
     
   public:
     
+    SIOCollectionHandler(const SIOCollectionHandler&) = delete;
+    SIOCollectionHandler& operator=(const SIOCollectionHandler&) = delete ;
+
     /** The default constructor needs the name, the type and a pointer 
      * the address of the collection. Throws an exception if handler
      * for given type doesn't exist.
@@ -34,10 +37,12 @@ namespace SIO {
     SIOCollectionHandler(const std::string& name, 
 			 const std::string& type, 
 			 IOIMPL::LCEventIOImpl**  anEvtP=0 ) 
-      throw (EVENT::Exception) ;
+       ;
 
     virtual ~SIOCollectionHandler() ;
-    
+
+    const std::string &getTypeName() const;
+
     // interface from SIO_block
     virtual unsigned int   xfer( SIO_stream*, SIO_operation, unsigned int ) ;
     virtual unsigned int   version() ;
@@ -51,7 +56,7 @@ namespace SIO {
     const EVENT::LCCollection *_col ;   // for writing we use the data interface
     
     std::string _myType ;
-    SIOObjectHandler* _myHandler  ;
+    SIOObjectHandler* _myHandler{NULL}  ;
     
   }; // class
   

@@ -48,6 +48,36 @@ using namespace IMPL ;
 
 namespace UTIL{
 
+    /* 
+    // EXP: INDEX MAP - UNDER DEVELOPMENT
+
+    std::ostream& operator<<( std::ostream& out, const UTIL::lcio_short<EVENT::Vertex, EVENT::LCCollection>& sV){
+    const EVENT::Vertex* v = sV.obj;
+    const EVENT::LCCollection* col = sV.cobj;
+
+    //TODO: PROBLEM HERE!!!
+    UTIL::IndexMap im(col,"AlgorithmNames","AlgorithmTypes");
+
+    out << setfill('0');
+    out << " [" << setw(8) << dec << v->id() << "] | " << v->isPrimary()<< " | ";
+    out << setfill(' ') << setw(17) << left << im.decode( v->getAlgorithmType() ) << " | ";
+
+    out << setfill('0') << right << scientific << setprecision(3) << v->getChi2() << " | " << v->getProbability() << " | " <<
+    v->getPosition()[0] << "," <<
+    v->getPosition()[1] << "," <<
+    v->getPosition()[2] << " | [" ;
+
+    //    for(int i=0;i<VTXCOVMATRIX;i++)
+    //      out << v->getCovMatrix()[i] << (i<(VTXCOVMATRIX-1)?",":" | [");
+    out << setw(3) << v->getParameters().size() << "] | [";
+    out << setw(8) << hex << (v->getAssociatedParticle()!=NULL?v->getAssociatedParticle()->id():0) << "]\n";
+
+    return out;
+
+    }
+     */
+
+
 
 
     //============================================================================
@@ -238,7 +268,7 @@ namespace UTIL{
     //   # LCGenericObject
     //============================================================================
 
-    const std::string& header(const EVENT::LCGenericObject *obj, const EVENT::LCCollection *col){ //hauke
+  const std::string& header(const EVENT::LCGenericObject* /*obj*/, const EVENT::LCCollection *col){ //hauke
         //const EVENT::LCCollection *col = &v;
         bool isFixedSize  =  BitSet32( col->getFlag() ).test( LCIO::GOBIT_FIXED);
         stringstream header;
@@ -439,6 +469,66 @@ namespace UTIL{
         return out;
     }
 
+
+
+
+    //============================================================================
+    //   # LCStrVec
+    //============================================================================
+
+    /*
+       const std::string& header(const EVENT::LCStrVec &){ //hauke
+       static std::string _h("");
+       return _h;
+       }
+
+       const std::string& tail(const EVENT::LCStrVec &){ //hauke
+       static std::string _t("\n");
+       return _t;
+       }
+
+       std::ostream& operator<<( std::ostream& out, const UTIL::lcio_short<EVENT::LCStrVec>& sV){ //hauke
+       const EVENT::LCStrVec* hit = sV.obj;
+       out << noshowpos;
+       out << " [" << dec << setw(8) << setfill('0');// << hit->id() << "] ";
+       }
+
+
+
+       std::ostream& operator<<( std::ostream& out, const LCIO_LONG<EVENT::LCStrVec> l) { //hauke
+       const EVENT::LCStrVec *hit = l.object();
+       const EVENT::LCCollection *col = l.collection();
+
+       stringstream sstream;
+
+       out << noshowpos;
+       out << setw(41) << setfill('-') << right << " LCStrVec " << setfill('-') << setw(29) << "-" << endl;
+
+       if(col != NULL){
+       if(col->getTypeName() != LCIO::LCSTRVEC){
+       out << "Warning: collection not of type " << LCIO::LCSTRVEC << endl ;
+       return(out);
+
+       }
+    //print collection flags
+    }
+
+    //print object attributs
+    sstream << dec << hit->id();
+    out << setw(30) << setfill(' ') << left << "Id" << right << setw(40) << sstream.str() << endl;
+    out << setw(30) << setfill(' ') << left << "Type"<< setfill(' ') << right << setw(40) << hit->getType() << endl;
+    out << setw(30) << left << "Energy [GeV]" << right << setw(40) << hit->getEnergy() << endl;
+    }
+
+    std::ostream& operator<<( std::ostream& out, const EVENT::LCStrVec  &hit){
+    out<<lcio_long(hit,NULL);
+    return out;
+    }
+     */
+
+
+
+
     //============================================================================
     //   # LCObject
     //============================================================================
@@ -507,8 +597,7 @@ namespace UTIL{
         return _t;
     }
 
-    std::ostream& operator<<( std::ostream& out, const UTIL::lcio_short<EVENT::LCParameters>& sV){ //hauke
-        //const EVENT::LCParameters* hit = sV.obj;
+  std::ostream& operator<<( std::ostream& out, const UTIL::lcio_short<EVENT::LCParameters>& /*sV*/){ //hauke
         out << noshowpos;
         out << "| " << hex << setw(8) << setfill(' ')<< " |";
         return out;
@@ -535,6 +624,61 @@ namespace UTIL{
         }
 
 
+        // from lctools
+        /*
+           StringVec intKeys ;
+           int nIntParameters = params.getIntKeys( intKeys ).size() ;
+           for(int i=0; i< nIntParameters ; i++ ){
+           IntVec intVec ;
+           params.getIntVals(  intKeys[i], intVec ) ;
+           int nInt  = intVec.size()  ;
+           out << " parameter " << intKeys[i] << " [int]: " ;
+
+           if( nInt == 0 ){
+           out << " [empty] " << std::endl ;
+           }
+           for(int j=0; j< nInt ; j++ ){
+           out << intVec[j] << ", " ;
+           }
+           out << endl ;
+           }
+           StringVec floatKeys ;
+           int nFloatParameters = params.getFloatKeys( floatKeys ).size() ;
+           for(int i=0; i< nFloatParameters ; i++ ){
+           FloatVec floatVec ;
+           params.getFloatVals(  floatKeys[i], floatVec ) ;
+           int nFloat  = floatVec.size()  ;
+           out << " parameter " << floatKeys[i] << " [float]: " ;
+           if( nFloat == 0 ){
+           out << " [empty] " << std::endl ;
+           }
+           for(int j=0; j< nFloat ; j++ ){
+           out << floatVec[j] << ", " ;
+           }
+           out << endl ;
+           }
+           StringVec stringKeys ;
+           int nStringParameters = params.getStringKeys( stringKeys ).size() ;
+           for(int i=0; i< nStringParameters ; i++ ){
+           StringVec stringVec ;
+           params.getStringVals(  stringKeys[i], stringVec ) ;
+           int nString  = stringVec.size()  ;
+           out << " parameter " << stringKeys[i] << " [string]: " ;
+           if( nString == 0 ){
+           out << " [empty] " << std::endl ;
+           }
+           for(int j=0; j< nString ; j++ ){
+           out << stringVec[j] << ", " ;
+           }
+           out << endl ;
+           }
+         */
+        // end
+
+        //sstream << dec << hit->id();
+        //out << setw(30) << setfill(' ') << left << "Id" << right << setw(40) << sstream.str() << endl;
+        //out << setw(30) << setfill(' ') << left << "Type"<< setfill(' ') << right << setw(40) << hit->getType() << endl;
+        //out << setw(30) << left << "Energy [GeV]" << right << setw(40) << hit->getEnergy() << endl;
         return out;
 
     }
@@ -675,8 +819,7 @@ namespace UTIL{
         return _t;
     }
 
-    std::ostream& operator<<( std::ostream& out, const UTIL::lcio_short<EVENT::LCIO>& sV){ //hauke
-        //const EVENT::LCIO* hit = sV.obj;
+  std::ostream& operator<<( std::ostream& out, const UTIL::lcio_short<EVENT::LCIO>& /*sV*/){ //hauke
         out << noshowpos;
         out << " " << endl;
         return out;
@@ -841,6 +984,61 @@ namespace UTIL{
         out<<lcio_long(hit,NULL);
         return out;
     }
+
+
+
+
+    //============================================================================
+    //   # TPCHit (deprecated)
+    //============================================================================
+
+    /*
+       const std::string& header(const EVENT::TPCHit &){ //hauke
+       static std::string _h("");
+       return _h;
+       }
+
+       const std::string& tail(const EVENT::TPCHit &){ //hauke
+       static std::string _t("\n");
+       return _t;
+       }
+
+       std::ostream& operator<<( std::ostream& out, const UTIL::lcio_short<EVENT::TPCHit>& sV){ //hauke
+       const EVENT::TPCHit* hit = sV.obj;
+       out << noshowpos;
+       out << " [" << dec << setw(8) << setfill('0');// << hit->id() << "] ";
+       }
+
+       std::ostream& operator<<( std::ostream& out, const LCIO_LONG<EVENT::TPCHit> l) {
+       const EVENT::TPCHit *hit = l.object();
+       const EVENT::LCCollection *col = l.collection();
+
+       stringstream sstream;
+
+       out << noshowpos;
+       out << setw(41) << setfill('-') << right << " TPCHit " << setfill('-') << setw(29) << "-" << endl;
+
+       if(col != NULL){
+       if(col->getTypeName() != LCIO::TPCHIT){
+       out << "Warning: collection not of type " << LCIO::TPCHIT << endl ;
+       return(out);
+
+       }
+    //print collection flags
+    }
+
+    //print object attributs
+     //sstream  << dec << hit->id();
+    //out << setw(30) << setfill(' ') << left << "Id" << right << setw(40) << sstream.str() << endl;
+    //out << setw(30) << setfill(' ') << left << "Type"<< setfill(' ') << right << setw(40) << hit->getType() << endl;
+    //out << setw(30) << left << "Energy [GeV]" << right << setw(40) << hit->getEnergy() << endl;
+    }
+
+    std::ostream& operator<<( std::ostream& out, const EVENT::TPCHit  &hit){
+    out<<lcio_long(hit,NULL);
+    return out;
+    }
+     */
 
 
 
@@ -1085,7 +1283,7 @@ namespace UTIL{
     //============================================================================
 
     const std::string& header(const EVENT::SimCalorimeterHit *){ //hauke
-        static std::string _h(" [   id   ] |cellId0 |cellId1 |  energy  |        position (x,y,z)          | nMCParticles \n           -> MC contribution: prim. PDG |  energy  |   time   | sec. PDG | stepPosition (x,y,z) \n");
+        static std::string _h(" [   id   ] |cellId0 |cellId1 |  energy  |        position (x,y,z)          | nMCParticles \n           -> MC contribution: prim. PDG |  energy  |   time   | length  | sec. PDG | stepPosition (x,y,z) \n");
         return _h;
     }
 
@@ -1129,7 +1327,8 @@ namespace UTIL{
                 out << setw(6) << hit->getTimeCont(k) << "|";
 
                 if(flag.test(LCIO::CHBIT_STEP)){
-                    out << hit->getPDGCont( k ) << "| (" ;
+                    out << hit->getLengthCont( k ) << "| (" ;
+                    out << hit->getPDGCont( k ) << ", " ;
                     out << hit->getStepPosition( k )[0] << ", " ;
                     out << hit->getStepPosition( k )[1] << ", " ;
                     out << hit->getStepPosition( k )[2] << ")" ;
@@ -1213,6 +1412,7 @@ namespace UTIL{
                 out << setw(30) << left << "                Prim. PDG" << right << setw(40) << ( hit->getParticleCont(k) ? hit->getParticleCont(k)->getPDG()  : 0 ) << endl;
                 out << setw(30) << left << "                Energy [GeV]" << right << setw(40) << hit->getEnergyCont(k) << endl;
                 out << setw(30) << left << "                Time" << right << setw(40) << hit->getTimeCont(k) << endl;
+                out << setw(30) << left << "                Length" << right << setw(40) << hit->getLengthCont(k) << endl;
                 out << setw(30) << left << "                Sec. PDG" << right << setw(40) << hit->getPDGCont(k) << endl;
             }catch(exception& e){
                 out << e.what() << endl ;
@@ -1603,12 +1803,12 @@ namespace UTIL{
     //============================================================================
 
     const std::string& header(const EVENT::SimTrackerHit *){ //hauke
-        static std::string _h(" [   id   ] |cellId0 |cellId1 |  position (x,y,z)               |   EDep   |   time   |PDG of MCParticle|   (px,  py, pz)   | pathLength  \n");
+        static std::string _h(" [   id   ] |cellId0 |cellId1 |  position (x,y,z)               |   EDep   |   time   |PDG of MCParticle|   (px,  py, pz)   | pathLength  | Quality \n");
         return _h;
     }
 
     const std::string& tail(const EVENT::SimTrackerHit *){ //hauke
-        static std::string _t("------------|--------|--------|---------------------------------|----------|----------|-----------------|-------------------|-------------\n");
+        static std::string _t("------------|--------|--------|---------------------------------|----------|----------|-----------------|-------------------|-------------|---------\n");
         return _t;
     }
 
@@ -1656,10 +1856,14 @@ namespace UTIL{
             out << hit->getMomentum()[0] << ", ";
             out << hit->getMomentum()[1] << ", ";
             out << hit->getMomentum()[2] << ") | ";
-            out << hit->getPathLength();
+            out << std::setw(13) << hit->getPathLength() << "|";
         }else{
             out << "|   unknown         |";
+	    out << "     n/a     |"; // path length
         }
+
+        //qualityBits
+        out << LCTOOLS::getQualityBits(hit);
 
         out << endl ;
 
@@ -1672,6 +1876,22 @@ namespace UTIL{
 
         out << endl ;
 
+
+        /*
+           out << noshowpos << " " << setw(8) << dec << hit->getCellID() << "|";
+           out << showpos << scientific << setprecision (2) << setfill(' ') << hit->getPosition()[0]<<","<<hit->getPosition()[1]<<","<<hit->getPosition()[2]<<"|";
+           out << hit->getEDep() << "|";
+           out << hit->getTime() << "|";
+           if(hit->getMCParticle()){
+           out << setw(17) << hit->getMCParticle()->getPDG() << "|";
+           }else{
+           out << "                 |";
+           }
+           out << hit->getMomentum()[0] << "," << hit->getMomentum()[1] << "," << hit->getMomentum()[2] << "|";
+           out << setw(11) << hit->getPathLength() << endl;
+           out << noshowpos;
+
+         */
         return(out);
     }
 
@@ -1697,6 +1917,8 @@ namespace UTIL{
             BitSet32 flag( col->getFlag() ) ;
             out << "     LCIO::THBIT_BARREL : " << flag.test( LCIO::THBIT_BARREL ) << endl ;
             out << "     LCIO::THBIT_MOMENTUM : " << flag.test( LCIO::THBIT_MOMENTUM ) << endl ;
+
+            out << LCTOOLS::getQualityBits() << endl;
         } 
 
         //out << setw(30) << left << "CellID0"<< setfill(' ') << right << setw(40) << dec << hit->getCellID0() << endl;
@@ -1976,6 +2198,50 @@ namespace UTIL{
         return(out);
     }
 
+    /*  std::ostream& operator<<( std::ostream& out, const LCIO::MCParticle*  part){
+        out << endl
+        <<  "[   id   ]index|      PDG |    px,     py,        pz    | energy  |gen|[simstat]| vertex x,     y   ,   z     | endpoint x,    y  ,   z     |    mass |  charge |  [parents] - [daughters] |"
+        << endl
+        << endl ;
+        printf("[%8.8x]", part->id() );
+        printf("%10d|" , part->getPDG() );
+        printf("% 1.2e,% 1.2e,% 1.2e|" ,
+        part->getMomentum()[0] ,
+        part->getMomentum()[1] ,
+        part->getMomentum()[2] );
+        printf("% 1.2e|" , part->getEnergy() ) ;
+
+        printf(" %1d |" , part->getGeneratorStatus()  );
+        printf("% 1.2e,% 1.2e,% 1.2e|" ,
+        part->getVertex()[0] ,
+        part->getVertex()[1] ,
+        part->getVertex()[2] );
+        printf("% 1.2e,% 1.2e,% 1.2e|" ,
+        part->getEndpoint()[0] ,
+        part->getEndpoint()[1] ,
+        part->getEndpoint()[2] );
+        printf("% 1.2e|" , part->getMass() ) ;
+        printf("% 1.2e|" , part->getCharge() ) ;
+
+        out << " [" ;
+
+        for(unsigned int k=0;k<part->getParents().size();k++){
+        if(k>0) out << "," ;
+        out << p2i_map[ part->getParents()[k] ]  ;
+        }
+        out << "] - [" ;
+        for(unsigned int k=0;k<part->getDaughters().size();k++){
+        if(k>0) out << "," ;
+        out << p2i_map[ part->getDaughters()[k] ]  ;
+        }
+        out << "] " << endl ;
+
+
+        out << endl
+        << "-------------------------------------------------------------------------------- "
+        << endl ;
+        }
+     */
 
     std::ostream& operator<<( std::ostream& out, const EVENT::MCParticle &mcp){ //hauke
         out << lcio_long(mcp,NULL);
@@ -2466,11 +2732,31 @@ namespace UTIL{
         tmp << dec << setfill('0') << setw(8) << part->id();
         out << setw(30) << setfill(' ') << left << "Id" << right << setw(40) << tmp.str() << endl;
         out << setw(30) << setfill(' ') << left << "Type" << right << setw(40) << part->getType() << endl;
+        // out << setw(30) << setfill(' ') << left << "D0" << right << showpos << setw(40) << part->getD0() << endl;
+        // out << setw(30) << setfill(' ') << left << "Phi" << right << setw(40) << part->getPhi() << endl;
+        // out << setw(30) << setfill(' ') << left << "Omega" << right << setw(40) << part->getOmega() << endl;
+        // out << setw(30) << setfill(' ') << left << "Z0" << right << setw(40) << part->getZ0() << endl;
+        // out << setw(30) << setfill(' ') << left << "Tan Lambda" << right << setw(40) << part->getTanLambda() << endl;
+        // tmp.str("");
+        // tmp  << dec << part->getReferencePoint()[0] << ", " << part->getReferencePoint()[1]  << ", " << part->getReferencePoint()[2]; 
+        // out << setw(30) << setfill(' ') << left << "ReferencePoint" << right << setw(40) << tmp.str() << endl;
         out << setw(30) << setfill(' ') << left << "dEdx" << right << setw(40) << part->getdEdx() << endl;
         out << setw(30) << setfill(' ') << left << "dEdx Error" << right << setw(40) << part->getdEdxError() << endl;
         out << setw(30) << setfill(' ') << left << "Chi2" << right << setw(40) << part->getChi2() << endl;
         out << setw(30) << setfill(' ') << left << "Ndf" << right << setw(40) << noshowpos << part->getNdf() << endl;
 
+        // out << "Errors:     " << showpos;
+        // unsigned int l;
+        // for(l=0;l<14;l++){
+        //     out << part->getCovMatrix()[l];
+        //     if(! ((l+1)%5)){
+        //         out << endl << "            ";
+        //     } else{
+        //         out << ", ";
+        //     }
+        // }
+        // if(!((l+2)%5)){out << endl << "            ";}
+        // out << part->getCovMatrix()[l+1] << endl;
 
 	for(unsigned i=0,N=part->getTrackStates().size() ; i<N ; ++i ){
 
@@ -2506,7 +2792,12 @@ namespace UTIL{
 
         out << "Radius of innermost hit " << part->getRadiusOfInnermostHit() << " / mm , " << " subdetector Hit numbers : " ;
 	out << endl << "            ";
-
+        // for(l=0 ; l< part->getSubdetectorHitNumbers().size()-1 ; l++) {
+        //     out << part->getSubdetectorHitNumbers()[l] << ", " ;
+        //     if(!((l+1)%20)){out << endl << "            ";}
+        // }
+        // if(!((l+2)%20)){out << endl << "            ";}
+        // out << part->getSubdetectorHitNumbers()[l+1] << endl;
         for(unsigned l=0 ; l< part->getSubdetectorHitNumbers().size(); l++) {
 	  out << part->getSubdetectorHitNumbers()[l];
 	  if(l < part->getSubdetectorHitNumbers().size()-1){
@@ -2631,7 +2922,37 @@ namespace UTIL{
         out << setw(30) << left << "itheta" << setfill(' ') << right <<setw(40) << clu->getITheta() << endl;
         out << setw(30) << left << "iphi" << setfill(' ') << right <<setw(40) << clu->getIPhi() << endl;
         //to much output
+        /* 
+        //raw code from LCTOOLS.cc
+        out << " errors (6 pos)/( 3 dir): (" ;
+        for(int l=0;l<6;l++){
+        printf("%4.2e, ", clu->getPositionError()[l] ) ;
+        }
+        out << ")/("  ;
+        for(int l=0;l<3;l++){
+        printf("%4.2e, ", clu->getDirectionError()[l] ) ;
+        }
+        out << ")" << endl ;
+        out << " clusters(e): " ;
+        const ClusterVec& clusters = clu->getClusters() ;
 
+        for(unsigned int l=0;l<clusters.size();l++){
+        printf("%4.2e, ",  clusters[l]->getEnergy() ) ;
+        }
+        out << endl ;
+        out <<" subdetector energies : " ;
+        const FloatVec& sdE = clu->getSubdetectorEnergies() ;
+        for(unsigned int l=0;l<sdE.size();l++){
+        printf("%4.2e, ",  sdE[l] ) ;
+        }
+        const CalorimeterHitVec& hits= clu->getCalorimeterHits() ;
+        const FloatVec& contr = clu->getHitContributions() ;
+        for(unsigned int k=0;k<hits.size();k++){
+        printf( " [%8.8x] (%4.3e), " , hits[k]->id(), contr[k] ) ;
+        //      out << "0x" << hits[k]  << "(" << contr[k] << "), " ;
+        }
+        out << dec << endl  ;
+         */
 
         return(out);
     }

@@ -21,13 +21,16 @@ class SIO_stream;
 
 class SIO_block
 {
-  public:
+public:
     SIO_block( const char* );
     virtual ~SIO_block();
+
     std::string*           getName();
     virtual unsigned int   xfer( SIO_stream*, SIO_operation, unsigned int ) = 0;
     virtual unsigned int   version() = 0;
-  private:
+
+private:
     std::string            name;
+
 }; 
 #endif

@@ -68,7 +68,7 @@ namespace SIO {
 
     for( unsigned i=0; i < NumberOfRecords ; ++i ){
 
-      LCSIO::records()[ i ]->setUnpack( _flags ) ;
+      LCSIO::records()[ i ]->setUnpack( _flags[i] ) ;
     }
     
   }
@@ -244,8 +244,6 @@ std::string LCSIO::getValidSIOName(const std::string& aName ) {
 
     else if( (*name>=0) && ( isalnum( (int)*name ) || *name == '_' ) )
       *newName++ = *name ;
-    else
-    ; // ignore
   } 
   
   *newName = '\0' ;

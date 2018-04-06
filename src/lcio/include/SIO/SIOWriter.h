@@ -42,6 +42,12 @@ namespace SIO {
     /**Default constructor.
      */
     SIOWriter() ;
+
+    /// no copy constructor
+    SIOWriter(const SIOWriter&) = delete ;
+    /// no assignment operator
+    SIOWriter& operator=(const SIOWriter&) = delete ;
+
     /**
      * Destructor
      */
@@ -52,7 +58,7 @@ namespace SIO {
      *
      *@throws IOException
      */
-    virtual void open(const std::string & filename) throw (IO::IOException, std::exception) ;
+    virtual void open(const std::string & filename)  ;
 
     /** Opens a file for writing.
      * Possible write modes are: LCIO::WRITE_NEW
@@ -60,7 +66,7 @@ namespace SIO {
      *
      *@throws IOException
      */
-    virtual void open(const std::string & filename, int writeMode)throw (IO::IOException, std::exception) ;
+    virtual void open(const std::string & filename, int writeMode)  ;
     
     /** Set the compression level - needs to be called before open() otherwise
      *  call will have no effect. If not called the Writer will use default compression.<br>
@@ -82,25 +88,25 @@ namespace SIO {
      *
      *@throws IOException
      */
-    virtual void writeRunHeader(const EVENT::LCRunHeader * hdr)throw (IO::IOException, std::exception) ;
+    virtual void writeRunHeader(const EVENT::LCRunHeader * hdr)  ;
 
     /** Writes the given event to file.
      *
      *@throws IOException
      */
-    virtual void writeEvent(const EVENT::LCEvent * evt) throw (IO::IOException, std::exception) ;
+    virtual void writeEvent(const EVENT::LCEvent * evt)  ;
 
     /** Closes the output file/stream etc.
      *
      *@throws IOException
      */
-    virtual void close() throw (IO::IOException, std::exception) ;
+    virtual void close()  ;
     
     /** Flushes the output file/stream etc.
      *
      *@throws IOException
      */
-    virtual void flush() throw (IO::IOException, std::exception) ;
+    virtual void flush()  ;
 
 
   protected:
@@ -124,15 +130,11 @@ namespace SIO {
 
     SIOEventHandler *_hdrHandler ;
     SIORunHeaderHandler *_runHandler ;
-    std::vector<SIO_block*> _connectedBlocks ;
+    std::vector<SIO_block*> _connectedBlocks{} ;
 
   protected:
     
-//     SIO_record *_evtRecord ;
-//     SIO_record *_hdrRecord ;
-//     SIO_record *_runRecord ;
-
-    LCIORandomAccessMgr _raMgr ;
+    LCIORandomAccessMgr _raMgr{} ;
 
   }; // class
 

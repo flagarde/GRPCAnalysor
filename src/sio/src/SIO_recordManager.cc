@@ -56,20 +56,20 @@ if( !SIO_functions::validateName( i_name ) )
                   << i_name
                   << std::endl;
     }
-    return( nullptr );
+    return( NULL );
 }
 
 //
 // If the map's never been instantiated, do it now!
 //
-if( recordMap == nullptr )
+if( recordMap == NULL )
     recordMap = new recordMap_c;
 
 //
 // Initialize the map entry.
 //
 std::pair< std::string const, SIO_record* >
-    entry( s_name, nullptr );
+    entry( s_name, NULL );
 
 //
 // Insert the entry.  This may or may not succeed depending on whether the
@@ -86,7 +86,7 @@ if( !status.second )
                   << "not added (already exists)"
                   << std::endl;
     }
-    return( nullptr );
+    return( NULL );
 }
 
 //
@@ -119,14 +119,14 @@ void SIO_recordManager::disconnect
 //
 // Loop over the map (if it exists yet!)
 //
-if( recordMap != nullptr )
+if( recordMap != NULL )
 {
     recordMap_i
         iter;
 
     for( iter = recordMap->begin(); iter != recordMap->end(); iter++ )
     {
-        if( iter->second->getConnect( i_name ) != nullptr )
+        if( iter->second->getConnect( i_name ) != NULL )
             iter->second->disconnect( i_name );
     }
 }
@@ -157,7 +157,7 @@ SIO_record* SIO_recordManager::get
 //
 // Search the map (if it exists yet!)
 //
-if( recordMap != nullptr )
+if( recordMap != NULL )
 {
     recordMap_i
         iter;
@@ -189,7 +189,7 @@ if( verbosity >= SIO_ERRORS )
 //
 // That's all folks!
 //
-return( nullptr );
+return( NULL );
 }
 
 // ----------------------------------------------------------------------------
@@ -209,7 +209,7 @@ unsigned int SIO_recordManager::remove
 //
 // Search the map (if it exists!)
 //
-if( recordMap != nullptr )
+if( recordMap != NULL )
 {
     recordMap_i
         iter;
@@ -232,7 +232,7 @@ if( recordMap != nullptr )
         if( recordMap->size() == 0 )
 	{
             delete recordMap;
-            recordMap = nullptr;
+            recordMap = NULL;
         } 
         return( SIO_RECORD_SUCCESS );
     }
