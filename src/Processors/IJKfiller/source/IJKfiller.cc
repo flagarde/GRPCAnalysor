@@ -109,7 +109,7 @@ void IJKfiller::processEvent( LCEvent * evtP )
 	          }
 	        }
         }
-        if(HasTimeStampNegative==false)
+        if(HasTimeStampNegative==false||HasTimeStampNegative==true)
         {
           LCCollectionVec* col_event1 = new LCCollectionVec(LCIO::CALORIMETERHIT);
           CellIDEncoder<CalorimeterHitImpl> cd1( "I:8,J:7,K:10,DIF_Id:8,Asic_Id:6,Channel:7",col_event1) ;
