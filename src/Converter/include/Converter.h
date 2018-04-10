@@ -22,11 +22,11 @@ class Converter
    protected :
     int Kactual;
     Geometry* geom;
-    double ca;
-	  double sa;
-    double cb;
-	  double sb;
-    double cg;
-	  double sg;
+    double ca{0.};
+    double sa{0.};
+    double cb{0.};
+    double sb{0.};
+    double cg{0.};
+    double sg{0.};
 }; 
 #endif
