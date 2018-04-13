@@ -83,12 +83,14 @@ find_package(ROOT REQUIRED #${ROOT_REQUIRED_COMPONENTS}
 #endforeach()
 include_directories(${ROOT_INCLUDE_DIRS})
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${ROOT_CXX_FLAGS}")
-add_compile_options(${ROOT_DEFINITIONS})
+#add_compile_options(${ROOT_DEFINITIONS})
 
 if(ROOT_DEFINITIONS STREQUAL "")
   message("oops... Trying to recover your %!£")
-  set(ROOT_DEFINITIONS --std=c++11)
+  set(ROOT_DEFINITIONS -std=c++11)
 endif()
+
+add_compile_options(${ROOT_DEFINITIONS})
 
 #message(STATUS "rrrrr  ${ROOT_DEFINITIONS}")
 configure_file ("${CMAKE_CURRENT_SOURCE_DIR}/src/Utils/Version.h.in" "${PROJECT_INCLUDE_DIR}/Version.h")
