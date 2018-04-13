@@ -21,7 +21,8 @@ SET(EXECUTABLE_OUTPUT_PATH "${CMAKE_CURRENT_SOURCE_DIR}/bin")
 
 
 SET_OPTION(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/)
-SET_OPTION(CMAKE_CXX_STANDARD 17) # C++14...
+add_compile_options(-std=c++11)
+SET_OPTION(CMAKE_CXX_STANDARD 14) # C++14...
 SET_OPTION(CMAKE_CXX_STANDARD_REQUIRED ON) #...is required...
 SET_OPTION(CMAKE_CXX_EXTENSIONS ON) #...without compiler extensions like gnu++11
 
@@ -96,7 +97,7 @@ else()
   message("-- No LOCCI support")
   SET(HaveOCCI 0)
 endif()
-
+#target_compile_options(LCIO PRIVATE --std=c++11)
 ADD_SUBDIRECTORY( src/LCIO )
 ADD_SUBDIRECTORY( src/Elog )
 ADD_SUBDIRECTORY( src/HistoGraphs )
