@@ -129,11 +129,7 @@ bool DIFUnpacker::getFrameLevel(uint8_t* framePtr,uint32_t ip,uint32_t level)
   //return DIFUnpacker::getFramePAD(framePtr,2*ip+level);
 }
 
-<<<<<<< HEAD
-uint32_t DIFUnpacker::getAnalogPtr(std::vector<uint8_t*> &vLines,uint8_t* cb,uint32_t idx) 
-=======
 uint32_t DIFUnpacker::getAnalogPtr(std::vector<uint8_t*> &vLines,uint8_t* cb,uint32_t idx)
->>>>>>> beta
 {
   uint32_t fshift=idx;
   if (cb[fshift]!=DU_START_OF_LINES) return fshift;
