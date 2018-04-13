@@ -23,7 +23,7 @@ along with EventBuilder.  If not, see <http://www.gnu.org/licenses/>.
 INSTALL:
 =========
 
-First : git submodule update --init --recursive https://github.com/flagarde/GRPCAnalysor.git
+First : git clone --recursive  https://github.com/flagarde/GRPCAnalysor.git
 
 See INSTALL file in the main directory
 for more informations about installation.
