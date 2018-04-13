@@ -30,9 +30,9 @@ SET_OPTION(CMAKE_CXX_EXTENSIONS ON) #...without compiler extensions like gnu++11
 # project name
 project(GRPC_Analysor)
 # project version
-SET( GRPC_Analysor_VERSION_MAJOR 2 )
-SET( GRPC_Analysor_VERSION_MINOR 7 )
-SET( GRPC_Analysor_VERSION_PATCH 1 )
+SET( GRPC_Analysor_VERSION_MAJOR 3 )
+SET( GRPC_Analysor_VERSION_MINOR 0 )
+SET( GRPC_Analysor_VERSION_PATCH 0 )
 include(CheckIncludeFiles)
 include(CheckCXXCompilerFlag)
 

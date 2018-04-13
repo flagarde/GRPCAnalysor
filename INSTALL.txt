@@ -1,7 +1,7 @@
 ########################################
 # README file for EventBuilder package
 # @author Lagarde Francois
-# @version 2.7 10/02/2017
+# @version 3.0 10/02/2017
 # @copyright IPNL, CNRS
 ########################################
 
