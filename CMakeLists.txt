@@ -116,10 +116,6 @@ ADD_SUBDIRECTORY( src/tdrstyle )
 ADD_SUBDIRECTORY( src/Utils )
 ADD_SUBDIRECTORY( src/tinyxml )
 ADD_SUBDIRECTORY( src/Converter )
-<<<<<<< HEAD
-=======
-#ADD_SUBDIRECTORY( src/jsoncpp )
->>>>>>> beta
 
 # add a target to generate API documentation with Doxygen
 find_package(Doxygen)
