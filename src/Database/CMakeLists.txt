@@ -2,7 +2,7 @@ SET_OPTION(CXX_STANDARD 17) # C++14...
 SET_OPTION(CXX_STANDARD_REQUIRED ON) #...is required...
 SET_OPTION(CXX_EXTENSIONS ON) #...without compiler extensions like gnu++11
 include_directories(include)
-
+file(COPY ./include/ DESTINATION ${PROJECT_INCLUDE_DIR})
 ADD_DEFINITIONS( "-locci -lclntsh " )
 FILE (GLOB_RECURSE DATABASE_SRC_FILES ./source/*)
 ADD_LIBRARY( Database STATIC ${DATABASE_SRC_FILES} )
