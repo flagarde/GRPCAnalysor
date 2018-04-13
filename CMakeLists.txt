@@ -21,10 +21,10 @@ SET(EXECUTABLE_OUTPUT_PATH "${CMAKE_CURRENT_SOURCE_DIR}/bin")
 
 
 SET_OPTION(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/)
-add_compile_options(-std=c++11)
-SET_OPTION(CMAKE_CXX_STANDARD 14) # C++14...
-SET_OPTION(CMAKE_CXX_STANDARD_REQUIRED ON) #...is required...
-SET_OPTION(CMAKE_CXX_EXTENSIONS ON) #...without compiler extensions like gnu++11
+
+#SET_OPTION(CMAKE_CXX_STANDARD 17) # C++14...
+#SET_OPTION(CMAKE_CXX_STANDARD_REQUIRED ON) #...is required...
+#SET_OPTION(CMAKE_CXX_EXTENSIONS ON) #...without compiler extensions like gnu++11
 
 
 # project name
@@ -83,7 +83,7 @@ find_package(ROOT REQUIRED #${ROOT_REQUIRED_COMPONENTS}
 #endforeach()
 include_directories(${ROOT_INCLUDE_DIRS})
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${ROOT_CXX_FLAGS}")
-
+add_compile_options(${ROOT_DEFINITIONS})
 
 configure_file ("${CMAKE_CURRENT_SOURCE_DIR}/src/Utils/Version.h.in" "${PROJECT_INCLUDE_DIR}/Version.h")
 
