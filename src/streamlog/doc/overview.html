@@ -1,0 +1,161 @@
+
+/**
+ 
+\mainpage streamlog
+
+
+A general purpose logging library for C++.
+
+<h2>Overview</h2>
+
+<b>streamlog</b> is a lightweight logging library for C++ that provides:
+<ul>
+<li>a large number of customizable verbosity levels for DEBUG, MESSAGE, WARNING and ERROR messages</li>
+<li>logging to any std::ostream like std::cout or std::ofstream (a plain file)</li>
+<li>customizable scope pre-fixes</li>
+<li>optional compile time control (no  overhead in space or time for de-activated message levels)</li>
+<li>macros for C++ output stream operators:  
+  <pre>
+    streamlog_out( DEBUG ) << " debug " << std::endl ;  
+  </pre>
+</li>
+</ul>
+<p>
+streamlog is based on the concept of log levels (priorities) and thresholds. If the log level of a message is smaller than 
+the current threshold the message will not be shown. By default the following log levels are defined in streamlog:
+<ul>
+<li>DEBUG0, DEBUG1,..,DEBUG5/DEBUG,... DEBUG9</li>
+<li>MESSAGE0, MESSAGE1,..,MESSAGE5/MESSAGE,... MESSAGE9</li>
+<li>WARNING0, WARNING1,..,WARNING5/WARNING,... WARNING9</li>
+<li>ERROR0, ERROR1,..,ERROR5/ERROR,... ERROR9</li>
+</ul>
+where DEBUG0 has the lowest priority and ERROR9 the highest. The default priority for every level is chosen to be
+in the middle, e.g. WARNING is the same as WARNING5. <br>
+If the threshold is for example set to WARNING0, all messages of the DEBUG and MESSAGE level will be suppressed.
+<p>
+During the development phase one can add many printouts with the DEBUG0-DEBUG9 levels and control the amount of detail
+with the log threshold. <br>
+If the program is compiled with <b>-DNDEBUG</b> (in CMake with CMAKE_BUILD_TYPE set to Release or MinSizeRel), no code 
+will be created for these messages (and nothing will be printed, regardless of the threshold).<br>
+Optionally one can use the preprocessor flag STREAMLOG_LEVEL to turn of compilation also for the MESSAGE, WARNING and ERROR
+levels, e.g. 
+<pre>
+cmake -D CMAKE_CXX_FLAGS="-D STREAMLOG_LEVEL=2" ..
+</pre>
+will cause all streamlog messages of DEBUG and MESSAGE to not be compiled. (STREAMLOG_LEVEL=3 will also turn of WARNING and 
+STREAMLOG_LEVEL=4 will cause everything to be excluded from compilation.)
+
+<p>
+All messages from streamlog will be prepended with a string of the form <b>"[LOG_LEVEL scope_name]"</b>.<br>
+By using nested scopes with different names (and possibly different log thresholds) one can control the 
+logging output in a complex modular program.
+
+<p>
+<h2>Getting Started</h2>
+streamlog is easy to use. Just include the header, initialize the default logstream and use the macro 
+<b>streamlog_out( LOG_LEVEL)</b> where you would normally use std::cout:
+
+<p>
+<pre>
+ #include "streamlog/streamlog.h"
+
+ //...
+
+ // initialize a logging stream on std::cout
+  streamlog::out.init( std::cout , "hello_world" ) ;
+
+  //define a globale scope object and set the log threshold as given on the command line
+  streamlog::logscope global(streamlog::out) ;
+  global.setThreshold( argv[1] )  ;
+
+  // ...
+  streamlog_out( MESSAGE3 )  << " Hello World ! " << std::endl ;
+ //...
+</pre> 
+
+<p>
+This will print:
+<pre> 
+ [ MESSAGE3 "hello_world"]  Hello World ! 
+</pre>
+to standard out - depending on whether the log threshold specified on the command line was lower than MESSAGE4 or not.<br>
+<p>
+See <a href="../hello_world.cc">hello_world.cc</a> for the complete example.
+
+<h3>scope objects</h3>
+In streamlog the current threshold as well as the name that is used in the prefix of log messages is controled 
+through streamlog::logscope objects. Typically in the main program where several modules are called, one can set the scope
+name for any streamlog messages called in the modules, eg:
+
+<pre>
+  {
+    streamlog::logscope scope0( streamlog::out ) ;
+    scope0.setName( "Module0") ;
+    scope0.setThreshold( "DEBUG" ) ;
+
+    callModule0() ;
+  }
+  {
+    streamlog::logscope scope1( streamlog::out ) ;
+    scope1.setName( "Module1") ;
+    scope1.setThreshold( "WARNING" ) ;
+
+    callModule1() ;
+  }
+</pre>
+This will cause all messages (incl. DEBUG)  to be printed for Module0 and only WARNINGS and ERRORS to be printed for Module1.
+
+<h3>optional code compilation</h3>
+Sometimes it is useful to execute some extra code for debugging messages, that is not needed typically 
+and would cause run time overhead. For this one can use the macro <b>streamlog_level( LOG_LEVEL )</b> that return true 
+if the LOG_LEVEL is not below the current threshold and is active (i.e. has not been de activeted at compile time).
+
+<pre>
+ 
+  if( streamlog_level( DEBUG3) ){
+
+     double x ;
+    // do some debug computation...
+    //  x = ...
+
+     streamlog_out( DEBUG3 ) << " result of debug computation : " <<  x << std::endl ; 
+  }
+
+</pre>
+
+<h3>templated classes</h3>
+streamlog is implemented using templates. With older gcc versions (3.x) this caused the actual syntax used in the macros 
+to be slighlty different when used in templated classes. Here one has to use the macros streamlog_level_T( LOG_LEVEL ) and
+streamlog_out_T( LOG_LEVEL ). 
+<p>
+<b>Note: this should not be necessary with the gcc4.x series anymore.</b>
+ 
+
+<p>
+<h2>Download</h2>
+Download the sources from SVN:
+<p>
+<pre>
+  svn co svn://svnsrv.desy.de/public/aidasoft/eUtil/tags/{VERSION}/streamlog streamlog
+</pre>
+See <a href="https://svnsrv.desy.de/viewvc/aidasoft/eUtil/tags">https://svnsrv.desy.de/viewvc/aidasoft/eUtil/tags</a> 
+for the latest released VERSION. 
+
+<p>
+<h2>Install</h2>
+<p>
+To build streamlog from source you need to have <a href="http://www.cmake.org">CMake</a> installed on your system and
+in your $PATH. 
+<p>
+For a typicall build and installation do:
+<p>
+<pre>
+ cd streamlog 
+ mkdir build 
+ cd build 
+ cmake .. 
+ make install 
+</pre>
+
+
+*/

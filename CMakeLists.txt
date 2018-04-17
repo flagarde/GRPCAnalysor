@@ -11,14 +11,14 @@ endmacro()
 # LCIO options
 SET_OPTION(BUILD_LCIO_EXAMPLES  OFF)
 SET_OPTION(BUILD_TESTING  OFF)
-
-
+SET_OPTION(MARLIN_AIDA  OFF)
+SET_OPTION(MARLIN_LCCD OFF)
 
 set(PROJECT_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/build/include/")
 set(LIBRARY_OUTPUT_PATH "${CMAKE_CURRENT_SOURCE_DIR}/build/lib/")
 set(MARLINO_LIBRARY_OUTPUT_PATH "${CMAKE_CURRENT_SOURCE_DIR}/bin/libMarlino/")
 SET(EXECUTABLE_OUTPUT_PATH "${CMAKE_CURRENT_SOURCE_DIR}/bin")
-
+SET(LCIO_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/build/include/")
 
 SET_OPTION(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/)
 
@@ -85,7 +85,8 @@ include_directories(${ROOT_INCLUDE_DIRS})
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${ROOT_CXX_FLAGS}")
 #add_compile_options(${ROOT_DEFINITIONS})
 
-if(ROOT_DEFINITIONS STREQUAL "")
+message("ROOT :  ${ROOT_CXX_FLAGS}")
+if(ROOT_CXX_FLAGS STREQUAL "")
   message("oops... Trying to recover your %!£")
   set(ROOT_DEFINITIONS -std=c++11)
 endif()
@@ -106,7 +107,10 @@ else()
   SET(HaveOCCI 0)
 endif()
 #target_compile_options(LCIO PRIVATE --std=c++11)
+ADD_SUBDIRECTORY( src/streamlog )
 ADD_SUBDIRECTORY( src/LCIO )
+#ADD_SUBDIRECTORY( src/GEAR )
+#ADD_SUBDIRECTORY( src/Marlin )
 ADD_SUBDIRECTORY( src/Elog )
 ADD_SUBDIRECTORY( src/HistoGraphs )
 if(HaveOCCI)
@@ -126,24 +130,24 @@ ADD_SUBDIRECTORY( src/tinyxml )
 ADD_SUBDIRECTORY( src/Converter )
 
 # add a target to generate API documentation with Doxygen
-find_package(Doxygen)
-option(BUILD_DOCUMENTATION "Create and install the HTML based API documentation (requires Doxygen)" ${DOXYGEN_FOUND})
+#find_package(Doxygen)
+#option(BUILD_DOCUMENTATION "Create and install the HTML based API documentation (requires Doxygen)" ${DOXYGEN_FOUND})
 
-if(BUILD_DOCUMENTATION)
-    if(NOT DOXYGEN_FOUND)
-        message(FATAL_ERROR "Doxygen is needed to build the documentation.")
-    endif()
-    set(doxyfile_in ${CMAKE_CURRENT_SOURCE_DIR}/src/Modules/Doxyfile.in)
-    set(doxyfile ${CMAKE_CURRENT_SOURCE_DIR}/build/Doxyfile)
-    configure_file(${doxyfile_in} ${doxyfile} @ONLY)
-    add_custom_target(doc
-        COMMAND ${DOXYGEN_EXECUTABLE} ${doxyfile}
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/build
-        COMMENT "Generating API documentation with Doxygen"
-        VERBATIM)
-
-    install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/build/doc/html DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/doc)
-endif()
+#if(BUILD_DOCUMENTATION)
+#    if(NOT DOXYGEN_FOUND)
+#        message(FATAL_ERROR "Doxygen is needed to build the documentation.")
+#    endif()
+#    set(doxyfile_in ${CMAKE_CURRENT_SOURCE_DIR}/src/Modules/Doxyfile.in)
+#    set(doxyfile ${CMAKE_CURRENT_SOURCE_DIR}/build/Doxyfile)
+#    configure_file(${doxyfile_in} ${doxyfile} @ONLY)
+#    add_custom_target(doc
+#        COMMAND ${DOXYGEN_EXECUTABLE} ${doxyfile}
+#        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/build
+#        COMMENT "Generating API documentation with Doxygen"
+#        VERBATIM)
+#
+#    install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/build/doc/html DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/doc)
+#endif()
 
 #ADD_SUBDIRECTORY( Simulation )
 #ADD_SUBDIRECTORY( Plot )

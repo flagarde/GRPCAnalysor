@@ -1,3 +1,9 @@
 [submodule "src/LCIO"]
 	path = src/LCIO
 	url = https://github.com/iLCSoft/LCIO.git
+#[submodule "src/Marlin"]
+#	path = src/Marlin
+#	url = https://github.com/iLCSoft/Marlin.git
+#[submodule "src/GEAR"]
+#	path = src/GEAR
+#	url = https://github.com/iLCSoft/GEAR.git
