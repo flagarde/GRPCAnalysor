@@ -2,11 +2,11 @@ MARK_AS_ADVANCED( CMAKE_BACKWARDS_COMPATIBILITY )
 SET( CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS TRUE ) # default in cmake 2.6
 
 # include helper macros
-#INCLUDE( MacroAddSharedLibrary )
-#INCLUDE( MacroInstallSharedLibrary )
-#INCLUDE( MacroInstallDirectory )
-#INCLUDE( MacroDisplayStandardVariables )
-#INCLUDE( MacroGeneratePackageConfigFiles )
+INCLUDE( MacroAddSharedLibrary )
+INCLUDE( MacroInstallSharedLibrary )
+INCLUDE( MacroInstallDirectory )
+INCLUDE( MacroDisplayStandardVariables )
+INCLUDE( MacroGeneratePackageConfigFiles )
 
 
 # include default settings
