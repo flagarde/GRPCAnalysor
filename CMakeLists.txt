@@ -86,9 +86,10 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${ROOT_CXX_FLAGS}")
 #add_compile_options(${ROOT_DEFINITIONS})
 
 message("ROOT :  ${ROOT_CXX_FLAGS}")
-if(ROOT_CXX_FLAGS STREQUAL "")
-  message("oops... Trying to recover your %!£")
-  set(ROOT_DEFINITIONS -std=c++11)
+string(FIND "${ROOT_CXX_FLAGS}" "std=" Founded)
+if(${Founded} STREQUAL "-1")
+	message("oops... Trying to recover your %!£")
+	set(ROOT_DEFINITIONS -std=c++11)
 endif()
 
 add_compile_options(${ROOT_DEFINITIONS})
