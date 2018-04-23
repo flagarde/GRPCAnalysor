@@ -3,35 +3,14 @@
 #include <utility>
 #include <cstdint>
 #include "DIFSlowControl.h"
+#include "Buffer.h"
 
 using namespace std;
-class SDHCAL_buffer : public std::pair<uint8_t*, uint32_t>
-{
-    public:
-    SDHCAL_buffer(uint8_t* b, uint32_t i) : pair<uint8_t*, uint32_t>(b,i){}
-    uint8_t* buffer()
-    {
-        return first;
-    }
-    uint8_t* endOfBuffer()
-    {
-        return first+second;
-    }
-    uint32_t getsize()
-    {
-        return second;
-    }
-    void printBuffer(uint32_t start, uint32_t stop,std::ostream& flux=std::cout);
-    void printBuffer(uint32_t start=0,std::ostream& flux=std::cout)
-    {
-        printBuffer(start,getsize());
-    }
-};
 //class to navigate in the raw data buffer
 class SDHCAL_RawBuffer_Navigator
 {
 public:
-    SDHCAL_RawBuffer_Navigator(SDHCAL_buffer b,unsigned int BitsToSkip); //BitsToSkip=92 in 2012, 24 in 2014
+    SDHCAL_RawBuffer_Navigator(Buffer b,unsigned int BitsToSkip); //BitsToSkip=92 in 2012, 24 in 2014
     ~SDHCAL_RawBuffer_Navigator()
     {
         if (_theDIFPtr!=NULL) delete _theDIFPtr;
@@ -52,9 +31,9 @@ public:
     {
         return _buffer.getsize()-_DIFstartIndex;
     }
-    SDHCAL_buffer getDIFBuffer()
+    Buffer getDIFBuffer()
     {
-        return SDHCAL_buffer(getDIFBufferStart(),getDIFBufferSize());
+        return Buffer(getDIFBufferStart(),getDIFBufferSize());
     }
     DIFPtr* getDIFPtr();
     uint32_t getEndOfDIFData()
@@ -70,7 +49,7 @@ public:
     {
         return getDIFBufferStart()[getEndOfDIFData()]==0xb1;
     }
-    SDHCAL_buffer getSCBuffer()
+    Buffer getSCBuffer()
     {
         setSCBuffer();
         return _SCbuffer;
@@ -80,11 +59,11 @@ public:
         setSCBuffer();
         return _badSCdata;
     }
-    SDHCAL_buffer getEndOfAllData();
+    Buffer getEndOfAllData();
 
 private:
     void setSCBuffer();
-    SDHCAL_buffer _buffer,_SCbuffer;
+    Buffer _buffer,_SCbuffer;
     uint32_t _DIFstartIndex;
     DIFPtr* _theDIFPtr;
     bool _badSCdata;

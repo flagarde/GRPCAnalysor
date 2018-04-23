@@ -103,7 +103,7 @@ void Streamout::processEvent(LCEvent *evt)
         continue;
       }
       _nProcessedObject++;
-      SDHCAL_RawBuffer_Navigator bufferNavigator(lmobj->getSDHCALBuffer(),_BitsToSkip);
+      SDHCAL_RawBuffer_Navigator bufferNavigator(lmobj->getBuffer(),_BitsToSkip);
       uint32_t idstart = bufferNavigator.getStartOfDIF();
       _DIFStarter[idstart]++;
       if (!bufferNavigator.validBuffer()) continue;
@@ -164,7 +164,7 @@ void Streamout::processEvent(LCEvent *evt)
       RawVec->parameters().setValues(ss, trig);
       if (bufferNavigator.hasSlowControlData()) _hasSlowControl++;
       if (bufferNavigator.badSCData()) _hasBadSlowControl++;
-      SDHCAL_buffer eod = bufferNavigator.getEndOfAllData();
+      Buffer eod = bufferNavigator.getEndOfAllData();
       _SizeAfterAllData[eod.getsize()]++;
       int nonzeroCount = 0;
       for (uint8_t *it = eod.buffer(); it != eod.endOfBuffer(); it++)if (int(*it) != 0)nonzeroCount++;

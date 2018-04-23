@@ -2,16 +2,11 @@
 #include <iostream>
 #include <cstdint>
 #include "DIFSlowControl.h"
+#include "Buffer.h"
 using namespace std;
 
-void SDHCAL_buffer::printBuffer(unsigned int start, unsigned int stop,std::ostream& flux)
-{
-    flux << std::hex;
-    for (unsigned int k=start; k<stop; k++) flux << (unsigned int)(first[k]) << " - ";
-    flux << std::dec <<  std::endl;
-}
 
-SDHCAL_RawBuffer_Navigator::SDHCAL_RawBuffer_Navigator(SDHCAL_buffer b, unsigned int BitsToSkip) :_buffer(b),_SCbuffer(0,0)
+SDHCAL_RawBuffer_Navigator::SDHCAL_RawBuffer_Navigator(Buffer b, unsigned int BitsToSkip) :_buffer(b),_SCbuffer(0,0)
 {
     _DIFstartIndex=DIFUnpacker::getStartOfDIF(_buffer.buffer(),_buffer.getsize(),BitsToSkip); //92 was here
     _theDIFPtr=NULL;
@@ -66,10 +61,12 @@ void SDHCAL_RawBuffer_Navigator::setSCBuffer()
     }
 }
 
-SDHCAL_buffer SDHCAL_RawBuffer_Navigator::getEndOfAllData()
+Buffer SDHCAL_RawBuffer_Navigator::getEndOfAllData()
 {
     setSCBuffer();
-    if (hasSlowControlData() && !_badSCdata) {
-        return SDHCAL_buffer( &(_SCbuffer.buffer()[_SCbuffer.getsize()]), getSizeAfterDIFPtr()-3-_SCbuffer.getsize() );
-    } else return SDHCAL_buffer( &(getDIFBufferStart()[getEndOfDIFData()]), getSizeAfterDIFPtr()-3 ); //remove the 2 bytes for CRC and the DIF trailer
+    if (hasSlowControlData() && !_badSCdata) 
+    {
+        return Buffer( &(_SCbuffer.buffer()[_SCbuffer.getsize()]), getSizeAfterDIFPtr()-3-_SCbuffer.getsize() );
+    } 
+    else return Buffer( &(getDIFBufferStart()[getEndOfDIFData()]), getSizeAfterDIFPtr()-3 ); //remove the 2 bytes for CRC and the DIF trailer
 }
