@@ -188,8 +188,8 @@ void Streamout::processEvent(LCEvent *evt)
       _SizeAfterAllData[eod.getsize()]++;
       int nonzeroCount = 0;
       for (uint8_t *it = eod.buffer(); it != eod.endOfBuffer(); it++)if (int(*it) != 0)nonzeroCount++;
-      _NonZeroValusAtEndOfData[nonzeroCount]++;
-    } // for (int iel=0; iel<nElement; iel++)*/
+      _NonZeroValusAtEndOfData[nonzeroCount]++;*/
+    } // for (int iel=0; iel<nElement; iel++)
   } 
   catch (DataNotAvailableException &e) 
   {
