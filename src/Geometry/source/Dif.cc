@@ -75,6 +75,12 @@ Dif::Dif(const double& x,const double& y, int DifId, const double& xy, const dou
       _InterCellWidth=0.04125;
       _InterCellLength=0.04125;
       break;
+    case CMS:
+      _AsicNbr=4;
+      _WidthCell=6;
+      _LengthCell=160.5;
+      _InterCellWidth=0.0;
+      _InterCellLength=0.0;
     default:
       _AsicNbr=48;
       _WidthCell=1.0;
