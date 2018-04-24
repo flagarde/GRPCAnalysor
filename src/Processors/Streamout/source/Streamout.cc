@@ -1,7 +1,7 @@
 #include "Streamout.h"
 #include "Global.h"
-#include "BufferNavigator.h"
-#include "LMGenericObject.h"
+//#include "BufferNavigator.h"
+//#include "LMGenericObject.h"
 #include <iostream>
 #include <string>
 #include <cstdlib>
@@ -21,10 +21,11 @@
 #include "IMPL/LCEventImpl.h"
 #include "IMPL/CalorimeterHitImpl.h"
 #include <IMPL/LCRunHeaderImpl.h>
-#include "DIFUnpacker.h"
+//#include "DIFUnpacker.h"
 #include <sstream>
 #include <set>
 #include <limits>
+//#include "DataFormat.h"
 using namespace lcio;
 
 Streamout aStreamout;
@@ -40,6 +41,8 @@ Streamout::Streamout() : Processor("Streamout")
   registerProcessorParameter("BitsToSkip", "BitsToSkip (default 24)",_BitsToSkip, _BitsToSkip);
   virer_full_asic = false;
   registerProcessorParameter("Virer_full_asic", "Virer_full_asic",virer_full_asic, virer_full_asic);
+  _DataFormatType="SDHCAL";
+  registerProcessorParameter("Data Format Type", "Data Format Type",_DataFormatType,_DataFormatType);
   chFlag.setBit(bitinfo.RCHBIT_LONG);   // raw calorimeter data -> format long                                     // //(sert a qq chose?)
   chFlag.setBit(bitinfo.RCHBIT_BARREL); // barrel
   chFlag.setBit(bitinfo.RCHBIT_ID1);    // cell ID
@@ -87,6 +90,7 @@ void Streamout::processEvent(LCEvent *evt)
   IMPL::LCCollectionVec *RawVec = new IMPL::LCCollectionVec(LCIO::RAWCALORIMETERHIT);
   RawVec->setFlag(chFlag.getFlag());
   CellIDEncoder<RawCalorimeterHitImpl>cd("DIF_Id:8,Asic_Id:8,Channel:6,BarrelEndcapModule:10,FrameBCID:32",RawVec ) ;
+  parseDataFormat.set_DataFormat(_DataFormatType,RawVec,cd);
   try 
   {
     LCCollection *col = evt->getCollection(_XDAQCollectionNames);
@@ -96,7 +100,10 @@ void Streamout::processEvent(LCEvent *evt)
     _CollectionSizeCounter[nElement]++;
     for (int iel = 0; iel < nElement; iel++) 
     {
-      LMGeneric *lmobj = (LMGeneric *)(col->getElementAt(iel));
+      parseDataFormat.SetRawBuffer(col->getElementAt(iel));
+      parseDataFormat.Parse();
+    }
+      /*LMGeneric *lmobj = (LMGeneric *)(col->getElementAt(iel));
       if (lmobj == nullptr) 
       {
         _nWrongObj++;
@@ -169,7 +176,7 @@ void Streamout::processEvent(LCEvent *evt)
       int nonzeroCount = 0;
       for (uint8_t *it = eod.buffer(); it != eod.endOfBuffer(); it++)if (int(*it) != 0)nonzeroCount++;
       _NonZeroValusAtEndOfData[nonzeroCount]++;
-    } // for (int iel=0; iel<nElement; iel++)
+    } // for (int iel=0; iel<nElement; iel++)*/
   } 
   catch (DataNotAvailableException &e) 
   {

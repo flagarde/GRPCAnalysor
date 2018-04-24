@@ -31,7 +31,7 @@ SET_OPTION(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_SOURCE_DIR}/bin")
 project(GRPC_Analysor)
 # project version
 SET( GRPC_Analysor_VERSION_MAJOR 3 )
-SET( GRPC_Analysor_VERSION_MINOR 0 )
+SET( GRPC_Analysor_VERSION_MINOR 5 )
 SET( GRPC_Analysor_VERSION_PATCH 0 )
 include(CheckIncludeFiles)
 include(CheckCXXCompilerFlag)

@@ -5,11 +5,12 @@
 #include "lcio.h"
 #include <string>
 #include <map>
-#include "DIFSlowControl.h"
+//#include "DIFSlowControl.h"
 #include "IMPL/LCFlagImpl.h"
 #include "UTIL/LCTOOLS.h"
 #include <cstdint>
-#include "BufferNavigator.h"
+//#include "BufferNavigator.h"
+#include "ParseDataFormat.h"
 using namespace lcio ;
 
 class Streamout : public Processor, public  EventModifier
@@ -31,7 +32,9 @@ class Streamout : public Processor, public  EventModifier
   private:
     IMPL::LCFlagImpl chFlag;
     EVENT::LCIO bitinfo;
+    ParseDataFormat parseDataFormat;
     std::string  _XDAQCollectionNames ;
+    std::string  _DataFormatType ;
     std::string _RawHitCollectionName;
     int _BitsToSkip;
     bool virer_full_asic;
