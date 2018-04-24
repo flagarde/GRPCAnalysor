@@ -41,6 +41,7 @@
 	<processor name="Streamout" type="Streamout">
     <parameter name="XDAQCollectionName" type="string" lcioInType="LCGenericObject">RU_XDAQ </parameter>
     <parameter name="BitsToSkip" value="20"/>
+    <parameter name="Data_Format_Type" value="toto"/>
 	</processor>
 	
 	<processor name="MyLCIOOutputProcessor" type="LCIOOutputProcessor">

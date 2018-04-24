@@ -1,6 +1,7 @@
 #pragma once 
 #include "SDHCAL_DataFormat.h"
 #include "LM_DataFormat.h"
+#include "Colors.h"
 //#include "UTIL/CellIDEncoder.h"
 //#include "LMGenericObject.h"
 //#include <IMPL/RawCalorimeterHitImpl.h>
@@ -19,25 +20,34 @@
 //#include "UTIL/LCTOOLS.h"
 //#include <sstream>
 //#include <set>
+#include <iostream>
 class ParseDataFormat
 {
     private:
         DataFormat* m_data;
-        std::map<std::string,DataFormat*> DataFormatNames={{"LM",new LM_DataFormat()},{"SDHCAL",new SDHCAL_DataFormat}};
+        std::map<std::string,DataFormat*> DataFormatNames={{"LM",new LM_DataFormat()},{"SDHCAL",new SDHCAL_DataFormat()}};
     public:
         ParseDataFormat(){}
-        void set_DataFormat(std::string DataFormatName,IMPL::LCCollectionVec* RawVec,UTIL::CellIDEncoder<IMPL::RawCalorimeterHitImpl>& cd)
+        bool set_DataFormat(std::string DataFormatName)
         {
             if(DataFormatNames.find(DataFormatName)==DataFormatNames.end())
             {
-                std::cout<<"This Data Format ("+DataFormatName+" is not yet implemented"<<std::endl;
+                std::cout<<red<<"The Data Format \""+DataFormatName+"\" is not yet implemented"<<normal<<std::endl;
+                return false;
             }
             else
             {
                 m_data=DataFormatNames.find(DataFormatName)->second;
-                m_data->SetCellIDEncoder(cd);
-                m_data->SetLCCollectionVec(RawVec);
+                return true;
             }
+        }
+        void SetCellIDEncoder(UTIL::CellIDEncoder<IMPL::RawCalorimeterHitImpl>& cd)
+        {
+            m_data->SetCellIDEncoder(cd);
+        }
+        void SetLCCollectionVec(IMPL::LCCollectionVec* RawVec)
+        {
+            m_data->SetLCCollectionVec(RawVec);
         }
         ~ParseDataFormat()
         {

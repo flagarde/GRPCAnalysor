@@ -30,6 +30,7 @@ public:
             IMPL::RawCalorimeterHitImpl *hit =new IMPL::RawCalorimeterHitImpl();
             if(hit==nullptr) continue;
             (*_cd)["DIF_Id"]=(int)d->getID();
+            std::cout<<red<<(int)d->getID()<<normal<<std::endl;
             (*_cd)["Asic_Id"]=(int)d->getFrameAsicHeader(i);
             bitset<6> Channel(j);
             (*_cd)["Channel"]=(int)(Channel.to_ulong());

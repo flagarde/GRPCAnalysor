@@ -32,7 +32,7 @@ class Streamout : public Processor, public  EventModifier
   private:
     IMPL::LCFlagImpl chFlag;
     EVENT::LCIO bitinfo;
-    ParseDataFormat parseDataFormat;
+    ParseDataFormat* parseDataFormat;
     std::string  _XDAQCollectionNames ;
     std::string  _DataFormatType ;
     std::string _RawHitCollectionName;
