@@ -54,8 +54,14 @@ include(CheckCXXCompilerFlag)
 #endif()
 
 
-file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin/SlowControl ${CMAKE_CURRENT_SOURCE_DIR}/bin/ElogXML)
-file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/src/DetectorGeometry ${CMAKE_CURRENT_SOURCE_DIR}/src/xml DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/bin/ElogXML")
+   message("Folder are created yet")
+else()
+   message("Copying config example files etc...")
+   file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin/SlowControl ${CMAKE_CURRENT_SOURCE_DIR}/bin/ElogXML)
+   file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/src/DetectorGeometry ${CMAKE_CURRENT_SOURCE_DIR}/src/xml DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+endif()
+
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/src/LCIO/src/cpp/include/ DESTINATION ${PROJECT_INCLUDE_DIR})
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/build/include/)
