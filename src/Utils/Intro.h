@@ -29,7 +29,7 @@ std::cout<<red<<"  M::::::M               M::::::Ma:::::aaaa::::::a  r:::::r    
 std::cout<<red<<"  M::::::M               M::::::M a::::::::::aa:::a r:::::r            l::::::li::::::i  n::::n    n::::n oo:::::::::::oo "<<std::endl;    
 std::cout<<red<<"  MMMMMMMM               MMMMMMMM  aaaaaaaaaa  aaaa rrrrrrr            lllllllliiiiiiii  nnnnnn    nnnnnn   ooooooooooo"<<std::endl;  
 std::cout<<std::endl;  
-std::cout<<green<<"                                                                                                             version"<<GRPC_Analysor_VERSION_MAJOR<<"."<<GRPC_Analysor_VERSION_MINOR<<normal<<std::endl;  
+std::cout<<green<<"                                                                                                             version : "<<GRPC_Analysor_VERSION_MAJOR<<"."<<GRPC_Analysor_VERSION_MINOR<<normal<<std::endl;  
 std::cout<<std::endl;
 std::cout<<std::endl;
 std::cout<<std::endl;
