@@ -6,9 +6,11 @@
 class SDHCAL_DataFormat: public DataFormat
 {
 public:
+    virtual ~SDHCAL_DataFormat(){}
     virtual void Parse()
     {
-      SDHCAL_RawBuffer_Navigator bufferNavigator(RawBuffer->getBuffer(),_BitsToSkip);
+      RawBuffer->getBuffer().printBuffer();
+      /*SDHCAL_RawBuffer_Navigator bufferNavigator(RawBuffer->getBuffer(),_BitsToSkip);
       uint32_t idstart = bufferNavigator.getStartOfDIF();
       //_DIFStarter[idstart]++;
       if (!bufferNavigator.validBuffer()) return;
@@ -74,6 +76,6 @@ public:
       //_SizeAfterAllData[eod.getsize()]++;
       //int nonzeroCount = 0;
       //for (uint8_t *it = eod.buffer(); it != eod.endOfBuffer(); it++)if (int(*it) != 0)nonzeroCount++;
-      //_NonZeroValusAtEndOfData[nonzeroCount]++;
+      //_NonZeroValusAtEndOfData[nonzeroCount]++;*/
     }
 };

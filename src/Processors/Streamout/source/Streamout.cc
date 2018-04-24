@@ -53,8 +53,9 @@ Streamout::Streamout() : Processor("Streamout")
 void Streamout::init() 
 {
   printParameters();
-  parseDataFormat= new ParseDataFormat();
-  if(parseDataFormat->set_DataFormat(_DataFormatType)==false) std::exit(1);
+  data= new SDHCAL_DataFormat();
+  //parseDataFormat= new ParseDataFormat();
+  //if(parseDataFormat->set_DataFormat(_DataFormatType)==false) std::exit(1);
 }
 
 void Streamout::modifyEvent( EVENT::LCEvent* evt )
@@ -92,8 +93,10 @@ void Streamout::processEvent(LCEvent *evt)
   IMPL::LCCollectionVec *RawVec = new IMPL::LCCollectionVec(LCIO::RAWCALORIMETERHIT);
   RawVec->setFlag(chFlag.getFlag());
   CellIDEncoder<RawCalorimeterHitImpl>cd("DIF_Id:8,Asic_Id:8,Channel:6,BarrelEndcapModule:10,FrameBCID:32",RawVec ) ;
-  parseDataFormat->SetCellIDEncoder(cd);
-  parseDataFormat->SetLCCollectionVec(RawVec);
+  data->SetCellIDEncoder(cd);
+  data->SetLCCollectionVec(RawVec);
+  //parseDataFormat->SetCellIDEncoder(cd);
+  //parseDataFormat->SetLCCollectionVec(RawVec);
   try 
   {
     LCCollection *col = evt->getCollection(_XDAQCollectionNames);
@@ -104,15 +107,21 @@ void Streamout::processEvent(LCEvent *evt)
     for (int iel = 0; iel < nElement; iel++) 
     {
       //std::cout<<iel<<std::endl;
-      parseDataFormat->SetRawBuffer(col->getElementAt(iel));
-      parseDataFormat->Parse();
-    }
+      EVENT::LCObject* obj=col->getElementAt(iel);
+      data->SetRawBuffer(obj);
+      data->Parse();
+      //parseDataFormat->SetRawBuffer(obj);
+      //parseDataFormat->Parse();
+    
       /*LMGeneric *lmobj = (LMGeneric *)(col->getElementAt(iel));
       if (lmobj == nullptr) 
       {
         _nWrongObj++;
         continue;
       }
+      
+      std::cout<<red<<"toto"<<normal<<std::endl;
+      lmobj->getBuffer().printBuffer();
       _nProcessedObject++;
       SDHCAL_RawBuffer_Navigator bufferNavigator(lmobj->getBuffer(),_BitsToSkip);
       uint32_t idstart = bufferNavigator.getStartOfDIF();
@@ -213,5 +222,5 @@ void Streamout::end()
   std::cout << "Number of Slow Control found " << _hasSlowControl<< " out of which " << _hasBadSlowControl << " are bad"<< std::endl;
   printCounter("Size remaining after all of data have been processed",_SizeAfterAllData);
   printCounter("Number on non zero values in end of data buffer",_NonZeroValusAtEndOfData);
-  delete parseDataFormat;
+  //delete parseDataFormat;
 }

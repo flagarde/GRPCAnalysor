@@ -11,6 +11,7 @@
 #include <cstdint>
 //#include "BufferNavigator.h"
 #include "ParseDataFormat.h"
+#include "SDHCAL_DataFormat.h"
 using namespace lcio ;
 
 class Streamout : public Processor, public  EventModifier
@@ -30,9 +31,10 @@ class Streamout : public Processor, public  EventModifier
     virtual const std::string & name() const { return Processor::name() ; }
     virtual void modifyRunHeader(EVENT::LCRunHeader * rh);
   private:
+    SDHCAL_DataFormat* data;
     IMPL::LCFlagImpl chFlag;
     EVENT::LCIO bitinfo;
-    ParseDataFormat* parseDataFormat;
+    //ParseDataFormat* parseDataFormat;
     std::string  _XDAQCollectionNames ;
     std::string  _DataFormatType ;
     std::string _RawHitCollectionName;

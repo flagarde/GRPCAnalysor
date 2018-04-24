@@ -36,7 +36,7 @@
 //#include <sstream>
 //#include <set>
 //#include <limits>
-
+#include "Colors.h"
 class DataFormat
 {
 public:
@@ -57,17 +57,19 @@ public:
         {
             
         }
-        virtual bool SetRawBuffer(EVENT::LCObject * obj)
+        virtual bool SetRawBuffer(EVENT::LCObject* obj)
         {
             RawBuffer=(LMGeneric *)(obj);
             if (RawBuffer==nullptr) 
             {
                 _nWrongObj++;
+                std::cout<<red<<_nWrongObj<<normal<<std::endl;
                 return true;
             }
             else 
             {
                 _nProcessedObject++;
+                std::cout<<green<<_nProcessedObject<<normal<<std::endl;
                 return false;
             }
         }
@@ -87,7 +89,12 @@ public:
         {
             _virer_full_asic=virer_full_asic;
         }
-        virtual void Parse()= 0;
+        virtual void Parse()
+        {
+            
+            
+            
+        }
 protected :
         LMGeneric* RawBuffer{nullptr};
         static unsigned int _nWrongObj;
