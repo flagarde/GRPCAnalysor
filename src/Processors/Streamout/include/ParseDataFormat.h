@@ -51,7 +51,6 @@ class ParseDataFormat
         }
         ~ParseDataFormat()
         {
-          delete m_data;
           for(std::map<std::string,DataFormat*>::iterator it=DataFormatNames.begin();it!=DataFormatNames.end();++it) delete it->second;
           DataFormatNames.clear();
         }
