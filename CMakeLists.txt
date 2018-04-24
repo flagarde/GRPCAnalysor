@@ -136,6 +136,8 @@ ADD_SUBDIRECTORY( src/Utils )
 ADD_SUBDIRECTORY( src/tinyxml )
 ADD_SUBDIRECTORY( src/Converter )
 
+ADD_SUBDIRECTORY( src/DatToSLCIO )
+
 # add a target to generate API documentation with Doxygen
 #find_package(Doxygen)
 #option(BUILD_DOCUMENTATION "Create and install the HTML based API documentation (requires Doxygen)" ${DOXYGEN_FOUND})
