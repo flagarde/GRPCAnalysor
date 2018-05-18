@@ -68,7 +68,6 @@ int main(int argc, char *argv[])
       evt->parameters().setValue("NumberOfDIFs",int(theNumberOfDIF));
 
       LCCollectionVec* GenObjectVec = new LCCollectionVec( LCIO::LCGENERICOBJECT );
-      LCCollectionVec* IntVecVec = new LCCollectionVec( LCIO::LCINTVEC );
 	
       
       bool endReading=false;
@@ -88,14 +87,10 @@ int main(int argc, char *argv[])
 	  if (ier<=0){ std::cout << "Cannot read anymore Read data" << std::endl; delete obj; endReading=true; break;}
 	  GenObjectVec->push_back( obj );
 
-	  LCIntVec *intvec=new  LCIntVec;
-	  intvec->std::vector<int>::operator=(obj->getIntVec());
-	  IntVecVec->push_back( intvec );
 	}
       if (endReading) break;
 
-      evt->addCollection( GenObjectVec, "RUXDAQ");
-      evt->addCollection( IntVecVec, "RUXDAQ_intvec");
+      evt->addCollection( GenObjectVec, "RU_XDAQ");
       lcWrt->writeEvent( evt ) ;
       delete evt ;
     }
