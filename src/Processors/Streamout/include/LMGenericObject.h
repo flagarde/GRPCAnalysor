@@ -1,5 +1,4 @@
-#ifndef LM_GENERIC_OBJECT_H
-#define LM_GENERIC_OBJECT_H 1 1
+#pragma once
 #include "IMPL/LCGenericObjectImpl.h"
 #include "Buffer.h"
 //From an original class/code by Laurent Mirabito
@@ -13,7 +12,7 @@ public:
     }
     int* getIntBuffer()
     {
-        return _intVec.empty() ? NULL : &_intVec[0];
+        return _intVec.empty() ? nullptr : &_intVec[0];
     }
     uint8_t* getCharBuffer()
     {
@@ -28,4 +27,3 @@ public:
         return Buffer(getCharBuffer(),nBytes());
     }
 };
-#endif

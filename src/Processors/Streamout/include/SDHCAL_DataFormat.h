@@ -7,13 +7,13 @@ class SDHCAL_DataFormat: public DataFormat
 {
 public:
     virtual ~SDHCAL_DataFormat(){}
-    virtual void Parse()
+    virtual int Parse()
     {
       //RawBuffer->getBuffer().printBuffer();
       SDHCAL_RawBuffer_Navigator bufferNavigator(RawBuffer->getBuffer(),_BitsToSkip);
       uint32_t idstart = bufferNavigator.getStartOfDIF();
       //_DIFStarter[idstart]++;
-      if (!bufferNavigator.validBuffer()) return;
+      if (!bufferNavigator.validBuffer()) return -1;
       DIFPtr *d = bufferNavigator.getDIFPtr();
       //if (d != nullptr) _DIFPtrValueAtReturnedPos[bufferNavigator.getDIFBufferStart()[d->getGetFramePtrReturn()]]++;
       //_SizeAfterDIFPtr[bufferNavigator.getSizeAfterDIFPtr()]++;
@@ -77,5 +77,6 @@ public:
       //int nonzeroCount = 0;
       //for (uint8_t *it = eod.buffer(); it != eod.endOfBuffer(); it++)if (int(*it) != 0)nonzeroCount++;
       //_NonZeroValusAtEndOfData[nonzeroCount]++;
+      return 0;
     }
 };

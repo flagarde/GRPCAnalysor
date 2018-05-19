@@ -3,39 +3,6 @@
 #include "IMPL/RawCalorimeterHitImpl.h"
 #include "IMPL/LCCollectionVec.h"
 #include "LMGenericObject.h"
-//#include "DIFUnpacker.h"
-
-
-//#include <IMPL/RawCalorimeterHitImpl.h>
-//#include <EVENT/LCGenericObject.h>
-//#include <IMPL/LCGenericObjectImpl.h>
-
-//#include <string>
-//#include <algorithm>
-//#include <map>
-//#include <iostream>
-//#include <string>
-//#include <cstdlib>
-//#include <cmath>
-//#include <cstdint>
-//#include <EVENT/LCCollection.h>
-//#include <EVENT/LCGenericObject.h>
-//#include <IMPL/LCGenericObjectImpl.h>
-//#include <UTIL/LCTOOLS.h>
-
-//#include "IMPL/LCFlagImpl.h"
-//#include "IMPL/LCParametersImpl.h"
-
-//#include <bitset>
-//#include "lcio.h"
-
-//#include "IMPL/LCEventImpl.h"
-//#include "IMPL/CalorimeterHitImpl.h"
-//#include <IMPL/LCRunHeaderImpl.h>
-
-//#include <sstream>
-//#include <set>
-//#include <limits>
 #include "Colors.h"
 class DataFormat
 {
@@ -63,13 +30,13 @@ public:
             if (RawBuffer==nullptr) 
             {
                 _nWrongObj++;
-                std::cout<<red<<_nWrongObj<<normal<<std::endl;
+                //std::cout<<red<<_nWrongObj<<normal<<std::endl;
                 return true;
             }
             else 
             {
                 _nProcessedObject++;
-                std::cout<<green<<_nProcessedObject<<normal<<std::endl;
+                //std::cout<<green<<_nProcessedObject<<normal<<std::endl;
                 return false;
             }
         }
@@ -89,11 +56,9 @@ public:
         {
             _virer_full_asic=virer_full_asic;
         }
-        virtual void Parse()
+        virtual int Parse()
         {
-            
-            
-            
+            return -1;
         }
 protected :
         LMGeneric* RawBuffer{nullptr};
