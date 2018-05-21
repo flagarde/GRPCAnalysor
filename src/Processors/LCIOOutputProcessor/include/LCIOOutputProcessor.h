@@ -1,5 +1,4 @@
-#ifndef LCIOOutputProcessor_h
-#define LCIOOutputProcessor_h 1
+#pragma once
 #include "Processor.h"
 #include "lcio.h"
 #include "IO/LCWriter.h"
@@ -88,4 +87,3 @@ class LCIOOutputProcessor : public Processor
     /** Inititalization for constructors */
     void myConstruct() ;
 } ;
-#endif

@@ -1,5 +1,4 @@
-#ifndef Progress_h
-#define Progress_h
+#pragma once
 #include "Processor.h"
 #include <string>
 using namespace lcio ;
@@ -21,4 +20,3 @@ class Progress : public Processor
     inline unsigned int Every(unsigned int &);
     inline void Progression(unsigned int,unsigned int, unsigned int, unsigned int,std::string Perso);
 };
-#endif

@@ -1,5 +1,4 @@
-#ifndef AEGIS_h
-#define AEGIS_h
+#pragma once
 #include "Processor.h"
 #include <string>
 #include "UTIL/CellIDDecoder.h"
@@ -24,4 +23,3 @@ class AEGIS : public Processor
     std::vector<std::string> _hcalCollections;
     std::ofstream TXTFile;
 };
-#endif

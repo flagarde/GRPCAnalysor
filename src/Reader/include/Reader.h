@@ -1,5 +1,4 @@
-#ifndef READER_H
-#define READER_H
+#pragma once
 #include <string>
 #include "Geometry.h"
 #include "ConfigInfo.h"
@@ -13,4 +12,3 @@ class Reader
   virtual Reader *Clone() = 0;
   virtual ~Reader(){};
 };
-#endif

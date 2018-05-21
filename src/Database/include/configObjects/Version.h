@@ -1,6 +1,4 @@
-#ifndef _VERSION_H_
-#define _VERSION_H_
-
+#pragma once
 #include<occi.h>
 #include <string>
 #include "db/DBConnection.h"
@@ -93,4 +91,3 @@ class Version{
   bool isMostRecent(string table);
 
 };
-#endif

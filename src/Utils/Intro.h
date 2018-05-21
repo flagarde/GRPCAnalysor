@@ -1,5 +1,4 @@
-#ifndef Intro_h
-#define Intro_h
+#pragma once
 #include <iostream>
 #include "Version.h"
 #include "Colors.h"
@@ -37,4 +36,3 @@ std::cout<<std::endl;
 std::cout<<std::endl;
 std::cout<<std::endl;                              
 }
-#endif

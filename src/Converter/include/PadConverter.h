@@ -1,5 +1,4 @@
-#ifndef PADConverter
-#define PADConverter
+#pragma once
 #include "Converter.h"
 #include <vector>
 class PadConverter:public Converter
@@ -16,4 +15,3 @@ class PadConverter:public Converter
     virtual float IJKToY(int I,int J,int K);
     virtual float IJKToZ(int I,int J,int K);
 }; 
-#endif

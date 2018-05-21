@@ -1,6 +1,4 @@
-#ifndef _DAQ_H_
-#define _DAQ_H_
-
+#pragma once
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -97,4 +95,3 @@ class Daq{
   static vector<string> getListOfDaqNames() throw (ILCException::Exception);
 
 };
-#endif

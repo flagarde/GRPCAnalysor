@@ -1,5 +1,4 @@
-#ifndef OUTFILEROOT_h
-#define OUTFILEROOT_h
+#pragma once
 #include <TROOT.h>
 #include <TFile.h>
 #include <TDirectory.h>
@@ -43,4 +42,3 @@ class OutFileRoot
     std::string ProcessorName;
     std::string RunName;
 };
-#endif

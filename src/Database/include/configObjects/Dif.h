@@ -1,6 +1,4 @@
-#ifndef _DIF_H_
-#define _DIF_H_
-
+#pragma once
 #include <stdio.h>
 #include "ConfigObject.h"
 
@@ -30,4 +28,3 @@ class Diff : public ConfigObject{
   string toXML() const throw (ILCException::Exception);
 
 };
-#endif

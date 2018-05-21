@@ -1,6 +1,4 @@
-#ifndef _STATE_H_
-#define _STATE_H_
-
+#pragma once
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -234,5 +232,3 @@ class State{
    **/
   string checkAsicParams(string asicType, string params) throw (ILCException::Exception);
 };
-
-#endif

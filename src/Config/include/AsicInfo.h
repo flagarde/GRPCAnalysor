@@ -1,5 +1,4 @@
-#ifndef ASICINFO
-#define ASICINFO
+#pragma once
 #include <string>
 #include <map>
 #include <array>
@@ -29,4 +28,3 @@ class AsicInfo
    unsigned int B0,B1,B2;
    unsigned int DIF_ID, ID, HEADER,NUM;
 }; 
-#endif

@@ -69,5 +69,3 @@ protected :
         UTIL::CellIDEncoder<IMPL::RawCalorimeterHitImpl>* _cd;
         IMPL::LCCollectionVec* _RawVec;
 };
-
-

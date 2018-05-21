@@ -1,5 +1,4 @@
-#ifndef Converter_h
-#define Converter_h
+#pragma once
 #include "Geometry.h"
 #include <vector>
 class Converter
@@ -29,4 +28,3 @@ class Converter
     double cg{0.};
     double sg{0.};
 }; 
-#endif

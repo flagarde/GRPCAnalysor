@@ -1,6 +1,4 @@
-#ifndef _INTVECTORVAL_H_
-#define _INTVECTORVAL_H_
-
+#pragma once
 #include "DBValue.h"
 
 using namespace std;
@@ -37,4 +35,3 @@ class IntVectorVal : public DBValue{
     return oss.str();
   }
 };
-#endif

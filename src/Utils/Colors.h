@@ -1,5 +1,4 @@
-#ifndef Colors
-#define Colors
+#pragma once
 #include <string>
 const std::string rouge="\033[31m";
 const std::string red=rouge;
@@ -16,4 +15,3 @@ const std::string magenta="\033[35m";
 const std::string cyan="\033[36m";
 const std::string gris="\033[37m";
 const std::string grey=gris;
-#endif

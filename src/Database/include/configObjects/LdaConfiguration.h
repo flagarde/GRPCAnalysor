@@ -1,6 +1,4 @@
-#ifndef _LDACONFIGURATION_H_
-#define _LDACONFIGURATION_H_
-
+#pragma once
 #include "Configuration.h"
 #include "Lda.h"
 #include <vector>
@@ -23,5 +21,3 @@ class LdaConfiguration : public Configuration{
   **/
   static vector<Version*> getUnusedVersions() throw (ILCException::Exception);
 };
-
-#endif

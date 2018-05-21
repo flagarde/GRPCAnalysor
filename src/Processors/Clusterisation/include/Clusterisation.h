@@ -1,5 +1,4 @@
-#ifndef Clusterisation_h
-#define Clusterisation_h
+#pragma once
 #include "Processor.h"
 #include "Clustering.h"
 #include "RawHit_standard_merge_predicate.h"
@@ -31,4 +30,3 @@ class Clusterisation : public Processor
     bool m_padJunctionByCorner;
     HistoPlane hists;
 };
-#endif

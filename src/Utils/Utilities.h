@@ -1,5 +1,4 @@
-#ifndef Utilities
-#define Utilities
+#pragma once
 #include <iostream> 
 #include "Colors.h"
 #include <map>
@@ -14,4 +13,3 @@ const std::string Shift(double val)
 	if(val>=1000) ss<<val;
   return ss.str();
 }
-#endif

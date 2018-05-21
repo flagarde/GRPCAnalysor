@@ -1,5 +1,4 @@
-#ifndef NumberToString
-#define NumberToString
+#pragma once
 #include <string>
 #include <sstream>
 
@@ -10,4 +9,3 @@ std::string NumberToString(T pNumber)
  oOStrStream << pNumber;
  return oOStrStream.str();
 }
-#endif 

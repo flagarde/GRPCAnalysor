@@ -1,5 +1,4 @@
-#ifndef TRIVENTBIF
-#define TRIVENTBIF
+#pragma once
 #include <map>
 #include <vector>
 #include "Processor.h"
@@ -112,4 +111,3 @@ void TriventProcessor::CalculateEfficiencyScinti(std::vector<RawCalorimeterHit *
       }
     }
     }
-#endif

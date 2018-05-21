@@ -1,5 +1,4 @@
-#ifndef XMLREADERCONF_H
-#define XMLREADERCONF_H
+#pragma once
 #include"Reader.h"
 #include<iostream>
 #include<string>
@@ -14,4 +13,3 @@ class XMLReaderConfig: public Reader
   Reader *Clone() { return new XMLReaderConfig(); }
   ~XMLReaderConfig(){};
 };
-#endif

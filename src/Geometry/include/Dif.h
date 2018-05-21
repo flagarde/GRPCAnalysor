@@ -1,5 +1,4 @@
-#ifndef Dif_h
-#define Dif_h
+#pragma once
 class Dif
 {
  public:
@@ -36,4 +35,3 @@ class Dif
   double _InterCellWidth;
   double _InterCellLength;
 };
-#endif

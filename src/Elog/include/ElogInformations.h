@@ -1,5 +1,4 @@
-#ifndef ElogInfos
-#define ElogInfos
+#pragma once
 #include <string>
 #include <map>
 class ElogInformations
@@ -14,4 +13,3 @@ class ElogInformations
     std::map<int,std::string> Type;
   private:
 };
-#endif 

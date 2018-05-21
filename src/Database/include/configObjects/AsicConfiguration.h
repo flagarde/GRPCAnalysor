@@ -1,6 +1,4 @@
-#ifndef _ASICCONFIGURATION_H_
-#define _ASICCONFIGURATION_H_
-
+#pragma once
 #include "Configuration.h"
 #include "Asic.h"
 #include <vector>
@@ -23,5 +21,3 @@ class AsicConfiguration : public Configuration{
   **/
   static vector<Version*> getUnusedVersions() throw (ILCException::Exception);
 };
-
-#endif

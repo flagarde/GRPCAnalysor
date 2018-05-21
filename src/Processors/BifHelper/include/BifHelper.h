@@ -1,5 +1,4 @@
-#ifndef BifHelper_h
-#define BifHelper_h
+#pragma once
 #include <vector>
 #include "Processor.h"
 #include <array>
@@ -29,4 +28,3 @@ class BifHelper : public Processor
     std::array<TH1F*,3> DistrDifTimeBIF;
     std::array<TH1F*,3> DistrDifTimeBifAndDifs;
 };
-#endif

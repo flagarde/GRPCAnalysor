@@ -1,5 +1,4 @@
-#ifndef Streamout_h
-#define Streamout_h
+#pragma once
 #include "Processor.h"
 #include "EventModifier.h"
 #include "lcio.h"
@@ -46,4 +45,3 @@ class Streamout : public Processor, public  EventModifier
     std::map<int,int> _NonZeroValusAtEndOfData;
     void printCounter(std::string description, std::map<int,int> &);
 } ;
-#endif

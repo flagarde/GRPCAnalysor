@@ -1,5 +1,4 @@
-#ifndef XMLREADER_H
-#define XMLREADER_H
+#pragma once
 #include"Reader.h"
 #include<iostream>
 #include<string>
@@ -15,4 +14,3 @@ class XMLReader: public Reader
   Reader *Clone() { return new XMLReader(); }
   ~XMLReader(){};
 };
-#endif

@@ -1,5 +1,4 @@
-#ifndef SDHCAL_Clustering_HH
-#define SDHCAL_Clustering_HH
+#pragma once
 #include <algorithm>
 #include <ostream>
 #include <set>
@@ -80,4 +79,4 @@ namespace SDHCAL
 //  SDHCAL::clusterize((int*) tab, tab+15,clusters,f);
 //  
 //  clusters contains the cluster bounds
-#endif
+

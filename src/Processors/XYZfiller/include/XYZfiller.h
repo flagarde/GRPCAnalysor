@@ -1,5 +1,4 @@
-#ifndef XYZfiller_h
-#define XYZfiller_h
+#pragma once
 #include "Processor.h"
 #include <vector>
 #include <map>
@@ -30,4 +29,3 @@ class XYZfiller : public Processor
     ConstructConverters* converter;
     bool _SupressHitsOfDifsNotInXML;
 };
-#endif

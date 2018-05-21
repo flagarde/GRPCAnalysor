@@ -1,5 +1,4 @@
-#ifndef Mapping_H_
-#define Mapping_H_
+#pragma once
 #include <array>
 
 //      (I Axis)
@@ -70,4 +69,4 @@ const std::array<std::array<unsigned short,4>,12> MapAsicLargeHR2{{
                                                                          {44,43,42,41},
                                                                          {45,46,47,48}
                                                                    }};                                           
-#endif
+

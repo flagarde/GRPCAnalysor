@@ -1,5 +1,4 @@
-#ifndef HISTO_PLANE
-#define HISTO_PLANE
+#pragma once
 #include <string>
 #include <map>
 #include "TObject.h"
@@ -73,4 +72,3 @@ class HistoPlane
     bool NotWriteEmpty;
     double num;
 };
-#endif

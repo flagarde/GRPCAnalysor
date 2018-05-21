@@ -1,6 +1,4 @@
-#ifndef _INTVAL_H_
-#define _INTVAL_H_
-
+#pragma once
 #include "DBValue.h"
 
 using namespace std;
@@ -30,4 +28,3 @@ class IntVal : public DBValue{
     return oss.str();
   }
 };
-#endif

@@ -1,8 +1,6 @@
-#ifndef  _tdrstyle_
-#define _tdrstyle_
+#pragma once
 #include "TStyle.h"
 #include "TObject.h"
 void tdrGrid(bool gridOn);
 void fixOverlay();
 void setTDRStyle();
-#endif

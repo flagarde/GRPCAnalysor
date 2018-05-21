@@ -1,6 +1,4 @@
-#ifndef _CONFIGURATION_H_
-#define _CONFIGURATION_H_
-
+#pragma once
 #include <vector>
 #include <algorithm>
 #include <fstream>
@@ -114,4 +112,3 @@ class Configuration{
   void saveToXML(string fileName);
 
 };
-#endif

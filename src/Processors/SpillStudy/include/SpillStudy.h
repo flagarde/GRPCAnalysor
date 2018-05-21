@@ -1,5 +1,4 @@
-#ifndef SpillStudy1
-#define SpillStudy1
+#pragma once
 #include "Processor.h"
 using namespace lcio ;
 
@@ -18,4 +17,3 @@ public:
     virtual void end();
     std::vector<std::string> _hcalCollections;
 };
-#endif

@@ -1,5 +1,4 @@
-#ifndef TimeSelecter_h
-#define TimeSelecter_h
+#pragma once
 #include <map>
 #include <vector>
 #include "Processor.h"
@@ -58,4 +57,3 @@ private:
     std::map< int,std::vector<CalorimeterHit*> > RejectedHits;
     HistoPlane a;
 };
-#endif

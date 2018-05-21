@@ -1,5 +1,4 @@
-#ifndef ConstructConverter
-#define ConstructConverter
+#pragma once
 #include <vector> 
 #include "Geometry.h"
 #include "Converter.h"
@@ -34,4 +33,3 @@ class ConstructConverters
     Geometry* geom;
     std::map<int,Converter*>m_converter;
 };
-#endif

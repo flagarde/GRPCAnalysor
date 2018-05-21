@@ -1,6 +1,4 @@
-#ifndef _DBVALUE_H_
-#define _DBVALUE_H_
-
+#pragma once
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -31,4 +29,3 @@ class DBValue{
 
   
 };
-#endif

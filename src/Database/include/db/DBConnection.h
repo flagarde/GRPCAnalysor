@@ -1,6 +1,4 @@
-#ifndef _DBCONNECTION_H_
-#define _DBCONNECTION_H_
-
+#pragma once
 #include<occi.h>
 #include<stdio.h>
 #include<iostream>
@@ -95,5 +93,3 @@ class DBConnection{
   Clob* createClob();
 
 };
-
-#endif

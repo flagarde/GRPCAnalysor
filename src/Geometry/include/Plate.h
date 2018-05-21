@@ -1,5 +1,4 @@
-#ifndef Plate_h
-#define Plate_h
+#pragma once
 #include <vector>
 #include <string>
 class Plate
@@ -37,4 +36,3 @@ class Plate
     std::string m_HV_channel;
     std::string m_Gaz_channel;
 };
-#endif

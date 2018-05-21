@@ -1,5 +1,4 @@
-#ifndef DIFSlowControl_H
-#define DIFSlowControl_H
+#pragma once
 #include <map>
 #include <string>
 #include <bitset>
@@ -128,4 +127,3 @@ public:
   std::vector<uint8_t*> theFrames_;
   std::vector<uint8_t*> theLines_;
 };
-#endif

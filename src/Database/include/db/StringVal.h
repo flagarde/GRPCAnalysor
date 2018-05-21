@@ -1,6 +1,4 @@
-#ifndef _STRINGVAL_H_
-#define _STRINGVAL_H_
-
+#pragma once
 #include "DBValue.h"
 
 using namespace std;
@@ -23,4 +21,3 @@ class StringVal : public DBValue{
     return val;
   }
 };
-#endif

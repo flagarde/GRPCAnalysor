@@ -1,6 +1,4 @@
-#ifndef _ASIC_H_
-#define _ASIC_H_
-
+#pragma once
 #include <stdio.h>
 #include "ConfigObject.h"
 
@@ -20,4 +18,3 @@ class Asic : public ConfigObject{
   string toXML() const throw (ILCException::Exception);
 
 };
-#endif

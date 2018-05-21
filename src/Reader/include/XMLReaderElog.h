@@ -1,5 +1,4 @@
-#ifndef XMLREADERELOG_H
-#define XMLREADERELOG_H
+#pragma once
 #include "Reader.h"
 #include <iostream>
 #include <string>
@@ -14,4 +13,3 @@ class XMLReaderElog: public Reader
   Reader* Clone() { return new XMLReaderElog(); }
   ~XMLReaderElog(){};
 };
-#endif

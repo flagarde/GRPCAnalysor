@@ -1,6 +1,4 @@
-#ifndef _DCCCONFIGURATION_H_
-#define _DCCCONFIGURATION_H_
-
+#pragma once
 #include "Configuration.h"
 #include "Dcc.h"
 #include <vector>
@@ -25,5 +23,3 @@ class DccConfiguration : public Configuration{
   **/
   static vector<Version*> getUnusedVersions() throw (ILCException::Exception);
 };
-
-#endif

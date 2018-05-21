@@ -1,6 +1,4 @@
-#ifndef _CONFIGOBJECT_H_
-#define _CONFIGOBJECT_H_
-
+#pragma once
 #include<stdio.h>
 #include<iostream>
 #include<cstring>
@@ -150,4 +148,3 @@ class ConfigObject{
   void setParameters(map<string, string> p);
 
 };
-#endif

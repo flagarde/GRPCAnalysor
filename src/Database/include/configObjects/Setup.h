@@ -1,6 +1,4 @@
-#ifndef _SETUP_H_
-#define _SETUP_H_
-
+#pragma once
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -90,4 +88,3 @@ class Setup{
   static Setup* getSetupFromRun(int runN) throw (ILCException::Exception);
 
 };
-#endif

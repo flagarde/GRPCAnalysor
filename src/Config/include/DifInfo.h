@@ -1,5 +1,4 @@
-#ifndef DIFINFO
-#define DIFINFO
+#pragma once
 #include <iostream>
 #include <string>
 #include <map>
@@ -23,4 +22,3 @@ class DifInfo
    bool ENABLED;
    std::map<unsigned int,AsicInfo> AsicInfos;
 };
-#endif

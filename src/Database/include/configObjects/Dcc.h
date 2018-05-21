@@ -1,6 +1,4 @@
-#ifndef _DCC_H_
-#define _DCC_H_
-
+#pragma once
 #include <stdio.h>
 #include "ConfigObject.h"
 
@@ -22,4 +20,3 @@ class Dcc : public ConfigObject{
   string toXML() const throw (ILCException::Exception);
 
 };
-#endif

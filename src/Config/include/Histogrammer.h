@@ -1,5 +1,4 @@
-#ifndef HISTOGRAMMER_H
-#define HISTOGRAMMER_H 
+#pragma once
 #include "OutFileRoot.h"
 #include "TH2F.h"
 #include "Geometry.h"
@@ -30,4 +29,3 @@ class Histogrammer
   std::array<std::vector<TH2F*>,3>ThresholdMapInt;
   std::vector<TH2F*>Gain;
 };
-#endif

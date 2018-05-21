@@ -1,5 +1,4 @@
-#ifndef H_TdcChannelBuffer
-#define H_TdcChannelBuffer
+#pragma once
 #include "TdcChannels.h"
 #include <cstdint>
 class TdcChannelBuffer
@@ -24,4 +23,3 @@ private:
   TdcChannel* _end;
   bool _isNoise{false};
 };
-#endif

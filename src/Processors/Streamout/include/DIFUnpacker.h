@@ -1,5 +1,4 @@
-#ifndef DIFUnpacker_h
-#define DIFUnpacker_h
+#pragma once
 #include <string>
 #include <vector>
 #include <cstdint>
@@ -57,4 +56,3 @@ public:
   static void dumpFrameOld(uint8_t* buf);
   static unsigned long swap_bytes(unsigned int n,uint8_t* buf); //Stolen from DCBufferReader
 };
-#endif

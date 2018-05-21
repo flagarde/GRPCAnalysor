@@ -1,5 +1,4 @@
-#ifndef Mapping_H_
-#define Mapping_H_
+#pragma once
 
 #include <iostream>
 #include <vector>
@@ -69,5 +68,3 @@ const unsigned short AsicShiftJ[49]=
 	8,	16,	24,	24,	16,	8,	0};
 
 // cell id decoder
-
-#endif

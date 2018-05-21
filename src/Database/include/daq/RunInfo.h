@@ -1,6 +1,4 @@
-#ifndef _RUNINFO_H_
-#define _RUNINFO_H_
-
+#pragma once
 #include <iostream>
 #include <sstream>
 #include "db/DBConnection.h"
@@ -86,4 +84,3 @@ class RunInfo{
   static vector<RunInfo*> getRunsFromDaqName(string dname) throw (ILCException::Exception);
 
 };
-#endif

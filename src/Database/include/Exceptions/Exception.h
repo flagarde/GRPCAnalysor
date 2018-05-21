@@ -1,6 +1,4 @@
-#ifndef _EXCEPTION_H_
-#define _EXCEPTION_H_
-
+#pragma once
 #include <iostream>
 #include <string>
 
@@ -25,4 +23,3 @@ class Exception{
   string getMessage();
 };
 }
-#endif

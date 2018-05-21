@@ -1,5 +1,4 @@
-#ifndef CONFIGINFO
-#define CONFIGINFO
+#pragma once
 #include <iostream>
 #include "Colors.h"
 #include <string>
@@ -31,4 +30,3 @@ class ConfigInfos
   std::map<unsigned int,DifInfo>DifInfos;
   std::map<std::string,std::string>ElogParams;
 };
-#endif 

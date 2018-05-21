@@ -1,6 +1,4 @@
-#ifndef _DBFIELD_H_
-#define _DBFIELD_H_
-
+#pragma once
 #include <iostream>
 
 using namespace std;
@@ -19,5 +17,3 @@ class DBField{
   int getLength();
 
 };
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef BUFFER_NAVIGATOR_H
-#define BUFFER_NAVIGATOR_H 1
+#pragma once
 #include <utility>
 #include <cstdint>
 #include "DIFSlowControl.h"
@@ -68,5 +67,3 @@ private:
     DIFPtr* _theDIFPtr;
     bool _badSCdata;
 };
-
-#endif

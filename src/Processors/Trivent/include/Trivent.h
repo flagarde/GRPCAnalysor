@@ -1,5 +1,4 @@
-#ifndef TRIVENT
-#define TRIVENT
+#pragma once
 #include <map>
 #include <vector>
 #include "Processor.h"
@@ -48,4 +47,3 @@ private:
     std::string _outFileName;
     std::map< int,std::vector<CalorimeterHit*> > RawHits;
 };
-#endif

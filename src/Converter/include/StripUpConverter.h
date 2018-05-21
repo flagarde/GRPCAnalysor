@@ -1,5 +1,3 @@
-#ifndef STRIPUpConverter
-#define STRIPUpConverter
 #include "Converter.h"
 #include <vector>
 class StripUpConverter:public Converter
@@ -16,4 +14,3 @@ class StripUpConverter:public Converter
     virtual float IJKToY(int I,int J,int K);
     virtual float IJKToZ(int I,int J,int K);
 }; 
-#endif

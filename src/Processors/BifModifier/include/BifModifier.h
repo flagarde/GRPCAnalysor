@@ -1,5 +1,4 @@
-#ifndef BifModifier
-#define BifModifier
+#pragma once
 #include <map>
 #include <vector>
 #include "Processor.h"
@@ -43,4 +42,3 @@ public:
     std::vector<int> BIFSelected;
     std::vector<int>EffiwithDiscri;
 };
-#endif

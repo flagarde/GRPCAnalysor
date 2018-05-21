@@ -1,5 +1,4 @@
-#ifndef BUFFER_H
-#define BUFFER_H 1
+#pragma once
 #include <cstdint>
 #include <utility>
 #include <iostream>
@@ -26,4 +25,3 @@ class Buffer : public std::pair<uint8_t*, uint32_t>
         printBuffer(start,getsize());
     }
 };
-#endif

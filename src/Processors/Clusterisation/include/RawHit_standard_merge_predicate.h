@@ -1,5 +1,4 @@
-#ifndef RawHit_standard_merge_predicate_HH
-#define RawHit_standard_merge_predicate_HH
+#pragma once
 #include "EVENT/CalorimeterHit.h"
 #include "UTIL/CellIDDecoder.h"
 class RawHit_standard_merge_predicate
@@ -23,4 +22,3 @@ class RawHit_standard_merge_predicate
   bool m_padJunctionByCorner;
   bool IJ_connect(int I1, int J1, int I2, int J2);
 };
-#endif

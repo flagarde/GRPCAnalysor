@@ -1,5 +1,4 @@
-#ifndef IJKfiller_h
-#define IJKfiller_h
+#pragma once
 #include "Processor.h"
 #include <vector>
 #include <map>
@@ -32,4 +31,3 @@ class IJKfiller : public Processor
     ConstructConverters* converter;
     std::vector<TH2F*> _myTH2={};
 };
-#endif

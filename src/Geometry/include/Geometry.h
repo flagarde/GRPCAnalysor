@@ -1,5 +1,4 @@
-#ifndef Geometry_h
-#define Geometry_h
+#pragma once
 #include <vector>
 #include <map>
 #include <string>
@@ -62,4 +61,3 @@ class Geometry
     std::vector<Plate> Plates;
     std::map<int, Dif > Difs;
 };
-#endif

@@ -1,6 +1,4 @@
-#ifndef _LDA_H_
-#define _LDA_H_
-
+#pragma once
 #include <stdio.h>
 #include "ConfigObject.h"
 
@@ -20,4 +18,3 @@ class Lda : public ConfigObject{
   string toXML() const throw (ILCException::Exception);
 
 };
-#endif

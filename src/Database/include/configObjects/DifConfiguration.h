@@ -1,6 +1,4 @@
-#ifndef _DIFCONFIGURATION_H_
-#define _DIFCONFIGURATION_H_
-
+#pragma once
 #include "Configuration.h"
 #include "Dif.h"
 #include <vector>
@@ -23,5 +21,3 @@ class DifConfiguration : public Configuration{
   **/
   static vector<Version*> getUnusedVersions() throw (ILCException::Exception);
 };
-
-#endif

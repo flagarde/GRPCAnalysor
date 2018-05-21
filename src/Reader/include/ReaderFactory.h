@@ -1,5 +1,4 @@
-#ifndef READERFACTORY_H
-#define READERFACTORY_H
+#pragma once
 #include "Reader.h"
 #include <map>
 #include <string>
@@ -34,4 +33,3 @@ class ReaderFactory
   protected:
   std::map<std::string, Reader*> readerMap;
 };
-#endif

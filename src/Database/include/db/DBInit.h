@@ -1,6 +1,4 @@
-#ifndef _DBINIT_H_
-#define _DBINIT_H_
-
+#pragma once
 #include "DBConnection.h"
 #include "configObjects/ConfigObject.h"
 
@@ -16,5 +14,3 @@ class DBInit{
    */
   static void getDbConfiguration(std::string &login, std::string &passwd, std::string &path);
 };
-
-#endif

@@ -1,6 +1,4 @@
-#ifndef _JOB_H_
-#define _JOB_H_
-
+#pragma once
 #include <iostream>
 #include <sstream>
 #include "db/DBConnection.h"
@@ -53,4 +51,3 @@ class Job{
   static string getStatusDefinition(int val) throw (ILCException::Exception);
 
 };
-#endif
