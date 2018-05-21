@@ -1,4 +1,4 @@
-#include "BufferNavigator.h"
+#include "SDHCAL_BufferNavigator.h"
 #include <iostream>
 #include <cstdint>
 #include "DIFSlowControl.h"

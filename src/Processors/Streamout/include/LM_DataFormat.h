@@ -2,7 +2,7 @@
 #include "DataFormat.h"
 #include "TdcChannelBuffer.h"
 #include "TdcChannels.h"
-#include "buffer.h"
+#include "LM_BufferNavigator.h"
 #include <fstream>
 #include <sys/types.h>
 #include <dirent.h>

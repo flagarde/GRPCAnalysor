@@ -1,6 +1,6 @@
 #pragma once
 #include "DataFormat.h"
-#include "BufferNavigator.h"
+#include "SDHCAL_BufferNavigator.h"
 #include <limits>
 
 class SDHCAL_DataFormat: public DataFormat
